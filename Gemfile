@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.2"
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
+gem "devise", "~> 4.9"
 gem "jbuilder"
 gem "importmap-rails"
 gem "pg", "~> 1.1"
