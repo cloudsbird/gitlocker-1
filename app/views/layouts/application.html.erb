@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html class="<%= devise_controller? ? "h-full bg-white" : "" %>">
   <head>
     <title>Gitlocker</title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
@@ -12,7 +12,7 @@
     <%= favicon_link_tag asset_path("favicon.png") %>
   </head>
 
-  <body>
+  <body class="<%= devise_controller? ? "h-full" : "" %>">
     <%= yield %>
   </body>
 </html>
