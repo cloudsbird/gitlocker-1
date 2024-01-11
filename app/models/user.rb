@@ -9,13 +9,14 @@ class User < ApplicationRecord
   data = access_token.info
   user = User.where(email: data['email']).first
 
-  # A User will be created if they don´t exist
-  unless user
-      user = User.create(
-          email: data['email'],
-          password: Devise.friendly_token[0,20]
-      )
+    # A User will be created if they don´t exist
+    unless user
+        user = User.create(
+            # You can record new values based on the model and github api e.g -> name: data['name'],
+            email: data['email'],
+            password: Devise.friendly_token[0,20]
+        )
+    end
+    user
   end
-  user
-end
 end
