@@ -11,4 +11,11 @@ RSpec.describe "Products", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET new" do
+    it "succeeds" do
+      get new_product_path
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
