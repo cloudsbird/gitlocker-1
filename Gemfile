@@ -14,7 +14,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
-gem 'omniauth-github', '~> 2.0.0' #Install omniauth-github 
+gem "omniauth-github", "~> 2.0.0" #Install omniauth-github 
 gem "omniauth-rails_csrf_protection" 
 
 # Use Redis adapter to run Action Cable in production
@@ -36,16 +36,14 @@ group :development, :test do
   gem "faker"
   gem "pry-rails"
   gem "rspec-rails", "~> 6.1"
-  gem 'dotenv-rails'
+  gem "dotenv-rails"
 end
 
 group :development do
   # Use console on exceptions pages [https://github.com/rails/web-console]
   gem "web-console"
-  
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
-  
   # Speed up commands on slow machines / big apps [https://github.com/rails/spring]
   # gem "spring"
 end
@@ -53,4 +51,3 @@ end
 group :test do
   gem "shoulda-matchers", "~> 5.0"
 end
-
