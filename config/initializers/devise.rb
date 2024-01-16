@@ -273,7 +273,7 @@ Devise.setup do |config|
   # up on your models and hooks.
 
   ## INSERT HERE THE ENV APP_ID AND APP_SECRET
-  config.omniauth :github, ENV["GITHUB_CLIENT_ID"], ENV['GITHUB_CLIENT_SECRET']
+  config.omniauth :github, ENV["GITHUB_CLIENT_ID"], ENV["GITHUB_CLIENT_SECRET"]
 
   # ==> Warden configuration
   # If you want to use other strategies, that are not supported by Devise, or

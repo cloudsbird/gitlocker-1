@@ -6,8 +6,8 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 gem "devise", "~> 4.9"
 gem "jbuilder"
 gem "importmap-rails"
-gem "omniauth-github", "~> 2.0.0" #Install omniauth-github 
-gem "omniauth-rails_csrf_protection" 
+gem "omniauth-github", "~> 2.0.0" #Install omniauth-github
+gem "omniauth-rails_csrf_protection"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
 gem "rails", "~> 7.1.2"
