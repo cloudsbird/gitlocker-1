@@ -5,6 +5,11 @@ class User < ApplicationRecord
          :recoverable, :rememberable, :validatable,
          :omniauthable, omniauth_providers: [:github]
 
+  enum :registration_status, {
+    registration_pending: 0,
+    registration_completed: 1
+  }
+
   has_many :products, dependent: :destroy
 
   def self.from_omniauth(access_token)
