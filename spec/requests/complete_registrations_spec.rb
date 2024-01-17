@@ -6,9 +6,19 @@ RSpec.describe "CompleteRegistrations", type: :request do
   before { sign_in user }
 
   describe "GET index" do
-    it "succeeds" do
-      get complete_registrations_path
-      expect(response).to have_http_status(:success)
+    context "when user registration is pending" do
+      it "succeeds" do
+        get complete_registrations_path
+        expect(response).to have_http_status(:success)
+      end
+    end
+
+    context "when user registration is completed" do
+      it "redirects to dashboard_path" do
+        user.registration_completed!
+        get complete_registrations_path
+        expect(response).to redirect_to dashboard_path
+      end
     end
   end
 end
