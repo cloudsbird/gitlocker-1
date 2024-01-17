@@ -12,6 +12,7 @@ Rails.application.routes.draw do
   get "dashboard", to: "dashboard#index"
 
   get "complete_registrations", to: "complete_registrations#index"
+  put "complete_registration", to: "complete_registrations#update"
 
   resources :products, only: [:index, :show, :new]
 end
