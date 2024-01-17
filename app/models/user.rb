@@ -8,15 +8,22 @@ class User < ApplicationRecord
   has_many :products, dependent: :destroy
 
   def self.from_omniauth(access_token)
-    data = access_token.info
-    user = User.where(email: data["email"]).first
+    token    = access_token.credentials.token
+    email    = access_token.info.email
+    name     = access_token.info.name
+    username = access_token.info.nickname
+    user     = User.find_by(email: email)
 
-    # A User will be created if they don´t exist
-    unless user
+    if user
+      user.update(token: token, name: name, username: username)
+    else
       user = User.create(
         # You can record new values based on the model and github api e.g -> name: data["name"],
-        email: data["email"],
-        password: Devise.friendly_token[0, 20]
+        email: email,
+        password: Devise.friendly_token[0, 20],
+        token: token,
+        name: name,
+        username: username
       )
     end
 
