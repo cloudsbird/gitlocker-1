@@ -29,4 +29,9 @@ class User < ApplicationRecord
 
     user
   end
+
+  def clone_repositories(git_url)
+    # Temporary method to have a note of how to clone repositories
+    "git clone https://oauth2:#{token}@github.com/#{username}/{repository_name}"
+  end
 end
