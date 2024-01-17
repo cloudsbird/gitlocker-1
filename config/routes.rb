@@ -11,5 +11,7 @@ Rails.application.routes.draw do
 
   get "dashboard", to: "dashboard#index"
 
+  get "complete_registrations", to: "complete_registrations#index"
+
   resources :products, only: [:index, :show, :new]
 end
