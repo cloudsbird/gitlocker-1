@@ -14,7 +14,13 @@ class SyncProductsJob < ApplicationJob
       )
     end
 
-    Product.import!(products)
+    Product.import!(
+      products,
+      on_duplicate_key_update: {
+        conflict_target: [:user_id, :url],
+        columns: [:name, :description]
+      }
+    )
   end
 
   attr_reader :user
