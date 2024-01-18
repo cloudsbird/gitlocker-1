@@ -6,11 +6,21 @@ class CompleteRegistrationsController < ApplicationController
   end
 
   def update
+    if user_type == "customer"
+      current_user.registration_completed!
+      redirect_to dashboard_path
+    else
+      redirect_to complete_developer_registrations_path
+    end
   end
 
   private
 
   def redirect_to_dashboard
     redirect_to dashboard_path
+  end
+
+  def user_type
+    params.permit(:user_type)[:user_type]
   end
 end

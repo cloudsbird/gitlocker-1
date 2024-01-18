@@ -21,4 +21,9 @@ RSpec.describe "CompleteRegistrations", type: :request do
       end
     end
   end
+
+  pending do
+    describe "PUT update" do
+    end
+  end
 end
