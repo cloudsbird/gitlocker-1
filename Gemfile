@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.2"
 
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
+gem "delayed_job_active_record"
 gem "devise", "~> 4.9"
 gem "jbuilder"
 gem "importmap-rails"
