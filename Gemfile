@@ -2,6 +2,7 @@ source "https://rubygems.org"
 
 ruby "3.2.2"
 
+gem "activerecord-import"
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "delayed_job_active_record"
 gem "devise", "~> 4.9"
