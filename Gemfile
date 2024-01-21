@@ -7,6 +7,7 @@ gem "bootsnap", require: false # Reduces boot times through caching; required in
 gem "delayed_job_active_record"
 gem "devise", "~> 4.9"
 gem "jbuilder"
+gem "jsonapi-serializer"
 gem "importmap-rails"
 gem "money-rails", "~> 1.12"
 gem "octokit"
