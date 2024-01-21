@@ -1,0 +1,46 @@
+<%= render "layouts/logged_in_header" %>
+
+<div class="h-screen bg-gray-100 py-24 md:py-32 lg:py-40">
+  <div class="mx-auto max-w-md flex content-start mb-2">
+    <h1 class="text-xl font-medium">Your GitHub repositories</h1>
+  </div>
+
+  <div class="mx-auto max-w-md flex justify-center">
+    <div class="overflow-hidden rounded-lg bg-white shadow">
+      <div class="px-4 py-5 sm:p-6">
+        <fieldset>
+          <legend class="sr-only">Notifications</legend>
+          <div class="space-y-5">
+            <div class="relative flex items-start">
+              <div class="flex h-6 items-center">
+                <input id="comments" aria-describedby="comments-description" name="comments" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+              </div>
+              <div class="ml-3 text-sm leading-6">
+                <label for="comments" class="font-medium text-gray-900">Comments</label>
+                <p id="comments-description" class="text-gray-500">Get notified when someones posts a comment on a posting.</p>
+              </div>
+            </div>
+            <div class="relative flex items-start">
+              <div class="flex h-6 items-center">
+                <input id="candidates" aria-describedby="candidates-description" name="candidates" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+              </div>
+              <div class="ml-3 text-sm leading-6">
+                <label for="candidates" class="font-medium text-gray-900">Candidates</label>
+                <p id="candidates-description" class="text-gray-500">Get notified when a candidate applies for a job.</p>
+              </div>
+            </div>
+            <div class="relative flex items-start">
+              <div class="flex h-6 items-center">
+                <input id="offers" aria-describedby="offers-description" name="offers" type="checkbox" class="h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600">
+              </div>
+              <div class="ml-3 text-sm leading-6">
+                <label for="offers" class="font-medium text-gray-900">Offers</label>
+                <p id="offers-description" class="text-gray-500">Get notified when a candidate accepts or rejects an offer.</p>
+              </div>
+            </div>
+          </div>
+        </fieldset>
+      </div>
+    </div>
+  </div>
+</div>
