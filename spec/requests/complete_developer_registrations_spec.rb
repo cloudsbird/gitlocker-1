@@ -21,8 +21,12 @@ RSpec.describe "CompleteDeveloperRegistrations", type: :request do
     end
   end
 
-  pending do
-    describe "PUT update" do
+  describe "PUT update" do
+    it "updates user's registration status" do
+      expect { put complete_developer_registration_path }.to change {
+        user.reload.registration_status
+      }.from("registration_pending").to("registration_completed")
+      expect(response).to redirect_to(dashboard_path)
     end
   end
 end

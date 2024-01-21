@@ -7,6 +7,8 @@ class CompleteDeveloperRegistrationsController < ApplicationController
   end
 
   def update
+    current_user.registration_completed!
+    redirect_to dashboard_path
   end
 
   private
