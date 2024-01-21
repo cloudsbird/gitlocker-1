@@ -4,6 +4,8 @@ class SyncProductsJob < ApplicationJob
   def perform(user_id)
     @user = User.find(user_id)
 
+    user.update!(syncing: true)
+
     products = repositories.map do |repository|
       Product.new(
         user: user,
@@ -21,7 +23,7 @@ class SyncProductsJob < ApplicationJob
       }
     )
 
-    user.update! synced: true
+    user.update!(synced: true, syncing: false)
   end
 
   attr_reader :user

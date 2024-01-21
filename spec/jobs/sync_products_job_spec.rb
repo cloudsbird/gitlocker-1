@@ -19,4 +19,9 @@ RSpec.describe SyncProductsJob, type: :job do
   it "syncs users" do
     expect { described_class.perform_now(user.id) }.to change { user.reload.synced? }.from(false).to(true)
   end
+
+  it "sets syncing to false post processing" do
+    user.update! syncing: true
+    expect { described_class.perform_now(user.id) }.to change { user.reload.syncing? }.from(true).to(false)
+  end
 end
