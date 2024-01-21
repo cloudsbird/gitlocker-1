@@ -3,7 +3,6 @@ class SyncProductsJob < ApplicationJob
 
   def perform(user_id)
     @user = User.find(user_id)
-    return unless user.synced?
 
     products = repositories.map do |repository|
       Product.new(
@@ -21,6 +20,8 @@ class SyncProductsJob < ApplicationJob
         columns: [:name, :description]
       }
     )
+
+    user.update! synced: true
   end
 
   attr_reader :user

@@ -5,8 +5,6 @@ module Users
     private
 
     def sync_products
-      return unless resource.synced?
-
       SyncProductsJob.perform_later(resource.id)
     end
   end

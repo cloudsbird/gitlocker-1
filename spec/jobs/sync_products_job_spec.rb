@@ -15,4 +15,8 @@ RSpec.describe SyncProductsJob, type: :job do
   it "imports 2 products" do
     expect { described_class.perform_now(user.id) }.to change { Product.count }.from(0).to(2)
   end
+
+  it "syncs users" do
+    expect { described_class.perform_now(user.id) }.to change { user.reload.synced? }.from(false).to(true)
+  end
 end
