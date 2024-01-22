@@ -1,6 +1,10 @@
 <%= render "layouts/logged_in_header" %>
 
-<div class="h-screen bg-gray-100 py-24 md:py-32 lg:py-40">
+<div
+  data-controller="github-sync"
+  data-api-url="<%= product_synchronization_url(current_user) %>"
+  class="h-screen bg-gray-100 py-24 md:py-32 lg:py-40"
+>
   <div class="mx-auto max-w-md flex content-start mb-2">
     <h1 class="text-xl font-medium">Your GitHub repositories</h1>
   </div>
