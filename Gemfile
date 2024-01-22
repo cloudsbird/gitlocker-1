@@ -15,7 +15,7 @@ gem "omniauth-github", "~> 2.0.0" #Install omniauth-github
 gem "omniauth-rails_csrf_protection"
 gem "pg", "~> 1.1"
 gem "puma", ">= 5.0"
-gem "rails", "~> 7.1.2"
+gem "rails", "~> 7.1.3"
 gem "requestjs-rails"
 gem "sprockets-rails"
 gem "stimulus-rails"
