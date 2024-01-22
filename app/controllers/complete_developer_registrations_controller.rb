@@ -3,7 +3,7 @@ class CompleteDeveloperRegistrationsController < ApplicationController
   before_action :redirect_to_dashboard, if: -> { current_user.registration_completed? }
 
   def index
-    SyncProductsJob.perform_later(current_user.id) unless current_user.synced?
+    SyncProductsJob.perform_later(current_user.id) if current_user.token.present?
   end
 
   def update
