@@ -10,8 +10,14 @@ RSpec.describe "CompleteDeveloperRegistrations", type: :request do
       allow(SyncProductsJob).to receive(:perform_later).and_return(true)
     end
 
-    it "queues up SyncProductsJob" do
+    it "queues up SyncProductsJob if token is synced" do
+      user.update! token: SecureRandom.base64
       expect(SyncProductsJob).to receive(:perform_later).with(user.id)
+      get complete_developer_registrations_path
+    end
+
+    it "does not queue up the SyncProductsJob if the token has not been synced" do
+      expect(SyncProductsJob).not_to receive(:perform_later).with(user.id)
       get complete_developer_registrations_path
     end
 

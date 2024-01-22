@@ -8,15 +8,19 @@ export default class extends Controller {
     this.checkSync();
   }
 
+  async renderProducts() {
+    console.log('inside renderAllProducts');
+  }
+
   async checkSync() {
     const response = await get(this.element.dataset.apiUrl, { responseKind: 'json' });
 
     if (response.ok) {
       const responseBody = await response.json
-      console.log('responseBody: ', responseBody);
+      const userAttributes = responseBody.data.attributes;
 
-      if (responseBody.synced && !responseBody.syncing) {
-        console.log('render all products');
+      if (userAttributes.synced && !userAttributes.syncing) {
+        this.renderProducts();
       }
     }
   }

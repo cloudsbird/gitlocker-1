@@ -5,8 +5,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github"
-      SyncProductsJob.perform_later(current_user.id)
-      sign_in_and_redirect @user, event: :authentication
+      if @user.registration_pending?
+        redirect_to complete_developer_registrations_path
+      else
+        sign_in_and_redirect @user, event: :authentication
+      end
     else
       session["devise.github_data"] = request.env["omniauth.auth"].except("extra") # Removing extra cause it can overflow some session stores
       redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
