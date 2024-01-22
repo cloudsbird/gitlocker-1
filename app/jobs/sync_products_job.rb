@@ -1,8 +1,11 @@
 class SyncProductsJob < ApplicationJob
   queue_as :default
 
+  class GithubTokenMissingError < StandardError; end
+
   def perform(user_id)
     @user = User.find(user_id)
+    raise GithubTokenMissingError, "User #{user.id} is missing github token" if user.token.blank?
 
     user.update!(syncing: true)
 

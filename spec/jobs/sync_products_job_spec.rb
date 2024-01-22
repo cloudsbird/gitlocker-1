@@ -24,4 +24,9 @@ RSpec.describe SyncProductsJob, type: :job do
     user.update! syncing: true
     expect { described_class.perform_now(user.id) }.to change { user.reload.syncing? }.from(true).to(false)
   end
+
+  it "raises error if user github token is missing" do
+    user.update! token: nil
+    expect { described_class.perform_now(user.id) }.to raise_error(described_class::GithubTokenMissingError)
+  end
 end
