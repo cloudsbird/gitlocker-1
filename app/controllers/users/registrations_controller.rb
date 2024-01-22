@@ -5,6 +5,8 @@ module Users
     private
 
     def sync_products
+      return if resource.token.blank?
+
       SyncProductsJob.perform_later(resource.id)
     end
   end
