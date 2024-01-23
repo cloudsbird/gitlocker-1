@@ -10,4 +10,8 @@ class ProductSynchronizationsController < ApplicationController
       end
     end
   end
+
+  def create
+    @user = User.find(params[:user_id])
+  end
 end

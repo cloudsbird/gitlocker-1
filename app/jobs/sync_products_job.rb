@@ -41,7 +41,7 @@ class SyncProductsJob < ApplicationJob
     return @repositories if defined?(@repositories)
 
     all_repositories = octokit_client.repositories(
-      github_login, { per_page: repositories_count }
+      nil, { per_page: repositories_count }
     )
     @repositories = all_repositories.select do |repository|
       repository.owner.login == github_login && repository.private?

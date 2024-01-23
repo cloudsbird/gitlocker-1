@@ -22,6 +22,7 @@ Rails.application.routes.draw do
 
   resources :users do
     resources :products, only: :index
+    get :synchronizations, to: "users/synchronizations#show", on: :member
   end
 
   resources :product_synchronizations, only: :show, param: :user_id
