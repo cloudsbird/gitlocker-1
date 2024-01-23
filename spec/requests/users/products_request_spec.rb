@@ -7,15 +7,8 @@ RSpec.describe "Users::Products", type: :request do
 
   describe "GET index" do
     it "succeeds" do
-      get user_products_path(user), headers: { "ACCEPT": "application/json" }
+      get user_products_path(user), headers: { "ACCEPT": "text/vnd.turbo-stream.html" }
       expect(response).to have_http_status(:success)
-    end
-
-    it "returns 3 products in response body" do
-      create_list(:product, 3, user: user)
-      get user_products_path(user), headers: { "ACCEPT": "application/json" }
-      response_body = JSON.parse(response.body).with_indifferent_access
-      expect(response_body[:data].size).to eq(3)
     end
   end
 end

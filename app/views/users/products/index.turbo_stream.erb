@@ -1,0 +1,3 @@
+<%= turbo_stream.append "github-repos" do %>
+  <%= render partial: "users/products/product", collection: @products unless @products.empty? %>
+<% end %>

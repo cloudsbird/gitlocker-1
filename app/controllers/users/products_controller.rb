@@ -7,9 +7,7 @@ module Users
       @products = @user.products
 
       respond_to do |format|
-        format.json do
-          render json: ProductSerializer.new(@products).serializable_hash.to_json, status: :ok
-        end
+        format.turbo_stream
       end
     end
   end
