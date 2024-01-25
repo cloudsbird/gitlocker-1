@@ -1,12 +1,40 @@
 import { Controller } from "@hotwired/stimulus";
-import { get } from '@rails/request.js';
+import { get, put } from '@rails/request.js';
 
 // Connects to data-controller="github-sync"
 export default class extends Controller {
-  static targets = ['loader', 'container'];
+  static targets = ['loader', 'container', 'divider', 'button'];
 
   connect() {
     this.checkSync();
+  }
+
+  submit() {
+    const products = document.querySelectorAll('[name="product_ids[]"]');
+    const checkedProducts = Array.from(products).filter((product) => {
+      return product.checked;
+    });
+    const checkedProductIds = checkedProducts.map((product) => {
+      return parseInt(product.value);
+    });
+
+    if (checkedProductIds.length === 0) {
+      alert('Please select repositories to import');
+      return;
+    }
+
+    this.submitProducts(checkedProductIds);
+  }
+
+  async submitProducts(productIds) {
+    const response = await put(this.element.dataset.productActivationsApiUrl, {
+      body: { product_ids: productIds },
+      responseKind: 'json'
+    });
+
+    if (response.ok) {
+      window.location.href = '/dashboard';
+    }
   }
 
   async renderProducts() {
@@ -14,9 +42,10 @@ export default class extends Controller {
 
     if (response.ok) {
       const responseBody = await response.text;
-      Turbo.renderStreamMessage(responseBody);
       this.loaderTarget.classList.add('hidden');
       this.containerTarget.classList.remove('opacity-20');
+      this.dividerTarget.classList.remove('hidden');
+      this.buttonTarget.classList.remove('hidden');
     }
   }
 

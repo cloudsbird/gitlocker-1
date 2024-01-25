@@ -20,8 +20,10 @@ Rails.application.routes.draw do
   get "complete_developer_registrations", to: "complete_developer_registrations#index"
   put "complete_developer_registration", to: "complete_developer_registrations#update"
 
+
   resources :users do
     resources :products, only: :index, controller: "users/products"
     get :synchronizations, to: "users/synchronizations#show", on: :member
+    put :product_activations, to: "users/product_activations#update", on: :member
   end
 end
