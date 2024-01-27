@@ -6,6 +6,7 @@ gem "activerecord-import"
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "delayed_job_active_record"
 gem "devise", "~> 4.9"
+gem "friendly_id", "~> 5.5.0"
 gem "jbuilder"
 gem "jsonapi-serializer"
 gem "importmap-rails"

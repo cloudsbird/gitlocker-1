@@ -124,6 +124,8 @@ GEM
       faraday-net_http (>= 2.0, < 3.2)
     faraday-net_http (3.1.0)
       net-http
+    friendly_id (5.5.1)
+      activerecord (>= 4.0.0)
     globalid (1.2.1)
       activesupport (>= 6.1)
     hashie (5.0.0)
@@ -350,6 +352,7 @@ DEPENDENCIES
   dotenv-rails
   factory_bot_rails
   faker
+  friendly_id (~> 5.5.0)
   importmap-rails
   jbuilder
   jsonapi-serializer
