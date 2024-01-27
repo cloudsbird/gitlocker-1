@@ -22,7 +22,7 @@ class SyncProductsJob < ApplicationJob
     Product.import!(
       products,
       on_duplicate_key_update: {
-        conflict_target: [:user_id, :repo_id],
+        conflict_target: [:repo_id],
         columns: [:name, :description, :url]
       }
     )

@@ -6,8 +6,8 @@ RSpec.describe SyncProductsJob, type: :job do
   before do
     allow_any_instance_of(described_class).to receive(:repositories).and_return(
       [
-        double(:repository, name: "product1", description: "123", html_url: "https://www.github.com/1"),
-        double(:repository, name: "product2", description: "123", html_url: "https://www.github.com/2")
+        double(:repository, name: "product1", id: 123, description: "123", html_url: "https://www.github.com/1"),
+        double(:repository, name: "product2", id: 456, description: "456", html_url: "https://www.github.com/2")
       ]
     )
   end
