@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_01_27_180433) do
+ActiveRecord::Schema[7.1].define(version: 2024_01_27_222949) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -40,7 +40,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_01_27_180433) do
     t.text "description"
     t.boolean "active", default: false, null: false
     t.boolean "published", default: false, null: false
-    t.index ["user_id", "url"], name: "index_products_on_user_id_and_url", unique: true
+    t.bigint "repo_id"
+    t.index ["repo_id"], name: "index_products_on_repo_id", unique: true
     t.index ["user_id"], name: "index_products_on_user_id"
   end
 

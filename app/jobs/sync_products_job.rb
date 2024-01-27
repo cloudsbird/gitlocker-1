@@ -14,15 +14,16 @@ class SyncProductsJob < ApplicationJob
         user: user,
         name: repository.name,
         description: repository.description,
-        url: repository.html_url
+        url: repository.html_url,
+        repo_id: repository.id
       )
     end
 
     Product.import!(
       products,
       on_duplicate_key_update: {
-        conflict_target: [:user_id, :url],
-        columns: [:name, :description]
+        conflict_target: [:user_id, :repo_id],
+        columns: [:name, :description, :url]
       }
     )
 
