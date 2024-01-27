@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.2.2"
+ruby "3.3.0"
 
 gem "activerecord-import"
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
