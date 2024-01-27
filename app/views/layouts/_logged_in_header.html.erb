@@ -14,7 +14,7 @@
     <nav class="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
       <% if current_user.registration_completed? %>
         <%= link_to "Home", dashboard_path %>
-        <%= link_to "Products", "" %>
+        <%= link_to "Products", products_path %>
       <% end %>
       <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete } %>
     </nav>
@@ -55,7 +55,7 @@
       <div class="mt-2 space-y-2">
         <% if current_user.registration_completed? %>
           <%= link_to "Home", dashboard_path, class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" %>
-          <%= link_to "Products", "", class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" %>
+          <%= link_to "Products", products_path, class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" %>
         <% end %>
         <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "-mx-3 block rounded-lg px-3 py-2 text-base font-semibold leading-7 text-gray-900 hover:bg-gray-50" %>
       </div>
