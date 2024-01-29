@@ -27,4 +27,18 @@ RSpec.describe "Products", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "PUT update" do
+    it "updates the product" do
+      product = create(:product, user: user, name: "foo")
+      expect do
+        put product_path(product), params: {
+          product: {
+            name: "bar"
+          }
+        }
+      end.to change { product.reload.name }.from("foo").to("bar")
+      expect(response).to redirect_to product_path(product)
+    end
+  end
 end
