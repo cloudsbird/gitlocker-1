@@ -23,6 +23,7 @@ gem "stimulus-rails"
 gem "tailwindcss-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
+gem "view_component"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
