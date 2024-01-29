@@ -19,4 +19,12 @@ RSpec.describe "Products", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET edit" do
+    it "succeeds" do
+      product = create(:product, user: user)
+      get edit_product_path(product)
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
