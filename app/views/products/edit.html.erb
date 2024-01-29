@@ -4,7 +4,8 @@
   <%=
     render BreadcrumbComponent.new([
       { text: "Products", url: products_path },
-      { text: @product.name, url: product_path(@product) }
+      { text: @product.name, url: product_path(@product) },
+      { text: "Edit", url: edit_product_path(@product) }
     ])
   %>
 
