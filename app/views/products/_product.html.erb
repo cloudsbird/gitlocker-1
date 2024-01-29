@@ -38,7 +38,7 @@
         <%= link_to product_path(product), data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-0" do %>
           View<span class="sr-only">, Tuple</span>
         <% end %>
-        <%= link_to "", data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-1" do %>
+        <%= link_to edit_product_path(product), data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-1" do %>
           Edit<span class="sr-only">, Tuple</span>
         <% end %>
       </div>

@@ -8,4 +8,8 @@ class ProductsController < ApplicationController
   def show
     @product = current_user.products.friendly.find(params[:id])
   end
+
+  def edit
+    @product = current_user.products.friendly.find(params[:id])
+  end
 end
