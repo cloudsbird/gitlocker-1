@@ -22,10 +22,10 @@
       <div class="mx-auto mt-14 max-w-2xl sm:mt-16 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-none">
         <div class="flex flex-col-reverse">
           <div class="mt-4">
-            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl">Application UI Icon Pack</h1>
+            <h1 class="text-2xl font-bold tracking-tight text-gray-900 sm:text-3xl"><%= @product.name %></h1>
 
             <h2 id="information-heading" class="sr-only">Product information</h2>
-            <p class="mt-2 text-sm text-gray-500">Version 1.0 (Updated <time datetime="2021-06-05">June 5, 2021</time>)</p>
+            <p class="mt-2 text-sm text-gray-500">Updated <time datetime="<%= @product.updated_at.strftime("%Y-%m-%d") %>"><%= @product.updated_at.strftime("%B %-m, %Y") %></time></p>
           </div>
 
           <div>
@@ -72,7 +72,7 @@
 
         <div class="mt-10 border-t border-gray-200 pt-10">
           <h3 class="text-sm font-medium text-gray-900">License</h3>
-          <p class="mt-4 text-sm text-gray-500">For personal and professional use. You cannot resell or redistribute these icons in their original or modified state. <a href="#" class="font-medium text-indigo-600 hover:text-indigo-500">Read full license</a></p>
+          <p class="mt-4 text-sm text-gray-500">For personal and professional use. You cannot resell or redistribute these repositories in their original or modified state.</p>
         </div>
 
         <div class="mt-10 border-t border-gray-200 pt-10">
@@ -196,13 +196,13 @@
             <h3 class="sr-only">Frequently Asked Questions</h3>
 
             <dl>
-              <dt class="mt-10 font-medium text-gray-900">What format are these icons?</dt>
+              <dt class="mt-10 font-medium text-gray-900">What format are these code repositories?</dt>
               <dd class="prose prose-sm mt-2 max-w-none text-gray-500">
-                <p>The icons are in SVG (Scalable Vector Graphic) format. They can be imported into your design tool of choice and used directly in code.</p>
+                <p>The code repositories are in zip (Scalable Vector Graphic) format. They can be downloaded onto your computer and unzipped.</p>
               </dd>
-              <dt class="mt-10 font-medium text-gray-900">Can I use the icons at different sizes?</dt>
+              <dt class="mt-10 font-medium text-gray-900">Can I re-sell these repositories?</dt>
               <dd class="prose prose-sm mt-2 max-w-none text-gray-500">
-                <p>Yes. The icons are drawn on a 24 x 24 pixel grid, but the icons can be scaled to different sizes as needed. We don&#039;t recommend going smaller than 20 x 20 or larger than 64 x 64 to retain legibility and visual balance.</p>
+                <p>No, the intellectual property is that of the developer. You may use the repositories for personal use but may not re-sell them as your own.</p>
               </dd>
 
               <!-- More FAQs... -->
@@ -216,25 +216,23 @@
             <div class="prose prose-sm max-w-none text-gray-500">
               <h4>Overview</h4>
 
-              <p>For personal and professional use. You cannot resell or redistribute these icons in their original or modified state.</p>
+              <p>For personal and professional use. You cannot resell or redistribute these repositories in their original or modified state.</p>
 
               <ul role="list">
-                <li>You're allowed to use the icons in unlimited projects.</li>
-                <li>Attribution is not required to use the icons.</li>
+                <li>You're allowed to use the code bits in the repositories in unlimited projects.</li>
+                <li>Attribution is not required to use the code bits.</li>
               </ul>
 
               <h4>What you can do with it</h4>
 
               <ul role="list">
                 <li>Use them freely in your personal and professional work.</li>
-                <li>Make them your own. Change the colors to suit your project or brand.</li>
               </ul>
 
               <h4>What you can't do with it</h4>
 
               <ul role="list">
-                <li>Don't be greedy. Selling or distributing these icons in their original or modified state is prohibited.</li>
-                <li>Don't be evil. These icons cannot be used on websites or applications that promote illegal or immoral beliefs or activities.</li>
+                <li>Don't be greedy. Selling or distributing these repositories in their original or modified state is prohibited.</li>
               </ul>
             </div>
           </div>
