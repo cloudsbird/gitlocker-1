@@ -6,6 +6,8 @@ class Product < ApplicationRecord
 
   belongs_to :user
 
+  has_many_attached :covers
+
   validates :name, presence: true
   validates :url, presence: true, uniqueness: { scope: :name }
 end
