@@ -1,0 +1,3 @@
+<%= turbo_stream.replace dom_id(@product) do %>
+  <%= render partial: "products/form", locals: { product: @product } %>
+<% end %>

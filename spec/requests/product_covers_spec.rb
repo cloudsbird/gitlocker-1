@@ -9,7 +9,7 @@ RSpec.describe "ProductCovers", type: :request do
   describe "POST create" do
     it "succeeds" do
       post product_covers_path(product), headers: { "ACCEPT": "text/vnd.turbo-stream.html" }
-      expect(response).to have_http_status(:created)
+      expect(response).to have_http_status(:success)
     end
   end
 
