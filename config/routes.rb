@@ -26,5 +26,7 @@ Rails.application.routes.draw do
     put :product_activations, to: "users/product_activations#update", on: :member
   end
 
-  resources :products, only: [:index, :show, :edit, :update]
+  resources :products, only: [:index, :show, :edit, :update] do
+    resources :covers, only: [:create, :destroy], controller: "product_covers"
+  end
 end
