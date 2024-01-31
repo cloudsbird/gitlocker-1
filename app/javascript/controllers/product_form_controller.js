@@ -1,4 +1,5 @@
 import { Controller } from '@hotwired/stimulus';
+import { DirectUpload } from "@rails/activestorage"
 
 const imageTypes = ['image/gif', 'image/jpeg', 'image/png'];
 

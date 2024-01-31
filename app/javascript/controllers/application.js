@@ -6,4 +6,7 @@ const application = Application.start()
 application.debug = false
 window.Stimulus   = application
 
+import * as ActiveStorage from "@rails/activestorage"
+ActiveStorage.start()
+
 export { application }
