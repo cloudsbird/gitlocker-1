@@ -41,12 +41,17 @@ class SyncProductsJob < ApplicationJob
   def repositories
     return @repositories if defined?(@repositories)
 
-    all_repositories = octokit_client.repositories(
-      nil, { per_page: repositories_count }
-    )
-    @repositories = all_repositories.select do |repository|
-      repository.owner.login == github_login && repository.private?
+    Retriable.retriable(tries: 3, base_interval: 2.seconds) do
+      all_repositories = octokit_client.repositories(
+        nil, { per_page: repositories_count }
+      )
+      @repositories = all_repositories.select do |repository|
+        repository.owner.login == github_login && repository.private?
+      end
     end
+  rescue => e
+    Rails.logger.info(e.message)
+    []
   end
 
   def github_login
