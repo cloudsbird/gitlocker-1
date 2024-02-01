@@ -2,7 +2,13 @@ import { Controller } from "@hotwired/stimulus"
 
 // Connects to data-controller="dialog"
 export default class extends Controller {
+  static targets = ['container'];
+
   connect() {
-    console.log('hello world from dialog');
+    document.body.addEventListener('click', (e) => {
+      if (!this.containerTarget.contains(e.target)) {
+        this.element.classList.add('hidden');
+      }
+    });
   }
 }
