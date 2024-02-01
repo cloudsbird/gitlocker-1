@@ -56,7 +56,7 @@
               <div class="mt-4 flex justify-center text-sm leading-6 text-gray-600">
                 <label for="product_covers" class="relative cursor-pointer rounded-md bg-white font-semibold text-indigo-600 focus-within:outline-none focus-within:ring-2 focus-within:ring-indigo-600 focus-within:ring-offset-2 hover:text-indigo-500">
                   <span>Upload a file</span>
-                  <%= f.file_field :covers, multiple: true, direct_upload: true, data: { "product-form-target": "coverInput", action: "change->product-form#attachCover" }, class: "sr-only" %>
+                  <%= f.file_field :covers, multiple: true, direct_upload: true, class: "sr-only" %>
                 </label>
               </div>
               <p class="text-xs leading-5 text-gray-600">PNG, JPG, GIF up to 10MB</p>
