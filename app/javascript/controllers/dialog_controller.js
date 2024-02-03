@@ -5,10 +5,10 @@ export default class extends Controller {
   static targets = ['container'];
 
   connect() {
-    // document.body.addEventListener('click', (e) => {
-    //   if (!this.containerTarget.contains(e.target)) {
-    //     this.element.classList.add('hidden');
-    //   }
-    // });
+    document.body.addEventListener('click', (e) => {
+      if (!this.containerTarget.contains(e.target)) {
+        this.element.classList.add('hidden');
+      }
+    });
   }
 }
