@@ -4,7 +4,7 @@ class CompleteDeveloperRegistrationsController < ApplicationController
 
   def index
     if current_user.token.present?
-      SyncProductsJob.perform_later(current_user.id)
+      SyncProductsJob.perform_now(current_user.id)
       render "index_synced"
     else
       render "index_oauth"

@@ -4,9 +4,9 @@ ruby "3.3.0"
 
 gem "activerecord-import"
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
-gem "delayed_job_active_record"
 gem "devise", "~> 4.9"
 gem "friendly_id", "~> 5.5.0"
+gem "good_job"
 gem "jbuilder"
 gem "jsonapi-serializer"
 gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
