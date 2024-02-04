@@ -8,7 +8,13 @@ export default class extends Controller {
     document.body.addEventListener('click', (e) => {
       if (!this.containerTarget.contains(e.target)) {
         this.element.classList.add('hidden');
+        this.stopAllVideos();
       }
     });
+  }
+
+  stopAllVideos() {
+    this.containerTarget.querySelectorAll('iframe').forEach(v => { v.src = v.src });
+    this.containerTarget.querySelectorAll('video').forEach(v => { v.pause() });
   }
 }
