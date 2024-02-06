@@ -13,6 +13,13 @@
   </head>
 
   <body class="<%= devise_controller? ? "h-full" : "" %>">
+    <% if !user_signed_in? && !devise_controller? %>
+      <%= render "layouts/home_nav" %>
+    <% end %>
     <%= yield %>
+
+    <% if !user_signed_in? && !devise_controller? %>
+      <%= render "layouts/footer" %>
+    <% end %>
   </body>
 </html>

@@ -12,6 +12,10 @@ Rails.application.routes.draw do
   # Defines the root path route ("/")
   root "home#index"
 
+  get "privacy", to: "home#privacy"
+  get "terms", to: "home#terms"
+  get "refund_policy", to: "home#refund_policy"
+
   get "dashboard", to: "dashboard#index"
 
   get "complete_registrations", to: "complete_registrations#index"
