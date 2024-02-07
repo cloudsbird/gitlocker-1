@@ -14,7 +14,7 @@
       <!-- Product image -->
       <div class="lg:col-span-4 lg:row-end-1">
         <div class="overflow-hidden rounded-lg bg-gray-100">
-          <%= render CarouselComponent.new(@product.covers) %>
+          <%= render CarouselComponent.new(@product.covers) if @product.covers.exists? %>
         </div>
       </div>
 
@@ -114,7 +114,8 @@
               <button
                 id="tab-reviews"
                 data-product-tabs-target="button"
-                class="border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800 whitespace-nowrap border-b-2 py-6 text-sm font-medium"
+                data-action="click->product-tabs#toggleTab"
+                class="border-indigo-600 text-indigo-600 whitespace-nowrap border-b-2 py-6 text-sm font-medium"
                 aria-controls="tab-panel-reviews"
                 role="tab"
                 type="button"
@@ -122,6 +123,7 @@
               <button
                 id="tab-faq"
                 data-product-tabs-target="button"
+                data-action="click->product-tabs#toggleTab"
                 class="border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800 whitespace-nowrap border-b-2 py-6 text-sm font-medium"
                 aria-controls="tab-panel-faq"
                 role="tab"
@@ -130,6 +132,7 @@
               <button
                 id="tab-license"
                 data-product-tabs-target="button"
+                data-action="click->product-tabs#toggleTab"
                 class="border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800 whitespace-nowrap border-b-2 py-6 text-sm font-medium"
                 aria-controls="tab-panel-license"
                 role="tab"
@@ -139,7 +142,14 @@
           </div>
 
           <!-- 'Customer Reviews' panel, show/hide based on tab state -->
-          <div id="panel-reviews" class="-mb-10" aria-labelledby="tab-reviews" role="tabpanel" tabindex="0">
+          <div
+            data-product-tabs-target="panel"
+            id="panel-reviews"
+            class="-mb-10"
+            aria-labelledby="tab-reviews"
+            role="tabpanel"
+            tabindex="0"
+          >
             <h3 class="sr-only">Customer Reviews</h3>
 
             <div class="flex space-x-4 text-sm text-gray-500">
@@ -213,7 +223,14 @@
           </div>
 
           <!-- 'FAQ' panel, show/hide based on tab state -->
-          <div id="panel-faq" class="text-sm text-gray-500" aria-labelledby="tab-faq" role="tabpanel" tabindex="0">
+          <div
+            data-product-tabs-target="panel"
+            id="panel-faq"
+            class="text-sm text-gray-500 hidden"
+            aria-labelledby="tab-faq"
+            role="tabpanel"
+            tabindex="0"
+          >
             <h3 class="sr-only">Frequently Asked Questions</h3>
 
             <dl>
@@ -231,7 +248,14 @@
           </div>
 
           <!-- 'License' panel, show/hide based on tab state -->
-          <div id="panel-license" class="pt-10" aria-labelledby="tab-license" role="tabpanel" tabindex="0">
+          <div
+            data-product-tabs-target="panel"
+            id="panel-license"
+            class="pt-10 hidden"
+            aria-labelledby="tab-license"
+            role="tabpanel"
+            tabindex="0"
+          >
             <h3 class="sr-only">License</h3>
 
             <div class="prose prose-sm max-w-none text-gray-500">
