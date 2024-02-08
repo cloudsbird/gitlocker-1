@@ -43,4 +43,6 @@ Rails.application.routes.draw do
   end
 
   resources :subscribed_users, only: :create
+
+  resources :library, only: :show, path: "l"
 end

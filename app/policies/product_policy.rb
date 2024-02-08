@@ -7,10 +7,14 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def edit?
+    return false if user.blank?
+
     record.user_id == user.id
   end
 
   def purchasable?
+    return false if user.blank?
+
     record.user_id != user.id
   end
 end
