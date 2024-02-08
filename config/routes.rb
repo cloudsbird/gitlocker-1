@@ -1,4 +1,12 @@
 Rails.application.routes.draw do
+  if Rails.env.production?
+    constraints(host: /^(?!www\.)/i) do
+      match '(*any)', to: redirect { |params, request|
+        URI.parse(request.url).tap { |uri| uri.host = "www.#{uri.host}" }.to_s
+      }, via: :all
+    end
+  end
+
   devise_for :users, controllers: {
     registrations: "users/registrations",
     omniauth_callbacks: "users/omniauth_callbacks"
