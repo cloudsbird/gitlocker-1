@@ -45,7 +45,7 @@
                 <% end %>
               <% end %>
             </div>
-            <p class="sr-only">4 out of 5 stars</p>
+            <p class="sr-only"><%= @reviews.average(:rating) %> out of 5 stars</p>
           </div>
         </div>
 
