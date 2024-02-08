@@ -14,7 +14,11 @@
       <!-- Product image -->
       <div class="lg:col-span-4 lg:row-end-1">
         <div class="overflow-hidden rounded-lg bg-gray-100">
-          <%= render CarouselComponent.new(@product.covers) if @product.covers.exists? %>
+          <% if @product.covers.exists? %>
+            <%= render CarouselComponent.new(@product.covers) %>
+          <% else %>
+            <%= image_tag "default-cover.png", class: "object-cover object-center relative w-full" %>
+          <% end %>
         </div>
       </div>
 
