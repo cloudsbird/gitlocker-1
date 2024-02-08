@@ -7,6 +7,7 @@ class ProductsController < ApplicationController
 
   def show
     @product = current_user.products.friendly.find(params[:id])
+    @reviews = @product.reviews.includes(:user)
   end
 
   def edit
