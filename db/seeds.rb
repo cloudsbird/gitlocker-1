@@ -7,6 +7,15 @@ chris = User.create(
   synced: true
 )
 
+cody = User.create(
+  email: "codyrutscher@gmail.com",
+  username: "codyrutscher",
+  name: "Cody Rutscher",
+  password: "password",
+  registration_status: "registration_completed",
+  synced: true
+)
+
 3.times do
   User.create(
     email: Faker::Internet.email,
