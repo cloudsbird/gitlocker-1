@@ -49,22 +49,15 @@
           </div>
         </div>
 
-        <p class="mt-6 text-gray-500">The Application UI Icon Pack comes with over 200 icons in 3 styles: outline, filled, and branded. This playful icon pack is tailored for complex application user interfaces with a friendly and legible look.</p>
+        <% if @product.description.present? %>
+          <p class="mt-6 text-gray-500"><%= @product.description %></p>
+        <% else %>
+          <p class="mt-6 text-gray-500 italic">No description</p>
+        <% end %>
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
           <button type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Pay $220</button>
           <button type="button" class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50">Preview</button>
-        </div>
-
-        <div class="mt-10 border-t border-gray-200 pt-10">
-          <h3 class="text-sm font-medium text-gray-900">Highlights</h3>
-          <div class="prose prose-sm mt-4 text-gray-500">
-            <ul role="list">
-              <li>200+ SVG icons in 3 unique styles</li>
-              <li>Compatible with Figma, Sketch, and Adobe XD</li>
-              <li>Drawn on 24 x 24 pixel grid</li>
-            </ul>
-          </div>
         </div>
 
         <div class="mt-10 border-t border-gray-200 pt-10">
