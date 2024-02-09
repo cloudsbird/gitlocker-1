@@ -7,12 +7,14 @@ class DialogComponent < ViewComponent::Base
     headline: nil,
     body: nil,
     cancel_button: nil,
-    confirm_button: nil
+    confirm_button: nil,
+    disabled: false
   )
     @modal_size = "max-w-#{size}"
     @headline = headline
     @body = body
     @cancel_button = cancel_button
     @confirm_button = confirm_button
+    @disabled = disabled
   end
 end
