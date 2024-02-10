@@ -13,8 +13,10 @@ class ProductPolicy < ApplicationPolicy
   end
 
   def purchasable?
-    return false if user.blank?
+    return false unless record.active?
 
-    record.user_id != user.id
+    return false unless record.published?
+
+    user.blank? || record.user_id != user.id
   end
 end
