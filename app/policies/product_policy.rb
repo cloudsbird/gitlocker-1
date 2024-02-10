@@ -19,4 +19,12 @@ class ProductPolicy < ApplicationPolicy
 
     user.blank? || record.user_id != user.id
   end
+
+  def reviewable?
+    return false unless record.active?
+
+    return false unless record.published?
+
+    user.blank? || record.user_id != user.id
+  end
 end
