@@ -3,12 +3,6 @@
 
   <!-- Hero section -->
   <div class="relative bg-gray-900">
-    <!-- Decorative image and overlay -->
-    <div aria-hidden="true" class="absolute inset-0 overflow-hidden">
-      <img src="https://tailwindui.com/img/ecommerce-images/home-page-01-hero-full-width.jpg" alt="" class="h-full w-full object-cover object-center">
-    </div>
-    <div aria-hidden="true" class="absolute inset-0 bg-gray-900 opacity-50"></div>
-
     <!-- Navigation -->
     <header class="relative z-10">
       <nav aria-label="Top">
@@ -31,8 +25,18 @@
                 <div class="hidden lg:flex lg:flex-1 lg:items-center">
                   <a href="#">
                     <span class="sr-only">Your Company</span>
-                    <img class="h-8 w-auto" src="https://tailwindui.com/img/logos/mark.svg?color=white" alt="">
                   </a>
+
+                  <%= link_to root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+                    <div class="flex items-center">
+                      <div>
+                        <%= image_tag "logo.png", class: "h-8 w-auto", alt: "" %>
+                      </div>
+                      <div>
+                        <%= image_tag "logo-text.png", class: "h-4 w-auto ml-2", alt: "" %>
+                      </div>
+                    </div>
+                  <% end %>
                 </div>
 
                 <div class="hidden h-full lg:flex">
