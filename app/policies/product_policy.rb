@@ -25,6 +25,8 @@ class ProductPolicy < ApplicationPolicy
 
     return false unless record.published?
 
-    user.blank? || record.user_id != user.id
+    return false if user.blank?
+
+    record.user_id != user.id
   end
 end
