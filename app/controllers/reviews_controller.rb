@@ -1,6 +1,11 @@
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
+  def new
+    product = Product.friendly.find(params[:product_id])
+    @review = product.reviews.build(user_id: current_user.id)
+  end
+
   def create
     product = Product.friendly.find(params[:product_id])
     review = product.reviews.build(review_params.merge(user_id: current_user.id))

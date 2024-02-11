@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
   resources :products, only: [:index, :show, :edit, :update] do
     resources :covers, only: [:create, :destroy], controller: "product_covers"
-    resources :reviews, only: :create
+    resources :reviews, only: [:new, :create]
   end
 
   resources :subscribed_users, only: :create

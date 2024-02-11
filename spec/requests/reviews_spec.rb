@@ -6,6 +6,13 @@ RSpec.describe "Reviews", type: :request do
 
   before { sign_in user }
 
+  describe "GET new" do
+    it "succeeds" do
+      get new_product_review_path(product)
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe "POST create" do
     let(:create_request) do
       post product_reviews_path(product), params: {
