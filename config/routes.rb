@@ -40,10 +40,11 @@ Rails.application.routes.draw do
 
   resources :products, only: [:index, :show, :edit, :update] do
     resources :covers, only: [:create, :destroy], controller: "product_covers"
-    resources :reviews, only: [:new, :create]
   end
 
   resources :subscribed_users, only: :create
 
-  resources :library, only: :show, path: "l"
+  resources :library, only: :show, path: "l" do
+    resources :reviews, only: [:new, :create]
+  end
 end

@@ -8,14 +8,14 @@ RSpec.describe "Reviews", type: :request do
 
   describe "GET new" do
     it "succeeds" do
-      get new_product_review_path(product)
+      get new_library_review_path(product)
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "POST create" do
     let(:create_request) do
-      post product_reviews_path(product), params: {
+      post library_reviews_path(product), params: {
         review: {
           rating: 5,
           body: "This is excellent!"
