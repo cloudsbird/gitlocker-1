@@ -7,8 +7,15 @@
           <path fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
         </svg>
       </button>
-      <%= link_to dashboard_path do %>
-        <%= image_tag "logo-full", class: "h-16 w-auto" %>
+      <%= link_to dashboard_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+        <div class="flex items-center">
+          <div>
+            <%= image_tag "logo.png", class: "h-8 w-auto", alt: "" %>
+          </div>
+          <div>
+            <%= image_tag "logo-text.png", class: "h-4 w-auto ml-2", alt: "" %>
+          </div>
+        </div>
       <% end %>
     </div>
     <nav class="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
