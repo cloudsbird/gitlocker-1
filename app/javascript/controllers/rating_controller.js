@@ -9,10 +9,6 @@ const starColors = {
 export default class extends Controller {
   static targets = ['star', 'input'];
 
-  connect() {
-    console.log('rating');
-  }
-
   highlight(e) {
     const rating = parseInt(e.target.dataset.rating);
 
