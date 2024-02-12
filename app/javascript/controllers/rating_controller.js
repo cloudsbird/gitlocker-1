@@ -7,7 +7,7 @@ const starColors = {
 
 // Connects to data-controller="rating"
 export default class extends Controller {
-  static targets = ['star'];
+  static targets = ['star', 'input'];
 
   connect() {
     console.log('rating');
@@ -30,5 +30,7 @@ export default class extends Controller {
         star.classList.add(starColors['gray']);
       }
     });
+
+    this.inputTarget.value = rating;
   }
 }

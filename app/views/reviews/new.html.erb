@@ -38,6 +38,7 @@
                   data-controller="rating"
                   class="flex gap-0.5"
                 >
+                  <%= f.hidden_field :rating, data: { "rating-target": "input"} %>
                   <% 5.times do |i| %>
                     <svg
                       data-rating="<%= i + 1 %>"
