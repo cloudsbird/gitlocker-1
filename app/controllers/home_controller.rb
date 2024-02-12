@@ -11,4 +11,7 @@ class HomeController < ApplicationController
 
   def refund_policy
   end
+
+  def contact
+  end
 end

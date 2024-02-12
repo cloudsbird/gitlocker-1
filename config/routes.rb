@@ -23,6 +23,7 @@ Rails.application.routes.draw do
   get "privacy", to: "home#privacy"
   get "terms", to: "home#terms"
   get "refund_policy", to: "home#refund_policy"
+  get "contact", to: "home#contact"
 
   get "dashboard", to: "dashboard#index"
 

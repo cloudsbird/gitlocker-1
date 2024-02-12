@@ -18,4 +18,32 @@ RSpec.describe "Homes", type: :request do
       end
     end
   end
+
+  describe "GET privacy" do
+    it "succeeds" do
+      get privacy_path
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET terms" do
+    it "succeeds" do
+      get terms_path
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET refund_policy" do
+    it "succeeds" do
+      get refund_policy_path
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET contact" do
+    it "succeeds" do
+      get contact_path
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
