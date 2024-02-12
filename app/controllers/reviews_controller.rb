@@ -2,8 +2,8 @@ class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
   def new
-    product = Product.friendly.find(product_id)
-    @review = product.reviews.build(user_id: current_user.id)
+    @product = Product.friendly.find(product_id)
+    @review = @product.reviews.build(user_id: current_user.id)
   end
 
   def create
