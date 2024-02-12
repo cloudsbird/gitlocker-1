@@ -9,15 +9,10 @@ const starColors = {
 export default class extends Controller {
   static targets = ['star', 'input'];
 
-  highlight(e) {
+  setRating(e) {
     const rating = parseInt(e.target.dataset.rating);
 
-    if (isNaN(rating)) return;
-
     this.starTargets.forEach((star) => {
-      star.classList.remove(starColors['gray']);
-      star.classList.add(starColors['yellow']);
-
       if (parseInt(star.dataset.rating) <= rating) {
         star.classList.remove(starColors['gray']);
         star.classList.add(starColors['yellow']);
