@@ -27,6 +27,7 @@ Rails.application.routes.draw do
   get "terms", to: "home#terms"
   get "refund_policy", to: "home#refund_policy"
   get "contact", to: "home#contact"
+  get "robots.txt", to: "home#robots"
 
   get "dashboard", to: "dashboard#index"
 

@@ -14,4 +14,8 @@ class HomeController < ApplicationController
 
   def contact
   end
+
+  def robots
+    respond_to :text
+  end
 end
