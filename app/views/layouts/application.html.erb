@@ -1,15 +1,52 @@
 <!DOCTYPE html>
 <html class="<%= devise_controller? ? "h-full bg-white" : "" %>">
   <head>
-    <title>Gitlocker</title>
+    <title><%= meta_title %></title>
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+
+    <meta name="robots" content="index">
+
+    <!-- Facebook Open Graph data -->
+    <meta property="og:title" content="<%= meta_title %>" />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content="<%= request.original_url.force_encoding('UTF-8') %>" />
+    <meta property="og:image" content="<%= meta_image %>" />
+    <meta property="og:description" content="<%= meta_description %>" />
+    <meta property="og:site_name" content="<%= meta_title %>" />
+
+    <!-- Twitter Card data -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:site" content="<%= DEFAULT_META["twitter_account"] %>" />
+    <meta name="twitter:title" content="<%= meta_title %>" />
+    <meta name="twitter:description" content="<%= meta_description %>" />
+    <meta name="twitter:creator" content="<%= DEFAULT_META["twitter_account"] %>" />
+    <meta name="twitter:image:src" content="<%= meta_image %>" />
+
     <%= stylesheet_link_tag "tailwind", "inter-font", "data-turbo-track": "reload" %>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag asset_path("favicon.png") %>
+
+    <% if current_page?(root_path) %>
+      <script type="application/ld+json">
+        {
+          "@context": "http://schema.org/",
+          "@type": "WebSite",
+          "name": "<%= meta_title %>",
+          "image": "<%= asset_url('logo.png') %>",
+          "description": "<%= meta_description %>",
+          "publisher": "GitLocker",
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": "https://www.gitlocker.com/search?search={search_term}",
+            "query-input": "required name=search_term" }
+          }
+        }
+      </script>
+    <% end %>
   </head>
 
   <body class="<%= devise_controller? ? "h-full" : "" %>">
