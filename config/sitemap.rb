@@ -11,7 +11,7 @@ SitemapGenerator::Sitemap.adapter = SitemapGenerator::S3Adapter.new(
 
 SitemapGenerator::Sitemap.public_path = "tmp/"
 
-SitemapGenerator::Sitemap.sitemaps_host = "https://#{ENV['S3_BUCKET']}.s3.amazonaws.com/"
+SitemapGenerator::Sitemap.sitemaps_host = "https://#{ENV['S3_BUCKET']}.s3.us-east-2.amazonaws.com/"
 
 SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/"
 
