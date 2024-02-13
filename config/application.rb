@@ -40,5 +40,7 @@ module Gitlocker
     config.generators.system_tests = nil
 
     config.active_job.queue_adapter = :good_job
+
+    config.exceptions_app = self.routes
   end
 end
