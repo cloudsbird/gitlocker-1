@@ -12,6 +12,8 @@ class User < ApplicationRecord
 
   has_many :products, dependent: :destroy
   has_many :reviews, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
+  has_many :products_in_cart, through: :cart_items, source: :product
 
   def self.from_omniauth(access_token)
     token    = access_token.credentials.token
