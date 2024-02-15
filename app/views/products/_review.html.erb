@@ -1,6 +1,10 @@
 <div class="flex space-x-4 text-sm text-gray-500">
   <div class="flex-none py-10">
-    <img src="https://images.unsplash.com/photo-1502685104226-ee32379fefbe?ixlib=rb-=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=8&w=256&h=256&q=80" alt="" class="h-10 w-10 rounded-full bg-gray-100">
+    <% if review.user.profile_picture.attached? %>
+      <%= image_tag review.user.profile_picture, class: "h-10 w-10 rounded-full bg-gray-100" %>
+    <% else %>
+      <%= image_tag "profile_placeholder.png", class: "h-10 w-10 rounded-full bg-gray-100" %>
+    <% end %>
   </div>
   <div class="py-10">
     <h3 class="font-medium text-gray-900"><%= review.user.name %></h3>
