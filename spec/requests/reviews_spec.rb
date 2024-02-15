@@ -31,5 +31,9 @@ RSpec.describe "Reviews", type: :request do
       create_request
       expect(response).to redirect_to(library_path(product))
     end
+
+    it "sets average_rating for product" do
+      expect { create_request }.to change { product.reload.average_rating }.from(0).to(5)
+    end
   end
 end
