@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_14_185612) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_15_180633) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -144,6 +144,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_14_185612) do
     t.boolean "published", default: false, null: false
     t.bigint "repo_id"
     t.string "slug"
+    t.integer "reviews_count", default: 0, null: false
     t.index ["repo_id"], name: "index_products_on_repo_id", unique: true
     t.index ["slug"], name: "index_products_on_slug", unique: true
     t.index ["user_id", "repo_id"], name: "index_products_on_user_id_and_repo_id", unique: true
