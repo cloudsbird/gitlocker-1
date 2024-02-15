@@ -33,7 +33,9 @@ RSpec.describe "Reviews", type: :request do
     end
 
     it "sets average_rating for product" do
-      expect { create_request }.to change { product.reload.average_rating }.from(0).to(5)
+      allow(UpdateProductAverageRatingJob).to receive(:perform_later).and_return(true)
+      create_request
+      expect(UpdateProductAverageRatingJob).to have_received(:perform_later)
     end
   end
 end
