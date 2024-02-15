@@ -6,6 +6,13 @@ RSpec.describe "CartItems", type: :request do
 
   before { sign_in user }
 
+  describe "GET index" do
+    it "succeeds" do
+      get cart_items_path
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe "POST create" do
     let(:create_request) do
       post cart_items_path, params: {

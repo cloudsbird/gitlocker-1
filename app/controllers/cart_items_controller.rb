@@ -1,4 +1,7 @@
 class CartItemsController < ApplicationController
+  def index
+  end
+
   def create
     product = Product.find(params[:product_id])
     cart_item = CartItem.create(product: product, user: current_user, session_id: session.id)
