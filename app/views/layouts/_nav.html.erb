@@ -1,0 +1,5 @@
+<% if current_user&.token&.present? %>
+  <%= render "layouts/logged_in_nav" %>
+<% else %>
+  <%= render "layouts/home_nav" %>
+<% end %>

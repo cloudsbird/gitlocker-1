@@ -51,8 +51,8 @@
   </head>
 
   <body class="<%= devise_controller? ? "h-full" : "" %>">
-    <% if !user_signed_in? && !devise_controller? %>
-      <%= render "layouts/home_nav" %>
+    <% unless devise_controller? %>
+      <%= render "layouts/nav" %>
     <% end %>
     <%= yield %>
 

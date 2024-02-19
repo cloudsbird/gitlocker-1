@@ -10,8 +10,12 @@
         <div class="bg-gray-900">
           <div class="mx-auto flex h-10 max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8">
             <div class="flex items-center space-x-6">
-              <%= link_to "Sign in", new_user_session_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
-              <%= link_to "Create an account", new_user_registration_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
+              <% if user_signed_in? %>
+                <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-sm font-medium text-white hover:text-gray-100" %>
+              <% else %>
+                <%= link_to "Sign in", new_user_session_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
+                <%= link_to "Create an account", new_user_registration_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
+              <% end %>
             </div>
           </div>
         </div>
