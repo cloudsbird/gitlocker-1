@@ -45,6 +45,12 @@ RSpec.describe ProductPolicy, type: :policy do
       expect(subject).to permit(user, product)
     end
 
+    it "denies access if the product has already been reviewed" do
+      product = create(:product, user: user, active: true, published: true)
+      review = create(:review, product: product, user: user)
+      expect(subject).not_to permit(user, product)
+    end
+
     it "denies access if the product creator is the user" do
       product = create(:product, user: user, active: true, published: true)
       expect(subject).not_to permit(user, product)

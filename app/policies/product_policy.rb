@@ -27,6 +27,8 @@ class ProductPolicy < ApplicationPolicy
 
     return false if user.blank?
 
+    return false if record.reviews.pluck(:user_id).include?(user.id)
+
     record.user_id != user.id
   end
 end
