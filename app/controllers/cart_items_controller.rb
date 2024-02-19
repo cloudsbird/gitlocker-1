@@ -1,5 +1,6 @@
 class CartItemsController < ApplicationController
   def index
+    @cart_items = (current_user || visitor_user).cart_items.includes(:product)
   end
 
   def create
