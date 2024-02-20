@@ -7,41 +7,7 @@
 
       <% if @cart_items.exists? %>
         <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-200">
-          <% @cart_items.each do |cart_item| %>
-            <li class="flex py-6 sm:py-10">
-              <div class="flex-shrink-0">
-                <% if cart_item.product.covers.exists? %>
-                  <%= render CarouselComponent.new(@product.covers) %>
-                <% else %>
-                  <%= image_tag "default-cover.png", class: "h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48" %>
-                <% end %>
-              </div>
-
-              <div class="ml-4 flex flex-1 flex-col justify-between sm:ml-6">
-                <div class="relative pr-9 sm:grid sm:grid-cols-2 sm:gap-x-6 sm:pr-0">
-                  <div>
-                    <div class="flex justify-between">
-                      <h3 class="text-sm">
-                        <%= link_to cart_item.product.name, library_path(cart_item.product), class: "font-medium text-gray-700 hover:text-gray-800" %>
-                      </h3>
-                    </div>
-                    <p class="mt-1 text-sm font-medium text-gray-900"><%= humanized_money_with_symbol cart_item.product.price %></p>
-                  </div>
-
-                  <div class="mt-4 sm:mt-0 sm:pr-9">
-                    <div class="absolute right-0 top-0">
-                      <%= link_to cart_item_path(cart_item), data: { "turbo-method": :delete }, class: "-m-2 inline-flex p-2 text-gray-400 hover:text-gray-500" do %>
-                        <span class="sr-only">Remove</span>
-                        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
-                          <path d="M6.28 5.22a.75.75 0 00-1.06 1.06L8.94 10l-3.72 3.72a.75.75 0 101.06 1.06L10 11.06l3.72 3.72a.75.75 0 101.06-1.06L11.06 10l3.72-3.72a.75.75 0 00-1.06-1.06L10 8.94 6.28 5.22z" />
-                        </svg>
-                      <% end %>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </li>
-          <% end %>
+          <%= render partial: "cart_items/cart_item", collection: @cart_items, as: :cart_item %>
         </ul>
       <% else %>
         <p>There are no items in the cart.</p>
