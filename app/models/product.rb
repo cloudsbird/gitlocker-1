@@ -5,6 +5,7 @@ class Product < ApplicationRecord
   monetize :price_cents
 
   belongs_to :user
+  belongs_to :language
 
   has_many :reviews, dependent: :destroy
 

@@ -9,13 +9,19 @@ class SyncProductsJob < ApplicationJob
 
     user.update!(syncing: true)
 
+    languages = Language.all.to_a
+
     products = repositories.map do |repository|
+      language = languages.find { |language| language.name == repository.language }
+      language ||= Language.find_or_create_by(name: repository.language)
+
       Product.new(
         user: user,
         name: repository.name,
         description: repository.description,
         url: repository.html_url,
-        repo_id: repository.id
+        repo_id: repository.id,
+        language: language
       )
     end
 
