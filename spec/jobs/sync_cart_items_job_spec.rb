@@ -11,4 +11,10 @@ RSpec.describe SyncCartItemsJob, type: :job do
     expect(cart_item.session_id).to be nil
     expect(cart_item.user_id).to eq user.id
   end
+
+  it "resets user cart_items counter cache to the correct value" do
+    expect do
+      described_class.perform_now(user_id: user.id, session_id: cart_item.session_id)
+    end.to change { user.reload.cart_items_count }.from(0).to(1)
+  end
 end
