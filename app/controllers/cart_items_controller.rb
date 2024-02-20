@@ -12,6 +12,6 @@ class CartItemsController < ApplicationController
   def destroy
     cart_item = CartItem.find(params[:id])
     cart_item.destroy
-    redirect_to :back
+    redirect_back(fallback_location: library_path(cart_item.product))
   end
 end
