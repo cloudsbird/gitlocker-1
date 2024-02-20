@@ -51,7 +51,9 @@
                       <%= link_to "Popular", nil, class: "flex items-center text-sm font-medium text-white" %>
                       <%= link_to "Featured", nil, class: "flex items-center text-sm font-medium text-white" %>
                       <%= link_to "Languages", nil, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "My Repositories", nil, class: "flex items-center text-sm font-medium text-white" %>
+                      <% if user_signed_in? %>
+                        <%= link_to "My Repositories", nil, class: "flex items-center text-sm font-medium text-white" %>
+                      <% end %>
                     </div>
                   </div>
                 </div>
