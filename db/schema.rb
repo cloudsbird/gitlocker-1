@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_02_20_114708) do
+ActiveRecord::Schema[7.1].define(version: 2024_02_20_114850) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -155,6 +155,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_114708) do
     t.string "slug"
     t.integer "reviews_count", default: 0, null: false
     t.float "average_rating", default: 0.0, null: false
+    t.bigint "language_id", null: false
+    t.index ["language_id"], name: "index_products_on_language_id"
     t.index ["repo_id"], name: "index_products_on_repo_id", unique: true
     t.index ["slug"], name: "index_products_on_slug", unique: true
     t.index ["user_id", "repo_id"], name: "index_products_on_user_id_and_repo_id", unique: true
@@ -203,6 +205,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_02_20_114708) do
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_items", "products"
   add_foreign_key "cart_items", "users"
+  add_foreign_key "products", "languages"
   add_foreign_key "products", "users"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
