@@ -15,4 +15,15 @@ RSpec.describe UserPolicy, type: :policy do
       expect(subject).not_to permit(user, other_user)
     end
   end
+
+  permissions :update? do
+    it "grants access if the user is him/herself" do
+      expect(subject).to permit(user, user)
+    end
+
+    it "denies access if the user is not him/herself" do
+      other_user = create(:user)
+      expect(subject).not_to permit(user, other_user)
+    end
+  end
 end
