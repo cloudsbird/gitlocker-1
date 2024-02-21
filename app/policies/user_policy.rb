@@ -5,4 +5,8 @@ class UserPolicy < ApplicationPolicy
     #   scope.all
     # end
   end
+
+  def edit?
+    record.id == user.id
+  end
 end
