@@ -14,6 +14,8 @@ class User < ApplicationRecord
   has_many :reviews, dependent: :destroy
   has_many :cart_items, dependent: :destroy
   has_many :products_in_cart, through: :cart_items, source: :product
+  has_many :purchases, dependent: :destroy
+  has_many :purchased_products, through: :purchases, source: :product
 
   has_one_attached :profile_picture
 
