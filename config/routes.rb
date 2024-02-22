@@ -57,6 +57,7 @@ Rails.application.routes.draw do
   resources :cart_items, only: [:index, :create, :destroy]
 
   get "checkout", to: "checkout#index"
+  post "checkout", to: "checkout#create"
 
   # Error Pages
   match '/404', to: 'errors#not_found', via: :all

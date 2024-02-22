@@ -11,4 +11,19 @@ RSpec.describe "Checkout", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "POST create" do
+    before { create(:cart_item, user: user) }
+
+    it "creates new purchases" do
+      expect do
+        post checkout_path
+      end.to change { Purchase.count }.from(0).to(1)
+    end
+
+    it "redirects to root_path" do
+      post checkout_path
+      expect(response).to redirect_to(root_path)
+    end
+  end
 end
