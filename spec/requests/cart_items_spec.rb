@@ -40,9 +40,9 @@ RSpec.describe "CartItems", type: :request do
       expect { delete_request }.to change { CartItem.count }.from(1).to(0)
     end
 
-    it "redirects to library_path" do
+    it "redirects to cart_items_path" do
       delete_request
-      expect(response).to redirect_to library_path(product)
+      expect(response).to redirect_to cart_items_path
     end
   end
 end
