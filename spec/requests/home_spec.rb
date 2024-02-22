@@ -11,7 +11,7 @@ RSpec.describe "Homes", type: :request do
 
     context "when logged in" do
       it "redirects to dashboard_path" do
-        user = create(:user)
+        user = create(:user, token: SecureRandom.uuid)
         sign_in user
         get root_path
         expect(response).to redirect_to(dashboard_path)
