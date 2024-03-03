@@ -32,6 +32,8 @@
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag asset_path("favicon.png") %>
 
+    <%= stripe_javascript_tag %>
+
     <% if current_page?(root_path) %>
       <script type="application/ld+json">
         {

@@ -25,6 +25,7 @@ gem "retriable", "~> 3.1"
 gem "sitemap_generator"
 gem "sprockets-rails"
 gem "stimulus-rails"
+gem "stripe-rails"
 gem "tailwindcss-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
