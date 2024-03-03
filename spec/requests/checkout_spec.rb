@@ -21,6 +21,12 @@ RSpec.describe "Checkout", type: :request do
       end.to change { Purchase.count }.from(0).to(1)
     end
 
+    it "deletes user's cart items" do
+      expect do
+        post checkout_path
+      end.to change { CartItem.count }.from(1).to(0)
+    end
+
     it "redirects to root_path" do
       post checkout_path
       expect(response).to redirect_to(root_path)
