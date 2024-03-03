@@ -32,7 +32,9 @@
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag asset_path("favicon.png") %>
 
-    <%= stripe_javascript_tag %>
+    <% if controller_name == "checkout" %>
+      <%= stripe_javascript_tag %>
+    <% end %>
 
     <% if current_page?(root_path) %>
       <script type="application/ld+json">
