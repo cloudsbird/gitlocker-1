@@ -6,6 +6,8 @@ class CheckoutController < ApplicationController
   end
 
   def create
+    binding.pry
+
     ActiveRecord::Base.transaction do
       purchases = current_user.cart_items.includes(:product).map do |cart_item|
         Purchase.new(
@@ -15,9 +17,9 @@ class CheckoutController < ApplicationController
           price_currency: cart_item.product.price_currency
         )
       end
-      Purchase.import(purchases, on_duplicate_key_ignore: true)
+      Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
       current_user.reload.cart_items.destroy_all
-      # pay_for_stuff
+      pay_for_stuff(total: purchases.sum(:price_cents))
     end
 
     redirect_to root_path
@@ -25,8 +27,8 @@ class CheckoutController < ApplicationController
 
   private
 
-  def pay_for_stuff
-    stripe_customer ||= if current_user.stripe_id.blank?
+  def pay_for_stuff(total:)
+    stripe_customer = if current_user.stripe_id.blank?
                           customer = Stripe::Customer.create(email: current_user.email)
                           current_user.update(stripe_id: customer.id)
                           customer
@@ -39,7 +41,7 @@ class CheckoutController < ApplicationController
       { source: params[:stripeToken] }
     )
     charge = Stripe::Charge.create(
-      amount: Money.from_amount(BigDecimal(params[:total])).cents,
+      amount: total,
       currency: "usd",
       source: stripe_card.id,
       customer: stripe_customer.id
