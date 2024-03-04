@@ -1,6 +1,6 @@
 require "rails_helper"
 
-RSpec.describe PaymentJob, type: :job do
+RSpec.describe StripePaymentJob, type: :job do
   let(:user) { create(:user) }
   let(:stripe_id) { SecureRandom.uuid }
   let(:stripe_token) { SecureRandom.uuid }

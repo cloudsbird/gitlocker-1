@@ -1,4 +1,4 @@
-class PaymentJob < ApplicationJob
+class StripePaymentJob < ApplicationJob
   queue_as :default
 
   def perform(user_id:, stripe_token:, total:)

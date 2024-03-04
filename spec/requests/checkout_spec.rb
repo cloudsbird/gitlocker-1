@@ -14,7 +14,7 @@ RSpec.describe "Checkout", type: :request do
 
   describe "POST create" do
     before do
-      allow(PaymentJob).to receive(:perform_now)
+      allow(StripePaymentJob).to receive(:perform_now)
       create(:cart_item, user: user)
     end
 

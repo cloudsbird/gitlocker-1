@@ -17,7 +17,7 @@ class CheckoutController < ApplicationController
       end
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
       current_user.reload.cart_items.destroy_all
-      PaymentJob.perform_now(
+      StripePaymentJob.perform_now(
         user_id: current_user.id,
         stripe_token: params[:stripeToken],
         total: purchases.map(&:price_cents).sum
