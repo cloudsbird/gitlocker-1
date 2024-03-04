@@ -13,7 +13,10 @@ RSpec.describe "Checkout", type: :request do
   end
 
   describe "POST create" do
-    before { create(:cart_item, user: user) }
+    before do
+      allow(PaymentJob).to receive(:perform_now)
+      create(:cart_item, user: user)
+    end
 
     it "creates new purchases" do
       expect do

@@ -6,8 +6,6 @@ class CheckoutController < ApplicationController
   end
 
   def create
-    binding.pry
-
     ActiveRecord::Base.transaction do
       purchases = current_user.cart_items.includes(:product).map do |cart_item|
         Purchase.new(
@@ -19,7 +17,11 @@ class CheckoutController < ApplicationController
       end
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
       current_user.reload.cart_items.destroy_all
-      pay_for_stuff(total: purchases.sum(:price_cents))
+      PaymentJob.perform_now(
+        user_id: current_user.id,
+        stripe_token: params[:stripeToken],
+        total: purchases.map(&:price_cents).sum
+      )
     end
 
     redirect_to root_path
