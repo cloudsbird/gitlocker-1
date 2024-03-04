@@ -26,27 +26,4 @@ class CheckoutController < ApplicationController
 
     redirect_to root_path
   end
-
-  private
-
-  def pay_for_stuff(total:)
-    stripe_customer = if current_user.stripe_id.blank?
-                          customer = Stripe::Customer.create(email: current_user.email)
-                          current_user.update(stripe_id: customer.id)
-                          customer
-                        else
-                          Stripe::Customer.retrieve(current_user.stripe_id)
-                        end
-
-    stripe_card = Stripe::Customer.create_source(
-      stripe_customer.id,
-      { source: params[:stripeToken] }
-    )
-    charge = Stripe::Charge.create(
-      amount: total,
-      currency: "usd",
-      source: stripe_card.id,
-      customer: stripe_customer.id
-    )
-  end
 end
