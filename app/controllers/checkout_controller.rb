@@ -17,11 +17,12 @@ class CheckoutController < ApplicationController
       end
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
       current_user.reload.cart_items.destroy_all
-      StripePaymentJob.perform_now(
+      charge = StripePaymentJob.perform_now(
         user_id: current_user.id,
         stripe_token: params[:stripeToken],
         total: purchases.map(&:price_cents).sum
       )
+      payment = Payment.create(user: current_user, total_cents: purchases.map(&:price_cents).sum, stripe_charge_id: charge.id)
     end
 
     redirect_to root_path

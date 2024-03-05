@@ -14,7 +14,7 @@ RSpec.describe "Checkout", type: :request do
 
   describe "POST create" do
     before do
-      allow(StripePaymentJob).to receive(:perform_now)
+      allow(StripePaymentJob).to receive(:perform_now).and_return(double(id: "123"))
       create(:cart_item, user: user)
     end
 
@@ -22,6 +22,12 @@ RSpec.describe "Checkout", type: :request do
       expect do
         post checkout_path
       end.to change { Purchase.count }.from(0).to(1)
+    end
+
+    it "creates new purchase" do
+      expect do
+        post checkout_path
+      end.to change { Payment.count }.from(0).to(1)
     end
 
     it "deletes user's cart items" do
