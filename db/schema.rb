@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_05_201733) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_05_202447) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -180,6 +180,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_201733) do
     t.datetime "updated_at", null: false
     t.integer "price_cents", default: 0, null: false
     t.string "price_currency", default: "USD", null: false
+    t.bigint "payment_id"
+    t.index ["payment_id"], name: "index_purchases_on_payment_id"
     t.index ["product_id"], name: "index_purchases_on_product_id"
     t.index ["user_id", "product_id"], name: "index_purchases_on_user_id_and_product_id", unique: true
     t.index ["user_id"], name: "index_purchases_on_user_id"
@@ -231,6 +233,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_05_201733) do
   add_foreign_key "payments", "users"
   add_foreign_key "products", "languages"
   add_foreign_key "products", "users"
+  add_foreign_key "purchases", "payments"
   add_foreign_key "purchases", "products"
   add_foreign_key "purchases", "users"
   add_foreign_key "reviews", "products"
