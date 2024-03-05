@@ -15,6 +15,8 @@ class CheckoutController < ApplicationController
           price_currency: cart_item.product.price_currency
         )
       end
+      payment = Payment.create(user: current_user, total_cents: purchases.map(&:price_cents).sum)
+      purchases.each { |purchase| purchase.payment = payment }
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
       current_user.reload.cart_items.destroy_all
       charge = StripePaymentJob.perform_now(
@@ -22,7 +24,7 @@ class CheckoutController < ApplicationController
         stripe_token: params[:stripeToken],
         total: purchases.map(&:price_cents).sum
       )
-      payment = Payment.create(user: current_user, total_cents: purchases.map(&:price_cents).sum, stripe_charge_id: charge.id)
+      payment.update!(stripe_charge_id: charge.id)
     end
 
     redirect_to root_path
