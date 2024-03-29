@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_03_29_115433) do
+ActiveRecord::Schema[7.1].define(version: 2024_03_29_115526) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -205,8 +205,10 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_115433) do
     t.bigint "purchase_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "user_id", null: false
     t.index ["product_id"], name: "index_sales_on_product_id"
     t.index ["purchase_id"], name: "index_sales_on_purchase_id"
+    t.index ["user_id"], name: "index_sales_on_user_id"
   end
 
   create_table "subscribed_users", force: :cascade do |t|
@@ -251,4 +253,5 @@ ActiveRecord::Schema[7.1].define(version: 2024_03_29_115433) do
   add_foreign_key "reviews", "users"
   add_foreign_key "sales", "products"
   add_foreign_key "sales", "purchases"
+  add_foreign_key "sales", "users"
 end
