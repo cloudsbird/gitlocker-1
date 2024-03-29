@@ -3,7 +3,7 @@ module Users
     before_action :authenticate_user!
 
     def update
-      @user = User.find(params[:id])
+      @user = User.friendly.find(params[:id])
       @products = @user.products.where(id: product_ids_params[:product_ids])
       @products.update_all(active: true)
       @user.registration_completed!

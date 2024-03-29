@@ -10,6 +10,9 @@ class User < ApplicationRecord
     registration_completed: 1
   }
 
+  extend FriendlyId
+  friendly_id :email_stripped, use: :slugged, slug_column: :username
+
   has_many :products, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :cart_items, dependent: :destroy
@@ -19,6 +22,8 @@ class User < ApplicationRecord
   has_many :payments, dependent: :destroy
 
   has_one_attached :profile_picture
+
+  validates :username, presence: true, uniqueness: { case_sensitive: false }
 
   def self.from_omniauth(access_token)
     token    = access_token.credentials.token
@@ -46,5 +51,9 @@ class User < ApplicationRecord
   def clone_repositories(git_url)
     # Temporary method to have a note of how to clone repositories
     "git clone https://oauth2:#{token}@github.com/#{username}/{repository_name}"
+  end
+
+  def email_stripped
+    email.split("@").first
   end
 end

@@ -3,7 +3,7 @@ module Users
     before_action :authenticate_user!
 
     def index
-      @user = User.find(params[:user_id])
+      @user = User.friendly.find(params[:user_id])
       @products = @user.products
 
       respond_to do |format|
