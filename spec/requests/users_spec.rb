@@ -5,6 +5,13 @@ RSpec.describe "Users", type: :request do
 
   before { sign_in user }
 
+  describe "GET show" do
+    it "succeeds" do
+      get user_path(user)
+      expect(response).to have_http_status(:success)
+    end
+  end
+
   describe "GET edit" do
     context "when valid user" do
       it "succeeds" do
