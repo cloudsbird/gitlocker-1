@@ -10,4 +10,5 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:purchases).dependent(:destroy) }
   it { is_expected.to have_many(:purchased_products).through(:purchases).source(:product) }
   it { is_expected.to have_many(:payments).dependent(:destroy) }
+  it { is_expected.to have_many(:sales).class_name("ProductPurchase").with_foreign_key(:creator_id) }
 end
