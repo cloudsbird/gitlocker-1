@@ -5,5 +5,5 @@ class Purchase < ApplicationRecord
   belongs_to :product
   belongs_to :payment, optional: true
 
-  has_many :product_purchases
+  has_many :sales
 end
