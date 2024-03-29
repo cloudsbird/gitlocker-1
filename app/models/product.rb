@@ -8,6 +8,7 @@ class Product < ApplicationRecord
   belongs_to :language
 
   has_many :reviews, dependent: :destroy
+  has_many :purchases
 
   has_many_attached :covers
 

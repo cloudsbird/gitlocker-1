@@ -10,5 +10,5 @@ RSpec.describe User, type: :model do
   it { is_expected.to have_many(:purchases).dependent(:destroy) }
   it { is_expected.to have_many(:purchased_products).through(:purchases).source(:product) }
   it { is_expected.to have_many(:payments).dependent(:destroy) }
-  it { is_expected.to have_many(:sales) }
+  it { is_expected.to have_many(:sales).through(:products).source(:purchases) }
 end
