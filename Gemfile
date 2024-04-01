@@ -60,5 +60,5 @@ group :development do
 end
 
 group :test do
-  gem "shoulda-matchers", "~> 6.1"
+  gem "shoulda-matchers", "~> 6.2"
 end
