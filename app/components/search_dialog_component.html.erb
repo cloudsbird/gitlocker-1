@@ -27,7 +27,7 @@
   ></div>
 
   <div class="fixed inset-0 z-10 w-screen overflow-y-auto">
-    <div class="flex min-h-full items-end justify-center p-4 text-center sm:items-center sm:p-0">
+    <div class="flex min-h-full items-start justify-center p-4 text-center sm:items-start sm:p-0">
       <!--
         Modal panel, show/hide based on modal state.
 
@@ -39,7 +39,7 @@
           To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       -->
       <div
-        class="relative transform overflow-hidden rounded-lg bg-white px-4 pb-4 pt-5 text-left shadow-xl transition-all <%= @modal_size %> sm:my-8 sm:w-full sm:p-6"
+        class="relative transform overflow-hidden rounded-lg text-left transition-all max-w-3xl sm:my-16 sm:w-full"
         data-search-dialog-target="container"
         data-transition-enter="transition ease-out duration-300"
         data-transition-enter-start="transform opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
@@ -49,22 +49,16 @@
         data-transition-leave-end="transform opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       >
         <div>
-          <% if @icon %>
-            <div class="mb-3 mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-green-100 sm:mb-5">
-              <svg class="h-6 w-6 text-green-600" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+          <div class="relative rounded-md shadow-sm">
+            <div class="pointer-events-none absolute inset-y-0 left-0 flex items-center pl-3">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="m21 21-5.197-5.197m0 0A7.5 7.5 0 1 0 5.196 5.196a7.5 7.5 0 0 0 10.607 10.607Z" />
               </svg>
             </div>
-          <% end %>
-          <div class="text-center">
-            <% if @headline %>
-              <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title"><%= @headline %></h3>
-            <% end %>
-            <% if @body %>
-              <div class="mt-2">
-                <%= @body %>
-              </div>
-            <% end %>
+            <input
+              type="text"
+              class="block w-full rounded-md border-0 py-3 pl-10 text-gray-900 ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-xl sm:leading-6"
+            >
           </div>
         </div>
       </div>
