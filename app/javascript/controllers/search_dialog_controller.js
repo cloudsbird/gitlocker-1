@@ -1,4 +1,4 @@
-import { Controller } from '@hotwired/stimulus'
+import { Controller } from '@hotwired/stimulus';
 
 // Connects to data-controller="search-dialog"
 export default class extends Controller {
@@ -14,5 +14,12 @@ export default class extends Controller {
         this.element.classList.add('hidden');
       }
     });
+  }
+
+  submit(e) {
+    e.preventDefault();
+
+    if (e.key === 'Enter' || e.keyCode === 13) {
+    }
   }
 }
