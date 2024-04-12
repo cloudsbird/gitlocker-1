@@ -1,6 +1,10 @@
 class HomeController < ApplicationController
   def index
     redirect_to dashboard_path if user_signed_in? && current_user.token.present?
+
+    if params[:search]
+      redirect_to new_user_session_path
+    end
   end
 
   def privacy
