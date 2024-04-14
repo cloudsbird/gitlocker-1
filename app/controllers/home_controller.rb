@@ -5,6 +5,8 @@ class HomeController < ApplicationController
     if params[:search]
       redirect_to new_user_session_path
     end
+
+    @languages = Language.all
   end
 
   def privacy
