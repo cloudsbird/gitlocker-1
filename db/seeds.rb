@@ -1,4 +1,4 @@
-chris = User.create(
+chris = User.find_or_create_by(
   email: "chris@typefast.co",
   username: "chrisjeon",
   name: "Chris Jeon",
@@ -7,7 +7,7 @@ chris = User.create(
   synced: true
 )
 
-cody = User.create(
+cody = User.find_or_create_by(
   email: "codyrutscher@gmail.com",
   username: "codyrutscher",
   name: "Cody Rutscher",
@@ -15,17 +15,6 @@ cody = User.create(
   registration_status: "registration_completed",
   synced: true
 )
-
-3.times do
-  User.create(
-    email: Faker::Internet.email,
-    username: Faker::Internet.username,
-    name: Faker::Name.name,
-    password: "password",
-    registration_status: "registration_completed",
-    synced: true
-  )
-end
 
 languages = Language::NAMES.keys.map do |language_name|
   Language.new(name: language_name, image_name: Language::NAMES[language_name])
