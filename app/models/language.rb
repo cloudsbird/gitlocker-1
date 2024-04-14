@@ -20,4 +20,5 @@ class Language < ApplicationRecord
   }.with_indifferent_access
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
+  validates :image_name, presence: true
 end
