@@ -14,4 +14,13 @@ class Product < ApplicationRecord
 
   validates :name, presence: true
   validates :url, presence: true, uniqueness: { scope: :name }
+
+  include PgSearch::Model
+
+  multisearchable against: [:name, :language_name],
+                  if: :published?
+
+  def language_name
+    language.name
+  end
 end
