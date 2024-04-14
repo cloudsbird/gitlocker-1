@@ -1,6 +1,4 @@
 class Language < ApplicationRecord
-  has_many :products
-
   NAMES = {
     "C#": "c-sharp.png",
     "C": "c.png",
@@ -18,6 +16,8 @@ class Language < ApplicationRecord
     "SQL": "sql.png",
     "Swift": "swift.png"
   }.with_indifferent_access
+
+  has_many :products
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :image_name, presence: true
