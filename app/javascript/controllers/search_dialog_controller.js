@@ -1,5 +1,4 @@
 import { Controller } from '@hotwired/stimulus';
-import { get } from '@rails/request.js';
 
 // Connects to data-controller="search-dialog"
 export default class extends Controller {
@@ -17,18 +16,9 @@ export default class extends Controller {
     });
   }
 
-  async submit(e) {
+  submit(e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
-      const response = await get(e.target.dataset.searchUrl, {
-        query: {
-          search: e.target.value
-        },
-        responseKind: 'html'
-      });
-
-      if (response.ok) {
-        response.redirected
-      }
+      window.location.href = `/search?search=${e.target.value}`;
     }
   }
 }
