@@ -17,6 +17,7 @@ gem "octokit"
 gem "omniauth-github", "~> 2.0.0" #Install omniauth-github
 gem "omniauth-rails_csrf_protection"
 gem "pg", "~> 1.5"
+gem "pg_search"
 gem "puma", ">= 5.0"
 gem "pundit"
 gem "rails", "~> 7.1.3"
