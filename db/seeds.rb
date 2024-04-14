@@ -26,3 +26,15 @@ cody = User.create(
     synced: true
   )
 end
+
+languages = Language::NAMES.keys.map do |language_name|
+  Language.new(name: language_name, image_name: Language::NAMES[language_name])
+end
+
+Language.import(
+  languages,
+  on_duplicate_key_update: {
+    conflict_target: [:name],
+    columns: [:image_name]
+  }
+)
