@@ -61,6 +61,8 @@ Rails.application.routes.draw do
   get "checkout", to: "checkout#index"
   post "checkout", to: "checkout#create"
 
+  get "search", to: "search_results#index"
+
   # Error Pages
   match '/404', to: 'errors#not_found', via: :all
   match '/422', to: 'errors#unacceptable', via: :all
