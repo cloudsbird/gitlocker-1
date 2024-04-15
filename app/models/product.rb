@@ -17,7 +17,7 @@ class Product < ApplicationRecord
 
   include PgSearch::Model
 
-  multisearchable against: [:name, :language_name],
+  multisearchable against: [:name, :language_name, :description],
                   if: :published?
 
   def language_name
