@@ -12,6 +12,7 @@ class ProductsController < ApplicationController
 
   def edit
     @product = current_user.products.friendly.find(params[:id])
+    @product_categories = @product.product_categories.includes(:category)
   end
 
   def update
@@ -25,6 +26,10 @@ class ProductsController < ApplicationController
   private
 
   def product_params
-    params.require(:product).permit(:name, :description, :price, :active, :published, covers: [])
+    params.require(:product).permit(
+      :name, :description, :price, :active, :published,
+      covers: [],
+      product_categories_attributes: [:id, :active]
+    )
   end
 end

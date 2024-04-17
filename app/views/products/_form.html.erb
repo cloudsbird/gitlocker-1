@@ -29,6 +29,22 @@
         <div class="sm:col-span-4">
           <%= f.label :categories, class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
+            <div class="space-y-5">
+              <% @product_categories.each do |project_category| %>
+                <%= f.fields_for :product_categories, project_category do |pc| %>
+                  <div class="relative flex items-start">
+                    <div class="flex h-6 items-center">
+                      <%= pc.check_box :active, { class: "h-4 w-4 rounded border-gray-300 text-indigo-600 focus:ring-indigo-600" }, project_category.id %>
+                    </div>
+                    <div class="ml-3 text-sm leading-6">
+                      <label class="font-medium text-gray-900">
+                        <%= project_category.category.name %>
+                      </label>
+                    </div>
+                  </div>
+                <% end %>
+              <% end %>
+            </div>
           </div>
         </div>
 

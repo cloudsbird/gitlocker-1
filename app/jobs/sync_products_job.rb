@@ -30,7 +30,8 @@ class SyncProductsJob < ApplicationJob
       on_duplicate_key_update: {
         conflict_target: [:repo_id],
         columns: [:name, :description, :url]
-      }
+      },
+      synchronize: products
     )
 
     user.update!(synced: true, syncing: false)

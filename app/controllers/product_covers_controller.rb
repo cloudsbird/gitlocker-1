@@ -3,6 +3,7 @@ class ProductCoversController < ApplicationController
   before_action :product
 
   def create
+    @product_categories = @product.product_categories.includes(:category)
     respond_to do |format|
       format.turbo_stream
     end
