@@ -25,11 +25,15 @@ class Product < ApplicationRecord
 
   include PgSearch::Model
 
-  multisearchable against: [:name, :language_name, :description],
+  multisearchable against: [:name, :language_name, :category_names, :description],
                   if: :published?
 
   def language_name
     language.name
+  end
+
+  def category_names
+    active_categories.pluck(:name).join(" ")
   end
 
   after_commit :seed_categories, on: :create
