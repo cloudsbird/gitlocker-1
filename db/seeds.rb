@@ -33,3 +33,9 @@ Language.import(
     columns: [:image_name]
   }
 )
+
+categories = Category::NAMES.map do |category_name|
+  Category.new(name: category_name)
+end
+
+Category.import(categories, on_duplicate_key_ignore: true)
