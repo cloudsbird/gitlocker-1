@@ -7,4 +7,12 @@ RSpec.describe "Creators", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET show" do
+    it "succeeds" do
+      user = create(:user)
+      get creator_path(user)
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
