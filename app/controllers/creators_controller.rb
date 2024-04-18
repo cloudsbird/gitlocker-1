@@ -1,6 +1,6 @@
 class CreatorsController < ApplicationController
   def index
-    @users = User.all
+    @users = User.sellers
   end
 
   def show
