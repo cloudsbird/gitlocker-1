@@ -5,5 +5,6 @@ class CreatorsController < ApplicationController
 
   def show
     @user = User.friendly.find(params[:id])
+    @products = @user.products.published
   end
 end
