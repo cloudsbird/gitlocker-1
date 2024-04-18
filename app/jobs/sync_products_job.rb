@@ -34,7 +34,7 @@ class SyncProductsJob < ApplicationJob
       synchronize: products
     )
 
-    user.update!(synced: true, syncing: false)
+    user.update!(synced: true, syncing: false, seller: products.size > 0)
   end
 
   attr_reader :user
