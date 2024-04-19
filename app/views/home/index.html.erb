@@ -48,41 +48,7 @@
         <div class="-my-2">
           <div class="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
             <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "popular/open-source-DocuSign-alternative.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Open Source DocuSign Alternative</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "popular/pytides.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Pytides</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "popular/redux-toolkit.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Redux Toolkit</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "popular/sudoku-solver.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Sudoku Solver</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "popular/typescript-complete-course.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">TypeScript Complete Course</span>
-              </a>
+              <%= render partial: "home/product", collection: @popular_products, as: :product %>
             </div>
           </div>
         </div>
@@ -102,15 +68,7 @@
         <div class="-my-2">
           <div class="relative py-2">
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-              <% @languages.each do |language| %>
-                <%= link_to "", class: "relative flex h-32 w-40 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto" do %>
-                  <span aria-hidden="true" class="absolute inset-0">
-                    <%= image_tag "languages/#{language.image_name}", class: "h-full w-full object-cover object-center" %>
-                  </span>
-                  <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                  <span class="relative mt-auto text-center text-xl font-bold text-white"><%= language.name %></span>
-                <% end %>
-              <% end %>
+              <%= render partial: "home/language", collection: @languages %>
             </div>
           </div>
         </div>
