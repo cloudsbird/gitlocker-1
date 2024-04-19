@@ -1,0 +1,57 @@
+<li
+  data-controller="product-card"
+  class="overflow-hidden rounded-xl border border-gray-200"
+>
+  <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
+    <% if product.covers.exists? %>
+      <%= image_tag product.covers.first, class: "h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" %>
+    <% else %>
+      <%= image_tag "default-cover.png", class: "h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10" %>
+    <% end %>
+
+    <div class="text-sm font-medium leading-6 text-gray-900"><%= product.name %></div>
+    <div class="relative ml-auto">
+      <button
+        type="button"
+        data-action="product-card#open"
+        class="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500"
+        id="options-menu-0-button"
+        aria-expanded="false"
+        aria-haspopup="true"
+      >
+        <span class="sr-only">Open options</span>
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+        </svg>
+      </button>
+
+      <div
+        data-product-card-target="menu"
+        data-transition-enter="transition ease-out duration-100"
+        data-transition-enter-start="transform opacity-0 scale-95"
+        data-transition-enter-end="transform opacity-100 scale-100"
+        data-transition-leave="transition ease-in duration-75"
+        data-transition-leave-start="transform opacity-100 scale-100"
+        data-transition-leave-end="transform opacity-0 scale-95"
+        class="hidden absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+        role="menu"
+        aria-orientation="vertical"
+        aria-labelledby="options-menu-0-button"
+        tabindex="-1"
+      >
+        <!-- Active: "bg-gray-50", Not Active: "" -->
+        <%= link_to library_path(product), data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-0" do %>
+          View
+        <% end %>
+      </div>
+    </div>
+  </div>
+  <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
+    <div class="flex justify-between gap-x-4 py-3">
+      <dt class="text-gray-500">Average rating</dt>
+      <dd class="text-gray-700">
+        <%= product.average_rating %>
+      </dd>
+    </div>
+  </dl>
+</li>

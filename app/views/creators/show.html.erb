@@ -1,0 +1,31 @@
+<main class="pb-4 pt-6 sm:pb-6">
+  <div class="space-y-16 py-16 xl:space-y-20">
+    <!-- Creators list-->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+        <div class="flex space-x-8 items-center justify-between mb-12 pb-12 border-b border-black">
+          <div class="flex-none">
+            <% if @user.profile_picture.attached? %>
+              <%= image_tag @user.profile_picture, class: "mx-auto h-32 w-32 flex-shrink-0 rounded-full" %>
+            <% else %>
+              <img class="mx-auto h-32 w-32 flex-shrink-0 rounded-full" src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=facearea&facepad=4&w=256&h=256&q=60" alt="">
+            <% end %>
+          </div>
+          <h1 class="flex-1 text-base font-semibold leading-7 text-gray-900 text-4xl"><%= @user.name %> - <%= link_to "@#{@user.username}", "https://github.com/#{@user.username}", class: "font-semibold leading-6 text-blue-600 hover:text-blue-500", target: :_blank %></h2>
+        </div>
+
+        <div class="flex space-x-8 items-center justify-between mb-12">
+          <h2 class="flex-1 text-base font-semibold leading-7 text-gray-900 text-2xl">Listed Products</h2>
+        </div>
+
+        <% if @products.empty? %>
+          <p class="font-medium leading-7 text-gray-900 text-xl">The user has no listed products for sale.</p>
+        <% else %>
+          <ul role="list" class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
+            <%= render partial: "creators/product", collection: @products, as: :product %>
+          </ul>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</main>
