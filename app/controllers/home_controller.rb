@@ -4,7 +4,7 @@ class HomeController < ApplicationController
 
     @languages = Language.all
     @featured_products = Product.published.featured.first(5)
-    @popular_products = Product.first(5)
+    @popular_products = Product.order(purchases_count: :desc).first(5)
   end
 
   def privacy
