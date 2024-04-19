@@ -28,6 +28,22 @@ class Product < ApplicationRecord
   multisearchable against: [:name, :language_name, :category_names, :description],
                   if: :published?
 
+  DEFAULT_PRODUCT_IMAGES = [
+    "featured/10-mini-JS-projects-for-beginners.png",
+    "featured/a-bootstrap-html-template.png",
+    "featured/backend-with-django.png",
+    "featured/bug-finder.png",
+    "featured/flask-react-app.png",
+    "popular/open-source-DocuSign-alternative.png",
+    "popular/pytides.png",
+    "popular/redux-toolkit.png",
+    "popular/sudoku-solver.png",
+    "popular/typescript-complete-course.png"
+  ]
+
+  scope :featured, -> { where(featured: true) }
+  scope :published, -> { where(published: true) }
+
   def language_name
     language.name
   end

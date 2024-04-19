@@ -28,41 +28,19 @@
         <div class="-my-2">
           <div class="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
             <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "featured/10-mini-JS-projects-for-beginners.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">10 Mini JS Projects for Beginners</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "featured/a-bootstrap-html-template.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Bootstrap HTML Template</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "featured/backend-with-django.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Backend with Django</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "featured/bug-finder.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Bug Finder</span>
-              </a>
-              <a href="#" class="relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto">
-                <span aria-hidden="true" class="absolute inset-0">
-                  <%= image_tag "featured/flask-react-app.png", class: "h-full w-full object-cover object-center" %>
-                </span>
-                <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-                <span class="relative mt-auto text-center text-xl font-bold text-white">Flask/React App</span>
-              </a>
+              <% @featured_products.each do |product| %>
+                <%= link_to library_path(product), class: "relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto" do %>
+                  <span aria-hidden="true" class="absolute inset-0">
+                    <% if product.covers.exists? %>
+                      <%= image_tag product.covers.first, class: "object-cover object-center relative w-full" %>
+                    <% else %>
+                      <%= image_tag Product::DEFAULT_PRODUCT_IMAGES.sample, class: "object-cover object-center relative w-full" %>
+                    <% end %>
+                  </span>
+                  <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
+                  <span class="relative mt-auto text-center text-xl font-bold text-white"><%= product.name %></span>
+                  <% end %>
+              <% end %>
             </div>
           </div>
         </div>
