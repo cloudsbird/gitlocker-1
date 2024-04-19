@@ -64,6 +64,9 @@ Rails.application.routes.draw do
   get "search", to: "search_results#index"
 
   get "browse", to: "browse#index"
+  get "browse/popular", to: "browse#popular"
+  get "browse/featured", to: "browse#featured"
+  get "browse/languages", to: "browse#languages"
 
   # Error Pages
   match '/404', to: 'errors#not_found', via: :all

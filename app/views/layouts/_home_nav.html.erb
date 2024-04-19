@@ -48,10 +48,10 @@
                   <!-- Flyout menus -->
                   <div class="inset-x-0 bottom-0 px-4">
                     <div class="flex h-full justify-center space-x-8">
-                      <%= link_to "Browse Repositories", nil, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Popular", nil, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Featured", nil, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Languages", nil, class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Browse Repositories", browse_path, class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Popular", browse_popular_path, class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Featured", browse_featured_path, class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Languages", browse_languages_path, class: "flex items-center text-sm font-medium text-white" %>
                       <% if user_signed_in? %>
                         <%= link_to "My Repositories", nil, class: "flex items-center text-sm font-medium text-white" %>
                       <% end %>

@@ -7,4 +7,25 @@ RSpec.describe "Browse", type: :request do
       expect(response).to have_http_status(:success)
     end
   end
+
+  describe "GET popular" do
+    it "succeeds" do
+      get browse_popular_path
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET featured" do
+    it "succeeds" do
+      get browse_featured_path
+      expect(response).to have_http_status(:success)
+    end
+  end
+
+  describe "GET languages" do
+    it "succeeds" do
+      get browse_languages_path
+      expect(response).to have_http_status(:success)
+    end
+  end
 end
