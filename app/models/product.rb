@@ -28,6 +28,8 @@ class Product < ApplicationRecord
   multisearchable against: [:name, :language_name, :category_names, :description],
                   if: :published?
 
+  scope :published, -> { where(published: true) }
+
   def language_name
     language.name
   end

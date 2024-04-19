@@ -26,6 +26,8 @@ class User < ApplicationRecord
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }
 
+  scope :sellers, -> { where(seller: true) }
+
   def self.from_omniauth(access_token)
     token    = access_token.credentials.token
     email    = access_token.info.email
