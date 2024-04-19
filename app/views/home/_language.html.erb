@@ -1,4 +1,4 @@
-<%= link_to "", class: "relative flex h-32 w-40 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto" do %>
+<%= link_to browse_languages_path(language_id: language.id), class: "relative flex h-32 w-40 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto" do %>
   <span aria-hidden="true" class="absolute inset-0">
     <%= image_tag "languages/#{language.image_name}", class: "h-full w-full object-cover object-center" %>
   </span>

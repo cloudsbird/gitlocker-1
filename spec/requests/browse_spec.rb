@@ -24,7 +24,8 @@ RSpec.describe "Browse", type: :request do
 
   describe "GET languages" do
     it "succeeds" do
-      get browse_languages_path
+      language = create(:language)
+      get browse_languages_path(language_id: language.id)
       expect(response).to have_http_status(:success)
     end
   end
