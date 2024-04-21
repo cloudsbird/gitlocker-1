@@ -53,10 +53,6 @@
                       <%= link_to "Featured", browse_featured_path, class: "flex items-center text-sm font-medium text-white" %>
                       <%= link_to "Languages", browse_languages_path, class: "flex items-center text-sm font-medium text-white" %>
                       <%= link_to "Creators", creators_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Browse Repositories", nil, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Popular", nil, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Featured", nil, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Languages", nil, class: "flex items-center text-sm font-medium text-white" %>
                       <% if user_signed_in? %>
                         <%= link_to "My Repositories", nil, class: "flex items-center text-sm font-medium text-white" %>
                       <% end %>
