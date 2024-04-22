@@ -31,6 +31,7 @@ gem "tailwindcss-rails"
 gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "view_component"
+gem 'faraday-retry'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
@@ -49,6 +50,7 @@ group :development, :test do
   gem "faker"
   gem "pry-rails"
   gem "rspec-rails", "~> 6.1"
+  gem "letter_opener"
 end
 
 group :development do
