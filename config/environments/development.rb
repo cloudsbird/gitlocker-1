@@ -16,6 +16,12 @@ Rails.application.configure do
 
   # Enable server timing
   config.server_timing = true
+  config.action_mailer.default_url_options = { host: '127.0.0.1:3000' }
+  config.action_mailer.raise_delivery_errors = false
+  config.action_mailer.delivery_method = :letter_opener
+  config.action_mailer.perform_deliveries = true
+  config.action_mailer.perform_caching = false
+  config.action_mailer.asset_host = 'localhost:3000'
 
   # Enable/disable caching. By default caching is disabled.
   # Run rails dev:cache to toggle caching.
