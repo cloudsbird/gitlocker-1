@@ -15,6 +15,8 @@ class SyncProductsJob < ApplicationJob
       language = languages.find { |language| language.name == repository.language }
       language ||= Language.find_or_create_by(name: repository.language)
 
+      language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png') unless language.persisted?
+
       Product.new(
         user: user,
         name: repository.name,
