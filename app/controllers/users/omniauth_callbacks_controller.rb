@@ -7,7 +7,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github"
       if @user.registration_pending?
         sign_in @user, event: :authentication
-        redirect_to complete_developer_registrations_path
+        redirect_to root_path
       else
         sign_in_and_redirect @user, event: :authentication
       end
