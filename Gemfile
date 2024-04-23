@@ -32,6 +32,8 @@ gem "turbo-rails"
 gem "tzinfo-data", platforms: %i[ windows jruby ] # Windows does not include zoneinfo files, so bundle the tzinfo-data gem
 gem "view_component"
 gem 'faraday-retry'
+gem 'sendgrid-actionmailer'
+gem 'sendgrid-ruby'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

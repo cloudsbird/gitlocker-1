@@ -28,6 +28,22 @@ Rails.application.configure do
 
   # Do not fallback to assets pipeline if a precompiled asset is missed.
   config.assets.compile = false
+  config.action_mailer.default_url_options = { host: ENV['BASE_URL'] }
+  ActionMailer::Base.smtp_settings = {
+    user_name: 'apikey',
+    password: ENV['SENDGRID_API_KEY'],
+    domain: 'gitlocker.com',
+    address: 'smtp.sendgrid.net',
+    port: 587,
+    authentication: :plain
+  }
+  
+  config.action_mailer.delivery_method = :sendgrid_actionmailer
+  
+  config.action_mailer.sendgrid_actionmailer_settings = {
+    api_key: ENV['SENDGRID_API_KEY'],
+    raise_delivery_errors: true
+  }
 
   # Enable serving of images, stylesheets, and JavaScripts from an asset server.
   # config.asset_host = "http://assets.example.com"
