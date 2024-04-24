@@ -28,6 +28,13 @@ class User < ApplicationRecord
 
   scope :sellers, -> { where(seller: true) }
 
+  include PgSearch::Model
+  pg_search_scope :search,
+                  against: [:name, :email, :username],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
+
   def self.from_omniauth(access_token)
     token    = access_token.credentials.token
     email    = access_token.info.email

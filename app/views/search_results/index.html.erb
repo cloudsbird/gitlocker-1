@@ -1,25 +1,48 @@
 <div class="bg-white">
   <main>
-    <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+    <section aria-labelledby="products-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-        <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Search Results: <%= params[:search ]%></h2>
+        <h2 id="products-heading" class="text-2xl font-bold tracking-tight text-gray-900">Product Search Results: <%= params[:search] %></h2>
       </div>
 
       <div class="mt-4 flow-root">
         <div class="-my-2">
-          <div class="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
+          <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
             <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <% if @products.empty? %>
+              <% if @product_results&.empty? %>
                 <div class="mt-24 col-span-full text-center">
-                  <p class="text-2xl">There are no search results</p>
+                  <p class="text-2xl">There are no product search results</p>
                 </div>
               <% else %>
-                <%= render partial: "products/product_card", collection: @products, as: :product %>
+                <%= render partial: "products/product_card", collection: @product_results, as: :product %>
               <% end %>
             </div>
           </div>
         </div>
       </div>
     </section>
+    
+    <section aria-labelledby="creators-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+      <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+        <h2 id="creators-heading" class="text-2xl font-bold tracking-tight text-gray-900">Creator Search Results: <%= params[:search] %></h2>
+      </div>
+
+      <div class="mt-4 flow-root">
+        <div class="-my-2">
+          <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
+            <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+              <% if @creator_results&.empty? %>
+                <div class="mt-24 col-span-full text-center">
+                  <p class="text-2xl">There are no user search results</p>
+                </div>
+              <% else %>
+                <%= render partial: "products/user_card", collection: @creator_results, as: :user %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  
   </main>
 </div>
