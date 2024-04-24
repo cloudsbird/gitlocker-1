@@ -2,18 +2,25 @@
   <main>
     <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0 mb-4">
-        <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Browse by languages: <%= @language.name %></h2>
+        <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Browse by languages</h2>
       </div>
 
-      <div class="mt-4 flow-root">
-        <div class="-my-2">
-          <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
-            <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <%= render partial: "home/product", collection: @products %>
+      <% @languages.each do |language| %>
+        <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0 mb-4">
+          <h3 class="text-lg font-bold tracking-tight text-gray-900"> <%= language.name %></h3>
+        </div>
+
+        <div class="mt-4 flow-root">
+          <div class="-my-2">
+            <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
+              <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+                <% products = @products.select { |product| product.language_id == language.id } %>
+                <%= render partial: "home/product", collection: products %>
+              </div>
             </div>
           </div>
         </div>
-      </div>
+      <% end %>
     </section>
   </main>
 </div>

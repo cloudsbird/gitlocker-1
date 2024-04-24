@@ -24,6 +24,11 @@ class Product < ApplicationRecord
   accepts_nested_attributes_for :product_categories
 
   include PgSearch::Model
+  pg_search_scope :search,
+                  against: [:name],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 
   multisearchable against: [:name, :language_name, :category_names, :description],
                   if: :published?
