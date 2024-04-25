@@ -4,6 +4,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     @user = User.from_omniauth(request.env["omniauth.auth"])
 
     if @user.persisted?
+      @user.confirm unless @user.confirmed?
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github"
       if @user.registration_pending?
         sign_in @user, event: :authentication
