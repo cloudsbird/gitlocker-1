@@ -3,13 +3,14 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:github]
+         :omniauthable,:confirmable, omniauth_providers: [:github]
 
   enum :registration_status, {
     registration_pending: 0,
     registration_completed: 1
   }
 
+  enum state: { buyer: 0, seller: 1 }
   extend FriendlyId
   friendly_id :email_stripped, use: :slugged, slug_column: :username
 

@@ -9,4 +9,9 @@ class DashboardController < ApplicationController
       sale.created_at.to_date
     end
   end
+
+  def seller_dashboard
+    current_user.update(state: User.states[:seller])
+    redirect_to root_path
+  end
 end
