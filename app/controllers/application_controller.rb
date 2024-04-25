@@ -9,6 +9,9 @@ class ApplicationController < ActionController::Base
   protected
 
   def after_sign_in_path_for(resource)
+      if current_user.seller?
+        current_user.update(state: User.states[:buyer])
+      end
       root_path
   end
 end

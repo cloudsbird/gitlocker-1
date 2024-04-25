@@ -25,12 +25,14 @@ Rails.application.routes.draw do
   root "home#index"
 
   get "privacy", to: "home#privacy"
+  get "explore", to: "home#explore"
   get "terms", to: "home#terms"
   get "refund_policy", to: "home#refund_policy"
   get "contact", to: "home#contact"
   get "robots.txt", to: "home#robots"
 
   get "dashboard", to: "dashboard#index"
+  get "seller_dashboard", to: "dashboard#seller_dashboard"
 
   get "complete_registrations", to: "complete_registrations#index"
   put "complete_registration", to: "complete_registrations#update"

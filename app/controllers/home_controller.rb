@@ -1,6 +1,6 @@
 class HomeController < ApplicationController
   def index
-    redirect_to dashboard_path if user_signed_in? && current_user.token.present?
+    # redirect_to dashboard_path if user_signed_in? && current_user.token.present?
 
     @languages = Language.all
     @featured_products = Product.published.featured.first(5)
@@ -17,6 +17,11 @@ class HomeController < ApplicationController
   end
 
   def contact
+  end
+
+  def explore
+    current_user.update(state: User.states[:buyer])
+    redirect_to root_path
   end
 
   def robots

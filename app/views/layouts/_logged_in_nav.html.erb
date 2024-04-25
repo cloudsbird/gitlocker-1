@@ -8,7 +8,7 @@
           <path fill-rule="evenodd" d="M2 4.75A.75.75 0 012.75 4h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 4.75zM2 10a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75A.75.75 0 012 10zm0 5.25a.75.75 0 01.75-.75h14.5a.75.75 0 010 1.5H2.75a.75.75 0 01-.75-.75z" clip-rule="evenodd" />
         </svg>
       </button>
-      <%= link_to root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+      <%= link_to explore_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
         <div class="flex items-center">
           <div>
             <%= image_tag "logo-transparent.png", class: "h-8 w-auto", alt: "" %>
@@ -21,7 +21,7 @@
     </div>
     <nav class="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
       <% if current_user %>
-        <%= link_to "Explore", root_path, class: "flex items-center text-sm font-medium text-white" %>
+        <%= link_to "Explore", explore_path, class: "flex items-center text-sm font-medium text-white" %>
         <%= link_to "Dashboard", dashboard_path, class: "flex items-center text-sm font-medium text-white" %>
         <%= link_to "Products", products_path, class: "flex items-center text-sm font-medium text-white" %>
         <%= link_to "Sales", sales_path, class: "flex items-center text-sm font-medium text-white" %>

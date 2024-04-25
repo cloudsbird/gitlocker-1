@@ -1,4 +1,4 @@
-<% if current_user&.token&.present? %>
+<% if current_user&.seller? %>
   <%= render "layouts/logged_in_nav" %>
 <% else %>
   <%= render "layouts/home_nav" %>
