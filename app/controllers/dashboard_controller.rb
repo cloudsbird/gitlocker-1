@@ -12,6 +12,6 @@ class DashboardController < ApplicationController
 
   def seller_dashboard
     current_user.update(state: User.states[:seller])
-    redirect_to root_path
+    redirect_to dashboard_path
   end
 end
