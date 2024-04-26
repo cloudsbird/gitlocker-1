@@ -1,3 +1,16 @@
+<div class="bg-gray-900">
+  <div class="mx-auto flex h-10 max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8">
+    <div class="flex items-center space-x-6">
+      <% if user_signed_in? %>
+        <%= link_to "Profile", edit_user_path(current_user), class: "text-sm font-medium text-white hover:text-gray-100" %>
+        <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-sm font-medium text-white hover:text-gray-100" %>
+      <% else %>
+        <%= link_to "Sign in", new_user_session_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
+        <%= link_to "Create an account", new_user_registration_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
+      <% end %>
+    </div>
+  </div>
+</div>
 <div class="relative bg-gray-900">
 <header class="bg-white bg-opacity-10 backdrop-blur-md inset-x-0 top-0 z-50 flex h-16 border-b border-gray-900/10">
   <div class="mx-auto flex w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:px-8">
@@ -26,7 +39,6 @@
         <%= link_to "Products", products_path, class: "flex items-center text-sm font-medium text-white" %>
         <%= link_to "Sales", sales_path, class: "flex items-center text-sm font-medium text-white" %>
       <% end %>
-      <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "flex items-center text-sm font-medium text-white"  %>
     </nav>
     <% if current_user&.registration_completed? %>
       <div class="flex flex-1 items-center justify-end gap-x-8">
