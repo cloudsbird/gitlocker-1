@@ -10,8 +10,13 @@ Rails.application.routes.draw do
   devise_for :users, controllers: {
     registrations: "users/registrations",
     sessions: "users/sessions",
-    omniauth_callbacks: "users/omniauth_callbacks"
+    omniauth_callbacks: "users/omniauth_callbacks",
+    passwords: 'passwords'
   }
+  devise_scope :user do
+    get '/password_instructions', to: 'passwords#show_instructions'
+    get '/signup_success', to: 'users/registrations#signup_success', as: 'signup_success'
+  end
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
