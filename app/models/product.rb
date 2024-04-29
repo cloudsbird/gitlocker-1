@@ -20,7 +20,7 @@ class Product < ApplicationRecord
   has_many_attached :covers
 
   validates :name, presence: true
-  validates :url, presence: true, uniqueness: { scope: :name }
+  # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories
 

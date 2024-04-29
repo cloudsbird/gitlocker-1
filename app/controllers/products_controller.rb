@@ -31,9 +31,9 @@ class ProductsController < ApplicationController
   end
 
   def create
-    @product = Product.new(product_params)
-    @product.update(user_id: current_user.id,language_id: Language.last.id)
-    if @product.save!(validate: false)
+    product_params_with_user = product_params.merge(user_id: current_user.id)
+    @product = Product.new(product_params_with_user)
+    if @product.save!
       @product.folder.attach(params[:product][:folder])
       upload_folder_to_s3(params[:product][:folder]) if params[:product][:folder].present?
       render json: { message: 'Product was successfully created.' }, status: :created
@@ -58,7 +58,5 @@ class ProductsController < ApplicationController
     object_key = "#{SecureRandom.uuid}/folder.zip"
     obj = bucket.object(object_key)
     obj.upload_file(folder.path)
-    @product.folder.attach(io: folder, filename: 'folder.zip', content_type: 'application/zip')
-    @product.save(validate: false)
   end
 end
