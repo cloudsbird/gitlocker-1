@@ -9,6 +9,7 @@ class Product < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
   has_many :purchases
+  has_one_attached :folder
 
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories
