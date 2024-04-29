@@ -1,0 +1,14 @@
+<div class="bg-white py-16">
+  <%=
+    render BreadcrumbComponent.new([
+      { text: "Products", url: products_path },
+      { text: "New Product" }
+    ])
+  %>
+
+  <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+    <%= turbo_frame_tag "new_product_form" do %>
+      <%= render "new_form", product: @product %>
+    <% end %>
+  </div>
+</div>

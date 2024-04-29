@@ -1,3 +1,6 @@
+require 'zip'
+require 'tempfile'
+require 'aws-sdk-s3'
 class ProductsController < ApplicationController
   before_action :authenticate_user!
 
@@ -23,13 +26,37 @@ class ProductsController < ApplicationController
     end
   end
 
+  def new
+    @product = Product.new
+  end
+
+  def create
+    product_params_with_user = product_params.merge(user_id: current_user.id)
+    @product = Product.new(product_params_with_user)
+    if @product.save!
+      @product.folder.attach(params[:product][:folder])
+      upload_folder_to_s3(params[:product][:folder]) if params[:product][:folder].present?
+      render json: { message: 'Product was successfully created.' }, status: :created
+    else
+      render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
+    end
+  end
+
   private
 
   def product_params
     params.require(:product).permit(
-      :name, :description, :price, :active, :published,
+      :name, :description, :price, :active, :published, :category_ids, :language_id,
       covers: [],
       product_categories_attributes: [:id, :active]
     )
+  end
+
+  def upload_folder_to_s3(folder)
+    s3 = Aws::S3::Resource.new
+    bucket = s3.bucket(ENV['AMAZON_BUCKET'])
+    object_key = "#{SecureRandom.uuid}/folder.zip"
+    obj = bucket.object(object_key)
+    obj.upload_file(folder.path)
   end
 end
