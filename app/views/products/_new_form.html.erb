@@ -27,7 +27,9 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :covers, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <%= f.label :covers, class: "block text-sm font-medium leading-6 text-gray-900" do %>
+            Cover Images
+          <% end %>
           <div class="mt-2">
             <%= f.file_field :covers, multiple: true, class: "form-control", id: "covers" %>
           </div>
@@ -41,7 +43,9 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :video_file, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <%= f.label :video_file, class: "block text-sm font-medium leading-6 text-gray-900" do %>
+            Explainer Video File
+          <% end %>
           <div class="mt-2">
             <%= f.file_field :video_file, class: "form-control", id: "product_video_file" %>
           </div>
@@ -62,7 +66,9 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :upload, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <%= f.label :upload, class: "block text-sm font-medium leading-6 text-gray-900" do %>
+            Product Upload
+          <% end %>
           <div class="mt-2">
             <input type="file" id="product-folder" name="product[folder]" multiple webkitdirectory class="block w-full py-1.5 px-4 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
           </div>
