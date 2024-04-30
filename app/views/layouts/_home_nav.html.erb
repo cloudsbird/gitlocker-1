@@ -57,6 +57,7 @@
                       <% if user_signed_in? %>
                         <%= link_to "Purchased", "", class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "Sell", seller_dashboard_path, class: "flex items-center text-sm font-medium text-white" %>
+                        <%= link_to "Add product", new_product_path, class: "flex items-center text-sm font-medium text-white" %>
                       <% end %>
                     </div>
                   </div>

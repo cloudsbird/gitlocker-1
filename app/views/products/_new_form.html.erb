@@ -8,7 +8,7 @@
         <div class="sm:col-span-4">
           <%= f.label :name, class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
-            <%= f.text_field :name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
+            <%= f.text_field :name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6",id: "title", maxlength: "70", required: true %>
           </div>
         </div>
 
@@ -23,6 +23,27 @@
           <%= f.label :price, class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
             <%= f.number_field :price, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-4">
+          <%= f.label :covers, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.file_field :covers, multiple: true, class: "form-control", id: "covers" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-4">
+        <%= f.label :preview_video_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <div class="mt-2">
+          <%= f.text_field :preview_video_url, class: "form-control", id: "product_preview_video_url" %>
+        </div>
+        </div>
+
+        <div class="sm:col-span-4">
+          <%= f.label :video_file, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.file_field :video_file, class: "form-control", id: "product_video_file" %>
           </div>
         </div>
 
@@ -62,7 +83,6 @@
 <script type="text/javascript">
   $(document).ready(function() {
     $('#product-form').submit(function(event) {
-      debugger
       event.preventDefault();
       
       var folderInput = document.getElementById('product-folder');
@@ -74,6 +94,14 @@
       formData.append('product[description]', $('#product_description').val());
       formData.append('product[price]', $('#product_price').val());
       formData.append('product[language_id]', $('#product_language_id').val());
+      var coverImages = $('#covers')[0].files;
+      $.each(coverImages, function(index, image) {
+          formData.append('product[covers][]', image);
+      });
+      const fileInput = document.getElementById('product_video_file');
+      const product_file = fileInput.files[0]; 
+      formData.append('product[video_file]', product_file);
+      formData.append('product[preview_video_url]', $('#product_preview_video_url').val());
       $('#product_categories option:selected').each(function() {
         formData.append('product[category_ids][]', $(this).val());
       });
@@ -106,12 +134,23 @@
           },
           success: function(data) {
             $('#upload-status').html('<img class="w-10 h-10" src="<%= asset_path('tick.png') %>" alt="Tick"> Upload complete');
+            setTimeout(function() {
+              var productId = data.product_id; 
+              window.location.href = '/products/' + productId;
+            }, 5000);
           },
           error: function(xhr, status, error) {
             $('#upload-progress').text('Error: ' + error);
           }
         });
       });
+    });
+    var titleInput = document.getElementById('title');
+    titleInput.addEventListener('input', function() {
+      var currentValue = this.value;
+      if (currentValue.length > 70) {
+        this.value = currentValue.slice(0, 70);
+      }
     });
   });
 </script>

@@ -56,16 +56,18 @@
         <% else %>
           <p class="mt-6 text-gray-500 italic">No description</p>
         <% end %>
+       <p class="mt-2 text-lg font-bold"><%= number_to_currency(@product.price) %></p>
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
           <% if policy(@product).edit? %>
             <%= link_to "Edit", edit_product_path(@product), class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
             <button
               type="button"
-              class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50"
+              class="flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-50 px-8 py-3 text-base font-medium text-indigo-700 hover:bg-indigo-100 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50 preview-button"
             >
               Preview
             </button>
+            <div id="video-container"></div>
           <% elsif policy(@product).purchasable? %>
             <% if @in_cart %>
               <%= link_to "Remove from Cart", cart_item_path(@cart_item), data: { "turbo-method": :delete }, class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
@@ -248,3 +250,52 @@
     </div>
   </div>
 </div>
+<script src="https://www.youtube.com/iframe_api"></script>
+<script type="text/javascript">
+  $(document).ready(function() {
+    $('.preview-button').click(function() {
+      var videoId = '';
+
+      var videoFileAttached = <%= @product.video_file.attached? %>;
+
+      if (videoFileAttached) {
+        var videoFileUrl = '<%= url_for(@product.video_file)  if @product.video_file.attached? %>';
+        var videoElement = $('<video controls style="max-width: 213%; height: auto;"><source src="' + videoFileUrl + '" type="video/mp4"></video>');
+
+        $('#video-container').html(videoElement);
+      } else {
+        var previewVideoUrl = '<%= @product.preview_video_url %>';
+        if (previewVideoUrl.includes('youtube.com')) {
+          videoId = getYouTubeVideoId(previewVideoUrl);
+          createYouTubePlayer(videoId);
+        } else {
+          $('#video-container').html('<p>No preview available</p>');
+        }
+      }
+    });
+  });
+
+  function getYouTubeVideoId(url) {
+    var match = url.match(/(?:youtu\.be\/|youtube\.com(?:\/embed\/|\/v\/|\/watch\?v=))([\w\-]{11})/);
+    return match ? match[1] : null;
+  }
+
+  function createYouTubePlayer(videoId) {
+    var player = new YT.Player('video-container', {
+      height: '315',
+      width: '560',
+      videoId: videoId,
+      events: {
+        'onReady': onPlayerReady,
+        'onStateChange': onPlayerStateChange
+      }
+    });
+  }
+
+  function onPlayerReady(event) {
+    event.target.playVideo();
+  }
+
+  function onPlayerStateChange(event) {
+  }
+</script>

@@ -36,7 +36,7 @@ class ProductsController < ApplicationController
     if @product.save!
       @product.folder.attach(params[:product][:folder])
       upload_folder_to_s3(params[:product][:folder]) if params[:product][:folder].present?
-      render json: { message: 'Product was successfully created.' }, status: :created
+      render json: { message: 'Product was successfully created.', product_id: @product.id }, status: :created
     else
       render json: { errors: @product.errors.full_messages }, status: :unprocessable_entity
     end
@@ -46,9 +46,10 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      :name, :description, :price, :active, :published, :category_ids, :language_id,
+      :name, :description, :price, :active, :published, :category_ids, :language_id,:preview_video_url, :video_file,
       covers: [],
-      product_categories_attributes: [:id, :active]
+      product_categories_attributes: [:id, :active],
+      covers_attributes: [:id, :image]
     )
   end
 
