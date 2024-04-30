@@ -2,6 +2,8 @@ require 'zip'
 require 'tempfile'
 require 'aws-sdk-s3'
 class ProductsController < ApplicationController
+  include ActionController::RequestForgeryProtection
+  protect_from_forgery with: :null_session
   before_action :authenticate_user!
 
   def index
