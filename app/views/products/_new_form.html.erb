@@ -36,18 +36,29 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :preview_video_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <label for="product_video_source" class="block text-sm font-medium leading-6 text-gray-900">Video Source</label>
           <div class="mt-2">
-            <%= f.text_field :preview_video_url, class: "form-control", id: "product_preview_video_url", onchange: "disableFileField()" %>
+            <select id="product_video_source" class="form-control" onchange="toggleVideoFields()">
+              <option value="">Select Video Source</option>
+              <option value="Preview Video URL">Preview Video URL</option>
+              <option value="Explainer Video File">Explainer Video File</option>
+            </select>
           </div>
         </div>
 
-        <div class="sm:col-span-4">
+        <div class="sm:col-span-4" id="preview_video_url_field" style="display: none;">
+          <%= f.label :preview_video_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.text_field :preview_video_url, class: "form-control", id: "product_preview_video_url" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-4" id="video_file_field" style="display: none;">
           <%= f.label :video_file, class: "block text-sm font-medium leading-6 text-gray-900" do %>
             Explainer Video File
           <% end %>
           <div class="mt-2">
-            <%= f.file_field :video_file, class: "form-control", id: "product_video_file", onchange: "disableURLField()" %>
+            <%= f.file_field :video_file, class: "form-control", id: "product_video_file" %>
           </div>
         </div>
 
@@ -97,7 +108,24 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
 <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script type="text/javascript">
+  function toggleVideoFields() {
+    var selectedOption = $("#product_video_source").val();
+    if (selectedOption === "Preview Video URL") {
+      $("#preview_video_url_field").show();
+      $("#video_file_field").hide();
+    } else if (selectedOption === "Explainer Video File") {
+      $("#preview_video_url_field").hide();
+      $("#video_file_field").show();
+    } else {
+      $("#preview_video_url_field").hide();
+      $("#video_file_field").hide();
+    }
+  }
   $(document).ready(function() {
+    toggleVideoFields();
+    $("#product_video_source").change(function() {
+      toggleVideoFields();
+    });
     $('.js-example-basic-multiple').select2();
     var selectedCategories;
     var selectedLanguages;

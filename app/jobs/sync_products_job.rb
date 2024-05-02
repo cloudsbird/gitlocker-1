@@ -12,19 +12,17 @@ class SyncProductsJob < ApplicationJob
     languages = Language.all.to_a
 
     products = repositories.map do |repository|
-      language = languages.find { |language| language.name == repository.language }
-      language ||= Language.find_or_create_by(name: repository.language)
+      language = repository.language.present? ? languages.find { |lang| lang.name == repository.language } : Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
 
-      language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png') unless language.persisted?
-
-      Product.new(
+      product = Product.new(
         user: user,
         name: repository.name,
         description: repository.description,
         url: repository.html_url,
-        repo_id: repository.id,
-        language: language
+        repo_id: repository.id
       )
+      product.languages << language
+      product
     end
 
     Product.import!(

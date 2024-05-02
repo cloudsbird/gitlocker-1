@@ -1,0 +1,23 @@
+default: &default
+  adapter: postgresql
+  encoding: unicode
+  pool: <%= ENV.fetch("RAILS_MAX_THREADS") { 20 } %>
+  timeout: 5000
+  host: localhost
+  username: dev
+  password: 1234
+development:
+  <<: *default
+  database: new_gitlocker_development
+# Warning: The database defined as "test" will s erased and
+# re-generated from your development database when you run "rake".
+# Do not set this db to the same as development or production.
+test:
+  <<: *default
+  database: gitlocker_test
+production:
+  <<: *default
+  url: <%= ENV['DATABASE_URL'] %>
+
+
+#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

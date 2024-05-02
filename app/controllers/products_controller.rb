@@ -11,8 +11,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    @product = current_user.products.friendly.find(params[:id])
+    @product = current_user.products.includes(:reviews, :languages).friendly.find(params[:id])
     @reviews = @product.reviews.includes(:user)
+    @languages = @product.languages
+    @categories = @product.categories
   end
 
   def edit
@@ -33,7 +35,7 @@ class ProductsController < ApplicationController
   end
 
   def create
-    if params[:repository_source] == "private"
+    if params[:product][:repository_source] == "private"
       create_from_repo_url
     elsif params[:product][:repository_source] == "uploaded"
       product_params_with_user = product_params.merge(user_id: current_user.id)
@@ -81,7 +83,9 @@ class ProductsController < ApplicationController
   end
 
   def create_from_repo_url
-    repo_url = params[:repo_url]
+    product_params_with_user = product_params.merge(user_id: current_user.id)
+    @product = Product.new(product_params_with_user)
+    repo_url = params[:product][:repo_url]
     owner, repo_name = extract_owner_and_repo_name(repo_url)
     user_repos = octokit_client.repositories(nil, per_page: repositories_count)
     matching_repo = user_repos.find { |repo| repo.owner.login == owner && repo.name == repo_name }
@@ -90,16 +94,11 @@ class ProductsController < ApplicationController
       begin
         if matching_repo
           language = matching_repo.language.present? ? languages.find { |lang| lang.name == matching_repo.language } : Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
-
-          @product = Product.new(
-            user: current_user,
-            name: matching_repo.name,
-            description: matching_repo.description,
-            url: matching_repo.html_url,
-            repo_id: matching_repo.id
-          )
+          @product.name = matching_repo.name
+          @product.description = matching_repo.description
+          @product.url = matching_repo.html_url
+          @product.repo_id = matching_repo.id
           @product.languages << language
-
           if @product.save
             flash[:notice] = "Product created successfully from #{repo_url}."
             format.html { redirect_to product_path(@product) }
