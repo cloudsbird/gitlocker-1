@@ -7,16 +7,22 @@
   %>
 
   <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <button id="upload-link" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload Repository</button>
-    <button id="repo-link" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add from Private Repository</button>
+    <% if current_user.token.nil? %>
+      <div id="upload-form-container">
+        <%= render partial: 'new_form' %>
+      </div>
+    <% else %>
+      <button id="upload-link" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload Repository</button>
+      <button id="repo-link" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add from Private Repository</button>
 
-    <div id="upload-form-container" class="hidden">
-      <%= render partial: 'new_form' %>
-    </div>
+      <div id="upload-form-container" class="hidden">
+        <%= render partial: 'new_form' %>
+      </div>
 
-    <div id="repo-form-container" class="hidden">
-      <%= render partial: 'private_repo_form' %>
-    </div>
+      <div id="repo-form-container" class="hidden">
+        <%= render partial: 'private_repo_form' %>
+      </div>
+    <% end %>
   </div>
 </div>
 <script type="text/javascript">
@@ -32,9 +38,11 @@
       repoFormContainer.addClass('hidden');
     });
 
-    repoLink.on('click', function() {
-      uploadFormContainer.addClass('hidden');
-      repoFormContainer.removeClass('hidden');
-    });
+    <% if current_user.token.present? %>
+      repoLink.on('click', function() {
+        uploadFormContainer.addClass('hidden');
+        repoFormContainer.removeClass('hidden');
+      });
+    <% end %>
   });
 </script>

@@ -261,7 +261,7 @@
 
       if (videoFileAttached) {
         var videoFileUrl = '<%= url_for(@product.video_file)  if @product.video_file.attached? %>';
-        var videoElement = $('<video controls style="max-width: 213%; height: auto;"><source src="' + videoFileUrl + '" type="video/mp4"></video>');
+        var videoElement = $('<video controls style="height: auto;"><source src="' + videoFileUrl + '" type="video/mp4"></video>');
 
         $('#video-container').html(videoElement);
       } else {
