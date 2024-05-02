@@ -38,6 +38,19 @@ class ProductsController < ApplicationController
     elsif params[:product][:repository_source] == "uploaded"
       product_params_with_user = product_params.merge(user_id: current_user.id)
       @product = Product.new(product_params_with_user)
+      if params[:product][:category_ids].present?
+        category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
+        categories = Category.find(category_ids)
+        @product.categories << categories
+      end
+      if params[:product][:language_ids].present?
+        language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
+        languages = Language.find(language_ids)
+        @product.languages << languages
+      else
+        selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
+        @product.languages << selected_language
+      end
       if @product.save!
         @product.folder.attach(params[:product][:folder])
         upload_folder_to_s3(params[:product][:folder]) if params[:product][:folder].present?
@@ -52,7 +65,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      :name, :description, :price, :active, :published, :category_ids, :language_id,:preview_video_url, :video_file,
+      :name, :description, :price, :active, :published, :category_ids,:preview_video_url, :video_file,
       covers: [],
       product_categories_attributes: [:id, :active],
       covers_attributes: [:id, :image]

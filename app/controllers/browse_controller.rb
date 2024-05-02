@@ -13,6 +13,10 @@ class BrowseController < ApplicationController
 
   def languages
     @languages = Language.all
-    @products = Product.includes(:language).all
+   if params[:language_id].present?
+      @products = Product.includes(:language).where(language_id: params[:language_id])
+    else
+      @products = Product.includes(:language).all
+    end
   end
 end

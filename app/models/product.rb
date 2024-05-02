@@ -5,7 +5,6 @@ class Product < ApplicationRecord
   monetize :price_cents
 
   belongs_to :user
-  belongs_to :language
 
   has_many :reviews, dependent: :destroy
   has_many :purchases
@@ -17,6 +16,10 @@ class Product < ApplicationRecord
   has_many :active_categories, -> {
     where("product_categories.active = ?", true)
   }, through: :product_categories, source: :category
+
+  has_many :product_languages, dependent: :destroy
+  has_many :languages, through: :product_languages
+  has_many :active_languages, -> { where("product_languages.active = ?", true) }, through: :product_languages, source: :language
 
   has_many_attached :covers
 
@@ -59,7 +62,7 @@ class Product < ApplicationRecord
     active_categories.pluck(:name).join(" ")
   end
 
-  after_commit :seed_categories, on: :create
+  # after_commit :seed_categories, on: :create
   def seed_categories
     product_categories_to_seed = Category.all.map do |category|
       ProductCategory.new(product: self, category: category)

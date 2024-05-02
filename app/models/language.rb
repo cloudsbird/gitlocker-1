@@ -54,7 +54,9 @@ class Language < ApplicationRecord
     "Vim Script": "vim_script.png"
   }.with_indifferent_access
 
-  has_many :products
+  has_many :product_languages, dependent: :destroy
+  has_many :products, through: :product_languages
+  has_many :active_products, -> { where("product_languages.active = ?", true) }, through: :product_languages, source: :product
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :image_name, presence: true

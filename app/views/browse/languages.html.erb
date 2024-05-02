@@ -14,7 +14,7 @@
           <div class="-my-2">
             <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
               <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-                <% products = @products.select { |product| product.language_id == language.id } %>
+                <% products = language.products %>
                 <%= render partial: "home/product", collection: products %>
               </div>
             </div>
