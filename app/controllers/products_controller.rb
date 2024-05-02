@@ -35,7 +35,7 @@ class ProductsController < ApplicationController
   def create
     if params[:repository_source] == "private"
       create_from_repo_url
-    elsif params[:repository_source] == "uploaded"
+    elsif params[:product][:repository_source] == "uploaded"
       product_params_with_user = product_params.merge(user_id: current_user.id)
       @product = Product.new(product_params_with_user)
       if @product.save!
