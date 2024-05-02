@@ -72,6 +72,9 @@
     <% unless devise_controller? %>
       <%= render "layouts/nav" %>
     <% end %>
+    <div id="flash_wrapper">
+      <%= render partial: "/shared/flash_messages" %>
+    </div>
     <%= yield %>
 
     <% if current_user&.token&.present? || !devise_controller? %>
