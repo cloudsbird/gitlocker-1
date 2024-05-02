@@ -87,32 +87,37 @@ class ProductsController < ApplicationController
     matching_repo = user_repos.find { |repo| repo.owner.login == owner && repo.name == repo_name }
     languages = Language.all.to_a
     respond_to do |format|
-    if matching_repo
-      if matching_repo.language.present?
-        language = languages.find { |lang| lang.name == matching_repo.language }
-        language ||= Language.find_or_create_by(name: matching_repo.language)
-      else
-        language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
+      begin
+        if matching_repo
+          language = matching_repo.language.present? ? languages.find { |lang| lang.name == matching_repo.language } : Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
+
+          @product = Product.new(
+            user: current_user,
+            name: matching_repo.name,
+            description: matching_repo.description,
+            url: matching_repo.html_url,
+            repo_id: matching_repo.id
+          )
+          @product.languages << language
+
+          if @product.save
+            flash[:notice] = "Product created successfully from #{repo_url}."
+            format.html { redirect_to product_path(@product) }
+          else
+            flash[:error] = @product.errors.full_messages.join(', ')
+            format.html { redirect_back fallback_location: new_product_path, flash: { error: @product.errors.full_messages.join(', ') } }
+          end
+        else
+          flash[:error] = "Failed to create product. Repository not found or does not belong to you."
+          format.html { redirect_to new_product_path }
+        end
+      rescue PG::UniqueViolation => e
+        flash[:error] = "Failed to create product. Repository already exists: #{e.message}"
+        format.html { redirect_to new_product_path }
+      rescue StandardError => e
+        flash[:error] = "An error occurred: #{e.message}"
+        format.html { redirect_to new_product_path }
       end
-
-      product = Product.create!(
-        user: current_user,
-        name: matching_repo.name,
-        description: matching_repo.description,
-        url: matching_repo.html_url,
-        repo_id: matching_repo.id,
-        language: language
-      )
-
-      flash[:notice] = "Product created successfully from #{repo_url}."
-      format.html { redirect_to product_path(product) }
-    else
-      format.html { redirect_to new_product_path(product) }
-      flash[:error] ="Failed to create product. Repository not found or does not belong to you."
-    end
-    rescue StandardError => e
-      format.html { redirect_to new_product_path(product) }
-      flash[:error] = "An error occurred: #{e.message}"
     end
   end
 
