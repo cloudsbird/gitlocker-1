@@ -99,7 +99,7 @@ class ProductsController < ApplicationController
           @product.url = matching_repo.html_url
           @product.repo_id = matching_repo.id
           @product.languages << language
-          if @product.save
+          if @product.save!
             flash[:notice] = "Product created successfully from #{repo_url}."
             format.html { redirect_to product_path(@product) }
           else
