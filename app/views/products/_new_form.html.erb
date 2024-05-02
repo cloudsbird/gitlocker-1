@@ -1,4 +1,5 @@
 <%= form_for @product, url: products_path, data: {turbo: false, remote: true }, html: { id: "product-form" } do |f| %>
+  <%= f.hidden_field :repository_source, value: "uploaded" %>
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
       <h2 class="text-base font-semibold leading-7 text-gray-900">Product Information</h2>
@@ -36,10 +37,10 @@
         </div>
 
         <div class="sm:col-span-4">
-        <%= f.label :preview_video_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
-        <div class="mt-2">
-          <%= f.text_field :preview_video_url, class: "form-control", id: "product_preview_video_url" %>
-        </div>
+          <%= f.label :preview_video_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.text_field :preview_video_url, class: "form-control", id: "product_preview_video_url", onchange: "disableFileField()" %>
+          </div>
         </div>
 
         <div class="sm:col-span-4">
@@ -47,7 +48,7 @@
             Explainer Video File
           <% end %>
           <div class="mt-2">
-            <%= f.file_field :video_file, class: "form-control", id: "product_video_file" %>
+            <%= f.file_field :video_file, class: "form-control", id: "product_video_file", onchange: "disableURLField()" %>
           </div>
         </div>
 

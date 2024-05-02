@@ -7,8 +7,34 @@
   %>
 
   <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
-    <%= turbo_frame_tag "new_product_form" do %>
-      <%= render "new_form", product: @product %>
-    <% end %>
+    <button id="upload-link" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Upload Repository</button>
+    <button id="repo-link" class="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">Add from Private Repository</button>
+
+    <div id="upload-form-container" class="hidden">
+      <%= render partial: 'new_form' %>
+    </div>
+
+    <div id="repo-form-container" class="hidden">
+      <%= render partial: 'private_repo_form' %>
+    </div>
   </div>
 </div>
+<script type="text/javascript">
+  $(document).ready(function() {
+    const uploadFormContainer = $('#upload-form-container');
+    const repoFormContainer = $('#repo-form-container');
+
+    const uploadLink = $('#upload-link');
+    const repoLink = $('#repo-link');
+
+    uploadLink.on('click', function() {
+      uploadFormContainer.removeClass('hidden');
+      repoFormContainer.addClass('hidden');
+    });
+
+    repoLink.on('click', function() {
+      uploadFormContainer.addClass('hidden');
+      repoFormContainer.removeClass('hidden');
+    });
+  });
+</script>
