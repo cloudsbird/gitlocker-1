@@ -5,6 +5,14 @@
       <p class="mt-1 text-sm leading-6 text-gray-600">Below are your basic product information.</p>
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+
+        <div class="sm:col-span-4 hidden" id= "url-field">
+          <%= f.label :url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL" %>
+          </div>
+        </div>
+
         <div class="sm:col-span-4">
           <%= f.label :name, class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
@@ -15,7 +23,10 @@
         <div class="sm:col-span-4">
           <%= f.label :description, class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
-            <%= f.text_area :description, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
+            <%= f.text_area :description, id: "descriptionTextArea", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
+            <span class="d-block question_modal_input_subtext" id="charCountElement">
+              1000 words left
+            </span>
           </div>
         </div>
 
@@ -28,7 +39,7 @@
 
         <div class="sm:col-span-4">
           <%= f.label :covers, class: "block text-sm font-medium leading-6 text-gray-900" do %>
-            Cover Images
+            Cover Images (Limit of 3 and max file size of 100mb each)
           <% end %>
           <div class="mt-2">
             <%= f.file_field :covers, multiple: true, class: "form-control", id: "covers" %>
@@ -41,7 +52,7 @@
             <select id="product_video_source" class="form-control" onchange="toggleVideoFields()">
               <option value="">Select Video Source</option>
               <option value="Preview Video URL">Preview Video URL</option>
-              <option value="Explainer Video File">Explainer Video File</option>
+              <option value="Preview Video File">Preview Video File</option>
             </select>
           </div>
         </div>
@@ -55,7 +66,7 @@
 
         <div class="sm:col-span-4" id="video_file_field" style="display: none;">
           <%= f.label :video_file, class: "block text-sm font-medium leading-6 text-gray-900" do %>
-            Explainer Video File
+            Preview Video Source (file size limit of 1 GB)
           <% end %>
           <div class="mt-2">
             <%= f.file_field :video_file, class: "form-control", id: "product_video_file" %>
@@ -74,7 +85,7 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :language_ids, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <%= f.label :language_ids, "Languages", class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
             <select class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="languagesSelect" multiple="multiple">
               <% Language.all.each do |language| %>
@@ -86,7 +97,7 @@
 
         <div class="sm:col-span-4">
           <%= f.label :upload, class: "block text-sm font-medium leading-6 text-gray-900" do %>
-            Product Upload
+            Product Upload (file size limit of 5 GB)
           <% end %>
           <div class="mt-2">
             <input type="file" id="product-folder" name="product[folder]" multiple webkitdirectory class="block w-full py-1.5 px-4 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
@@ -104,16 +115,13 @@
     <%= f.submit "Save", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
   </div>
 <% end %>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.7.1/jszip.min.js"></script>
-<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.13/js/select2.min.js"></script>
 <script type="text/javascript">
   function toggleVideoFields() {
     var selectedOption = $("#product_video_source").val();
     if (selectedOption === "Preview Video URL") {
       $("#preview_video_url_field").show();
       $("#video_file_field").hide();
-    } else if (selectedOption === "Explainer Video File") {
+    } else if (selectedOption === "Preview Video File") {
       $("#preview_video_url_field").hide();
       $("#video_file_field").show();
     } else {
@@ -148,9 +156,8 @@
       var formData = new FormData();
       formData.append('authenticity_token', $('meta[name=csrf-token]').attr('content'));
       formData.append('product[name]', $('#product_name').val());
-      formData.append('product[description]', $('#product_description').val());
+      formData.append('product[description]', stripHtmlTags(ckEditorInstance.getData()));
       formData.append('product[price]', $('#product_price').val());
-      formData.append('product[repository_source]', 'uploaded');
       var coverImages = $('#covers')[0].files;
       $.each(coverImages, function(index, image) {
           formData.append('product[covers][]', image);
@@ -204,11 +211,21 @@
             }, 3000);
           },
           error: function(xhr, status, error) {
-            $('#upload-progress').text('Error: ' + error);
+            if (xhr.status === 422) {
+              var errors = xhr.responseJSON.message;
+              if (errors) {
+                $('#upload-status').text('Error: ' + errors);
+              } else {
+                $('#upload-status').text('Error: ' + error);
+              }
+            } else {
+              $('#upload-status').text('Error: ' + error);
+            }
           }
         });
       });
     });
+
     var titleInput = document.getElementById('product_name');
     titleInput.addEventListener('input', function() {
       var currentValue = this.value;
@@ -216,5 +233,101 @@
         this.value = currentValue.slice(0, 70);
       }
     });
+
+    var ckEditorInstance;
+    var interval = setInterval(() => {
+      if (typeof CKEDITOR !== 'undefined') {
+        try {
+          ckEditorInstance = CKEDITOR.replace('descriptionTextArea');
+          ckEditorInstance.on('change', function(event) {
+            var content = event.editor.getData();
+            var plainTextContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
+            var wordCount = plainTextContent.trim().split(/\s+/).length;
+            var wordsLeft = 1000 - wordCount;
+            $('#charCountElement').text(`${wordsLeft} words left`);
+            $('#charCountElement').css('color', wordsLeft < 0 ? 'red' : '');
+            if (wordsLeft < 0) {
+              setTimeout(function() {
+                ckEditorInstance.setData(stripHtmlTags(plainTextContent.split(/\s+/).slice(0, 999).join(' ')));
+              }, 0);
+              alert('Error: Word limit exceeded (maximum 1000 words)');
+            }
+          });
+          clearInterval(interval);
+        } catch (e) {
+          console.error(e);
+        }
+      }
+    }, 100);
+
+    function stripHtmlTags(html) {
+      var div = document.createElement("div");
+      div.innerHTML = html;
+      var textContent = div.textContent || div.innerText || "";
+      return textContent.trim().replace(/&/g, '').replace(/\s+/g, ' ').replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
+    }
+
+    $('#covers').on('change', function() {
+      var coverImages = this.files;
+      if (coverImages.length > 3) {
+          alert("You can select up to 3 cover images.");
+          this.value = '';
+      }
+
+      let totalSizeInMB = 0;
+
+      for (let i = 0; i < coverImages.length; i++) {
+        const file = coverImages[i];
+        const fileSizeInMB = file.size / (1024 * 1024); 
+
+        if (fileSizeInMB > 100) {
+          alert('One or more cover images exceed the 100 MB size limit. Please select smaller images.');
+          this.value = null;
+          return; 
+        }
+
+        totalSizeInMB += fileSizeInMB;
+      }
+
+      if (totalSizeInMB > 300) {
+        alert('The total size of cover images exceeds the 100 MB limit. Please select fewer images or smaller ones.');
+        this.value = null;
+        return;
+      }
+    });
+
+    const fileInput = document.getElementById('product_video_file');
+
+    fileInput.addEventListener('change', function(event) {
+      const product_file = fileInput.files[0];
+
+      if (product_file) {
+        const fileSizeInGB = product_file.size / (1024 * 1024 * 1024);
+        const fileSizeLimitGB = 1;
+
+        if (fileSizeInGB > fileSizeLimitGB) {
+          alert('File size exceeds the limit of 1 GB. Please select a smaller file.');
+          fileInput.value = null;
+        }
+      }
+    });
+
+    $(document).on('change', '#product-folder', function(event) {
+      const folderFiles = $(this)[0].files;
+      let totalSizeInBytes = 0;
+
+      for (let i = 0; i < folderFiles.length; i++) {
+        totalSizeInBytes += folderFiles[i].size;
+      }
+
+      const totalSizeInGB = totalSizeInBytes / (1024 * 1024 * 1024);
+
+      if (totalSizeInGB > 5) {
+        alert('The total size of the folder exceeds the 5 GB limit. Please select fewer files or smaller ones.');
+        $(this).val(null);
+        return;
+      }
+    });
+
   });
 </script>
