@@ -53,7 +53,7 @@ Rails.application.routes.draw do
 
   resources :creators, only: [:index, :show]
 
-  resources :products, only: [:index, :show, :edit, :update,:new, :create] do
+  resources :products, only: [:index, :show, :edit, :update,:new, :create, :destroy] do
     resources :covers, only: [:create, :destroy], controller: "product_covers"
   end
 

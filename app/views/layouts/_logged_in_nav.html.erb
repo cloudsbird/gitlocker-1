@@ -34,11 +34,11 @@
     </div>
     <nav class="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
       <% if current_user %>
-        <%= link_to "Explore", explore_path, class: "flex items-center text-sm font-medium text-white" %>
+        <%= link_to "Add Product", new_product_path, class: "flex items-center text-sm font-medium text-white" %>
         <%= link_to "Dashboard", dashboard_path, class: "flex items-center text-sm font-medium text-white" %>
-        <%= link_to "Products", products_path, class: "flex items-center text-sm font-medium text-white" %>
+        <%= link_to "My Products", products_path, class: "flex items-center text-sm font-medium text-white" %>
         <%= link_to "Sales", sales_path, class: "flex items-center text-sm font-medium text-white" %>
-        <%= link_to "Add product", new_product_path, class: "flex items-center text-sm font-medium text-white" %>
+        <%= link_to "Explore", explore_path, class: "flex items-center text-sm font-medium text-white" %>
       <% end %>
     </nav>
     <div class="flex flex-1 items-center justify-end gap-x-8">

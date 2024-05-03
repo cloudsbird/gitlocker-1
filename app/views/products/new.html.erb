@@ -24,29 +24,25 @@
     <div id="upload-form-container" class="hidden">
       <%= render partial: 'new_form' %>
     </div>
-
-    <div id="repo-form-container" class="hidden">
-      <%= render partial: 'private_repo_form' %>
-    </div>
   <% end %>
 </div>
 <script type="text/javascript">
   $(document).ready(function() {
     const uploadFormContainer = $('#upload-form-container');
-    const repoFormContainer = $('#repo-form-container');
+    const urlField = $('#url-field');
 
     const uploadLink = $('#upload-link');
     const repoLink = $('#repo-link');
 
     uploadLink.on('click', function() {
       uploadFormContainer.removeClass('hidden');
-      repoFormContainer.addClass('hidden');
+      urlField.addClass('hidden');
     });
 
     <% if current_user.token.present? %>
       repoLink.on('click', function() {
-        uploadFormContainer.addClass('hidden');
-        repoFormContainer.removeClass('hidden');
+        uploadFormContainer.removeClass('hidden');
+        urlField.removeClass('hidden');
       });
     <% end %>
   });
