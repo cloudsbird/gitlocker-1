@@ -7,7 +7,7 @@
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
         <div class="sm:col-span-4 hidden" id= "url-field">
-          <%= f.label :url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <%= f.label :url,"GitHub Private Repository URL", class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
             <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL" %>
           </div>
@@ -44,6 +44,8 @@
           <div class="mt-2">
             <%= f.file_field :covers, multiple: true, class: "form-control", id: "covers" %>
           </div>
+          </br>
+          <h1>(To select multiple images please use CTRL on Windows or command on Mac)</h1>
         </div>
 
         <div class="sm:col-span-4">
@@ -95,7 +97,7 @@
           </div>
         </div>
 
-        <div class="sm:col-span-4">
+        <div class="sm:col-span-4" id= "upload-folder-field">
           <%= f.label :upload, class: "block text-sm font-medium leading-6 text-gray-900" do %>
             Product Upload (file size limit of 5 GB)
           <% end %>

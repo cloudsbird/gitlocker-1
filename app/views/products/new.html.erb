@@ -30,6 +30,7 @@
   $(document).ready(function() {
     const uploadFormContainer = $('#upload-form-container');
     const urlField = $('#url-field');
+    const folderField = $('#upload-folder-field');
 
     const uploadLink = $('#upload-link');
     const repoLink = $('#repo-link');
@@ -37,12 +38,14 @@
     uploadLink.on('click', function() {
       uploadFormContainer.removeClass('hidden');
       urlField.addClass('hidden');
+      folderField.removeClass('hidden');
     });
 
     <% if current_user.token.present? %>
       repoLink.on('click', function() {
         uploadFormContainer.removeClass('hidden');
         urlField.removeClass('hidden');
+        folderField.addClass('hidden');
       });
     <% end %>
   });
