@@ -5,8 +5,7 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
 
     if @user.persisted?
       @user.confirm unless @user.confirmed?
-      session[:github_email] = @user.email
-      puts "GitHub email retrieved from session: #{session[:github_email]}"
+      store_github_email_in_cookie(@user.email)
       flash[:notice] = I18n.t "devise.omniauth_callbacks.success", kind: "Github"
       if @user.registration_pending?
         sign_in @user, event: :authentication
@@ -18,5 +17,11 @@ class Users::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       session["devise.github_data"] = request.env["omniauth.auth"].except("extra") # Removing extra cause it can overflow some session stores
       redirect_to new_user_registration_url, alert: @user.errors.full_messages.join("\n")
     end
+  end
+  
+  private
+
+  def store_github_email_in_cookie(email)
+    cookies.permanent[:github_email] = email
   end
 end
