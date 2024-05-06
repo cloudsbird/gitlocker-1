@@ -42,6 +42,7 @@ module Gitlocker
     config.active_job.queue_adapter = :good_job
 
     config.exceptions_app = self.routes
+    config.session_store :cookie_store, key: '_your_app_session'
 
     config.stripe.secret_key = ENV["STRIPE_SECRET_KEY"]
     config.stripe.publishable_key = ENV["STRIPE_PUBLISHABLE_KEY"]
