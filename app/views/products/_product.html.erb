@@ -1,40 +1,24 @@
-<li
-  data-controller="product-card"
-  class="overflow-hidden rounded-xl border border-gray-200"
->
-  <div class="flex items-center gap-x-4 border-b border-gray-900/5 bg-gray-50 p-6">
-    <img src="https://tailwindui.com/img/logos/48x48/tuple.svg" alt="Tuple" class="h-12 w-12 flex-none rounded-lg bg-white object-cover ring-1 ring-gray-900/10">
-    <div class="text-sm font-medium leading-6 text-gray-900"><%= product.name %></div>
+<li class="bg-white" data-controller="product-card">
+  <div class="border border-gray-200 p-4 sm:p-6">
     <div class="relative ml-auto">
-      <button
-        type="button"
-        data-action="product-card#open"
-        class="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500"
-        id="options-menu-0-button"
-        aria-expanded="false"
-        aria-haspopup="true"
-      >
+      <button type="button"
+              data-action="product-card#open"
+              class="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500"
+              id="options-menu-0-button"
+              aria-expanded="false"
+              aria-haspopup="true">
         <span class="sr-only">Open options</span>
         <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
           <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
         </svg>
       </button>
 
-      <div
-        data-product-card-target="menu"
-        data-transition-enter="transition ease-out duration-100"
-        data-transition-enter-start="transform opacity-0 scale-95"
-        data-transition-enter-end="transform opacity-100 scale-100"
-        data-transition-leave="transition ease-in duration-75"
-        data-transition-leave-start="transform opacity-100 scale-100"
-        data-transition-leave-end="transform opacity-0 scale-95"
-        class="hidden absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
-        role="menu"
-        aria-orientation="vertical"
-        aria-labelledby="options-menu-0-button"
-        tabindex="-1"
-      >
-        <!-- Active: "bg-gray-50", Not Active: "" -->
+      <div data-product-card-target="menu"
+           class="hidden absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+           role="menu"
+           aria-orientation="vertical"
+           aria-labelledby="options-menu-0-button"
+           tabindex="-1">
         <%= link_to product_path(product), data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-0" do %>
           View<span class="sr-only">, Tuple</span>
         <% end %>
@@ -47,24 +31,43 @@
                       class: "block px-3 py-1 text-sm leading-6 text-gray-900",
                       role: "menuitem",
                       tabindex: "-1",
-                      id: "options-menu-0-item-1",
+                      id: "options-menu-0-item-2",
                       "data-turbo": "false" do %>
           Delete<span class="sr-only">, Tuple</span>
         <% end %>
       </div>
     </div>
+    <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200">
+      <% if product.covers.first.present? %>
+        <img src="<%= product.covers.first.url %>" alt="TODO" class="h-full w-full object-cover object-center">
+      <% else %>
+        <img src="/assets/no_cover.jpg" alt="No Image Available" class="h-full w-full object-cover object-center">
+      <% end %>
+    </div>
+    <div class="pt-4 text-center">
+      <h3 class="text-base font-medium text-gray-900 max-w-xs overflow-hidden">
+        <a href="<%= product_path(product) %>" class="hover:text-gray-700 block truncate"><%= product.name %></a>
+      </h3>
+      <div class="mt-2 flex items-center justify-center">
+        <div>
+          <h3 class="sr-only">Reviews</h3>
+          <div class="flex items-center">
+              <% product.average_rating.to_i.times do |review| %>
+                <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+              <% end %>
+              <% (5 - product.average_rating.to_i).to_i.times do |review| %>
+                <svg class="text-gray-300 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+              <% end %>
+          </div>
+          <p class="sr-only"><%= product.average_rating.to_i %> out of 5 stars</p>
+        </div>
+      </div>
+      <p class="mt-1 text-sm text-gray-500"><%= product.reviews.count %> reviews</p>
+      <p class="mt-2 text-base font-medium text-gray-900"><%= product.price.currency.symbol %><%= product.price.fractional %></p>
+    </div>
   </div>
-  <dl class="-my-3 divide-y divide-gray-100 px-6 py-4 text-sm leading-6">
-    <div class="flex justify-between gap-x-4 py-3">
-      <dt class="text-gray-500">Last invoice</dt>
-      <dd class="text-gray-700"><time datetime="2022-12-13">December 13, 2022</time></dd>
-    </div>
-    <div class="flex justify-between gap-x-4 py-3">
-      <dt class="text-gray-500">Amount</dt>
-      <dd class="flex items-start gap-x-2">
-      <div class="font-medium text-gray-900">$2,000.00</div>
-      <div class="rounded-md py-1 px-2 text-xs font-medium ring-1 ring-inset text-red-700 bg-red-50 ring-red-600/10">Overdue</div>
-      </dd>
-    </div>
-  </dl>
 </li>

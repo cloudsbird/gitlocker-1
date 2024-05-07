@@ -35,7 +35,9 @@ class Product < ApplicationRecord
                     tsearch: { prefix: true }
                   }
 
-  multisearchable against: [:name, :language_name, :category_names, :description],
+  multisearchable against: [:name, :category_names, :description],associated_against: {
+                  languages: [:name]
+                  },
                   if: :published?
 
   DEFAULT_PRODUCT_IMAGES = [
@@ -55,7 +57,7 @@ class Product < ApplicationRecord
   scope :published, -> { where(published: true) }
 
   def language_name
-    language.name
+    languages.pluck(:name).join(", ")
   end
 
   def category_names

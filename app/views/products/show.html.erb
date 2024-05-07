@@ -50,13 +50,15 @@
             <p class="sr-only"><%= @product.average_rating.to_i %> out of 5 stars</p>
           </div>
         </div>
+        <div class="flex justify-between items-center">
+          <p class="mt-2 text-lg font-bold"><%= number_to_currency(@product.price) %></p>
+        </div>
 
         <% if @product.description.present? %>
-          <p class="mt-6 text-gray-500 max-w-screen" style="word-wrap: break-word; color: #333;"><%= @product.description %></p>
+          <p class="mt-6 text-gray-500 max-w-screen" style="word-wrap: break-word; color: #333;"><%= raw @product.description %></p>
         <% else %>
           <p class="mt-6 text-gray-500 italic">No description</p>
         <% end %>
-       <p class="mt-2 text-lg font-bold"><%= number_to_currency(@product.price) %></p>
         <% if @languages.present? %>
           <div class="mb-8">
             <h2 class="text-xl font-semibold mb-2">Languages</h2>
@@ -151,15 +153,6 @@
                 type="button"
               >Customer Reviews</button>
               <button
-                id="tab-faq"
-                data-product-tabs-target="button"
-                data-action="click->product-tabs#toggleTab"
-                class="border-transparent text-gray-700 hover:border-gray-300 hover:text-gray-800 whitespace-nowrap border-b-2 py-6 text-sm font-medium"
-                aria-controls="tab-panel-faq"
-                role="tab"
-                type="button"
-              >FAQ</button>
-              <button
                 id="tab-license"
                 data-product-tabs-target="button"
                 data-action="click->product-tabs#toggleTab"
@@ -210,30 +203,6 @@
           </div>
 
           <!-- 'FAQ' panel, show/hide based on tab state -->
-          <div
-            data-product-tabs-target="panel"
-            id="panel-faq"
-            class="text-sm text-gray-500 hidden"
-            aria-labelledby="tab-faq"
-            role="tabpanel"
-            tabindex="0"
-          >
-            <h3 class="sr-only">Frequently Asked Questions</h3>
-
-            <dl>
-              <dt class="mt-10 font-medium text-gray-900">What format are these code repositories?</dt>
-              <dd class="prose prose-sm mt-2 max-w-none text-gray-500">
-                <p>The code repositories are in zip (Scalable Vector Graphic) format. They can be downloaded onto your computer and unzipped.</p>
-              </dd>
-              <dt class="mt-10 font-medium text-gray-900">Can I re-sell these repositories?</dt>
-              <dd class="prose prose-sm mt-2 max-w-none text-gray-500">
-                <p>No, the intellectual property is that of the developer. You may use the repositories for personal use but may not re-sell them as your own.</p>
-              </dd>
-
-              <!-- More FAQs... -->
-            </dl>
-          </div>
-
           <!-- 'License' panel, show/hide based on tab state -->
           <div
             data-product-tabs-target="panel"

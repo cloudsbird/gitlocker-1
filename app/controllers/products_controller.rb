@@ -64,6 +64,8 @@ class ProductsController < ApplicationController
       selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
       @product.languages << selected_language
     end
+    @product.published = true
+    @product.active = true
 
     if @product.save
       @product.folder.attach(params[:product][:folder])
