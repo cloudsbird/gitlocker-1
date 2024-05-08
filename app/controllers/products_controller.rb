@@ -22,9 +22,30 @@ class ProductsController < ApplicationController
 
   def update
     @product = current_user.products.friendly.find(params[:id])
+    @product.update(product_params)
+    if params[:product][:category_ids].present?
+      category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
+      categories = Category.find(category_ids)
+      @product.categories << categories
+    end
 
-    if @product.update(product_params)
-      redirect_to product_path(@product)
+    if params[:product][:language_ids].present?
+      language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
+      languages = Language.find(language_ids)
+      @product.languages << languages
+    else
+      selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
+      @product.languages << selected_language
+    end
+    if params[:product][:folder].present?
+      @product.folder.attach(params[:product][:folder])
+      upload_folder_to_s3(params[:product][:folder])
+    end
+
+    if @product.save
+      render json: { message: 'Product was successfully Updated.', product_id: @product.id }, status: :ok
+    else
+      render json: { error: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
@@ -68,8 +89,10 @@ class ProductsController < ApplicationController
     @product.active = true
 
     if @product.save
-      @product.folder.attach(params[:product][:folder])
-      upload_folder_to_s3(params[:product][:folder]) if params[:product][:folder].present?
+      if params[:product][:folder].present?
+        @product.folder.attach(params[:product][:folder])
+        upload_folder_to_s3(params[:product][:folder])
+      end
       render json: { message: 'Product was successfully created.', product_id: @product.id }, status: :created
     else
       render json: { error: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
