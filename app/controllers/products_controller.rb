@@ -3,6 +3,7 @@ require 'tempfile'
 require 'aws-sdk-s3'
 class ProductsController < ApplicationController
   before_action :authenticate_user!
+  before_action :set_product, only: [:like, :unlike]
 
   def index
     @products = current_user.products
@@ -13,6 +14,16 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.includes(:user)
     @languages = @product.languages
     @categories = @product.categories
+  end
+
+  def like
+    @product.likes.create
+    render json: { likes_count: @product.likes.count }
+  end
+
+  def unlike
+    @product.likes.last&.destroy
+    render json: { likes_count: @product.likes.count }
   end
 
   def edit
@@ -158,4 +169,9 @@ class ProductsController < ApplicationController
   def repositories_count
     octokit_client.user.public_repos + octokit_client.user.total_private_repos
   end
+
+  def set_product
+    @product = Product.friendly.find(params[:id])
+  end
+  
 end

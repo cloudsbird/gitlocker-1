@@ -22,6 +22,7 @@ class Product < ApplicationRecord
   has_many :active_languages, -> { where("product_languages.active = ?", true) }, through: :product_languages, source: :language
 
   has_many_attached :covers
+  has_many :likes, dependent: :destroy
 
   validates :name, presence: true
   # validates :url, presence: true, uniqueness: { scope: :name }

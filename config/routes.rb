@@ -55,6 +55,8 @@ Rails.application.routes.draw do
 
   resources :products, only: [:index, :show, :edit, :update,:new, :create, :destroy] do
     resources :covers, only: [:create, :destroy], controller: "product_covers"
+    post 'like', on: :member
+    post 'unlike', on: :member
   end
 
   resources :subscribed_users, only: :create
