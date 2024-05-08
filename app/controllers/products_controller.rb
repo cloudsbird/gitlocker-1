@@ -23,12 +23,14 @@ class ProductsController < ApplicationController
   def update
     @product = current_user.products.friendly.find(params[:id])
     @product.update(product_params)
+    @product.categories.destroy_all
     if params[:product][:category_ids].present?
       category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
       categories = Category.find(category_ids)
       @product.categories << categories
     end
 
+    @product.languages.destroy_all
     if params[:product][:language_ids].present?
       language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
       languages = Language.find(language_ids)

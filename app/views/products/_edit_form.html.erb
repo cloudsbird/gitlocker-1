@@ -154,31 +154,25 @@
       toggleVideoFields();
     });
     $('.js-example-basic-multiple').select2();
+    var selectedCategories = [];
     var selectedLanguages = [];
 
-    var selectedCategories;
-    var selectedLanguages;
-    var originalCategories = <%= @product.categories.pluck(:id).to_json %>;
-    var originalLanguages = <%= @product.languages.pluck(:id).to_json %>;
+   <% @product.categories.each do |category| %>
+    selectedCategories.push(<%= category.id %>);
+    <% end %>
+
+    <% @product.languages.each do |language| %>
+      selectedLanguages.push("<%= language.id %>");
+    <% end %>
 
     $('#categoriesSelect').on('change', function() {
-      var newlySelectedCategories = $(this).val();
-
-      var filteredCategories = newlySelectedCategories.filter(function(category) {
-        return !originalCategories.includes(parseInt(category)); // Convert category to integer for comparison
-      });
-
-      selectedCategories = filteredCategories;
+      selectedCategories = $(this).val();
+      console.log(selectedCategories);
     });
 
     $('#languagesSelect').on('change', function() {
-      var newlySelectedLanguages = $(this).val();
-
-      var filteredLanguages = newlySelectedLanguages.filter(function(language) {
-        return !originalLanguages.includes(language);
-      });
-
-      selectedLanguages = filteredLanguages;
+      selectedLanguages = $(this).val();
+      console.log(selectedLanguages);
     });
 
     $('#product-form').submit(function(event) {
