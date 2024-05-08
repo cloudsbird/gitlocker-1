@@ -59,10 +59,11 @@
             </div>
             <p class="sr-only"><%= @product.average_rating.to_i %> out of 5 stars</p>
           </div>
-          <div id="like-section" class="flex items-center">
-            <%= button_tag "Like", id: "like-button", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded" %>
-            <span id="total-likes" class="ml-2"><%= @product.likes.count %></span> Likes
-          </div>
+        <div id="like-section" class="flex items-center">
+          <%= button_tag "Like", id: "like-button", class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded mr-2" %>
+          <span id="total-likes" class="ml-2 font-bold"><%= @product.likes.count %></span>&nbsp;<span class="ml-1">Likes</span>
+        </div>
+
         </div>
         <div class="flex justify-between items-center">
           <p class="mt-2 text-lg font-bold"><%= number_to_currency(@product.price) %></p>
