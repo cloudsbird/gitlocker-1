@@ -19,4 +19,8 @@ class BrowseController < ApplicationController
       @products = Product.includes(:language).all
     end
   end
+
+  def categories
+    @categories = Category.all
+  end
 end

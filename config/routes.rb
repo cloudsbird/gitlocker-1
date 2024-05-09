@@ -78,6 +78,7 @@ Rails.application.routes.draw do
   get "browse/popular", to: "browse#popular"
   get "browse/recent", to: "browse#recent"
   get "browse/languages", to: "browse#languages"
+  get "browse/categories", to: "browse#categories"
 
   # Error Pages
   match '/404', to: 'errors#not_found', via: :all
