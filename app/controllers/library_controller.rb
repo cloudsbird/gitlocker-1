@@ -3,6 +3,8 @@ class LibraryController < ApplicationController
     @product = Product.friendly.find(params[:id])
     @reviews = @product.reviews.includes(:user)
     @in_cart = (current_user || visitor_user).products_in_cart.include?(@product) || false
+    @languages = @product.languages
+    @categories = @product.categories
     @cart_item = if @in_cart
                   CartItem.find_by(user: current_user, product: @product)
                  else

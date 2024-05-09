@@ -12,12 +12,7 @@ class BrowseController < ApplicationController
   end
 
   def languages
-    @languages = Language.all
-   if params[:language_id].present?
-      @products = Product.includes(:language).where(language_id: params[:language_id])
-    else
-      @products = Product.includes(:language).all
-    end
+    @languages = Language.order(:name)
   end
 
   def categories
