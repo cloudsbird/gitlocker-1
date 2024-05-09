@@ -11,7 +11,7 @@ class ReviewsController < ApplicationController
     review = product.reviews.build(review_params.merge(user_id: current_user.id))
 
     if review.save
-      UpdateProductAverageRatingJob.perform_later(product.id)
+      UpdateProductAverageRatingJob.perform_now(product.id)
       redirect_to library_path(product)
     end
   end

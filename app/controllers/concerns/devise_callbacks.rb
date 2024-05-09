@@ -8,12 +8,12 @@ module DeviseCallbacks
   def sync_products
     return if resource.token.blank?
 
-    SyncProductsJob.perform_later(resource.id)
+    SyncProductsJob.perform_now(resource.id)
   end
 
   def sync_cart_items
     return if session.id.to_s.blank?
 
-    SyncCartItemsJob.perform_later(user_id: resource.id, session_id: session.id.to_s)
+    SyncCartItemsJob.perform_now(user_id: resource.id, session_id: session.id.to_s)
   end
 end

@@ -9,7 +9,7 @@ class BatchClearCartItemsJob < ApplicationJob
                   pluck(:session_id)
 
     session_ids.each do |session_id|
-      ClearCartItemsJob.perform_later(session_id)
+      ClearCartItemsJob.perform_now(session_id)
     end
   end
 end
