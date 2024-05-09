@@ -41,7 +41,7 @@
       <% if product.covers.first.present? %>
         <img src="<%= product.covers.first.url %>" alt="TODO" class="h-full w-full object-cover object-center">
       <% else %>
-        <img src="/assets/no_cover.jpg" alt="No Image Available" class="h-full w-full object-cover object-center">
+        <img src="<%= asset_path('no_cover.jpg') %>" alt="No Image Available" class="h-full w-full object-cover object-center">
       <% end %>
     </div>
     <div class="pt-4 text-center">
