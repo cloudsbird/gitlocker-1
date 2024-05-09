@@ -45,6 +45,9 @@ class Language < ApplicationRecord
     "Go": "go.png"
   }.with_indifferent_access
 
+  extend FriendlyId
+  friendly_id :name, use: :slugged
+
   has_many :product_languages, dependent: :destroy
   has_many :products, through: :product_languages
   has_many :active_products, -> { where("product_languages.active = ?", true) }, through: :product_languages, source: :product

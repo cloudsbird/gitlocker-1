@@ -1,0 +1,31 @@
+<div class="bg-white">
+  <main class="pb-4 pt-6 sm:pb-6">
+    <div class="space-y-16 py-16 xl:space-y-20">
+     <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+      <h2 class="text-3xl font-semibold mb-4 text-center"><%= @language.name %> Language Products</h2>
+      <div class="bg-white">
+     <div class="aspect-h-4 aspect-w-3 hidden overflow-hidden rounded-lg lg:block">
+        <%= image_tag("languages/#{@language.image_name}", class: "h-32 w-48 object-cover object-center mx-auto") %>
+      </div>
+    </div>
+      <div class="mt-4 flow-root">
+        <div class="-my-2">
+          <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
+            <% if @language.products.any? %>
+              <h2 class="text-3xl font-semibold mb-4">List of Products</h2>
+
+              <div class="absolute flex flex-wrap justify-center space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+                <% @language.products.each do |product| %>
+                  <%= render partial: "home/product", locals: { product: product } %>
+                <% end %>
+              </div>
+            <% else %>
+              <p class="text-center text-gray-500">No products available for this language.</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </section>
+    </div>
+  </main>
+</div>
