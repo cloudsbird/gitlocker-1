@@ -1,13 +1,21 @@
 <div class="flex space-x-4 text-sm text-gray-500">
   <div class="flex-none py-10">
-    <% if review.user.profile_picture.attached? %>
+  <% if review.user.profile_picture.attached? %>
+    <%= link_to creator_path(review.user) do %>
       <%= image_tag review.user.profile_picture, class: "h-10 w-10 rounded-full bg-gray-100" %>
-    <% else %>
+    <% end %>
+  <% else %>
+    <%= link_to creator_path(review.user) do %>
       <%= image_tag "profile_placeholder.png", class: "h-10 w-10 rounded-full bg-gray-100" %>
     <% end %>
+  <% end %>
   </div>
   <div class="py-10">
-    <h3 class="font-medium text-gray-900"><%= review.user.name %></h3>
+   <%= link_to creator_path(review.user) do %>
+      <h3 class="font-medium text-gray-900">
+        <%= review.user.name.present? ? review.user.name : review.user.username %>
+      </h3>
+    <% end %>
     <p><time datetime="<%= review.created_at.strftime("%Y-%m-%d") %>"><%= review.created_at.strftime("%B %d, %Y") %></time></p>
 
     <div class="mt-4 flex items-center">

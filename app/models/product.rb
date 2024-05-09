@@ -54,7 +54,7 @@ class Product < ApplicationRecord
     "popular/typescript-complete-course.png"
   ]
 
-  scope :featured, -> { where(featured: true) }
+  scope :recent, -> { order(created_at: :desc) }
   scope :published, -> { where(published: true) }
 
   def language_name

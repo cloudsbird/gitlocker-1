@@ -1,12 +1,4 @@
 <div class="bg-white">
-  <%=
-    render BreadcrumbComponent.new([
-      { text: "Products", url: products_path },
-      { text: @product.name, url: product_path(@product) },
-      { text: "Add Review" }
-    ])
-  %>
-
   <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-2xl lg:px-8">
     <!--
       This example requires some changes to your config:

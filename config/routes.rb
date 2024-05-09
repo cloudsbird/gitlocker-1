@@ -76,7 +76,7 @@ Rails.application.routes.draw do
 
   get "browse", to: "browse#index"
   get "browse/popular", to: "browse#popular"
-  get "browse/featured", to: "browse#featured"
+  get "browse/recent", to: "browse#recent"
   get "browse/languages", to: "browse#languages"
 
   # Error Pages

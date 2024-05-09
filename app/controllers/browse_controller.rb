@@ -7,8 +7,8 @@ class BrowseController < ApplicationController
     @products = Product.order(purchases_count: :desc)
   end
 
-  def featured
-    @products = Product.featured
+  def recent
+    @products = Product.recent
   end
 
   def languages

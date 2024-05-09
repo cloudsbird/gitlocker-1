@@ -56,7 +56,7 @@ class ProductsController < ApplicationController
     end
 
     if @product.save
-      render json: { message: 'Product was successfully Updated.', product_id: @product.id }, status: :ok
+      render json: { message: 'Product was successfully Updated.', product_id: @product.slug }, status: :ok
     else
       render json: { error: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
@@ -106,7 +106,7 @@ class ProductsController < ApplicationController
         @product.folder.attach(params[:product][:folder])
         upload_folder_to_s3(params[:product][:folder])
       end
-      render json: { message: 'Product was successfully created.', product_id: @product.id }, status: :created
+      render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
     else
       render json: { error: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end

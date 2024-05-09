@@ -3,7 +3,7 @@ class HomeController < ApplicationController
     # redirect_to dashboard_path if user_signed_in? && current_user.token.present?
 
     @languages = Language.all
-    @featured_products = Product.published.featured.first(5)
+    @recent_products = Product.published.recent.first(5)
     @popular_products = Product.order(purchases_count: :desc).first(5)
   end
 

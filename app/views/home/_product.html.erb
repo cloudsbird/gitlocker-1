@@ -1,11 +1,81 @@
-  <%= link_to library_path(product), class: "relative flex h-80 w-56 flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 xl:w-auto" do %>
-    <span aria-hidden="true" class="absolute inset-0">
-      <% if product.covers.exists? %>
-        <%= image_tag product.covers.first, class: "object-cover object-center relative w-full" %>
+<div class="bg-white" data-controller="product-card" style="margin-bottom: 20px;">
+  <div class="border border-gray-200 p-4 sm:p-6">
+    <div class="relative ml-auto">
+      <button type="button"
+              data-action="product-card#open"
+              class="-m-2.5 block p-2.5 text-gray-400 hover:text-gray-500"
+              id="options-menu-0-button"
+              aria-expanded="false"
+              aria-haspopup="true">
+        <span class="sr-only">Open options</span>
+        <svg class="h-5 w-5" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+          <path d="M3 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM8.5 10a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zM15.5 8.5a1.5 1.5 0 100 3 1.5 1.5 0 000-3z" />
+        </svg>
+      </button>
+
+      <div data-product-card-target="menu"
+           class="hidden absolute right-0 z-10 mt-0.5 w-32 origin-top-right rounded-md bg-white py-2 shadow-lg ring-1 ring-gray-900/5 focus:outline-none"
+           role="menu"
+           aria-orientation="vertical"
+           aria-labelledby="options-menu-0-button"
+           tabindex="-1">
+        <%= link_to library_path(product), data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-0" do %>
+          View<span class="sr-only">, Tuple</span>
+        <% end %>
+      </div>
+    </div>
+    <div class="aspect-h-1 aspect-w-1 overflow-hidden rounded-lg bg-gray-200">
+      <% if product.covers.first.present? %>
+        <img src="<%= product.covers.first.url %>" alt="TODO" class="h-full w-full object-cover object-center">
       <% else %>
-        <%= image_tag Product::DEFAULT_PRODUCT_IMAGES.sample, class: "object-cover object-center relative w-full" %>
+        <img src="/assets/no_cover.jpg" alt="No Image Available" class="h-full w-full object-cover object-center">
       <% end %>
-    </span>
-    <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-    <span class="relative mt-auto text-center text-xl font-bold text-white"><%= product.name %></span>
-  <% end %>
+    </div>
+    <div class="pt-4 text-center">
+      <h3 class="text-base font-medium text-gray-900 max-w-xs overflow-hidden">
+        <a href="<%= library_path(product) %>" class="hover:text-gray-700 block truncate"><%= product.name %></a>
+      </h3>
+      <div class="mt-2 flex items-center justify-center">
+        <div>
+          <h3 class="sr-only">Reviews</h3>
+          <div class="flex items-center">
+              <% product.average_rating.to_i.times do |review| %>
+                <svg class="text-yellow-400 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+              <% end %>
+              <% (5 - product.average_rating.to_i).to_i.times do |review| %>
+                <svg class="text-gray-300 h-5 w-5 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+              <% end %>
+          </div>
+          <p class="sr-only"><%= product.average_rating.to_i %> out of 5 stars</p>
+        </div>
+      </div>
+      <p class="mt-1 text-sm text-gray-500"><%= product.reviews.count %> reviews</p>
+      <p class="mt-2 text-base font-medium text-gray-900"><%= product.price.currency.symbol %><%= product.price %></p>
+    </div>
+  </div>
+</div>
+<script type="text/javascript">
+  document.addEventListener('DOMContentLoaded', function() {
+  var menuButton = document.querySelector('[data-action="product-card#open"]');
+  var menu = document.querySelector('[data-product-card-target="menu"]');
+
+  document.addEventListener('click', function(event) {
+    var isClickInsideMenu = menu.contains(event.target);
+    var isClickInsideMenuButton = menuButton.contains(event.target);
+    if (!isClickInsideMenu && !isClickInsideMenuButton) {
+      menu.classList.add('hidden');
+      menuButton.setAttribute('aria-expanded', 'false');
+    }
+  });
+
+  menuButton.addEventListener('click', function() {
+    var expanded = this.getAttribute('aria-expanded') === 'true' || false;
+    this.setAttribute('aria-expanded', !expanded);
+    menu.classList.toggle('hidden');
+  });
+  });
+</script>

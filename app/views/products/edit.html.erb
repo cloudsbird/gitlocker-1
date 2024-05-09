@@ -1,12 +1,4 @@
 <div class="bg-white py-16">
-  <%=
-    render BreadcrumbComponent.new([
-      { text: "Products", url: products_path },
-      { text: @product.name, url: product_path(@product) },
-      { text: "Edit", url: edit_product_path(@product) }
-    ])
-  %>
-
   <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
     <%= turbo_frame_tag dom_id(@product) do %>
       <%= render "edit_form", product: @product %>

@@ -17,18 +17,18 @@
   <main>
     <section aria-labelledby="category-heading" class="pt-16 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-        <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Featured</h2>
-        <a href="#" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
-          Browse all featured repositories
+        <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Recent</h2>
+        <%= link_to browse_recent_path, class: "hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block" do %>
+          Browse all recent repositories
           <span aria-hidden="true"> &rarr;</span>
-        </a>
+        <% end %>
       </div>
 
       <div class="mt-4 flow-root">
         <div class="-my-2">
           <div class="relative box-content h-80 overflow-x-auto py-2 xl:overflow-visible">
             <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <%= render partial: "home/product", collection: @featured_products, as: :product %>
+              <%= render partial: "home/product", collection: @recent_products, as: :product %>
             </div>
           </div>
         </div>
@@ -38,10 +38,10 @@
     <section aria-labelledby="category-heading" class="pt-16 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
         <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Popular</h2>
-        <a href="#" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+        <%= link_to browse_popular_path, class: "hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block" do %>
           Browse all repositories
           <span aria-hidden="true"> &rarr;</span>
-        </a>
+        <% end %>
       </div>
 
       <div class="mt-4 flow-root">
@@ -58,10 +58,10 @@
     <section aria-labelledby="category-heading" class="pt-16 pb-24 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
         <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Languages</h2>
-        <a href="#" class="hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block">
+        <%= link_to browse_languages_path, class: "hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block" do %>
           Browse all languages
           <span aria-hidden="true"> &rarr;</span>
-        </a>
+        <% end %>
       </div>
 
       <div class="mt-4 flow-root">
