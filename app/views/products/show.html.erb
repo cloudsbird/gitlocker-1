@@ -67,7 +67,7 @@
             <h2 class="text-xl font-semibold mb-2">Languages</h2>
             <div class="flex flex-wrap">
               <% @languages.each do |language| %>
-                <span class="bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2"><%= language.name %></span>
+                <%= link_to language.name, language_path(language), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2" %>
               <% end %>
             </div>
           </div>
@@ -78,7 +78,7 @@
             <h2 class="text-xl font-semibold mb-2">Categories</h2>
             <div class="flex flex-wrap">
               <% @categories.each do |category| %>
-                <span class="bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2"><%= category.name %></span>
+                <%= link_to category.name, category_path(category), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2" %>
               <% end %>
             </div>
           </div>

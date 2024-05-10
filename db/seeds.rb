@@ -34,8 +34,14 @@ Language.import(
   }
 )
 
-categories = Category::NAMES.map do |category_name|
-  Category.new(name: category_name)
+categories = Category::NAMES.keys.map do |category_name|
+  Category.new(name: category_name, image_name: Category::NAMES[category_name])
 end
 
-Category.import(categories, on_duplicate_key_ignore: true)
+Category.import(
+  categories,
+  on_duplicate_key_update: {
+    conflict_target: [:name],
+    columns: [:image_name]
+  }
+)
