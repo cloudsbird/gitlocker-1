@@ -72,4 +72,8 @@ class Product < ApplicationRecord
     end
     ProductCategory.import(product_categories_to_seed)
   end
+
+  def normalize_friendly_id(text)
+    super.gsub(/\d+/, '')
+  end
 end

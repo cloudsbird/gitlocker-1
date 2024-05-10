@@ -184,7 +184,7 @@
       var formData = new FormData();
       formData.append('authenticity_token', $('meta[name=csrf-token]').attr('content'));
       formData.append('product[name]', $('#product_name').val());
-      formData.append('product[description]', stripHtmlTags(ckEditorInstance.getData()));
+      formData.append('product[description]', ckEditorInstance.getData());
       formData.append('product[price]', $('#product_price').val());
       formData.append('product[product_url]', $('#product_url').val());
       var coverImages = $('#covers')[0].files;

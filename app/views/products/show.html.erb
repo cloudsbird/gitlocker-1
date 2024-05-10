@@ -105,11 +105,13 @@
         <br/>
         <div id="video-container"></div>
 
-        <% if @product.description.present? %>
-          <p class="mt-6 text-gray-500 max-w-screen" style="word-wrap: break-word; color: #333;"><%= raw @product.description %></p>
-        <% else %>
-          <p class="mt-6 text-gray-500 italic">No description</p>
-        <% end %>
+        <div class="prose">
+          <% if @product.description.present? %>
+            <%= raw @product.description %>
+          <% else %>
+            <p class="mt-6 text-gray-500 italic">No description</p>
+          <% end %>
+        </div>
 
         <div class="mt-10 border-t border-gray-200 pt-10">
           <h3 class="text-sm font-medium text-gray-900">License</h3>
