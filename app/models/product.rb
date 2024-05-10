@@ -23,6 +23,7 @@ class Product < ApplicationRecord
 
   has_many_attached :covers
   has_many :likes, dependent: :destroy
+  has_many :cart_items, dependent: :destroy
 
   validates :name, presence: true
   validates :name, uniqueness: true
