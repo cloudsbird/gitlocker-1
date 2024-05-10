@@ -58,7 +58,7 @@ class ProductsController < ApplicationController
     if @product.save
       render json: { message: 'Product was successfully Updated.', product_id: @product.slug }, status: :ok
     else
-      render json: { error: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
+      render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
@@ -108,7 +108,7 @@ class ProductsController < ApplicationController
       end
       render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
     else
-      render json: { error: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
+      render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
     end
   end
 
