@@ -61,6 +61,7 @@ Rails.application.routes.draw do
 
   resources :subscribed_users, only: :create
   resources :languages, only: :show, param: :slug
+  resources :categories, only: :show, param: :slug
 
   resources :library, only: :show, path: "l" do
     resources :reviews, only: [:new, :create]

@@ -16,6 +16,6 @@ class BrowseController < ApplicationController
   end
 
   def categories
-    @categories = Category.all
+    @categories = Category.order(:name)
   end
 end
