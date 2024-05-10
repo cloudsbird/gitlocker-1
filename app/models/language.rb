@@ -42,7 +42,16 @@ class Language < ApplicationRecord
     "ASP": "assembly.png",
     "D": "D.png",
     "Erlang": "assembly.png",
-    "Go": "go.png"
+    "Go": "go.png",
+    "Logos": "logos.png",
+    "Processing": "processing.png",
+    "Puppet": "puppet.png",
+    "Racket": "racket.jpg",
+    "Scheme": "scheme.png",
+    "Tex": "tex.png",
+    "Viml": "viml.jpg",
+    "Visual Basic": "visual-basic.jpg",
+    "XSLT": "xslt.png"
   }.with_indifferent_access
 
   extend FriendlyId
