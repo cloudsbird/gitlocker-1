@@ -1,4 +1,10 @@
 <div class="bg-white">
+  <%=
+    render BreadcrumbComponent.new([
+      { text: "Languages", url: browse_languages_path },
+      { text: @language.name, url: language_path(@language) }
+    ])
+  %>
   <main>
     <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <h2 class="text-3xl font-semibold mb-4 text-center"><%= @language.name %> Language Products</h2>
