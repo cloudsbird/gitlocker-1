@@ -1,7 +1,7 @@
 <li class="flex px-4 py-6 sm:px-6">
   <div class="flex-shrink-0">
     <% if cart_item.product.covers.exists? %>
-      <%= render CarouselComponent.new(@product.covers, "w-20 rounded-md") %>
+      <%= render CarouselComponent.new(cart_item.product.covers, "w-20 rounded-md") %>
     <% else %>
       <%= image_tag "default-cover.png", class: "w-20 rounded-md" %>
     <% end %>
