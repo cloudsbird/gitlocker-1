@@ -1,7 +1,7 @@
 <li class="flex py-6 sm:py-10">
   <div class="flex-shrink-0">
     <% if cart_item.product.covers.exists? %>
-      <%= render CarouselComponent.new(@product.covers) %>
+      <%= image_tag cart_item.product.covers.last, class: "h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48" %>
     <% else %>
       <%= image_tag "default-cover.png", class: "h-24 w-24 rounded-md object-cover object-center sm:h-48 sm:w-48" %>
     <% end %>
