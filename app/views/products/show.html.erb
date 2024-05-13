@@ -1,6 +1,6 @@
 <div class="bg-white">
   <%=
-    render BreadcrumbComponent.new([
+    render BreadcrumbComponent.new(current_user,[
       { text: "Products", url: current_user&.buyer? ? browse_path : products_path },
       { text: @product.name, url: request.original_url.include?("/l/") ? library_path(@product) : product_path(@product) }
     ])

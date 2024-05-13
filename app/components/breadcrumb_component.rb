@@ -1,7 +1,8 @@
 # frozen_string_literal: true
 
 class BreadcrumbComponent < ViewComponent::Base
-  def initialize(links)
+  def initialize(current_user, links)
+    @current_user = current_user
     @links = structify(links)
   end
 

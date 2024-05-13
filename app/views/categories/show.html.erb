@@ -1,6 +1,6 @@
 <div class="bg-white">
   <%=
-    render BreadcrumbComponent.new([
+    render BreadcrumbComponent.new(current_user,[
       { text: "Categories", url: browse_categories_path },
       { text: @category.name, url: category_path(@category) }
     ])

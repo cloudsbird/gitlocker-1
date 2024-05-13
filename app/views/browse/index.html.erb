@@ -1,6 +1,6 @@
 <div class="bg-white">
   <%=
-    render BreadcrumbComponent.new([
+    render BreadcrumbComponent.new(current_user,[
       { text: "Browse", url: browse_path }
     ])
   %>

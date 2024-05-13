@@ -1,5 +1,5 @@
 <%=
-  render BreadcrumbComponent.new([
+  render BreadcrumbComponent.new(current_user,[
     { text: "Creators", url: creators_path },
     { text: @user.username, url: creator_path(@user) }
   ])
