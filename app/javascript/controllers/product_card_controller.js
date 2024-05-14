@@ -2,7 +2,6 @@ import { Controller } from '@hotwired/stimulus';
 import { toggle } from 'el-transition';
 import { useHover } from 'stimulus-use';
 
-// Connects to data-controller="product-card"
 export default class extends Controller {
   static targets = ['menu', 'menuItem'];
 
@@ -10,6 +9,21 @@ export default class extends Controller {
     this.menuItemTargets.forEach((menuItem) => {
       useHover(this, { element: menuItem });
     });
+
+    document.addEventListener('click', this.handleClickOutside.bind(this));
+  }
+
+  disconnect() {
+    document.removeEventListener('click', this.handleClickOutside.bind(this));
+  }
+
+  handleClickOutside(event) {
+    if (!this.element.contains(event.target)) {
+      if (this.menuTarget.classList.contains('hidden')) {
+        return;
+      }
+      toggle(this.menuTarget);
+    }
   }
 
   open() {

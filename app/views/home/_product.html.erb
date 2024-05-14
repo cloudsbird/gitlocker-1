@@ -58,24 +58,3 @@
     </div>
   </div>
 </div>
-<script type="text/javascript">
-  document.addEventListener('DOMContentLoaded', function() {
-  var menuButton = document.querySelector('[data-action="product-card#open"]');
-  var menu = document.querySelector('[data-product-card-target="menu"]');
-
-  document.addEventListener('click', function(event) {
-    var isClickInsideMenu = menu.contains(event.target);
-    var isClickInsideMenuButton = menuButton.contains(event.target);
-    if (!isClickInsideMenu && !isClickInsideMenuButton) {
-      menu.classList.add('hidden');
-      menuButton.setAttribute('aria-expanded', 'false');
-    }
-  });
-
-  menuButton.addEventListener('click', function() {
-    var expanded = this.getAttribute('aria-expanded') === 'true' || false;
-    this.setAttribute('aria-expanded', !expanded);
-    menu.classList.toggle('hidden');
-  });
-  });
-</script>

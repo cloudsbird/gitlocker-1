@@ -11,7 +11,7 @@
       <div class="mx-auto flex max-w-2xl items-center justify-between gap-x-8 lg:mx-0 lg:max-w-none">
         <div class="flex items-center gap-x-6">
           <% if @sale.product.covers.any? %>
-            <%= image_tag @product.covers.first, class: "h-16 w-16 flex-none rounded-full ring-1 ring-gray-900/10" %>
+            <%= image_tag @sale.product.covers.first, class: "h-16 w-16 flex-none rounded-full ring-1 ring-gray-900/10" %>
           <% else %>
             <%= image_tag "https://tailwindui.com/img/logos/48x48/tuple.svg", class: "h-16 w-16 flex-none rounded-full ring-1 ring-gray-900/10" %>
           <% end %>

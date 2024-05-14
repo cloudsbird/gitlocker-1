@@ -71,24 +71,3 @@
     </div>
   </div>
 </li>
-<script type="text/javascript">
-  $(document).ready(function() {
-    const menu = $('[data-product-card-target="menu"]');
-    
-    function closeMenu() {
-      menu.addClass('hidden');
-      $(document).off('click', closeMenu); 
-    }
-    
-    $('[data-action="product-card#open"]').click(function(event) {
-      event.stopPropagation(); 
-      menu.toggleClass('hidden');
-      
-      $(document).on('click', closeMenu);
-    });
-    
-    menu.click(function(event) {
-      event.stopPropagation();
-    });
-  });
-</script>
