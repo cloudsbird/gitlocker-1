@@ -1,14 +1,14 @@
 class BrowseController < ApplicationController
   def index
-    @products = Product.all
+    @products = Product.exclude_purchased(current_user)
   end
 
   def popular
-    @products = Product.order(purchases_count: :desc)
+    @products = Product.exclude_purchased(current_user).order(purchases_count: :desc)
   end
 
   def recent
-    @products = Product.recent
+    @products = Product.exclude_purchased(current_user).recent
   end
 
   def languages

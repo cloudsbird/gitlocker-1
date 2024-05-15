@@ -17,6 +17,18 @@ class ProductPolicy < ApplicationPolicy
 
     return false unless record.published?
 
+    return false if user&.purchased_products&.include?(record)
+
+    user.blank? || record.user_id != user.id
+  end
+
+  def download_able?
+    return false unless record.active?
+
+    return false unless record.published?
+
+    return false unless Purchase.exists?(product_id: record.id, user_id: user&.id)
+
     user.blank? || record.user_id != user.id
   end
 

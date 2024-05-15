@@ -29,6 +29,9 @@ class Product < ApplicationRecord
   # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories
+  scope :exclude_purchased, ->(user) { 
+    where.not(id: user&.purchases&.pluck(:product_id))
+  }
 
   include PgSearch::Model
   pg_search_scope :search,
