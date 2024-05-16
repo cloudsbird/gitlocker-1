@@ -25,7 +25,7 @@ class Product < ApplicationRecord
   has_many :likes, dependent: :destroy
   has_many :cart_items, dependent: :destroy
 
-  validates :name, presence: true, uniqueness: true
+  validates :name, presence: true, uniqueness: true, on: :create
   # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories

@@ -308,6 +308,23 @@
       }
     });
 
+    $(document).on('change', '#product-folder', function(event) {
+      const folderFiles = $(this)[0].files;
+      let totalSizeInBytes = 0;
+
+      for (let i = 0; i < folderFiles.length; i++) {
+        totalSizeInBytes += folderFiles[i].size;
+      }
+
+      const totalSizeInGB = totalSizeInBytes / (1024 * 1024 * 1024);
+
+      if (totalSizeInGB > 5) {
+        alert('The total size of the folder exceeds the 5 GB limit. Please select fewer files or smaller ones.');
+        $(this).val(null);
+        return;
+      }
+    });
+
 
     function processBatch() {
       return new Promise(function(resolve, reject) {
