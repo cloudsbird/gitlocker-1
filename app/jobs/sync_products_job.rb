@@ -22,6 +22,9 @@ class SyncProductsJob < ApplicationJob
         repo_id: repository.id
       )
       product.languages << language
+      product.download_path = download_repository_as_zip(repository[:owner][:login], repository.name, 'main', user.token)
+      product.published = true
+      product.active = true
       product
     end
 
@@ -67,5 +70,15 @@ class SyncProductsJob < ApplicationJob
 
   def repositories_count
     octokit_client.user.public_repos + octokit_client.user.total_private_repos
+  end
+
+  def download_repository_as_zip(owner, repo, ref, token)
+    begin
+      zip_link = "https://github.com/#{owner}/#{repo}/archive/refs/heads/#{ref}.zip"
+      zip_link
+    rescue => e
+      puts "Failed to download ZIP: #{e.message}"
+      nil
+    end
   end
 end

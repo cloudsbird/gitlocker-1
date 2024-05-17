@@ -83,14 +83,6 @@
                       <td class="hidden py-5 pr-6 sm:table-cell">
                         <div class="text-sm leading-6 text-gray-900"><%= link_to sale.product.name, product_path(sale.product) %></div>
                       </td>
-                      <td class="py-5 text-right">
-                        <div class="flex justify-end">
-                          <%= link_to sale_path(sale), class: "text-sm font-medium leading-6 text-indigo-600 hover:text-indigo-500" do %>
-                            View<span class="hidden sm:inline"> transaction</span>
-                          <% end %>
-                        </div>
-                        <div class="mt-1 text-xs leading-5 text-gray-500">Sale <span class="text-gray-900">#<%= sale.id %></span></div>
-                      </td>
                     </tr>
                   <% end %>
                 <% end %>

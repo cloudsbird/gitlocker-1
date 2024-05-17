@@ -40,6 +40,15 @@ class ProductsController < ApplicationController
       categories = Category.find(category_ids)
       @product.categories << categories
     end
+    if params[:product][:product_url].present? && @product.download_path.nil?
+      repo_url = params[:product][:product_url]
+      owner, repo_name = extract_owner_and_repo_name(repo_url)
+      user_repos = octokit_client.repositories(nil, per_page: repositories_count)
+      @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
+      @product.download_path = @archive_path
+    end
+    @product.published = true
+    @product.active = true
 
     @product.languages.destroy_all
     if params[:product][:language_ids].present?
@@ -50,11 +59,6 @@ class ProductsController < ApplicationController
       selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
       @product.languages << selected_language
     end
-    if params[:product][:folder].present?
-      @product.folder.attach(params[:product][:folder])
-      upload_folder_to_s3(params[:product][:folder])
-    end
-
     if @product.save
       render json: { message: 'Product was successfully Updated.', product_id: @product.slug }, status: :ok
     else
@@ -78,6 +82,8 @@ class ProductsController < ApplicationController
       if matching_repo
         @product.url = matching_repo.html_url
         @product.repo_id = matching_repo.id
+        @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
+        @product.download_path = @archive_path
       else
         render json: { message: 'Failed to create product. Repository not found or does not belong to you.'}, status: :unprocessable_entity
         return
@@ -101,14 +107,14 @@ class ProductsController < ApplicationController
     @product.published = true
     @product.active = true
 
-    if @product.save
-      if params[:product][:folder].present?
-        @product.folder.attach(params[:product][:folder])
-        upload_folder_to_s3(params[:product][:folder])
+    begin
+      if @product.save
+        render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
+      else
+        render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
       end
-      render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
-    else
-      render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
+    rescue ActiveRecord::RecordNotUnique => e
+      render json: { message: 'Failed to create product. Repositry Aleady Exist.' }, status: :unprocessable_entity
     end
   end
 
@@ -127,14 +133,6 @@ class ProductsController < ApplicationController
       product_categories_attributes: [:id, :active],
       covers_attributes: [:id, :image]
     )
-  end
-
-  def upload_folder_to_s3(folder)
-    s3 = Aws::S3::Resource.new
-    bucket = s3.bucket(ENV['AMAZON_BUCKET'])
-    object_key = "#{SecureRandom.uuid}/folder.zip"
-    obj = bucket.object(object_key)
-    obj.upload_file(folder.path)
   end
 
   def extract_owner_and_repo_name(repo_url)
@@ -172,6 +170,16 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.friendly.find(params[:id])
+  end
+
+  def download_repository_as_zip(owner, repo, ref, token)
+    begin
+      zip_link = "https://github.com/#{owner}/#{repo}/archive/refs/heads/#{ref}.zip"
+      zip_link
+    rescue => e
+      puts "Failed to download ZIP: #{e.message}"
+      nil
+    end
   end
   
 end

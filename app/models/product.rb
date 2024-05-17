@@ -7,7 +7,7 @@ class Product < ApplicationRecord
   belongs_to :user
 
   has_many :reviews, dependent: :destroy
-  has_many :purchases
+  has_many :purchases, dependent: :destroy
   has_one_attached :folder
   has_one_attached :video_file
 

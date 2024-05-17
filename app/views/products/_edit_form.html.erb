@@ -6,10 +6,10 @@
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
-        <div class="sm:col-span-4 hidden" id= "url-field">
+        <div class="sm:col-span-4" id= "url-field">
           <%= f.label :url,"GitHub Private Repository URL", class: "block text-sm font-medium leading-6 text-gray-900" %>
           <div class="mt-2">
-            <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL" %>
+            <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL", readonly: true %>
           </div>
         </div>
 
@@ -112,17 +112,6 @@
           </div>
         </div>
 
-        <div class="sm:col-span-4" id="upload-folder-field">
-          <%= f.label :upload, class: "block text-sm font-medium leading-6 text-gray-900" do %>
-            Product Upload (file size limit of 5 GB)
-          <% end %>
-          <div class="mt-2">
-            <input type="file" id="product-folder" name="product[folder]" multiple webkitdirectory class="block w-full py-1.5 px-4 rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
-          </div>
-          <% if @product.folder.attached? %>
-            <p><strong>Attached Folder:</strong> <%= @product.folder.filename %></p>
-          <% end %>
-        </div>
         <div class="sm:col-span-4">
             <div id="upload-status" class="mt-2"></div>
         </div>
@@ -178,9 +167,6 @@
     $('#product-form').submit(function(event) {
       event.preventDefault();
       
-      var folderInput = document.getElementById('product-folder');
-      var folderFiles = folderInput.files;
-
       var formData = new FormData();
       formData.append('authenticity_token', $('meta[name=csrf-token]').attr('content'));
       formData.append('product[name]', $('#product_name').val());
@@ -207,43 +193,38 @@
       }
       var url = "/products/" + <%= @product.id %>;
 
-      $('#upload-status').html('<img class="w-10 h-10" src="<%= asset_path('loading.gif') %>" alt="Loading"> Uploading');
-      processBatch().then(function(zipContent) {
-        formData.append('product[folder]', zipContent, 'archive.zip');
-        $.ajax({
-            type: 'PATCH',
-            url: url,
-            data: formData,
-            processData: false,
-            contentType: false,
-            xhr: function() {
-                var xhr = new window.XMLHttpRequest();
-                xhr.upload.addEventListener('progress', function(evt) {
-                }, false);
-                return xhr;
-            },
-            success: function(data) {
-                $('#upload-status').html('<img class="w-10 h-10" src="<%= asset_path('tick.png') %>" alt="Tick"> Upload complete');
-                setTimeout(function() {
-                    var productId = data.product_id;
-                    window.location.href = '/products/' + productId;
-                }, 3000);
-            },
-            error: function(xhr, status, error) {
-                if (xhr.status === 422) {
-                    var errors = xhr.responseJSON.message;
-                    if (errors) {
-                        $('#upload-status').text('Error: ' + errors);
-                    } else {
-                        $('#upload-status').text('Error: ' + error);
-                    }
-                } else {
-                    $('#upload-status').text('Error: ' + error);
-                }
-            }
-        });
-      }).catch(function(error) {
-        console.error('Error processing batch:', error);
+      $.ajax({
+          type: 'PATCH',
+          url: url,
+          data: formData,
+          processData: false,
+          contentType: false,
+          xhr: function() {
+              var xhr = new window.XMLHttpRequest();
+              xhr.upload.addEventListener('progress', function(evt) {
+                $('#upload-status').html('<img class="w-10 h-10" src="<%= asset_path('loading.gif') %>" alt="Loading"> Uploading');
+              }, false);
+              return xhr;
+          },
+          success: function(data) {
+              $('#upload-status').html('<img class="w-10 h-10" src="<%= asset_path('tick.png') %>" alt="Tick"> Upload complete');
+              setTimeout(function() {
+                  var productId = data.product_id;
+                  window.location.href = '/products/' + productId;
+              }, 3000);
+          },
+          error: function(xhr, status, error) {
+              if (xhr.status === 422) {
+                  var errors = xhr.responseJSON.message;
+                  if (errors) {
+                      $('#upload-status').text('Error: ' + errors);
+                  } else {
+                      $('#upload-status').text('Error: ' + error);
+                  }
+              } else {
+                  $('#upload-status').text('Error: ' + error);
+              }
+          }
       });
 
     });
@@ -333,98 +314,6 @@
         }
       }
     });
-
-    $(document).on('change', '#product-folder', function(event) {
-      const folderFiles = $(this)[0].files;
-      let totalSizeInBytes = 0;
-
-      for (let i = 0; i < folderFiles.length; i++) {
-        totalSizeInBytes += folderFiles[i].size;
-      }
-
-      const totalSizeInGB = totalSizeInBytes / (1024 * 1024 * 1024);
-
-      if (totalSizeInGB > 5) {
-        alert('The total size of the folder exceeds the 5 GB limit. Please select fewer files or smaller ones.');
-        $(this).val(null);
-        return;
-      }
-    });
-
-    function processBatch() {
-      return new Promise(function(resolve, reject) {
-        var folderInput = document.getElementById('product-folder');
-        var files = folderInput.files;
-
-        var batchSize = 1000; 
-        var totalBatches = Math.ceil(files.length / batchSize);
-        var batchIndex = 0;
-
-        var zip = new JSZip();
-
-        function addToZip(path, file) {
-            return new Promise((resolve, reject) => {
-                var reader = new FileReader();
-                reader.onload = function() {
-                    zip.file(path, reader.result);
-                    resolve();
-                }
-                reader.onerror = function(error) {
-                    reject(error);
-                }
-                reader.readAsArrayBuffer(file);
-            });
-        }
-
-        function traverseAndAddToZip(folderPath, entries) {
-            return Promise.all(entries.map(entry => {
-                if (entry.isDirectory) {
-                    return entry.createReader().readEntries().then(subEntries => {
-                        return traverseAndAddToZip(folderPath + entry.name + '/', subEntries);
-                    });
-                } else {
-                    return addToZip(folderPath + entry.name, entry);
-                }
-            }));
-        }
-
-        function processFiles() {
-            return new Promise(function(resolve, reject) {
-                var batchStartIndex = batchIndex * batchSize;
-                var batchEndIndex = Math.min((batchIndex + 1) * batchSize, files.length);
-                var batchFiles = Array.prototype.slice.call(files, batchStartIndex, batchEndIndex);
-
-                var fileCount = batchFiles.length;
-                var processedCount = 0;
-
-                batchFiles.forEach(file => {
-                    if (file.webkitRelativePath.indexOf('/') !== -1) {
-                        var parentFolder = file.webkitRelativePath.split('/')[0] + '/';
-                        zip.folder(parentFolder);
-                    }
-                    addToZip(file.webkitRelativePath, file).then(function() {
-                        processedCount++;
-
-                        if (processedCount === fileCount) {
-                            console.log("Batch processed:", batchIndex + 1, "/", totalBatches);
-                            batchIndex++;
-                            if (batchIndex < totalBatches) {
-                                resolve(processFiles());
-                            } else {
-                                zip.generateAsync({ type: "blob" }).then(function(content) {
-                                    console.log("All batches processed. ZIP file generated.");
-                                    resolve(content);
-                                });
-                            }
-                        }
-                    }).catch(error => reject(error));
-                });
-            });
-        }
-
-        processFiles().then(resolve).catch(reject);
-      });
-    }
 
   });
 </script>
