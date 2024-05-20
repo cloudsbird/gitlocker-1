@@ -36,6 +36,8 @@ gem 'sendgrid-actionmailer'
 gem 'sendgrid-ruby'
 gem 'aws-sdk-s3', require: false
 gem 'rubyzip', '~> 2.3', '>= 2.3.0'
+gem 'net-http'
+gem 'rest-client'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

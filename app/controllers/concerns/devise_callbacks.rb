@@ -8,7 +8,7 @@ module DeviseCallbacks
   def sync_products
     return if resource.token.blank?
 
-    SyncProductsJob.perform_now(resource.id)
+    # SyncProductsJob.perform_now(resource.id)
   end
 
   def sync_cart_items

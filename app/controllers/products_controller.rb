@@ -1,6 +1,7 @@
 require 'zip'
 require 'tempfile'
 require 'aws-sdk-s3'
+require 'open3'
 class ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:like, :unlike]
@@ -40,12 +41,11 @@ class ProductsController < ApplicationController
       categories = Category.find(category_ids)
       @product.categories << categories
     end
-    if params[:product][:product_url].present? && @product.download_path.nil?
+    if params[:product][:product_url].present? && @product.folder.attachments.empty?
       repo_url = params[:product][:product_url]
       owner, repo_name = extract_owner_and_repo_name(repo_url)
       user_repos = octokit_client.repositories(nil, per_page: repositories_count)
       @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
-      @product.download_path = @archive_path
     end
     @product.published = true
     @product.active = true
@@ -83,7 +83,6 @@ class ProductsController < ApplicationController
         @product.url = matching_repo.html_url
         @product.repo_id = matching_repo.id
         @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
-        @product.download_path = @archive_path
       else
         render json: { message: 'Failed to create product. Repository not found or does not belong to you.'}, status: :unprocessable_entity
         return
@@ -175,10 +174,33 @@ class ProductsController < ApplicationController
   def download_repository_as_zip(owner, repo, ref, token)
     begin
       zip_link = "https://github.com/#{owner}/#{repo}/archive/refs/heads/#{ref}.zip"
-      zip_link
+      temp_file = Tempfile.new([repo, '.zip'])
+      
+      curl_command = "curl -L -H 'Authorization: token #{token}' -o #{temp_file.path} #{zip_link}"
+      
+      stdout, stderr, status = Open3.capture3(curl_command)
+      
+      if status.success?
+        puts "Successfully downloaded #{temp_file.path}"
+        
+        @product.folder.attach(
+          io: File.open(temp_file.path), 
+          filename: "#{repo}-#{ref}.zip", 
+          content_type: 'application/zip'
+        )
+        puts "Successfully attached #{repo}-#{ref}.zip to the product"
+        
+        temp_file.path
+      else
+        puts "Failed to download ZIP: #{stderr}"
+        nil
+      end
     rescue => e
-      puts "Failed to download ZIP: #{e.message}"
+      puts "Exception occurred: #{e.message}"
       nil
+    ensure
+      temp_file.close
+      temp_file.unlink
     end
   end
   
