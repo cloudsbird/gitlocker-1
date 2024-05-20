@@ -67,4 +67,8 @@ class User < ApplicationRecord
   def email_stripped
     email.split("@").first
   end
+
+  def total_sales_amount_in_dollars
+    sales.sum(:price_cents) / 100.0
+  end
 end

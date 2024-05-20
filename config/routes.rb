@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   resources :cart_items, only: [:index, :create, :destroy]
 
   resources :sales, only: [:index, :show]
+  resources :funds, only: [:index]
 
   get "checkout", to: "checkout#index"
   post "checkout", to: "checkout#create"
