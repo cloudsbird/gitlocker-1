@@ -41,7 +41,7 @@ class ProductsController < ApplicationController
       categories = Category.find(category_ids)
       @product.categories << categories
     end
-    if params[:product][:product_url].present? && @product.folder.attachments.empty?
+    if params[:product][:product_url].present? && @product.folder.attachments.nil?
       repo_url = params[:product][:product_url]
       owner, repo_name = extract_owner_and_repo_name(repo_url)
       user_repos = octokit_client.repositories(nil, per_page: repositories_count)
