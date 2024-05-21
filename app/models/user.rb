@@ -69,6 +69,9 @@ class User < ApplicationRecord
   end
 
   def total_sales_amount_in_dollars
-    sales.sum(:price_cents) / 100.0
+    total_sale_value = sales.where(pending: true).sum(:price_cents)
+    total_sale_value *= 0.9 
+    total_sale_value /= 100.0
   end
+  
 end

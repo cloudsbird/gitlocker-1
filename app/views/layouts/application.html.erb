@@ -48,7 +48,7 @@
     <%= javascript_importmap_tags %>
     <%= favicon_link_tag asset_path("favicon.png") %>
 
-    <% if controller_name == "checkout" %>
+    <% if controller_name == "checkout" || controller_name == "funds" %>
       <%= stripe_javascript_tag %>
     <% end %>
 

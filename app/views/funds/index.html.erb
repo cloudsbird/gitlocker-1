@@ -1,8 +1,9 @@
 <%= render BreadcrumbComponent.new(current_user, [{ text: "Funds", url: funds_path }]) %>
-<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
+  data-controller="checkout">
   <div class="sm:flex sm:items-center sm:justify-between">
     <div class="mt-4 sm:mt-0 sm:ml-4 flex space-x-8 bg-white p-4 rounded shadow-md">
-      <% [["Pending", "$#{@funds}"], ["Available", "$0.00"]].each do |label, amount, extra| %>
+     <% [["Pending", sprintf("$%.2f", @funds)], ["Available", sprintf("$%.2f", current_user.balance)]].each do |label, amount, extra| %>
         <div class="text-center">
           <p class="text-gray-500">
             <%= label %>
@@ -19,8 +20,12 @@
       <% end %>
     </div>
   </div>
-  <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-4 sm:grid-cols-2">
-      <%= link_to "WithDraw", "", class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
+  <div class="col-span-1">
+    <h2 class="text-lg font-medium text-gray-900">Payment</h2>
+
+    <div class="mt-6">
+      <%= stripe_elements_tag submit_path: funds_path %>
+    </div>
   </div>
 </div>
 
