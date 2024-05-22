@@ -10,32 +10,31 @@ class FundsController < ApplicationController
     stripe_token = params[:stripeToken]
 
     begin
-      stripe_customer = Stripe::Customer.create(
-        email: seller.email,
-        source: stripe_token 
-      )
-
+      # Create a PaymentIntent directly without creating a Customer, since we're using a token
       payment_intent = Stripe::PaymentIntent.create({
-        amount: amount.to_i,
+        amount: amount,
         currency: 'usd',
         payment_method_types: ['card'],
-        customer: stripe_customer.id,
-        payment_method: stripe_customer.default_source
+        payment_method_data: {
+          type: 'card',
+          card: { token: stripe_token }
+        },
+        confirm: true,
+        application_fee_amount: 0,
+        transfer_data: {
+          destination: seller.account.stripe_id 
+        }
       })
 
-      payment_intent.confirm
-
       if payment_intent.status == 'succeeded'
-        current_user.update(balance: 0.00)
-        redirect_to funds_path, notice: 'Payout setup and processing successful!'
+        seller.update(balance: 0.00)
+        redirect_to funds_path, notice: 'Payment successful!'
       else
-        redirect_to funds_path, alert: 'Payout setup succeeded but processing failed!'
+        redirect_to funds_path, alert: 'Payment processing failed!'
       end
     rescue Stripe::StripeError => e
       Rails.logger.error "Stripe Error: #{e.message}"
-
-      redirect_to funds_path, alert: 'Payout setup and processing failed!'
+      redirect_to funds_path, alert: 'Payment processing failed!'
     end
   end
-
 end

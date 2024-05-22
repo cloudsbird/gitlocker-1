@@ -38,6 +38,7 @@ gem 'aws-sdk-s3', require: false
 gem 'rubyzip', '~> 2.3', '>= 2.3.0'
 gem 'net-http'
 gem 'rest-client'
+gem "stripe", "~> 7.0"
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"
