@@ -84,6 +84,8 @@ Rails.application.routes.draw do
   get "browse/recent", to: "browse#recent"
   get "browse/languages", to: "browse#languages"
   get "browse/categories", to: "browse#categories"
+  get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
+  get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
 
   # Error Pages
   match '/404', to: 'errors#not_found', via: :all
