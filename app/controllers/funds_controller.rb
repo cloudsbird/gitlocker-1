@@ -10,31 +10,25 @@ class FundsController < ApplicationController
     stripe_token = params[:stripeToken]
 
     begin
-      # Create a PaymentIntent directly without creating a Customer, since we're using a token
-      payment_intent = Stripe::PaymentIntent.create({
+      transfer = Stripe::Transfer.create({
         amount: amount,
         currency: 'usd',
-        payment_method_types: ['card'],
-        payment_method_data: {
-          type: 'card',
-          card: { token: stripe_token }
-        },
-        confirm: true,
-        application_fee_amount: 0,
-        transfer_data: {
-          destination: seller.account.stripe_id 
-        }
+        destination: seller.account.stripe_id,
+        transfer_group: 'ORDER_95',
       })
 
-      if payment_intent.status == 'succeeded'
+      if transfer.status == 'paid'
         seller.update(balance: 0.00)
         redirect_to funds_path, notice: 'Payment successful!'
       else
         redirect_to funds_path, alert: 'Payment processing failed!'
       end
-    rescue Stripe::StripeError => e
+    rescue Stripe::InvalidRequestError, Stripe::CardError, Stripe::AuthenticationError, Stripe::APIConnectionError, Stripe::StripeError => e
       Rails.logger.error "Stripe Error: #{e.message}"
-      redirect_to funds_path, alert: 'Payment processing failed!'
+      redirect_to funds_path, alert: "Payment processing failed: #{e.message}"
+    rescue StandardError => e
+      Rails.logger.error "Unexpected Error: #{e.message}"
+      redirect_to funds_path, alert: 'An unexpected error occurred. Please try again later.'
     end
   end
 end
