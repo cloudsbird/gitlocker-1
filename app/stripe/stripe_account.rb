@@ -45,8 +45,8 @@ class StripeAccount
   def onboarding_url
     Stripe::AccountLink.create({
       account: account.stripe_id,
-      refresh_url: accounts_url,
-      return_url: accounts_url,
+      refresh_url: funds_url,
+      return_url: funds_url,
       type: 'account_onboarding',
       collect: 'eventually_due',
     }).url
