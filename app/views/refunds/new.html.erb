@@ -1,0 +1,63 @@
+<%= form_with(model: @refund, url: refunds_path, method: :post, local: true, html: { class: "max-w-md mx-auto bg-white shadow-md rounded px-8 pt-6 pb-8 mb-4", id: "refund-form" }) do |form| %>
+  <div class="mb-4">
+    <%= form.label :product_name, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.select :product_id, options_from_collection_for_select(User.first.purchases.map(&:product), 'id', 'name'), { prompt: 'Select Product' }, class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id: "product_name" %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :description, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.text_area :description, placeholder: 'Description', class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id: "product_description" %>
+  </div>
+  <div class="mb-4">
+    <%= form.label :stripe_transaction_screenshot, class: "block text-gray-700 text-sm font-bold mb-2" %>
+    <%= form.file_field :stripe_transaction_screenshot, accept: 'image/*', class: "shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline", id: "stripe_transaction_screenshot" %>
+  </div>
+  <div class="flex items-center justify-between">
+    <%= form.submit 'Submit Refund Request', class: "bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline" %>
+  </div>
+</br>
+<% end %>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script>
+$(document).ready(function() {
+    $('#refund-form').submit(function(event) {
+        event.preventDefault();
+
+        var formData = new FormData();
+        formData.append('authenticity_token', $('meta[name=csrf-token]').attr('content'));
+        formData.append('refund[product_id]', $('#product_name').val());
+        formData.append('refund[description]', $('#product_description').val());
+        var fileInput = $('#stripe_transaction_screenshot')[0].files[0];
+
+        if (fileInput) {
+            formData.append('refund[stripe_transaction_screenshot]', fileInput);
+        }
+
+        $.ajax({
+            url: $(this).attr('action'),
+            method: 'POST',
+            data: formData,
+            processData: false,
+            contentType: false,
+            success: function(data) {
+                Swal.fire({
+                    icon: 'success',
+                    title: 'Success!',
+                    text: 'Refund request submitted successfully.',
+                    showConfirmButton: false,
+                    timer: 1500
+                }).then(function() {
+                    window.location.href = "<%= funds_path %>";
+                });
+            },
+            error: function(xhr, status, error) {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Error!',
+                    text: 'Something went wrong. Please try again later.'
+                });
+            }
+        });
+    });
+});
+</script>

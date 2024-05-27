@@ -1,25 +1,53 @@
 <%= render BreadcrumbComponent.new(current_user, [{ text: "Funds", url: funds_path }]) %>
-<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8"
-  data-controller="checkout">
+<div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8" data-controller="checkout">
   <div class="sm:flex sm:items-center sm:justify-between">
-    <div class="mt-4 sm:mt-0 sm:ml-4 flex space-x-8 bg-white p-4 rounded shadow-md">
-     <% [["Pending", sprintf("$%.2f", @funds)], ["Available", sprintf("$%.2f", current_user.balance)]].each do |label, amount, extra| %>
-        <div class="text-center">
-          <p class="text-gray-500">
-            <%= label %>
-            <span class="relative" x-data="{ tooltip: false }">
-              <span @mouseenter="tooltip = true" @mouseleave="tooltip = false" class="inline-block w-5 h-5 bg-black text-white text-xs rounded-full cursor-pointer">?</span>
-              <span x-show="tooltip" class="absolute z-10 w-40 p-2 -mt-8 text-sm text-white bg-black rounded-lg" style="display: none;">Payments are pending for a week for customer to review</span>
-            </span>
-          </p>
-          <p class="text-2xl font-semibold"><%= amount %></p>
-          <% if extra %>
-            <p class="text-gray-500 text-sm"><%= extra %></p>
-          <% end %>
-        </div>
-      <% end %>
+    <div class="flex flex-wrap gap-4">
+      <div class="bg-white p-4 rounded shadow-md flex-grow">
+        <% [["Pending", sprintf("$%.2f", @funds)]].each do |label, amount, extra| %>
+          <div class="text-center">
+            <p class="text-gray-500">
+              <%= label %>
+              <span class="relative" x-data="{ tooltip: false }">
+                <span @mouseenter="tooltip = true" @mouseleave="tooltip = false" class="inline-block w-5 h-5 bg-black text-white text-xs rounded-full cursor-pointer">?</span>
+                <span x-show="tooltip" class="absolute z-10 w-40 p-2 -mt-8 text-sm text-white bg-black rounded-lg" style="display: none;">Payments are pending for a week for customers to review</span>
+              </span>
+            </p>
+            <p class="text-2xl font-semibold"><%= amount %></p>
+            <% if extra %>
+              <p class="text-gray-500 text-sm"><%= extra %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="bg-white p-4 rounded shadow-md flex-grow">
+        <% [["Available", sprintf("$%.2f", current_user.balance)]].each do |label, amount, extra| %>
+          <div class="text-center">
+            <p class="text-gray-500">
+              <%= label %>
+            </p>
+            <p class="text-2xl font-semibold"><%= amount %></p>
+            <% if extra %>
+              <p class="text-gray-500 text-sm"><%= extra %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+      <div class="bg-white p-4 rounded shadow-md flex-grow">
+        <% [["Total Earnings", sprintf("$%.2f", current_user.total_earning)]].each do |label, amount, extra| %>
+          <div class="text-center">
+            <p class="text-gray-500">
+              <%= label %>
+            </p>
+            <p class="text-2xl font-semibold"><%= amount %></p>
+            <% if extra %>
+              <p class="text-gray-500 text-sm"><%= extra %></p>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
     </div>
   </div>
+  </br>
   <div class="col-span-1">
     <h2 class="text-lg font-medium text-gray-900">Payment</h2>
 

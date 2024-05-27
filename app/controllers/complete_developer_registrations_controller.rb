@@ -13,12 +13,12 @@ class CompleteDeveloperRegistrationsController < ApplicationController
 
   def update
     current_user.registration_completed!
-    redirect_to dashboard_path
+    redirect_to funds_path
   end
 
   private
 
   def redirect_to_dashboard
-    redirect_to dashboard_path
+    redirect_to funds_path
   end
 end

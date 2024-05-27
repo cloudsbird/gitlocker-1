@@ -54,6 +54,7 @@ Rails.application.routes.draw do
   resources :creators, only: [:index, :show]
   resources :purchases, only: [:index]
   resources :accounts
+  resources :refunds, only: [:new, :create]
 
   resources :products, only: [:index, :show, :edit, :update,:new, :create, :destroy] do
     resources :covers, only: [:create, :destroy], controller: "product_covers"

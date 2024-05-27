@@ -17,6 +17,7 @@ namespace :user do
       total_sale_value /= 100
 
       user.update(balance: user.balance + total_sale_value) if total_sale_value > 0
+      user.update(total_earning: user.total_earning + total_sale_value) if total_sale_value > 0
 
       puts "Updated sales for user ##{user.id}. Total added to balance: #{total_sale_value} USD."
     end

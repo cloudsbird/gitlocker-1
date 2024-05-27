@@ -8,7 +8,7 @@ class CompleteRegistrationsController < ApplicationController
   def update
     if user_type == "customer"
       current_user.registration_completed!
-      redirect_to dashboard_path
+      redirect_to funds_path
     else
       redirect_to complete_developer_registrations_path
     end
@@ -17,7 +17,7 @@ class CompleteRegistrationsController < ApplicationController
   private
 
   def redirect_to_dashboard
-    redirect_to dashboard_path
+    redirect_to funds_path
   end
 
   def user_type

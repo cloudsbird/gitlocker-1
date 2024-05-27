@@ -10,6 +10,7 @@ class Product < ApplicationRecord
   has_many :purchases, dependent: :destroy
   has_one_attached :folder
   has_one_attached :video_file
+  has_one :refund
 
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories

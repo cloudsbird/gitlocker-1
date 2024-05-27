@@ -10,9 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_05_21_142001) do
+ActiveRecord::Schema[7.1].define(version: 2024_05_27_121935) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "accounts", force: :cascade do |t|
+    t.string "stripe_id"
+    t.boolean "payouts_enabled"
+    t.boolean "charges_enabled"
+    t.bigint "user_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_id"], name: "index_accounts_on_user_id"
+  end
 
   create_table "active_storage_attachments", force: :cascade do |t|
     t.string "name", null: false
@@ -239,6 +249,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_142001) do
     t.index ["user_id"], name: "index_purchases_on_user_id"
   end
 
+  create_table "refunds", force: :cascade do |t|
+    t.text "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "product_id", null: false
+    t.string "stripe_transaction_screenshot"
+    t.index ["product_id"], name: "index_refunds_on_product_id"
+  end
+
   create_table "reviews", force: :cascade do |t|
     t.bigint "product_id", null: false
     t.bigint "user_id", null: false
@@ -281,12 +300,14 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_142001) do
     t.integer "state", default: 0
     t.float "balance", default: 0.0, null: false
     t.string "stripe_account_id"
+    t.decimal "total_earning", precision: 10, scale: 2, default: "0.0", null: false
     t.index ["confirmation_token"], name: "index_users_on_confirmation_token", unique: true
     t.index ["email"], name: "index_users_on_email", unique: true
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
     t.index ["username"], name: "index_users_on_username", unique: true
   end
 
+  add_foreign_key "accounts", "users"
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
   add_foreign_key "cart_items", "products"
@@ -301,6 +322,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_05_21_142001) do
   add_foreign_key "purchases", "payments"
   add_foreign_key "purchases", "products"
   add_foreign_key "purchases", "users"
+  add_foreign_key "refunds", "products"
   add_foreign_key "reviews", "products"
   add_foreign_key "reviews", "users"
 end
