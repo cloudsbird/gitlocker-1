@@ -3,6 +3,7 @@ class HomeController < ApplicationController
     # redirect_to dashboard_path if user_signed_in? && current_user.token.present?
 
     @languages = Language.order(:name).limit(20)
+    @categories = Category.order(:name).limit(20)
     @recent_products = Product.published.recent.exclude_purchased(current_user).first(5)
     @popular_products = Product.exclude_purchased(current_user).order(purchases_count: :desc).first(5)
   end
