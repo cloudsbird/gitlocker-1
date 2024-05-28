@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  devise_for :admin_users, ActiveAdmin::Devise.config
+  ActiveAdmin.routes(self)
   if Rails.env.production?
     constraints(host: /^(?!www\.)/i) do
       match '(*any)', to: redirect { |params, request|
@@ -24,7 +26,7 @@ Rails.application.routes.draw do
   # Can be used by load balancers and uptime monitors to verify that the app is live.
   get "up" => "rails/health#show", as: :rails_health_check
 
-  get "/sitemap.xml", to: redirect("https://s3.us-east-2.amazonaws.com/gitlocker/sitemaps/sitemap.xml", status: 301)
+  get '/sitemap.xml', to: 'application#show_sitemap', format: :xml
 
   # Defines the root path route ("/")
   root "home#index"
