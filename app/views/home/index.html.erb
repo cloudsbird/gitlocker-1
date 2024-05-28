@@ -74,6 +74,25 @@
         </div>
       </div>
     </section>
+    <section aria-labelledby="category-heading" class="pt-16 pb-24 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+      <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+        <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Categories</h2>
+        <%= link_to browse_languages_path, class: "hidden text-sm font-semibold text-indigo-600 hover:text-indigo-500 sm:block" do %>
+          Browse All Categories
+          <span aria-hidden="true"> &rarr;</span>
+        <% end %>
+      </div>
+
+      <div class="mt-4 flow-root">
+        <div class="-my-2">
+          <div class="relative py-2">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
+              <%= render partial: "home/category", collection: @categories %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   </main>
 </div>
 
