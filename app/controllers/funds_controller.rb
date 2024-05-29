@@ -10,18 +10,21 @@ class FundsController < ApplicationController
     stripe_token = params[:stripeToken]
 
     begin
+
       transfer = Stripe::Transfer.create({
         amount: amount,
         currency: 'usd',
         destination: seller.account.stripe_id,
         transfer_group: 'ORDER_95',
       })
+      transfer_from_api = Stripe::Transfer.retrieve(transfer.id)
 
-      if transfer.status == 'paid'
+      if transfer_from_api.reversed
+        redirect_to funds_path, alert: 'Payment processing failed!'
+        puts "Transfer has been reversed"
+      else
         seller.update(balance: 0.00)
         redirect_to funds_path, notice: 'Payment successful!'
-      else
-        redirect_to funds_path, alert: 'Payment processing failed!'
       end
     rescue Stripe::InvalidRequestError, Stripe::CardError, Stripe::AuthenticationError, Stripe::APIConnectionError, Stripe::StripeError => e
       Rails.logger.error "Stripe Error: #{e.message}"
