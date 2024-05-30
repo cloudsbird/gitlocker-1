@@ -8,9 +8,9 @@ class Product < ApplicationRecord
 
   has_many :reviews, dependent: :destroy
   has_many :purchases, dependent: :destroy
-  has_one_attached :folder
-  has_one_attached :video_file
-  has_one :refund
+  has_one_attached :folder, dependent: :destroy
+  has_one_attached :video_file, dependent: :destroy
+  has_one :refund, dependent: :destroy
 
   has_many :product_categories, dependent: :destroy
   has_many :categories, through: :product_categories
@@ -22,7 +22,7 @@ class Product < ApplicationRecord
   has_many :languages, through: :product_languages
   has_many :active_languages, -> { where("product_languages.active = ?", true) }, through: :product_languages, source: :language
 
-  has_many_attached :covers
+  has_many_attached :covers, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :cart_items, dependent: :destroy
 
@@ -80,5 +80,13 @@ class Product < ApplicationRecord
 
   def normalize_friendly_id(text)
     super.gsub(/\d+/, '')
+  end
+
+  def self.ransackable_attributes(auth_object = nil)
+    ["active", "average_rating", "created_at", "description", "download_path", "featured", "id", "id_value", "name", "preview_video_url", "price_cents", "price_currency", "published", "purchases_count", "repo_id", "reviews_count", "slug", "updated_at", "url", "user_id"]
+  end
+
+  def self.ransackable_associations(auth_object = nil)
+    ["active_categories", "active_languages", "cart_items", "categories", "covers_attachments", "covers_blobs", "folder_attachment", "folder_blob", "languages", "likes", "pg_search_document", "product_categories", "product_languages", "purchases", "refund", "reviews", "user", "video_file_attachment", "video_file_blob"]
   end
 end
