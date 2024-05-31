@@ -33,6 +33,7 @@
         </div>
 
         <!-- Secondary navigation -->
+        <% if user_signed_in? %> 
         <div class="bg-white bg-opacity-10 backdrop-blur-md backdrop-filter">
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div>
@@ -144,6 +145,8 @@
             </div>
           </div>
         </div>
+        <% end %>
+
       </nav>
     </header>
   </div>
