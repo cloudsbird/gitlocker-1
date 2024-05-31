@@ -1,7 +1,7 @@
 class HomeController < ApplicationController
   def index
     # redirect_to dashboard_path if user_signed_in? && current_user.token.present?
-    redirect_to landing_page_path if !user_signed_in?
+    redirect_to landing_page_path if !user_signed_in? && !params[:clicked].present?
 
     @languages = Language.order(:name).limit(20)
     @categories = Category.order(:name).limit(20)
