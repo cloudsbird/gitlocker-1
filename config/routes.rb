@@ -84,6 +84,7 @@ Rails.application.routes.draw do
   get "coming_soon", to: "coming_soon#index"
   get "landing_page", to: "coming_soon#landing_page"
   get "browse", to: "browse#index"
+  get "plans", to: "plans#index"
   get "browse/popular", to: "browse#popular"
   get "browse/recent", to: "browse#recent"
   get "browse/languages", to: "browse#languages"
