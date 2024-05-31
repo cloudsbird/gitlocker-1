@@ -14,14 +14,14 @@
                 <%= link_to "Profile", edit_user_path(current_user), class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Marketplace", home_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Messages", home_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Deployment", home_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
+                <%= link_to "Messages", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
+                <%= link_to "Deployment", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
               <% else %>
                 <%= link_to "Sign in", new_user_session_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Create an account", new_user_registration_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Marketplace", home_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Messages", home_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Deployment", home_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
+                <%= link_to "Messages", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
+                <%= link_to "Deployment", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
               <% end %>
             </div>
           </div>
