@@ -28,7 +28,7 @@ class Language < ApplicationRecord
     "Perl": "perl.png",
     "PHP": "php.png",
     "PowerShell": "powershell.png",
-    "Python": "python2.jpg",
+    "Python": "python.jpg",
     "R": "r.png",
     "Ruby": "ruby.png",
     "Rust": "rust.png",

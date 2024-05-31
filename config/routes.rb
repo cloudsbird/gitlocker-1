@@ -81,7 +81,8 @@ Rails.application.routes.draw do
   post "checkout", to: "checkout#create"
 
   get "search", to: "search_results#index"
-  get "coming_soon" to: "coming_soon#index"
+  get "coming_soon", to: "coming_soon#index"
+  get "landing_page", to: "coming_soon#landing_page"
   get "browse", to: "browse#index"
   get "browse/popular", to: "browse#popular"
   get "browse/recent", to: "browse#recent"
