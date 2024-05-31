@@ -35,7 +35,7 @@
         </div>
 
         <!-- Secondary navigation -->
-        <% if user_signed_in? %> 
+        <% if user_signed_in? || (!user_signed_in? && current_path_with_clicked?) %> 
         <div class="bg-white bg-opacity-10 backdrop-blur-md backdrop-filter">
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div>
