@@ -11,6 +11,7 @@
           <div class="mx-auto flex h-10 max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8">
             <div class="flex items-center space-x-6">
               <% if user_signed_in? %>
+                <%= link_to "FAQ", faq_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Blog", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Marketplace", root_path(clicked: true), class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Messages", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
