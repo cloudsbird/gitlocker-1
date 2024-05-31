@@ -23,6 +23,7 @@
                 <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-sm font-medium text-white hover:text-gray-100" %>
 
               <% else %>
+                <%= link_to "FAQ", faq_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Blog", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Marketplace", root_path(clicked: true), class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Messages", coming_soon_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
