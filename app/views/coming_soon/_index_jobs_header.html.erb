@@ -7,7 +7,28 @@
     <header class="relative z-10">
       <nav aria-label="Top">
         <!-- Top navigation -->
-        
+           <% if user_signed_in? || (!user_signed_in? && current_path_with_clicked?) %> 
+        <div class="bg-white bg-opacity-10 backdrop-blur-md backdrop-filter">
+          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+            <div>
+              <div class="flex h-16 items-center justify-between">
+                <!-- Logo (lg+) -->
+                <div class="hidden lg:flex lg:flex-1 lg:items-center">
+                  <a href="#">
+                    <span class="sr-only">Your Company</span>
+                  </a>
+
+                  <%= link_to root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+                    <div class="flex items-center">
+                      <div>
+                        <%= image_tag "logo-transparent.png", class: "h-8 w-auto", alt: "" %>
+                      </div>
+                      <div>
+                        <%= image_tag "logo-text.png", class: "h-4 w-auto ml-2", alt: "" %>
+                      </div>
+                    </div>
+                  <% end %>
+                </div>
         
                 <div class="hidden h-full lg:flex">
                   <!-- Flyout menus -->
