@@ -41,7 +41,7 @@
         </div>
 
         <!-- Secondary navigation -->
-        <% if (user_signed_in? && current_path_with_clicked?) || (!user_signed_in? && current_path_with_clicked?) %> 
+        <% if (user_signed_in?) || (!user_signed_in? && current_path_with_clicked?) %> 
         <div class="bg-white bg-opacity-10 backdrop-blur-md backdrop-filter">
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div>
@@ -52,7 +52,7 @@
                     <span class="sr-only">Your Company</span>
                   </a>
 
-                  <%= link_to root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+                  <%= link_to root_path(clicked: true), class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
                     <div class="flex items-center">
                       <div>
                         <%= image_tag "logo-transparent.png", class: "h-8 w-auto", alt: "" %>
@@ -68,12 +68,12 @@
                   <!-- Flyout menus -->
                   <div class="inset-x-0 bottom-0 px-4">
                     <div class="flex h-full justify-center space-x-8">
-                      <%= link_to "Browse", browse_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Popular", browse_popular_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Recent", browse_recent_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Languages", browse_languages_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Categories", browse_categories_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Creators", creators_path, class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Browse", browse_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Popular", browse_popular_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Recent", browse_recent_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Languages", browse_languages_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Categories", browse_categories_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Creators", creators_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
                       <% if user_signed_in? %>
                         <%= link_to "Purchased", purchases_path, class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "Sell", seller_dashboard_path, class: "flex items-center text-sm font-medium text-white" %>
