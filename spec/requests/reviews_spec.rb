@@ -8,7 +8,7 @@ RSpec.describe "Reviews", type: :request do
 
   describe "GET new" do
     it "succeeds" do
-      get new_library_review_path(product)
+      get new_marketplace_library_review_path(product)
       expect(response).to have_http_status(:success)
     end
   end
