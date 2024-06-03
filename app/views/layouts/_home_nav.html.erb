@@ -75,7 +75,7 @@
                       <%= link_to "Categories", browse_categories_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
                       <%= link_to "Creators", creators_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
                       <% if user_signed_in? %>
-                        <%= link_to "Purchased", purchases_path, class: "flex items-center text-sm font-medium text-white" %>
+                        <%= link_to "Purchased", purchases_path(clicked: true), class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "Sell", seller_dashboard_path, class: "flex items-center text-sm font-medium text-white" %>
                       <% end %>
                     </div>
