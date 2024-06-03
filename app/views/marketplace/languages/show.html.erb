@@ -1,8 +1,8 @@
 <div class="bg-white">
   <%=
     render BreadcrumbComponent.new(current_user,[
-      { text: "Languages", url: browse_languages_path },
-      { text: @language.name, url: language_path(@language) }
+      { text: "Languages", url: marketplace_browse_languages_path },
+      { text: @language.name, url: marketplace_language_path(@language) }
     ])
   %>
   <main>

@@ -19,7 +19,7 @@
            aria-orientation="vertical"
            aria-labelledby="options-menu-0-button"
            tabindex="-1">
-        <%= link_to library_path(product), data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-0" do %>
+        <%= link_to marketplace_library_path(product), data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-0" do %>
           View<span class="sr-only">, Tuple</span>
         <% end %>
         <% if policy(product).download_able? %>
@@ -38,7 +38,7 @@
     </div>
     <div class="pt-4 text-center">
       <h3 class="text-base font-medium text-gray-900 max-w-xs overflow-hidden">
-        <a href="<%= library_path(product) %>" class="hover:text-gray-700 block truncate"><%= product.name %></a>
+        <a href="<%= marketplace_library_path(product) %>" class="hover:text-gray-700 block truncate"><%= product.name %></a>
       </h3>
       <div class="mt-2 flex items-center justify-center">
         <div>

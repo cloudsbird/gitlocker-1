@@ -1,3 +1,4 @@
+module Marketplace
 class CreatorsController < ApplicationController
   def index
     @users = User.all
@@ -7,4 +8,5 @@ class CreatorsController < ApplicationController
     @user = User.friendly.find(params[:id])
     @products = @user.products.published
   end
+end
 end

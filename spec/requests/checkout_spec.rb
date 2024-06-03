@@ -36,9 +36,9 @@ RSpec.describe "Checkout", type: :request do
       end.to change { CartItem.count }.from(1).to(0)
     end
 
-    it "redirects to root_path" do
+    it "redirects to marketplace_root_path" do
       post checkout_path
-      expect(response).to redirect_to(root_path)
+      expect(response).to redirect_to(marketplace_root_path)
     end
   end
 end

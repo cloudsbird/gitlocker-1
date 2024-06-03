@@ -24,9 +24,9 @@ RSpec.describe "CartItems", type: :request do
       expect { create_request }.to change { CartItem.count }.from(0).to(1)
     end
 
-    it "redirects to library_path" do
+    it "redirects to marketplace_library_path" do
       create_request
-      expect(response).to redirect_to library_path(product)
+      expect(response).to redirect_to marketplace_library_path(product)
     end
   end
 

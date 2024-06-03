@@ -7,7 +7,7 @@
     <header class="relative z-10">
       <nav aria-label="Top">
         <!-- Top navigation -->
-                <% if user_signed_in? || (!user_signed_in? && current_path_with_clicked?) %> 
+                <% if user_signed_in? || (!user_signed_in?) %> 
         <div class="bg-white bg-opacity-10 backdrop-blur-md backdrop-filter">
           <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
             <div>
@@ -18,7 +18,7 @@
                     <span class="sr-only">Your Company</span>
                   </a>
 
-                  <%= link_to root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+                  <%= link_to marketplace_root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
                     <div class="flex items-center">
                       <div>
                         <%= image_tag "logo-transparent.png", class: "h-8 w-auto", alt: "" %>
@@ -116,4 +116,4 @@
   </div>
 </div>
 
-<%= render SearchDialogComponent.new(search_path: root_path) %>
+<%= render SearchDialogComponent.new(search_path: marketplace_root_path) %>

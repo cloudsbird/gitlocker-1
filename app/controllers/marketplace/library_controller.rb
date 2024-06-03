@@ -1,3 +1,4 @@
+module Marketplace
 class LibraryController < ApplicationController
   def show
     @product = Product.friendly.find(params[:id])
@@ -12,4 +13,5 @@ class LibraryController < ApplicationController
                  end
     render "products/show"
   end
+end
 end

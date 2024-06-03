@@ -10,7 +10,7 @@ class RefundsController < ApplicationController
 
     if @refund.save!
       RefundMailer.notify_admin(@refund, current_user).deliver_now
-      redirect_to root_path, notice: 'Refund request submitted successfully.'
+      redirect_to marketplace_root_path, notice: 'Refund request submitted successfully.'
     else
       render :new
     end

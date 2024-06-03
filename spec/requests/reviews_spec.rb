@@ -15,7 +15,7 @@ RSpec.describe "Reviews", type: :request do
 
   describe "POST create" do
     let(:create_request) do
-      post library_reviews_path(product), params: {
+      post marketplace_library_reviews_path(product), params: {
         review: {
           rating: 5,
           body: "This is excellent!"
@@ -27,9 +27,9 @@ RSpec.describe "Reviews", type: :request do
       expect { create_request }.to change { Review.count }.from(0).to(1)
     end
 
-    it "redirects to library_path" do
+    it "redirects to marketplace_library_path" do
       create_request
-      expect(response).to redirect_to(library_path(product))
+      expect(response).to redirect_to(marketplace_library_path(product))
     end
 
     it "sets average_rating for product" do

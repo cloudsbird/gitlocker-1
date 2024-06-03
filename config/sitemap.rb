@@ -16,5 +16,5 @@ SitemapGenerator::Sitemap.sitemaps_host = "https://#{ENV['S3_BUCKET']}.s3.us-eas
 SitemapGenerator::Sitemap.sitemaps_path = "sitemaps/"
 
 SitemapGenerator::Sitemap.create(compress: false) do
-  add root_path
+  add marketplace_root_path
 end

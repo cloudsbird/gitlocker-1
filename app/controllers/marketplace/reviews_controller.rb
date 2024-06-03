@@ -1,3 +1,4 @@
+module Marketplace
 class ReviewsController < ApplicationController
   before_action :authenticate_user!
 
@@ -12,7 +13,7 @@ class ReviewsController < ApplicationController
 
     if review.save
       UpdateProductAverageRatingJob.perform_now(product.id)
-      redirect_to library_path(product)
+      redirect_to marketplace_library_path(product)
     end
   end
 
@@ -25,5 +26,6 @@ class ReviewsController < ApplicationController
   def product_id
     params[:library_id] || params[:product_id]
   end
+end
 end
 

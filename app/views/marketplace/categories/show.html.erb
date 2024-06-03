@@ -1,8 +1,8 @@
 <div class="bg-white">
   <%=
     render BreadcrumbComponent.new(current_user,[
-      { text: "Categories", url: browse_categories_path },
-      { text: @category.name, url: category_path(@category) }
+      { text: "Categories", url: marketplace_browse_categories_path },
+      { text: @category.name, url: marketplace_category_path(@category) }
     ])
   %>
   <main>

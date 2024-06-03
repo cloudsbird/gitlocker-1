@@ -8,6 +8,7 @@ Rails.application.routes.draw do
       }, via: :all
     end
   end
+  root "coming_soon#landing_page"
 
   devise_for :users, controllers: {
     registrations: "users/registrations",
@@ -29,7 +30,6 @@ Rails.application.routes.draw do
   get '/sitemap.xml', to: 'application#show_sitemap', format: :xml
 
   # Defines the root path route ("/")
-  root "home#index"
 
   get "privacy", to: "home#privacy"
   get "explore", to: "home#explore"
@@ -53,8 +53,6 @@ Rails.application.routes.draw do
     put :product_activations, to: "users/product_activations#update", on: :member
   end
 
-  resources :creators, only: [:index, :show]
-  resources :purchases, only: [:index]
   resources :accounts
   resources :refunds, only: [:new, :create]
 
@@ -65,12 +63,6 @@ Rails.application.routes.draw do
   end
 
   resources :subscribed_users, only: :create
-  resources :languages, only: :show, param: :slug
-  resources :categories, only: :show, param: :slug
-
-  resources :library, only: :show, path: "l" do
-    resources :reviews, only: [:new, :create]
-  end
 
   resources :cart_items, only: [:index, :create, :destroy]
 
@@ -86,15 +78,26 @@ Rails.application.routes.draw do
   get "index_jobs", to: "coming_soon#index_jobs"
   get "index_messages", to: "coming_soon#index_messages"
   get "landing_page", to: "coming_soon#landing_page"
-  get "browse", to: "browse#index"
   get "plans", to: "plans#index"
   get "faq", to: "faq#index"
-  get "browse/popular", to: "browse#popular"
-  get "browse/recent", to: "browse#recent"
-  get "browse/languages", to: "browse#languages"
-  get "browse/categories", to: "browse#categories"
+  
   get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
   get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
+  namespace :marketplace do
+    root "home#index"
+    get "browse", to: "browse#index"
+    get "browse/popular", to: "browse#popular"
+    get "browse/recent", to: "browse#recent"
+    get "browse/languages", to: "browse#languages"
+    get "browse/categories", to: "browse#categories"
+    resources :creators, only: [:index, :show]
+    resources :languages, only: :show, param: :slug
+    resources :categories, only: :show, param: :slug
+    resources :library, only: :show, path: "l" do
+      resources :reviews, only: [:new, :create]
+    end
+    resources :purchases, only: [:index]
+  end
 
   # Error Pages
   match '/404', to: 'errors#not_found', via: :all

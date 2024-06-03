@@ -1,6 +1,6 @@
 <%=
   render BreadcrumbComponent.new(current_user,[
-    { text: "Creators", url: creators_path }
+    { text: "Creators", url: marketplace_creators_path }
   ])
 %>
 <main class="pb-4 pt-6 sm:pb-6">
@@ -12,7 +12,7 @@
           <h2 class="text-base font-semibold leading-7 text-gray-900">List of Creators</h2>
         </div>
         <ul role="list" class="grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
-          <%= render partial: "creators/creator", collection: @users, as: :user %>
+          <%= render partial: "marketplace/creators/creator", collection: @users, as: :user %>
         </ul>
       </div>
     </div>

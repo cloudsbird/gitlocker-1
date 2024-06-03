@@ -31,12 +31,12 @@
         <div class="-my-2">
           <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
             <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <% if @creator_results&.empty? %>
+              <% if @marketplace_creator_results&.empty? %>
                 <div class="mt-24 col-span-full text-center">
                   <p class="text-2xl">There are no user search results</p>
                 </div>
               <% else %>
-                <%= render partial: "products/user_card", collection: @creator_results, as: :user %>
+                <%= render partial: "products/user_card", collection: @marketplace_creator_results, as: :user %>
               <% end %>
             </div>
           </div>

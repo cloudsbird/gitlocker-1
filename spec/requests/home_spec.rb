@@ -4,7 +4,7 @@ RSpec.describe "Homes", type: :request do
   describe "GET /index" do
     context "when not logged in" do
       it "succeeds" do
-        get root_path
+        get marketplace_root_path
         expect(response).to have_http_status(:success)
       end
     end
@@ -13,7 +13,7 @@ RSpec.describe "Homes", type: :request do
       it "redirects to dashboard_path" do
         user = create(:user, token: SecureRandom.uuid)
         sign_in user
-        get root_path
+        get marketplace_root_path
         expect(response).to redirect_to(dashboard_path)
       end
     end

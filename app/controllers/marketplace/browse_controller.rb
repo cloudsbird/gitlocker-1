@@ -1,3 +1,4 @@
+module Marketplace
 class BrowseController < ApplicationController
   def index
     @products = Product.exclude_purchased(current_user)
@@ -18,4 +19,5 @@ class BrowseController < ApplicationController
   def categories
     @categories = Category.order(:name)
   end
+end
 end
