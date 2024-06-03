@@ -1,3 +1,4 @@
+module Marketplace
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
 
@@ -15,7 +16,7 @@ class CheckoutController < ApplicationController
     end
   rescue Stripe::CardError => e
     flash[:error] = e.message
-    redirect_to cart_path
+    redirect_to marketplace_cart_path
   end
 
   def success_payment
@@ -34,12 +35,12 @@ class CheckoutController < ApplicationController
       current_user.reload.cart_items.destroy_all
     end
 
-    redirect_to purchases_url, notice: 'Payment successful! Your order has been placed.'
+    redirect_to marketplace_purchases_url, notice: 'Payment successful! Your order has been placed.'
   end
 
   def cancel_payment
     flash[:error] = 'Payment canceled.'
-    redirect_to checkout_url
+    redirect_to marketplace_checkout_url
   end
 
   private
@@ -64,7 +65,7 @@ class CheckoutController < ApplicationController
       current_user.reload.cart_items.destroy_all
     end
 
-    redirect_to purchases_url, notice: 'Free product added to sales!'
+    redirect_to marketplace_purchases_url, notice: 'Free product added to sales!'
   end
 
   def proceed_with_stripe_payment
@@ -111,10 +112,11 @@ class CheckoutController < ApplicationController
       line_items: line_items,
       mode: 'payment',
       automatic_tax: { enabled: true },
-      success_url: success_payment_url(total_cents: total_cents, purchases: purchases.to_json),
-      cancel_url: cancel_payment_url,
+      success_url: marketplace_success_payment_url(total_cents: total_cents, purchases: purchases.to_json),
+      cancel_url: marketplace_cancel_payment_url,
     )
 
     redirect_to session.url, allow_other_host: true
   end
+end
 end

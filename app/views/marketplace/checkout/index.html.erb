@@ -27,7 +27,7 @@
         <div class="mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
           <h3 class="sr-only">Items in your cart</h3>
           <ul role="list" class="divide-y divide-gray-200">
-            <%= render partial: "checkout/cart_item", collection: @cart_items, as: :cart_item %>
+            <%= render partial: "marketplace/checkout/cart_item", collection: @cart_items, as: :cart_item %>
           </ul>
         </div>
       </div>
@@ -37,7 +37,7 @@
         <h2 class="text-lg font-medium text-gray-900">Payment</h2>
 
         <div class="mt-6">
-          <%= form_tag checkout_path, method: :post, class: "stripe-form", "data-turbo" => "false" do %>
+          <%= form_tag marketplace_checkout_path, method: :post, class: "stripe-form", "data-turbo" => "false" do %>
             <%= submit_tag "Pay with Stripe", class: "mt-4 w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 cursor-pointer" %>
           <% end %>
         </div>

@@ -8,14 +8,14 @@ RSpec.describe "CartItems", type: :request do
 
   describe "GET index" do
     it "succeeds" do
-      get cart_items_path
+      get marketplace_cart_items_path
       expect(response).to have_http_status(:success)
     end
   end
 
   describe "POST create" do
     let(:create_request) do
-      post cart_items_path, params: {
+      post marketplace_cart_items_path, params: {
         product_id: product.id
       }
     end
@@ -33,16 +33,16 @@ RSpec.describe "CartItems", type: :request do
   describe "DELETE destroy" do
     let!(:cart_item) { create(:cart_item, product: product, user: user) }
     let(:delete_request) do
-      delete cart_item_path(cart_item)
+      delete marketplace_cart_item_path(cart_item)
     end
 
     it "deletes the cart item" do
       expect { delete_request }.to change { CartItem.count }.from(1).to(0)
     end
 
-    it "redirects to cart_items_path" do
+    it "redirects to marketplace_cart_items_path" do
       delete_request
-      expect(response).to redirect_to cart_items_path
+      expect(response).to redirect_to marketplace_cart_items_path
     end
   end
 end

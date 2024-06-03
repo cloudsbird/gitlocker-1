@@ -7,7 +7,7 @@ RSpec.describe "Checkout", type: :request do
 
   describe "GET index" do
     it "succeeds" do
-      get checkout_path
+      get marketplace_checkout_path
       expect(response).to have_http_status(:success)
     end
   end
@@ -20,24 +20,24 @@ RSpec.describe "Checkout", type: :request do
 
     it "creates new purchases" do
       expect do
-        post checkout_path
+        post marketplace_checkout_path
       end.to change { Purchase.count }.from(0).to(1)
     end
 
     it "creates new purchase" do
       expect do
-        post checkout_path
+        post marketplace_checkout_path
       end.to change { Payment.count }.from(0).to(1)
     end
 
     it "deletes user's cart items" do
       expect do
-        post checkout_path
+        post marketplace_checkout_path
       end.to change { CartItem.count }.from(1).to(0)
     end
 
     it "redirects to marketplace_root_path" do
-      post checkout_path
+      post marketplace_checkout_path
       expect(response).to redirect_to(marketplace_root_path)
     end
   end

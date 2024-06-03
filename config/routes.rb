@@ -64,13 +64,9 @@ Rails.application.routes.draw do
 
   resources :subscribed_users, only: :create
 
-  resources :cart_items, only: [:index, :create, :destroy]
 
   resources :sales, only: [:index, :show]
   resources :funds, only: [:index, :create]
-
-  get "checkout", to: "checkout#index"
-  post "checkout", to: "checkout#create"
 
   get "search", to: "search_results#index"
   get "coming_soon", to: "coming_soon#index"
@@ -81,8 +77,6 @@ Rails.application.routes.draw do
   get "plans", to: "plans#index"
   get "faq", to: "faq#index"
   
-  get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
-  get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
   namespace :marketplace do
     root "home#index"
     get "browse", to: "browse#index"
@@ -97,6 +91,11 @@ Rails.application.routes.draw do
       resources :reviews, only: [:new, :create]
     end
     resources :purchases, only: [:index]
+    resources :cart_items, only: [:index, :create, :destroy]
+    get "checkout", to: "checkout#index"
+    post "checkout", to: "checkout#create"
+    get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
+    get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
   end
 
   # Error Pages

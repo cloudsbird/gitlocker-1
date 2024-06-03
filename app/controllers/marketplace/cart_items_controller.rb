@@ -1,3 +1,4 @@
+module Marketplace
 class CartItemsController < ApplicationController
   def index
     @cart_items = (current_user || visitor_user).cart_items.includes(:product)
@@ -13,9 +14,10 @@ class CartItemsController < ApplicationController
     cart_item = CartItem.find(params[:id])
     cart_item.destroy
     if cart_item.user && !CartItem.exists?(user: cart_item.user)
-      redirect_to cart_items_path
+      redirect_to marketplace_cart_items_path
     else
       redirect_back(fallback_location: marketplace_library_path(cart_item.product))
     end
   end
+end
 end
