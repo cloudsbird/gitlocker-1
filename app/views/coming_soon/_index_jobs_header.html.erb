@@ -7,9 +7,9 @@
     <header class="relative z-10">
       <nav aria-label="Top">
         <!-- Top navigation -->
-           <% if user_signed_in? || (!user_signed_in?) %> 
+        <!-- Secondary navigation -->
         <div class="bg-white bg-opacity-10 backdrop-blur-md backdrop-filter">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+          <div class="mx-auto px-4 max-w-7xl sm:px-6 lg:px-8">
             <div>
               <div class="flex h-16 items-center justify-between">
                 <!-- Logo (lg+) -->
@@ -17,42 +17,35 @@
                   <a href="#">
                     <span class="sr-only">Your Company</span>
                   </a>
-
-                  <%= link_to marketplace_root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
-                    <div class="flex items-center">
-                      <div>
-                        <%= image_tag "logo-transparent.png", class: "h-8 w-auto", alt: "" %>
-                      </div>
-                      <div>
-                        <%= image_tag "logo-text.png", class: "h-4 w-auto ml-2", alt: "" %>
-                      </div>
-                    </div>
-                  <% end %>
                 </div>
-        
+
                 <div class="hidden h-full lg:flex">
                   <!-- Flyout menus -->
                   <div class="inset-x-0 bottom-0 px-4">
                     <div class="flex h-full justify-center space-x-8">
-                        <%= link_to "Search Jobs", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Search Jobs", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "My Applications", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "Post Job", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "My Posted Jobs", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "Current Contracts", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
                         <%= link_to "Creators", marketplace_creators_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <% if user_signed_in? %>
-                        <%= link_to "Search Jobs", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
-                        <%= link_to "My Applications", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
-                        <%= link_to "Post Job", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
-                        <%= link_to "My Posted Jobs", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
-                        <%= link_to "Current Contracts", index_jobs_path, class: "flex items-center text-sm font-medium text-white" %>
-                        <%= link_to "Creators", marketplace_creators_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <% end %>
                     </div>
                   </div>
                 </div>
 
-              
+                <!-- Mobile menu and search (lg-) -->
+                <div class="flex flex-1 items-center lg:hidden">
+                  <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
+                  <button
+                    data-action="click->home-nav#open"
+                    type="button"
+                    class="-ml-2 p-2 text-white"
+                    >
+                    <span class="sr-only">Open menu</span>
+                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                    </svg>
+                  </button>
 
                   <!-- Search -->
                   <a
@@ -111,7 +104,6 @@
             </div>
           </div>
         </div>
-        <% end %>
 
       </nav>
     </header>
