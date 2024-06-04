@@ -12,7 +12,6 @@
             <div class="flex items-center space-x-6">
               <% if user_signed_in? %>
                 <%= link_to "Home", landing_page_path(clicked: true), class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Plans", plans_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "FAQ", faq_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Blog", index_messages_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Version Control", index_versioning_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
@@ -26,7 +25,6 @@
 
               <% else %>
                 <%= link_to "Home", landing_page_path(clicked: true), class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Plans", plans_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "FAQ", faq_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Blog", index_messages_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Version Control", index_versioning_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
