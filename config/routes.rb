@@ -71,6 +71,7 @@ Rails.application.routes.draw do
   get "coming_soon", to: "coming_soon#index"
   get "index_deploy", to: "coming_soon#index_deploy"
   get "index_jobs", to: "coming_soon#index_jobs"
+  get "index_versioning", to: "coming_soon#index_versioning"
   get "index_messages", to: "coming_soon#index_messages"
   get "landing_page", to: "coming_soon#landing_page"
   get "plans", to: "plans#index"
