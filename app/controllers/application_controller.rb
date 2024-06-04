@@ -22,7 +22,7 @@ class ApplicationController < ActionController::Base
       if current_user && current_user&.seller?
         current_user.update(state: User.states[:buyer])
       end
-      marketplace_root_path
+      root_path
   end
 
   private
