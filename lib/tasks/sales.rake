@@ -4,7 +4,7 @@ namespace :user do
     seven_days_ago = 7.days.ago
 
     User.find_each do |user|
-      recent_sales = user.sales.where("purchases.created_at < ? AND purchases.pending = ?", seven_days_ago, true)
+      recent_sales = user.sales.where("purchases.created_at < ? AND purchases.pending = ? AND purchases.refund = ?", seven_days_ago, true, false)
 
       total_sale_value = 0
 

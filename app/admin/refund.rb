@@ -26,7 +26,7 @@ ActiveAdmin.register Refund do
   member_action :approve, method: :put do
     resource.approve!
     product_user = resource.product.user
-    user.sales.where(product_id: resource.product.id).last.destroy
+    product_user.sales.where(product_id: resource.product.id).last.update(refund: true)
     RefundMailer.notify_buyer(resource, resource.user).deliver_now
     RefundMailer.notify_seller(resource, product_user).deliver_now
     redirect_to resource_path, notice: "Refund ##{resource.id} approved and marked as completed."
