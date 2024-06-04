@@ -21,6 +21,7 @@ class User < ApplicationRecord
   has_many :purchases, dependent: :destroy
   has_many :purchased_products, through: :purchases, source: :product
   has_many :payments, dependent: :destroy
+  has_many :refunds, dependent: :destroy
   has_many :sales, through: :products, source: :purchases
   has_one :account
 

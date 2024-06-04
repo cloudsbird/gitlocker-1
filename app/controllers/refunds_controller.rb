@@ -7,6 +7,7 @@ class RefundsController < ApplicationController
     @refund = Refund.new(refund_params)
     @refund.product = Product.find(params[:refund][:product_id]) if params[:refund][:product_id].present?
     @refund.stripe_transaction_screenshot = params[:refund][:stripe_transaction_screenshot] if params[:refund][:stripe_transaction_screenshot].present?
+    @refund.user_id = current_user.id
 
     if @refund.save!
       RefundMailer.notify_admin(@refund, current_user).deliver_now

@@ -25,11 +25,14 @@ ActiveAdmin.register Refund do
 
   member_action :approve, method: :put do
     resource.approve!
+    RefundMailer.notify_buyer(resource, resource.user).deliver_now
+    RefundMailer.notify_seller(resource, resource.product.user).deliver_now
     redirect_to resource_path, notice: "Refund ##{resource.id} approved and marked as completed."
   end
 
   member_action :deny, method: :put do
     resource.deny!
+    RefundMailer.reject_refund_request(resource, resource.user).deliver_now
     redirect_to resource_path, notice: "Refund ##{resource.id} denied."
   end
 end

@@ -1,0 +1,57 @@
+<section style="max-width: 600px; margin: 0 auto; padding: 20px; color: #4a5568; font-family: Arial, sans-serif;">
+    <header style="text-align: center;">
+        <%= link_to 'https://gitlocker.com', class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+  <div class="flex items-center">
+    <div>
+      <%= image_tag("https://i.ibb.co/db8sjx8/Screenshot-from-2024-05-28-14-03-42-removebg-preview.jpg", width: "200") %>
+    </div>
+  </div>
+<% end %>
+
+    </header>
+
+    <main style="margin-top: 20px;">
+        <h2 style="color: #2d3748;">Hi <%= @user.username %>,</h2>
+
+        <p style="margin-top: 10px; line-height: 1.6; color: #718096;">
+            Your refund request has been denied. Here are the details:
+        </p>
+        
+        <div style="margin-top: 20px;">
+            <h3 style="color: #2d3748;">Product Details:</h3>
+            <p style="color: #718096;">
+                <strong>Product:</strong> <%= @refund.product.name %> <br>
+                <strong>Description:</strong> <%= @refund.product.description %>
+            </p>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h3 style="color: #2d3748;">Refund Request Description:</h3>
+            <p style="color: #718096;">
+                You provided the following reason for the refund request: <br>
+                <em>"<%= @refund.description %>"</em>
+            </p>
+        </div>
+
+        <div style="margin-top: 20px;">
+            <h3 style="color: #2d3748;">Attachment:</h3>
+            <p style="color: #718096;">
+                You attached a screenshot to support your request. You can view the attachment <a href="<%= @refund.stripe_transaction_screenshot.url %>" style="color: #3182ce; text-decoration: underline;">here</a>.
+            </p>
+        </div>
+        
+        <p style="margin-top: 30px; color: #718096;">
+            If you have any questions, feel free to contact us. <br>
+            Gitlocker Team
+        </p>
+    </main>
+    
+    <footer style="margin-top: 30px; text-align: center; color: #a0aec0;">
+        <p>
+            This email was sent to <%= @user.email %>. 
+            If you'd rather not receive this kind of email, you can <a href="#" style="color: #3182ce; text-decoration: underline;">unsubscribe</a> or <a href="#" style="color: #3182ce; text-decoration: underline;">manage your email preferences</a>.
+        </p>
+
+        <p style="margin-top: 10px;">© <script>document.write(new Date().getFullYear())</script> GitLocker. All Rights Reserved.</p>
+    </footer>
+</section>

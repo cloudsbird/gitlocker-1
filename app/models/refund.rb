@@ -1,6 +1,7 @@
 # Rails example
 class Refund < ApplicationRecord
   belongs_to :product
+  belongs_to :user
   has_one_attached :stripe_transaction_screenshot, dependent: :destroy
   
   validates :description, presence: true
