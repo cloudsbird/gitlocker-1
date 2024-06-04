@@ -54,7 +54,6 @@ Rails.application.routes.draw do
   end
 
   resources :accounts
-  resources :refunds, only: [:new, :create]
 
   resources :products, only: [:index, :show, :edit, :update,:new, :create, :destroy] do
     resources :covers, only: [:create, :destroy], controller: "product_covers"
@@ -96,6 +95,7 @@ Rails.application.routes.draw do
     post "checkout", to: "checkout#create"
     get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
     get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
+    resources :refunds, only: [:new, :create]
   end
 
   # Error Pages

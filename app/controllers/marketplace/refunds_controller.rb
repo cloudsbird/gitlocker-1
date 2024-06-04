@@ -1,3 +1,4 @@
+module Marketplace
 class RefundsController < ApplicationController
   def new
     @refund = Refund.new
@@ -22,4 +23,5 @@ class RefundsController < ApplicationController
   def refund_params
     params.require(:refund).permit(:description, :stripe_transaction_screenshot, :product_id)
   end
+end
 end

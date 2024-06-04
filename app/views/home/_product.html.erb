@@ -23,7 +23,7 @@
           View<span class="sr-only">, Tuple</span>
         <% end %>
         <% if policy(product).download_able? %>
-          <%= link_to new_refund_path , data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-1" do %>
+          <%= link_to new_marketplace_refund_path , data: { "product-card-target": "menuItem" }, class: "block px-3 py-1 text-sm leading-6 text-gray-900", role: "menuitem", tabindex: "-1", id: "options-menu-0-item-1" do %>
             Refund<span class="sr-only">, Tuple</span>
           <% end %>
         <% end %>
