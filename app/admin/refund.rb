@@ -26,6 +26,15 @@ ActiveAdmin.register Refund do
   member_action :approve, method: :put do
     resource.approve!
     product_user = resource.product.user
+    payment = resource.user.purchases.where(product_id: resource.product.id).last.payment
+    begin
+      refund = Stripe::Refund.create({
+        charge: payment.stripe_charge_id,
+      })
+    rescue Stripe::StripeError => e
+      flash[:error] = "Error processing refund: #{e.message}"
+      redirect_to admin_refunds_path and return
+    end
     product_user.sales.where(product_id: resource.product.id).last.update(refund: true)
     RefundMailer.notify_buyer(resource, resource.user).deliver_now
     RefundMailer.notify_seller(resource, product_user).deliver_now

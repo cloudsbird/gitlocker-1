@@ -1,6 +1,7 @@
 module Marketplace
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
+  @@session_id = nil
 
   def index
     @cart_items = current_user.cart_items.includes(:product)
@@ -29,8 +30,15 @@ class CheckoutController < ApplicationController
       payment = Payment.create(user: current_user, total_cents: total_cents)
 
       purchases.each { |purchase| purchase.payment = payment }
+      
+      session_object =Stripe::Checkout::Session.retrieve(@@session_id)
+      payment_intent_id = session_object.payment_intent
+      payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
+      charge_id = payment_intent.charges.data.first.id
+      charge = Stripe::Charge.retrieve(charge_id)
 
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
+      payment.update!(stripe_charge_id: charge_id)
 
       current_user.reload.cart_items.destroy_all
     end
@@ -115,6 +123,7 @@ class CheckoutController < ApplicationController
       success_url: marketplace_success_payment_url(total_cents: total_cents, purchases: purchases.to_json),
       cancel_url: marketplace_cancel_payment_url,
     )
+    @@session_id = session["id"]
 
     redirect_to session.url, allow_other_host: true
   end
