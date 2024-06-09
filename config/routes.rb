@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       }, via: :all
     end
   end
-  root "coming_soon#landing_page"
+  root "marketplace/home#imdex"
 
   devise_for :users, controllers: {
     registrations: "users/registrations",
