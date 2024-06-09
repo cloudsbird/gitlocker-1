@@ -8,7 +8,7 @@ Rails.application.routes.draw do
       }, via: :all
     end
   end
-  root "marketplace/home#imdex"
+  root "marketplace/home#index"
 
   devise_for :users, controllers: {
     registrations: "users/registrations",
