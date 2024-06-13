@@ -22,6 +22,12 @@ class User < ApplicationRecord
   has_many :purchased_products, through: :purchases, source: :product
   has_many :payments, dependent: :destroy
   has_many :refunds, dependent: :destroy
+  has_many :user_categories, dependent: :destroy
+  has_many :categories, through: :user_categories
+  has_many :active_categories, -> {
+    where("user_categories.active = ?", true)
+  }, through: :user_categories, source: :category
+  has_many :languages, dependent: :destroy
   has_many :sales, through: :products, source: :purchases
   has_one :account
 

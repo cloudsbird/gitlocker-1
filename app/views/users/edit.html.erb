@@ -57,6 +57,32 @@
               <%= f.file_field :profile_picture %>
             </div>
           </div>
+
+          <div class="col-span-full">
+            <div class="sm:col-span-4">
+              <%= f.label :categories, class: "block text-sm font-medium leading-6 text-gray-900" %>
+              <div class="mt-2">
+                <select  class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="categoriesSelect"  multiple="multiple">
+                  <% Category.all.each do |category| %>
+                    <option value="<%= category.id %>"><%= category.name %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="col-span-full">
+            <div class="sm:col-span-4">
+              <%= f.label :languages, class: "block text-sm font-medium leading-6 text-gray-900" %>
+              <div class="mt-2">
+                <select  class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="languagesSelect"  multiple="multiple">
+                  <% Language.all.each do |language| %>
+                    <option value="<%= language.id %>"><%= language.name %></option>
+                  <% end %>
+                </select>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
@@ -67,3 +93,18 @@
     </div>
   <% end %>
 </div>
+
+<script>
+  $('.js-example-basic-multiple').select2();
+  var selectedCategories;
+  var selectedLanguages;
+  $('#categoriesSelect').on('change', function() {
+    selectedCategories = $(this).val();
+    console.log(selectedCategories);
+  });
+
+  $('#languagesSelect').on('change', function() {
+    selectedLanguages = $(this).val();
+    console.log(selectedLanguages);
+  });
+</script>
