@@ -53,8 +53,36 @@
 
           <div class="col-span-full">
             <%= f.label :profile_picture, class: "block text-sm font-medium leading-6 text-gray-900" %>
-            <div class="mt-2 flex items-center gap-x-3">
+            <div class="mt-2">
               <%= f.file_field :profile_picture %>
+            </div>
+          </div>
+
+          <div class="col-span-full">
+            <%= f.label :facebook_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+            <div class="mt-2 flex items-center gap-x-3">
+              <%= f.text_field :facebook_url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+
+          <div class="col-span-full">
+            <%= f.label :instagram_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+            <div class="mt-2">
+              <%= f.text_field :instagram_url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+
+          <div class="col-span-full">
+            <%= f.label :linkedin_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+            <div class="mt-2">
+              <%= f.text_field :linkedin_url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
+            </div>
+          </div>
+
+          <div class="col-span-full">
+            <%= f.label :youtube_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+            <div class="mt-2">
+              <%= f.text_field :youtube_url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6" %>
             </div>
           </div>
 
@@ -62,11 +90,7 @@
             <div class="sm:col-span-4">
               <%= f.label :categories, class: "block text-sm font-medium leading-6 text-gray-900" %>
               <div class="mt-2">
-                <select  class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="categoriesSelect"  multiple="multiple">
-                  <% Category.all.each do |category| %>
-                    <option value="<%= category.id %>"><%= category.name %></option>
-                  <% end %>
-                </select>
+                <%= f.select :category_ids, Category.all.map { |c| [c.name, c.id] }, {}, { class: "js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50", multiple: true } %>
               </div>
             </div>
           </div>
@@ -75,11 +99,7 @@
             <div class="sm:col-span-4">
               <%= f.label :languages, class: "block text-sm font-medium leading-6 text-gray-900" %>
               <div class="mt-2">
-                <select  class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="languagesSelect"  multiple="multiple">
-                  <% Language.all.each do |language| %>
-                    <option value="<%= language.id %>"><%= language.name %></option>
-                  <% end %>
-                </select>
+                <%= f.select :language_ids, Language.all.map { |c| [c.name, c.id] }, {}, { class: "js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50", multiple: true } %>
               </div>
             </div>
           </div>
@@ -93,18 +113,6 @@
     </div>
   <% end %>
 </div>
-
 <script>
-  $('.js-example-basic-multiple').select2();
-  var selectedCategories;
-  var selectedLanguages;
-  $('#categoriesSelect').on('change', function() {
-    selectedCategories = $(this).val();
-    console.log(selectedCategories);
-  });
-
-  $('#languagesSelect').on('change', function() {
-    selectedLanguages = $(this).val();
-    console.log(selectedLanguages);
-  });
+   $('.js-example-basic-multiple').select2();
 </script>

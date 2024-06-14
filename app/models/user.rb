@@ -27,7 +27,11 @@ class User < ApplicationRecord
   has_many :active_categories, -> {
     where("user_categories.active = ?", true)
   }, through: :user_categories, source: :category
-  has_many :languages, dependent: :destroy
+  has_many :user_languages, dependent: :destroy
+  has_many :languages, through: :user_languages
+  has_many :active_languages, -> {
+    where("user_languages.active = ?", true)
+  }, through: :user_languages, source: :language
   has_many :sales, through: :products, source: :purchases
   has_one :account
 
