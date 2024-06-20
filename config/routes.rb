@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  resources :follows
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
   if Rails.env.production?
@@ -52,6 +53,8 @@ Rails.application.routes.draw do
     get :synchronizations, to: "users/synchronizations#show", on: :member
     put :product_activations, to: "users/product_activations#update", on: :member
   end
+  post '/users/:id/follow', to: "users#follow", as: "follow_user"
+  post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
 
   resources :accounts
 
