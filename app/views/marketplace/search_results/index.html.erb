@@ -43,6 +43,50 @@
         </div>
       </div>
     </section>
+
+    <section aria-labelledby="creators-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+      <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+        <h2 id="creators-heading" class="text-2xl font-bold tracking-tight text-gray-900">Creator Search Results: <%= params[:search] %></h2>
+      </div>
+
+      <div class="mt-4 flow-root">
+        <div class="-my-2">
+          <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
+            <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+              <% if @category_results&.empty? %>
+                <div class="mt-24 col-span-full text-center">
+                  <p class="text-2xl">There are no category search results</p>
+                </div>
+              <% else %>
+                <%= render partial: "products/category_card", collection: @category_results, as: :category %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section aria-labelledby="creators-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+      <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+        <h2 id="creators-heading" class="text-2xl font-bold tracking-tight text-gray-900">Creator Search Results: <%= params[:search] %></h2>
+      </div>
+
+      <div class="mt-4 flow-root">
+        <div class="-my-2">
+          <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
+            <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+              <% if @language_results&.empty? %>
+                <div class="mt-24 col-span-full text-center">
+                  <p class="text-2xl">There are no language search results</p>
+                </div>
+              <% else %>
+                <%= render partial: "products/language_card", collection: @language_results, as: :language %>
+              <% end %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
   
   </main>
 </div>

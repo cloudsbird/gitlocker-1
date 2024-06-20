@@ -63,7 +63,6 @@ Rails.application.routes.draw do
   resources :sales, only: [:index, :show]
   resources :funds, only: [:index, :create]
 
-  get "search", to: "search_results#index"
   get "coming_soon", to: "coming_soon#index"
   get "index_deploy", to: "coming_soon#index_deploy"
   get "index_jobs", to: "coming_soon#index_jobs"
@@ -100,6 +99,7 @@ Rails.application.routes.draw do
     end
     post '/users/:id/follow', to: "users#follow", as: "follow_user"
     post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
+    get "search", to: "search_results#index"
   end
 
   # Error Pages

@@ -18,7 +18,7 @@ export default class extends Controller {
 
   submit(e) {
     if (e.key === 'Enter' || e.keyCode === 13) {
-      window.location.href = `/search?search=${e.target.value}`;
+      window.location.href = `/marketplace/search?search=${e.target.value}`;
     }
   }
 }

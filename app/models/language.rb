@@ -63,4 +63,11 @@ class Language < ApplicationRecord
 
   validates :name, presence: true, uniqueness: { case_sensitive: false }
   validates :image_name, presence: true
+
+  include PgSearch::Model
+  pg_search_scope :search,
+                  against: [:name],
+                  using: {
+                    tsearch: { prefix: true }
+                  }
 end
