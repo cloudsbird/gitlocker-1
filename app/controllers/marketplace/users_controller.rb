@@ -1,3 +1,4 @@
+module Marketplace
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: :show
 
@@ -26,22 +27,22 @@ class UsersController < ApplicationController
       else
         @user.languages.clear
       end
-      redirect_to @user, notice: 'Profile was successfully updated.'
+      redirect_to marketplace_user_path(@user), notice: 'Profile was successfully updated.'
     else
-      redirect_to edit_user_path(@user)
+      redirect_to edit_marketplace_user_path(@user)
     end
   end
 
   def follow
     @user = User.friendly.find(params[:id])
     current_user.followees << @user
-    redirect_back(fallback_location: user_path(@user))
+    redirect_back(fallback_location: marketplace_user_path(@user))
   end
 
   def unfollow
     @user = User.friendly.find(params[:id])
     current_user.followed_users.find_by(followee_id: @user.id).destroy
-    redirect_back(fallback_location: user_path(@user))
+    redirect_back(fallback_location: marketplace_user_path(@user))
   end
 
   private
@@ -49,4 +50,5 @@ class UsersController < ApplicationController
   def user_params
     params.require(:user).permit(:username, :email, :name, :profile_picture, :bio, :location, :company, :facebook_url, :instagram_url, :linkedin_url, :youtube_url)
   end
+end
 end

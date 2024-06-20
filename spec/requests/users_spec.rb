@@ -7,7 +7,7 @@ RSpec.describe "Users", type: :request do
 
   describe "GET show" do
     it "succeeds" do
-      get user_path(user)
+      get marketplace_user_path(user)
       expect(response).to have_http_status(:success)
     end
   end
@@ -15,7 +15,7 @@ RSpec.describe "Users", type: :request do
   describe "GET edit" do
     context "when valid user" do
       it "succeeds" do
-        get edit_user_path(user)
+        get edit_marketplace_user_path(user)
         expect(response).to have_http_status(:success)
       end
     end
@@ -26,7 +26,7 @@ RSpec.describe "Users", type: :request do
         sign_out user
         sign_in other_user
         expect do
-          get edit_user_path(user)
+          get edit_marketplace_user_path(user)
         end.to raise_error(Pundit::NotAuthorizedError)
       end
     end
@@ -34,7 +34,7 @@ RSpec.describe "Users", type: :request do
 
   describe "PUT update" do
     let(:update_request) do
-      put user_path(user), params: {
+      put marketplace_user_path(user), params: {
         user: {
           email: "foo@bar.com"
         }
@@ -57,9 +57,9 @@ RSpec.describe "Users", type: :request do
         end.to change { user.reload.email }.from("user@gitlocker.com").to("foo@bar.com")
       end
 
-      it "redirects to edit_user_path" do
+      it "redirects to edit_marketplace_user_path" do
         update_request
-        expect(response).to redirect_to(edit_user_path(user))
+        expect(response).to redirect_to(edit_marketplace_user_path(user))
       end
     end
   end

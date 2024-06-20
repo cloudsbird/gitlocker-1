@@ -48,13 +48,6 @@ Rails.application.routes.draw do
   get "complete_developer_registrations", to: "complete_developer_registrations#index"
   put "complete_developer_registration", to: "complete_developer_registrations#update"
 
-  resources :users, only: [:show, :edit, :update] do
-    resources :products, only: :index, controller: "users/products"
-    get :synchronizations, to: "users/synchronizations#show", on: :member
-    put :product_activations, to: "users/product_activations#update", on: :member
-  end
-  post '/users/:id/follow', to: "users#follow", as: "follow_user"
-  post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
 
   resources :accounts
 
@@ -100,6 +93,13 @@ Rails.application.routes.draw do
     get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
     get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
     resources :refunds, only: [:new, :create]
+    resources :users, only: [:show, :edit, :update] do
+      resources :products, only: :index, controller: "users/products"
+      get :synchronizations, to: "users/synchronizations#show", on: :member
+      put :product_activations, to: "users/product_activations#update", on: :member
+    end
+    post '/users/:id/follow', to: "users#follow", as: "follow_user"
+    post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
   end
 
   # Error Pages

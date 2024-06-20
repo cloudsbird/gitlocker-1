@@ -90,7 +90,7 @@
                 </button>
 
                 <% if current_user %>
-                  <%= link_to edit_user_path(current_user), class: "ml-4 -m-1.5 p-1.5" do %>
+                  <%= link_to edit_marketplace_user_path(current_user), class: "ml-4 -m-1.5 p-1.5" do %>
                     <span class="sr-only">Your profile</span>
                     <% if current_user.profile_picture.attached? %>
                       <%= image_tag current_user.profile_picture, class: "h-8 w-8 rounded-full bg-gray-800" %>

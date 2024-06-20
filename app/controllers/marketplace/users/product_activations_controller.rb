@@ -1,3 +1,4 @@
+module Marketplace
 module Users
   class ProductActivationsController < ApplicationController
     before_action :authenticate_user!
@@ -20,4 +21,5 @@ module Users
       params.permit(product_ids: [])
     end
   end
+end
 end

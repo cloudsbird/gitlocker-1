@@ -1,3 +1,4 @@
+module Marketplace
 module Users
   class SynchronizationsController < ApplicationController
     before_action :authenticate_user!
@@ -12,4 +13,5 @@ module Users
       end
     end
   end
+end
 end

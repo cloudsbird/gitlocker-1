@@ -1,3 +1,4 @@
+module Marketplace
 module Users
   class ProductsController < ApplicationController
     before_action :authenticate_user!
@@ -11,4 +12,5 @@ module Users
       end
     end
   end
+end
 end

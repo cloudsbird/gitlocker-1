@@ -9,7 +9,7 @@ RSpec.describe "Users#ProductActivations", type: :request do
     let!(:product) { create(:product, user: user) }
 
     let(:activate_product) do
-      put product_activations_user_path(user), params: {
+      put product_activations_marketplace_user(user), params: {
         product_ids: [product.id]
       }, headers: { "ACCEPT": "application/json" }
     end

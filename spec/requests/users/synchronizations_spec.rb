@@ -7,7 +7,7 @@ RSpec.describe "Users::Synchronizations", type: :request do
 
   describe "GET show" do
     it "succeeds" do
-      get synchronizations_user_path(user), headers: { "ACCEPT": "application/json" }
+      get synchronizations_marketplace_user(user), headers: { "ACCEPT": "application/json" }
       expect(response).to have_http_status(:success)
     end
   end

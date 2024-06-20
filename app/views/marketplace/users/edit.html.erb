@@ -1,5 +1,5 @@
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16">
-  <%= form_with model: @user, url: user_path(@user), method: :put, data: { turbo: false } do |f| %>
+  <%= form_with model: @user, url: marketplace_user_path(@user), method: :put, data: { turbo: false } do |f| %>
     <div class="space-y-12">
       <div class="border-b border-gray-900/10 pb-12">
         <h2 class="text-base font-semibold leading-7 text-gray-900">Profile</h2>
