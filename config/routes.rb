@@ -96,6 +96,10 @@ Rails.application.routes.draw do
       resources :products, only: :index, controller: "users/products"
       get :synchronizations, to: "users/synchronizations#show", on: :member
       put :product_activations, to: "users/product_activations#update", on: :member
+      member do
+        get 'followers', to: 'users#followers', as: 'user_followers'
+        get 'followees', to: 'users#followees', as: 'user_followees'
+      end
     end
     post '/users/:id/follow', to: "users#follow", as: "follow_user"
     post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"

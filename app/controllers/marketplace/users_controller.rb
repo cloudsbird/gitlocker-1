@@ -1,6 +1,7 @@
 module Marketplace
 class UsersController < ApplicationController
   before_action :authenticate_user!, except: :show
+  before_action :set_user
 
   def show
     @user = User.friendly.find(params[:id])
@@ -45,10 +46,22 @@ class UsersController < ApplicationController
     redirect_back(fallback_location: marketplace_user_path(@user))
   end
 
+  def followers
+    @followers = @user.followers
+  end
+
+  def followees
+    @followees = @user.followees
+  end
+
   private
 
   def user_params
     params.require(:user).permit(:username, :email, :name, :profile_picture, :bio, :location, :company, :facebook_url, :instagram_url, :linkedin_url, :youtube_url)
+  end
+
+  def set_user
+    @user = User.friendly.find(params[:id])
   end
 end
 end
