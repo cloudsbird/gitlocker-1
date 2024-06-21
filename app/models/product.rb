@@ -34,6 +34,45 @@ class Product < ApplicationRecord
     where.not(id: user&.purchases&.pluck(:product_id))
   }
 
+  scope :by_category, ->(category_name) {
+    joins(:categories).where(categories: { name: category_name }) if category_name.present?
+  }
+
+  scope :by_language, ->(language_name) {
+    joins(:languages).where(languages: { name: language_name }) if language_name.present?
+  }
+
+  scope :sort_by_criteria, ->(criteria) {
+    case criteria
+    when 'alphabetical_asc' then order(name: :asc)
+    when 'alphabetical_desc' then order(name: :desc)
+    when 'cheapest' then order(price_cents: :asc)
+    when 'most_expensive' then order(price_cents: :desc)
+   when 'most_likes'
+    left_joins(:likes)
+      .group('products.id')
+      .order('COUNT(likes.id) DESC NULLS LAST')
+    when 'most_recent' then order(created_at: :desc)
+    when 'oldest' then order(created_at: :asc)
+    else order(created_at: :desc) # Default sorting
+    end
+  }
+
+  def self.filter_and_sort(params)
+    products = self.includes(:categories, :languages, :likes)
+
+    if params[:category].present?
+      products = products.by_category(params[:category])
+    end
+
+    if params[:language].present?
+      products = products.by_language(params[:language])
+    end
+
+    products = products.sort_by_criteria(params[:sort_by])
+    products
+  end
+
   include PgSearch::Model
   pg_search_scope :search,
                   against: [:name],

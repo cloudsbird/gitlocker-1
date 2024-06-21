@@ -1,28 +1,30 @@
 <div class="bg-white">
-   <%=
-      render BreadcrumbComponent.new(current_user,[
-        { text: "Recent", url: marketplace_browse_recent_path }
-      ])
-    %>
+  <%= render BreadcrumbComponent.new(current_user, [{ text: "Recent", url: marketplace_browse_recent_path }]) %>
   <main>
     <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0 mb-4">
         <h2 id="category-heading" class="text-2xl font-bold tracking-tight text-gray-900">Browse By Recent Repositories</h2>
       </div>
       <div>
-        <h2>This is all of our products listed in order of when they have been uploaded to our marketplace. In other words, these are all of our products listed in order from most recent to oldest.</h2>
+        <h2 class="text-lg text-gray-700">This is all of our products listed in order of when they have been uploaded to our marketplace. In other words, these are all of our products listed in order from most recent to oldest.</h2>
       </div>
 
-      <div class="mt-4 flow-root">
+      <%= render partial: 'shared/filters' %>
+
+      <div class="mt-8 flow-root">
         <div class="-my-2">
           <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
             <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <%= render partial: "home/product", collection: @products %>
+              <% if @products.any? %>
+                <%= render partial: "home/product", collection: @products %>
+              <% else %>
+                <p>No products found.</p>
+              <% end %>
             </div>
           </div>
         </div>
       </div>
-      <div class="mt-4">
+      <div class="mt-8">
         <%= render 'kaminari/tailwind/paginator', paginator: @products %>
       </div>
     </section>

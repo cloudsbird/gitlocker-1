@@ -9,7 +9,14 @@ class BrowseController < ApplicationController
   end
 
   def recent
-    @products = Product.exclude_purchased(current_user).recent.page(params[:page]).per(10)
+    @products = Product.exclude_purchased(current_user)
+                       .filter_and_sort(filter_params)
+                       .page(params[:page]).per(10)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def languages
@@ -18,6 +25,12 @@ class BrowseController < ApplicationController
 
   def categories
     @categories = Category.order(:name).page(params[:page]).per(20)
+  end
+
+  private
+
+  def filter_params
+    params.permit(:category, :language, :sort_by)
   end
 end
 end

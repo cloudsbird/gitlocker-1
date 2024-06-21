@@ -1,0 +1,28 @@
+<%= form_with url: marketplace_browse_recent_path, method: :get, local: true, id: 'filter_form' do %>
+  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+    <%= select_tag :sort_by, options_for_select([
+      ['Sort alphabetically a-z', 'alphabetical_asc'],
+      ['Sort alphabetically z-a', 'alphabetical_desc'],
+      ['Sort cheapest to most expensive', 'cheapest'],
+      ['Sort most expensive to cheapest', 'most_expensive'],
+      ['Sort by most likes', 'most_likes'],
+      ['Sort by most recent', 'most_recent'],
+      ['Sort by oldest', 'oldest']
+    ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+    <%= select_tag :category, options_from_collection_for_select(Category.all, :name, :name, params[:category]), prompt: 'Select Category', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+    <%= select_tag :language, options_from_collection_for_select(Language.all, :name, :name, params[:language]), prompt: 'Select Language', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+  </div>
+<% end %>
+
+<script>
+  document.addEventListener('DOMContentLoaded', function() {
+    const filterForm = document.getElementById('filter_form');
+    const selectElements = filterForm.querySelectorAll('select');
+
+    selectElements.forEach(select => {
+      select.addEventListener('change', function() {
+        filterForm.submit();
+      });
+    });
+  });
+</script>
