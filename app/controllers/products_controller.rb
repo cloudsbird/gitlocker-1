@@ -7,7 +7,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:like, :unlike]
 
   def index
-    @products = current_user.products
+    @products = current_user.products.page(params[:page]).per(6)
   end
 
   def show

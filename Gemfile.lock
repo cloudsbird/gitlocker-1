@@ -503,6 +503,7 @@ DEPENDENCIES
   importmap-rails
   jbuilder
   jsonapi-serializer
+  kaminari
   letter_opener
   money-rails (~> 1.12)
   net-http
