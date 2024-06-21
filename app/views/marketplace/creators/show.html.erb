@@ -25,7 +25,7 @@
               <% if @user.profile_picture.present? %>
                 <img alt="<%= @user.username %> profile picture" src="<%= @user.profile_picture.url %>" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
               <% else %>
-                <img alt="<%= @user.username %> profile picture" src="/assets/no_profile.webp" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+                <%= image_tag asset_path('no_profile.webp'), alt: "#{@user.username} profile picture", class: "shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" %>
               <% end %>
             </div>
           </div>
