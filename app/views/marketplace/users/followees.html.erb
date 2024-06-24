@@ -6,7 +6,9 @@
 				<% @followees.each do |followee| %>
 				<li class="py-4 flex items-center justify-between">
 					<div class="flex items-center">
-						<span class="font-bold text-lg"><%= followee.username %></span>
+						<span class="font-bold text-lg">
+		                <%= link_to followee.username, marketplace_creator_path(followee), class: "text-blue-500 hover:underline", target: "_blank" %>
+		              </span>
 					</div>
 					<div>
 						<% if followee.id != current_user.id %>

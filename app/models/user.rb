@@ -40,6 +40,39 @@ class User < ApplicationRecord
   has_many :following_users, foreign_key: :followee_id, class_name: 'Follow'
   has_many :followers, through: :following_users
 
+  scope :total_earnings, -> { order(total_earning: :desc) }
+  scope :newest, -> { order(created_at: :desc) }
+  scope :oldest, -> { order(created_at: :asc) }
+  scope :name_asc, -> { order(name: :asc) }
+  scope :github_username_asc, -> { order(username: :asc) }
+  scope :most_followers, -> {
+    left_joins(:followers)
+    .group('users.id')
+    .order('COUNT(follows.follower_id) DESC NULLS LAST')
+  }
+
+  scope :sort_by_criteria, ->(criteria) {
+    case criteria
+    when 'total_earnings' then total_earnings
+    when 'newest' then newest
+    when 'oldest' then oldest
+    when 'most_followers' then most_followers
+    when 'name_asc' then name_asc
+    when 'github_username_asc' then github_username_asc
+    else newest # Default sorting
+    end
+  }
+
+  def self.filter_and_sort(params)
+    users = self.all
+
+    if params[:creator_sort_by].present?
+      users = users.sort_by_criteria(params[:creator_sort_by])
+    end
+
+    users
+  end
+
   has_one_attached :profile_picture
 
   validates :username, presence: true, uniqueness: { case_sensitive: false }

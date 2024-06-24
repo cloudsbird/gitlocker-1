@@ -1,7 +1,11 @@
 module Marketplace
 class CreatorsController < ApplicationController
   def index
-    @users = User.all.page(params[:page]).per(12)
+    @users = User.filter_and_sort(params).page(params[:page]).per(12)
+     respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   def show
