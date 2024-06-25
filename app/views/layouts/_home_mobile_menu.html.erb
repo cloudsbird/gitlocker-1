@@ -43,12 +43,32 @@
       </div>
 
       <div class="space-y-6 border-t border-gray-200 px-4 py-6">
-        <div class="flow-root">
-          <%= link_to "Create an account", new_user_registration_path, data: { turbo: false }, class: "-m-2 block p-2 font-medium text-gray-900" %>
+       <div class="flow-root">
+         <%= link_to "Browse", marketplace_browse_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
         </div>
         <div class="flow-root">
-          <%= link_to "Sign in", new_user_session_path, data: { turbo: false }, class: "-m-2 block p-2 font-medium text-gray-900" %>
+          <%= link_to "Popular", marketplace_browse_popular_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
         </div>
+        <div class="flow-root">
+          <%= link_to "Recent", marketplace_browse_recent_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
+        </div>
+        <div class="flow-root">
+          <%= link_to "Languages", marketplace_browse_languages_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
+        </div>
+        <div class="flow-root">
+          <%= link_to "Categories", marketplace_browse_categories_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
+        </div>
+        <div class="flow-root">
+          <%= link_to "Creators", marketplace_creators_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
+        </div>
+        <% if user_signed_in? %>
+        <div class="flow-root">
+          <%= link_to "Purchased", marketplace_purchases_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
+        </div>
+        <div class="flow-root">
+          <%= link_to "Sell", seller_dashboard_path, class: "-m-2 block p-2 font-medium text-gray-900" %>
+        </div>
+        <% end %>
       </div>
     </div>
   </div>

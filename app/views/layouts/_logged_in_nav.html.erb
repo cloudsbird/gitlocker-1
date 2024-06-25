@@ -46,28 +46,31 @@
     </nav>
     <div class="flex flex-1 items-center justify-end gap-x-8">
       <div class="flex flex-1 items-center lg:hidden">
-            <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
-            <button
-            data-action="click->home-nav#open"
-            type="button"
-            class="-ml-2 p-2 text-white"
-            >
-            <span class="sr-only">Open menu</span>
-            <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
-            </svg>
-          </button>
-
-          <!-- Search -->
-          <a
+      <!-- Search -->
+        <a
+          href="#"
           data-controller="search-link"
           data-action="click->search-link#openDialog"
           data-search-dialog-id="search-dialog"
           class="ml-2 p-2 text-white cursor-pointer search-link"
           >
           <span class="sr-only">Search</span>
-          <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+          <svg
+            class="h-6 w-6 cursor-pointer"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke-width="1.5"
+            stroke="currentColor"
+            aria-hidden="true"
+            role="button"
+            tabindex="0" 
+            onclick="event.preventDefault(); event.stopPropagation(); this.closest('a').click();" 
+            >
+            <path
+            stroke-linecap="round"
+            stroke-linejoin="round"
+            d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
+            />
           </svg>
         </a>
       </div>

@@ -14,9 +14,13 @@
       </div>
       <div class="mt-4 flow-root">
         <div class="-my-2">
-          <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
-            <div class="absolute flex space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
-              <%= render partial: "home/product", collection: @products %>
+          <div class="px-4 sm:px-6 lg:px-8">
+            <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              <% if @products.any? %>
+                <%= render partial: "home/product", collection: @products %>
+              <% else %>
+                <p class="text-center text-gray-600">No products found.</p>
+              <% end %>
             </div>
           </div>
         </div>
