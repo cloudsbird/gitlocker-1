@@ -69,7 +69,6 @@ Rails.application.routes.draw do
   get "index_versioning", to: "coming_soon#index_versioning"
   get "index_messages", to: "coming_soon#index_messages"
   get "landing_page", to: "coming_soon#landing_page"
-  get "plans", to: "plans#index"
   get "faq", to: "faq#index"
   
   namespace :marketplace do
