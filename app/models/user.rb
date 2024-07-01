@@ -34,6 +34,7 @@ class User < ApplicationRecord
   }, through: :user_languages, source: :language
   has_many :sales, through: :products, source: :purchases
   has_one :account
+  has_many :notifications, as: :recipient
 
   has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'
   has_many :followees, through: :followed_users

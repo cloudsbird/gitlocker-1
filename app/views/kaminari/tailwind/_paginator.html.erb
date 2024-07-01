@@ -3,7 +3,7 @@
     <ul class="pagination flex space-x-2">
       <% if paginator.current_page > 1 %>
         <li>
-          <%= link_to raw('&lsaquo; Prev'), url_for(page: paginator.current_page - 1), class: "text-gray-600 hover:text-gray-800 font-semibold px-2 py-1 rounded border border-gray-300" %>
+          <%= link_to raw('&lsaquo; Prev'), url_for(request.params.merge(page: paginator.current_page - 1)), class: "text-gray-600 hover:text-gray-800 font-semibold px-2 py-1 rounded border border-gray-300" %>
         </li>
       <% else %>
         <li class="disabled">
@@ -13,13 +13,13 @@
 
       <% (1..paginator.total_pages).each do |page| %>
         <li>
-          <%= link_to page, url_for(page: page), class: "px-2 py-1 rounded-full border border-gray-300 hover:bg-gray-100 #{'font-semibold text-gray-800' if paginator.current_page == page}" %>
+          <%= link_to page, url_for(request.params.merge(page: page)), class: "px-2 py-1 rounded-full border border-gray-300 hover:bg-gray-100 #{'font-semibold text-gray-800' if paginator.current_page == page}" %>
         </li>
       <% end %>
 
       <% if paginator.current_page < paginator.total_pages %>
         <li>
-          <%= link_to raw('Next &rsaquo;'), url_for(page: paginator.current_page + 1), class: "text-gray-600 hover:text-gray-800 font-semibold px-2 py-1 rounded border border-gray-300" %>
+          <%= link_to raw('Next &rsaquo;'), url_for(request.params.merge(page: paginator.current_page + 1)), class: "text-gray-600 hover:text-gray-800 font-semibold px-2 py-1 rounded border border-gray-300" %>
         </li>
       <% else %>
         <li class="disabled">

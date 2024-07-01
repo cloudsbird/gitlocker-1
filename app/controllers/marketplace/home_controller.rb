@@ -6,6 +6,7 @@ module Marketplace
 
     @languages = Language.order(:name).limit(20)
     @categories = Category.order(:name).limit(20)
+    @creators = User.order(total_earning: :desc).limit(20)
     @recent_products = Product.published.recent.exclude_purchased(current_user).first(5)
     @popular_products = Product.exclude_purchased(current_user).order(purchases_count: :desc).first(5)
   end

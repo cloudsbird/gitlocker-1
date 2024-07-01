@@ -42,6 +42,7 @@ gem "stripe", "~> 7.0"
 gem 'activeadmin'
 gem 'sassc', '~> 2.0'
 gem 'kaminari'
+gem 'noticed'
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

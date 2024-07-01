@@ -1,17 +1,17 @@
 module Marketplace
 class BrowseController < ApplicationController
   def index
-    @products = Product.exclude_purchased(current_user).page(params[:page]).per(10)
+    @products = Product.exclude_purchased(current_user).filter_and_sort(filter_params).page(params[:page]).per(3)
   end
 
   def popular
-    @products = Product.exclude_purchased(current_user).order(purchases_count: :desc).page(params[:page]).per(10)
+    @products = Product.exclude_purchased(current_user).order(purchases_count: :desc).filter_and_sort(filter_params).page(params[:page]).per(3)
   end
 
   def recent
     @products = Product.exclude_purchased(current_user)
                        .filter_and_sort(filter_params)
-                       .page(params[:page]).per(10)
+                       .page(params[:page]).per(2)
 
     respond_to do |format|
       format.html
