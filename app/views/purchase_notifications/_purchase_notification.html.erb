@@ -1,0 +1,9 @@
+<!-- app/views/purchase_notifications/_purchase_notification.html.erb -->
+
+<% if @notification %>
+  <div class="notification">
+    <p><%= @notification.message %></p>
+  </div>
+<% else %>
+  <p>Notification object is nil.</p>
+<% end %>

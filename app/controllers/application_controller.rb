@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::Base
   include Pundit::Authorization
+  before_action :set_notifications
   rescue_from Octokit::Unauthorized, with: :octokit_unauthorized
 
   def visitor_user
@@ -29,5 +30,13 @@ class ApplicationController < ActionController::Base
 
   def octokit_unauthorized(exception)
     render json: { message: 'Unauthorized access to GitHub API. Please authenticate.' }, status: :unprocessable_entity
+  end
+
+  def set_notifications
+    if user_signed_in?
+      @notifications_index = current_user.notifications.order(created_at: :desc).limit(5)
+    else
+      @notifications_index = []
+    end
   end
 end

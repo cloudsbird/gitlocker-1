@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  require 'sidekiq/web'
+  mount Sidekiq::Web => '/sidekiq'
   resources :follows
   devise_for :admin_users, ActiveAdmin::Devise.config
   ActiveAdmin.routes(self)
@@ -103,6 +105,7 @@ Rails.application.routes.draw do
     post '/users/:id/follow', to: "users#follow", as: "follow_user"
     post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
     get "search", to: "search_results#index"
+    resources :notifications, only: [:index]
   end
 
   # Error Pages

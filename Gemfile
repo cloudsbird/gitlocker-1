@@ -1,6 +1,6 @@
 source "https://rubygems.org"
 
-ruby "3.3.0"
+ruby "3.2.3"
 
 gem "activerecord-import"
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
@@ -43,6 +43,8 @@ gem 'activeadmin'
 gem 'sassc', '~> 2.0'
 gem 'kaminari'
 gem 'noticed'
+gem 'sidekiq'
+
 
 # Use Redis adapter to run Action Cable in production
 # gem "redis", ">= 4.0.1"

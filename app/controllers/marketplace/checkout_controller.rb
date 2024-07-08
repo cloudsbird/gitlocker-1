@@ -41,6 +41,10 @@ class CheckoutController < ApplicationController
       payment.update!(stripe_charge_id: charge_id)
 
       current_user.reload.cart_items.destroy_all
+      purchases.each do |purchase|
+        product_owner = purchase.product.user
+        PurchaseNotification.create!(recipient: purchase.product.user, buyer: current_user, product: purchase.product)
+      end
     end
 
     redirect_to marketplace_purchases_url, notice: 'Payment successful! Your order has been placed.'
@@ -71,6 +75,10 @@ class CheckoutController < ApplicationController
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
 
       current_user.reload.cart_items.destroy_all
+       purchases.each do |purchase|
+          product_owner = purchase.product.user
+          PurchaseNotification.create!(recipient: purchase.product.user, buyer: current_user, product: purchase.product)
+        end
     end
 
     redirect_to marketplace_purchases_url, notice: 'Free product added to sales!'
