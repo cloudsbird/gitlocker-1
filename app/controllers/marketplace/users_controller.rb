@@ -37,6 +37,7 @@ class UsersController < ApplicationController
   def follow
     @user = User.friendly.find(params[:id])
     current_user.followees << @user
+    FollowNotification.create!(recipient: @user, follower: current_user)
     redirect_back(fallback_location: marketplace_user_path(@user))
   end
 
