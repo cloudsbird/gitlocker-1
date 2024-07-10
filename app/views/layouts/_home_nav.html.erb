@@ -132,12 +132,18 @@
                 </div>
                 
 <div class="relative">
-  <button type="button" id="notifications-button" class="ml-2 p-2 -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
-    <span class="sr-only">View notifications</span>
-    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-      <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-    </svg>
-  </button>
+<button type="button" id="notifications-button" class="flex items-center ml-2 p-2 -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+  <span class="sr-only">View notifications</span>
+<svg class="h-6 w-6 <%= current_user.notifications.unread.count > 0 ? 'text-blue-500' : 'text-gray-400 hover:text-gray-500' %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+</svg>
+  <% if current_user.notifications.unread.count > 0 %>
+  <span class="ml-2 text-sm font-medium text-white bg-blue-500 rounded-full px-2 py-1">
+    <%= current_user.notifications.unread.count %>
+  </span>
+  <% end %>
+</button>
+
 
   <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg ring-1 ring-black ring-opacity-5">
     <div class="p-4">
@@ -149,6 +155,9 @@
       <li class="p-4 hover:bg-gray-100">
         <% if notification&.params && notification.params["message"] %>
         <p class="text-sm text-gray-700 truncate"><%= notification&.params["message"] %></p>
+         <% unless notification.read_at %>
+    <%= link_to "Mark as Read", mark_as_read_marketplace_notification_path(notification), method: :post, class: "text-sm text-blue-500 hover:text-blue-700 ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1 bg-blue-100 hover:bg-blue-200" %>
+  <% end %>
         <% end %>
       </li>
       <% end %>
@@ -156,7 +165,6 @@
        <li class="p-4 hover:bg-gray-100">
       <a href="<%= marketplace_notifications_path %>" class="block text-center text-sm font-bold text-blue-500 hover:text-blue-700">View All Notifications</a>
     </li>
-
     </ul>
   </div>
 </div>

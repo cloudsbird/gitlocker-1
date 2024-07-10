@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_07_08_101601) do
+ActiveRecord::Schema[7.1].define(version: 2024_07_09_174930) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -213,6 +213,8 @@ ActiveRecord::Schema[7.1].define(version: 2024_07_08_101601) do
     t.bigint "product_id"
     t.integer "buyer_id"
     t.string "buyer_type"
+    t.integer "follower_id"
+    t.string "follower_type"
     t.index ["product_id"], name: "index_notifications_on_product_id"
     t.index ["read_at"], name: "index_notifications_on_read_at"
     t.index ["recipient_id", "recipient_type"], name: "index_notifications_on_recipient_id_and_recipient_type"

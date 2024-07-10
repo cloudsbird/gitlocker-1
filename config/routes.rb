@@ -105,7 +105,14 @@ Rails.application.routes.draw do
     post '/users/:id/follow', to: "users#follow", as: "follow_user"
     post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
     get "search", to: "search_results#index"
-    resources :notifications, only: [:index]
+    resources :notifications, only: [:index] do
+      member do
+        get :mark_as_read
+      end
+      collection do
+        get :mark_all_as_read
+      end
+    end
   end
 
   # Error Pages
