@@ -12,6 +12,7 @@ class RefundsController < ApplicationController
 
     if @refund.save!
       RefundMailer.notify_admin(@refund, current_user).deliver_now
+      current_user.update(state: User.states[:seller])
       redirect_to marketplace_root_path, notice: 'Refund request submitted successfully.'
     else
       render :new

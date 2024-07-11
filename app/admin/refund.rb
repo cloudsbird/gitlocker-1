@@ -36,6 +36,8 @@ ActiveAdmin.register Refund do
       redirect_to admin_refunds_path and return
     end
     product_user.sales.where(product_id: resource.product.id).last.update(refund: true)
+    RefundNotification.create!(recipient: resource.user, product: resource.product)
+    PendingAmountDeductNotification.create!(recipient: product_user, product: resource.product)
     RefundMailer.notify_buyer(resource, resource.user).deliver_now
     RefundMailer.notify_seller(resource, product_user).deliver_now
     redirect_to resource_path, notice: "Refund ##{resource.id} approved and marked as completed."

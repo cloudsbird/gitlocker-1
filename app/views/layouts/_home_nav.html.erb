@@ -154,7 +154,7 @@
       <% @notifications_index.each do |notification| %>
       <li class="p-4 hover:bg-gray-100">
         <% if notification&.params && notification.params["message"] %>
-        <p class="text-sm text-gray-700 truncate"><%= notification&.params["message"] %></p>
+        <p class="text-sm text-gray-700"><%= notification&.params["message"] %></p>
          <% unless notification.read_at %>
     <%= link_to "Mark as Read", mark_as_read_marketplace_notification_path(notification), method: :post, class: "text-sm text-blue-500 hover:text-blue-700 ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1 bg-blue-100 hover:bg-blue-200" %>
   <% end %>
