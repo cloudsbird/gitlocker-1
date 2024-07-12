@@ -8,7 +8,7 @@ class NotificationsController < ApplicationController
 
   def mark_as_read
     notification = Notification.find(params[:id])
-    notification.read!
+    notification.update(read_at: Time.zone.now)
     redirect_to root_path, notice: 'Notification marked as read.'
   end
 
