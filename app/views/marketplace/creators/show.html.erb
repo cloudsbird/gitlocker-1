@@ -30,14 +30,20 @@
             </div>
           </div>
           <div class="w-full lg:w-4/12 px-4 lg:order-3 lg:text-right lg:self-center">
-            <section id="all-links">
-                <% if @user.id == current_user.id %>
-                <% elsif current_user.followees.include?(@user) %>
-                    <h5><%= button_to "Unfollow", marketplace_unfollow_user_path, method: "POST",class: "bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" %></h5>
-                <% else %>
-                    <h5><%= button_to "Follow", marketplace_follow_user_path, method: "POST",class: "bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150"  %></h5>
-                <% end%>
-                <br>
+            <section id="all-links" class="flex items-center justify-center space-x-2">
+              <% if @user.id == current_user.id %>
+              <% elsif current_user.followees.include?(@user) %>
+                <h5>
+                  <%= button_to "Unfollow", marketplace_unfollow_user_path, method: "POST", class: "bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" %>
+                </h5>
+              <% else %>
+                <h5>
+                  <%= button_to "Follow", marketplace_follow_user_path, method: "POST", class: "bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" %>
+                </h5>
+              <% end %>
+              <a href="https://github.com/<%= @user.username %>" target="_blank" class="bg-gray-500 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150">
+                Visit my GitHub profile
+              </a>
             </section>
           </div>
           <div class="w-full lg:w-4/12 px-4 lg:order-1">
