@@ -128,4 +128,18 @@ class Product < ApplicationRecord
   def self.ransackable_associations(auth_object = nil)
     ["active_categories", "active_languages", "cart_items", "categories", "covers_attachments", "covers_blobs", "folder_attachment", "folder_blob", "languages", "likes", "pg_search_document", "product_categories", "product_languages", "purchases", "refund", "reviews", "user", "video_file_attachment", "video_file_blob"]
   end
+
+  def related_products
+    related_by_categories = Product.where.not(id: self.id)
+                                   .joins(:categories)
+                                   .where(categories: { id: self.category_ids })
+                                   .limit(4)
+    
+    related_by_languages = Product.where.not(id: self.id)
+                                  .joins(:languages)
+                                  .where(languages: { id: self.language_ids })
+                                  .limit(4)
+
+    (related_by_categories + related_by_languages).uniq.take(4)
+  end
 end
