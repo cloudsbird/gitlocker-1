@@ -57,6 +57,9 @@ Rails.application.routes.draw do
     resources :covers, only: [:create, :destroy], controller: "product_covers"
     post 'like', on: :member
     post 'unlike', on: :member
+    collection do
+      get 'import' 
+    end
   end
 
   resources :subscribed_users, only: :create

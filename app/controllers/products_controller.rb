@@ -124,6 +124,22 @@ class ProductsController < ApplicationController
     redirect_to products_path, notice: 'Product was successfully deleted.'
   end
 
+  def import
+    user_repos = octokit_client.repositories(nil, per_page: repositories_count)
+    repo_urls = user_repos.map(&:html_url)
+    repo_name = user_repos.map(&:name)
+    product_urls = current_user.products.pluck("url")
+    repo_hash = user_repos.map do |repo|
+    {
+      name: repo[:name],
+      url: repo[:html_url]
+    }
+    end
+    @user_repos = repo_hash.reject do |repo|
+      product_urls.include?(repo[:url])
+    end
+  end
+
   private
 
   def product_params
