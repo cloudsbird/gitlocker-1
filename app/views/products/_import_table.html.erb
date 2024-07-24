@@ -1,0 +1,40 @@
+<div class="mt-6 flex flex-col gap-[32px] items-start import-table">
+  <h3 class="text-lg font-semibold leading-7 text-gray-900 text-left mb-4">Import from GitHub</h3>
+  <div class="overflow-x-auto w-full">
+    <div class="inline-block min-w-full align-middle">
+      <div class=" shadow ring-1 ring-black  border-b-[4px]">
+        <table class="min-w-full divide-gray-300">
+          <thead class="bg-gray-50 ">
+            <tr>
+              <th scope="col" class="min-w-[256px] bg-gray-200 px-6 py-3.5 pl-4 pr-3 text-left text-sm font-semibold text-gray-700 sm:pl-6">Repository Name</th>
+              <th scope="col" class="min-w-[172px] bg-gray-200 px-6 py-3.5 text-left text-sm font-semibold text-gray-700">Repository URL</th>
+              <th scope="col" class="min-w-[130px] bg-gray-200 px-6 py-3.5 text-left text-sm font-semibold text-gray-700">Actions</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-gray-200 bg-white !border-t-0">
+            <% @user_repos.each do |repo| %>
+              <tr class="even:bg-gray-50">
+                <td class="min-w-[256px] border-l-2 whitespace-nowrap px-6 py-4 pl-4 pr-3 text-sm font-medium text-black sm:pl-6 border-r border-gray-200">
+                  <a href="<%= repo[:url] %>" class="text-black-500 hover:underline" target="_blank">
+                    <%= repo[:name] %>
+                  </a>
+                </td>
+                <td class="min-w-[172px] px-6 py-4 text-sm text-black border-r border-gray-200">
+                  <a href="<%= repo[:url] %>" class="text-black-500 hover:underline" target="_blank">
+                    <%= repo[:url] %>
+                  </a>
+                </td>
+                <td class="min-w-[130px] whitespace-nowrap px-6 py-4 text-sm text-black border-r border-gray-200">
+                  <%= button_to 'Import', products_path, method: :post, params: { product: { name: repo[:name], product_url: repo[:url], description: repo[:description], repo_id: repo[:id], import_product: true } }, class: 'bg-blue-500 text-white px-4 py-2 rounded-md', form: { data: { turbo: false } } %>
+                </td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+        <div class="mt-4">
+          <%= render 'kaminari/tailwind/paginator', paginator: @user_repos %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -69,6 +69,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
+    @user_repos = import_table
   end
 
   def create
@@ -108,7 +109,10 @@ class ProductsController < ApplicationController
     @product.active = true
 
     begin
-      if @product.save
+      
+      if params[:product][:import_product].present? && @product.save
+        redirect_to product_path(@product)
+      elsif @product.save
         render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
       else
         render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
@@ -124,23 +128,27 @@ class ProductsController < ApplicationController
     redirect_to products_path, notice: 'Product was successfully deleted.'
   end
 
-  def import
+  private
+
+  def import_table
     user_repos = octokit_client.repositories(nil, per_page: repositories_count)
     repo_urls = user_repos.map(&:html_url)
     repo_name = user_repos.map(&:name)
     product_urls = current_user.products.pluck("url")
     repo_hash = user_repos.map do |repo|
     {
+      id: repo[:id],
       name: repo[:name],
-      url: repo[:html_url]
+      url: repo[:html_url],
+      description: repo[:description],
+      created_at: repo[:created_at]
     }
     end
     @user_repos = repo_hash.reject do |repo|
       product_urls.include?(repo[:url])
     end
+    @user_repos = Kaminari.paginate_array(@user_repos).page(params[:page]).per(5)
   end
-
-  private
 
   def product_params
     params.require(:product).permit(
