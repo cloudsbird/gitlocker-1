@@ -1,4 +1,5 @@
 class FundsController < ApplicationController
+  before_action :update_state
   def index
     @funds = current_user.total_sales_amount_in_dollars
   end
@@ -37,5 +38,11 @@ class FundsController < ApplicationController
       Rails.logger.error "Unexpected Error: #{e.message}"
       redirect_to funds_path, alert: 'An unexpected error occurred. Please try again later.'
     end
+  end
+
+  private
+
+  def update_state
+    current_user.update(state: User.states[:seller])
   end
 end

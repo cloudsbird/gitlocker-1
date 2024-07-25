@@ -5,6 +5,7 @@ require 'open3'
 class ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:like, :unlike]
+  before_action :update_state
 
   def index
     @products = current_user.products.page(params[:page]).per(6)
@@ -186,6 +187,10 @@ class ProductsController < ApplicationController
 
   def github_login
     octokit_client.login
+  end
+
+  def update_state
+    current_user.update(state: User.states[:seller])
   end
 
   def repositories_count
