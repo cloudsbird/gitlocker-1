@@ -132,14 +132,14 @@ class ProductsController < ApplicationController
 
   def import_table
     user_repos = octokit_client.repositories(nil, per_page: repositories_count)
-    repo_urls = user_repos.map(&:html_url)
-    repo_name = user_repos.map(&:name)
+    private_repos = user_repos.select { |repo| repo[:private] }
     product_urls = current_user.products.pluck("url")
-    repo_hash = user_repos.map do |repo|
+    repo_hash = private_repos.map do |repo|
     {
       id: repo[:id],
       name: repo[:name],
       url: repo[:html_url],
+      avatar_url: repo[:owner][:avatar_url],
       description: repo[:description],
       created_at: repo[:created_at]
     }

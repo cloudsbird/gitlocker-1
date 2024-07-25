@@ -4,6 +4,8 @@
       <h2 class="text-base font-semibold leading-7 text-gray-900">Product Information</h2>
       <p class="mt-1 text-sm leading-6 text-gray-600">Below are your basic product information.</p>
 
+      <%= render partial: 'products/import_table', locals: { user_repos: @user_repos } %>
+
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
         <div class="sm:col-span-4" id= "url-field">
@@ -113,7 +115,6 @@
     <%= f.submit "Save", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
   </div>
 <% end %>
-<%= render partial: 'products/import_table', locals: { user_repos: @user_repos } %>
 
 <script type="text/javascript">
   function toggleVideoFields() {
@@ -295,6 +296,35 @@
         }
       }
     });
-
   });
+
+document.addEventListener('DOMContentLoaded', function() {
+  document.querySelectorAll('.import-repo-btn').forEach(button => {
+    button.addEventListener('click', function(event) {
+      event.preventDefault();
+
+      const repoName = this.getAttribute('data-repo-name');
+      const repoUrl = this.getAttribute('data-repo-url');
+      const repoDescription = this.getAttribute('data-repo-description');
+
+      const nameField = document.getElementById('product_name');
+      const urlField = document.getElementById('product_url');
+      const descriptionField = document.getElementById('descriptionTextArea');
+
+      if (nameField && urlField && descriptionField) {
+        nameField.value = repoName;
+        urlField.value = repoUrl;
+
+        if (typeof CKEDITOR !== 'undefined' && CKEDITOR.instances['descriptionTextArea']) {
+          CKEDITOR.instances['descriptionTextArea'].setData(repoDescription);
+        } else {
+          descriptionField.value = repoDescription;
+        }
+      } else {
+        console.error('Form fields not found. Check the IDs.');
+      }
+    });
+  });
+});
+
 </script>
