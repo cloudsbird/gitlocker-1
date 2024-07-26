@@ -6,6 +6,7 @@ class ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:like, :unlike]
   before_action :update_state
+  before_action :set_user_repos
 
   def index
     @products = current_user.products.page(params[:page]).per(6)
@@ -70,7 +71,7 @@ class ProductsController < ApplicationController
 
   def new
     @product = Product.new
-    @user_repos = import_table
+    @filtered_repos = import_table
   end
 
   def create
@@ -132,8 +133,7 @@ class ProductsController < ApplicationController
   private
 
   def import_table
-    user_repos = octokit_client.repositories(nil, per_page: repositories_count)
-    private_repos = user_repos.select { |repo| repo[:private] }
+    private_repos = @user_repos.select { |repo| repo[:private] }
     product_urls = current_user.products.pluck("url")
     repo_hash = private_repos.map do |repo|
     {
@@ -145,10 +145,10 @@ class ProductsController < ApplicationController
       created_at: repo[:created_at]
     }
     end
-    @user_repos = repo_hash.reject do |repo|
+    @filtered_repos = repo_hash.reject do |repo|
       product_urls.include?(repo[:url])
     end
-    @user_repos = Kaminari.paginate_array(@user_repos).page(params[:page]).per(5)
+    @filtered_repos = Kaminari.paginate_array(@filtered_repos).page(params[:page]).per(2)
   end
 
   def product_params
@@ -199,6 +199,10 @@ class ProductsController < ApplicationController
 
   def set_product
     @product = Product.friendly.find(params[:id])
+  end
+
+  def set_user_repos
+    @user_repos ||= octokit_client.repositories(nil, per_page: repositories_count)
   end
 
   def download_repository_as_zip(owner, repo, ref, token)

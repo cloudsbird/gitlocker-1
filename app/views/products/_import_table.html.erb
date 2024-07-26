@@ -12,7 +12,7 @@
             </tr>
           </thead>
           <tbody class="divide-y divide-gray-200 bg-white !border-t-0">
-            <% @user_repos.each do |repo| %>
+            <% @filtered_repos.each do |repo| %>
               <tr class="even:bg-gray-50">
                <td class="min-w-[256px] w-[256px] border-l-2 whitespace-nowrap px-6 py-4 pl-4 pr-3 text-sm font-medium text-black sm:pl-6 border-r border-gray-200 flex items-center space-x-2">
                   <img src="<%= repo[:avatar_url] %>" alt="<%= repo[:name] %> Avatar" class="w-10 h-10 rounded-full">
@@ -38,7 +38,7 @@
           </tbody>
         </table>
         <div class="mt-4">
-          <%= render 'kaminari/tailwind/paginator', paginator: @user_repos %>
+          <%= render 'kaminari/tailwind/paginator', paginator: @filtered_repos %>
         </div>
       </div>
     </div>

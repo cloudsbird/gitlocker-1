@@ -4,7 +4,7 @@
       <h2 class="text-base font-semibold leading-7 text-gray-900">Product Information</h2>
       <p class="mt-1 text-sm leading-6 text-gray-600">Below are your basic product information.</p>
 
-      <%= render partial: 'products/import_table', locals: { user_repos: @user_repos } %>
+      <%= render partial: 'products/import_table', locals: { filtered_repos: @filtered_repos } %>
 
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
@@ -298,7 +298,7 @@
     });
   });
 
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('turbo:load', () => {
   document.querySelectorAll('.import-repo-btn').forEach(button => {
     button.addEventListener('click', function(event) {
       event.preventDefault();
