@@ -12,6 +12,7 @@
             <div class="flex items-center space-x-6">
               <% if user_signed_in? %>
                 <%= link_to "FAQ", faq_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
+                <%= link_to "Gitpod File Editing", "https://www.gitpod.io", class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Start Selling", seller_dashboard_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Code Marketplace", marketplace_root_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <%= link_to "Profile", edit_marketplace_user_path(current_user), class: "text-sm font-medium text-white hover:text-gray-100" %>
