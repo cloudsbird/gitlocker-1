@@ -1,0 +1,32 @@
+<!-- Header Section -->
+<section class="relative block header-background">
+  <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
+  <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
+    <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
+      <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+    </svg>
+  </div>
+  <div class="relative container mx-auto px-4 text-center text-white header-container">
+    <h1 class="text-3xl md:text-4xl font-light">
+      Browse <span class="font-bold">GitLocker’s selection</span> of high quality private <span class="font-bold">GitHub</span> repositories.
+    </h1>
+    <div class="mt-8 flex justify-center items-center space-x-2 search-container">
+      <select class="w-40 p-2 rounded-md text-gray-700">
+        <option value="all-files">All Files</option>
+      </select>
+      <input type="text" placeholder="Categories" class="w-full max-w-lg p-2 rounded-md text-gray-700">
+				<select name="category_id" class="w-40 p-2 rounded-md text-gray-700">
+				  <option value="">All Categories</option>
+
+				  <% Category.all.each do |category| %>
+				    <option value="<%= category.id %>" <%= 'selected' if params[:category_id].to_i == category.id %>><%= category.name %></option>
+				  <% end %>
+				</select>
+    </div>
+    <div class="mt-8 space-x-4">
+      <a href="#" class="inline-block bg-white text-blue-600 px-4 py-2 rounded-md">SignIn/SignUp</a>
+      <a href="#" class="inline-block bg-white text-blue-600 px-4 py-2 rounded-md">Browse</a>
+      <a href="#" class="inline-block bg-white text-blue-600 px-4 py-2 rounded-md">Sell your code</a>
+    </div>
+  </div>
+</section>

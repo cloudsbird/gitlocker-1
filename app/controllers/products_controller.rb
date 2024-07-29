@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
   def show
     @product = current_user.products.includes(:reviews, :languages).friendly.find(params[:id])
     @related_products = @product.related_products
-    @reviews = @product.reviews.includes(:user)
+    @reviews = @product.reviews.page(params[:page]).per(2)
     @languages = @product.languages
     @categories = @product.categories
   end
@@ -148,7 +148,7 @@ class ProductsController < ApplicationController
     @filtered_repos = repo_hash.reject do |repo|
       product_urls.include?(repo[:url])
     end
-    @filtered_repos = Kaminari.paginate_array(@filtered_repos).page(params[:page]).per(2)
+    @filtered_repos = Kaminari.paginate_array(@filtered_repos).page(params[:page]).per(5)
   end
 
   def product_params
