@@ -1,32 +1,47 @@
-<!-- Header Section -->
-<section class="relative block header-background">
-  <span id="blackOverlay" class="w-full h-full absolute opacity-50 bg-black"></span>
-  <div class="top-auto bottom-0 left-0 right-0 w-full absolute pointer-events-none overflow-hidden h-70-px" style="transform: translateZ(0px)">
-    <svg class="absolute bottom-0 overflow-hidden" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none" version="1.1" viewBox="0 0 2560 100" x="0" y="0">
-      <polygon class="text-blueGray-200 fill-current" points="2560 0 2560 100 0 100"></polygon>
+<section class="relative block bg-cover bg-center" style="background-image: url('https://images.unsplash.com/photo-1499336315816-097655dcfbda?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=2710&q=80');">
+  <span class="absolute inset-0 bg-black opacity-50"></span>
+  <div class="absolute inset-x-0 bottom-0 h-16 overflow-hidden pointer-events-none">
+    <svg class="absolute bottom-0 w-full text-blueGray-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 100">
+      <polygon fill="currentColor" points="2560 0 2560 100 0 100"></polygon>
     </svg>
   </div>
-  <div class="relative container mx-auto px-4 text-center text-white header-container">
-    <h1 class="text-3xl md:text-4xl font-light">
+  <div class="relative container mx-auto px-4 text-center text-white py-16">
+    <h1 class="text-3xl md:text-4xl font-light max-w-4xl mx-auto">
       Browse <span class="font-bold">GitLocker’s selection</span> of high quality private <span class="font-bold">GitHub</span> repositories.
     </h1>
-    <div class="mt-8 flex justify-center items-center space-x-2 search-container">
-      <select class="w-40 p-2 rounded-md text-gray-700">
-        <option value="all-files">All Files</option>
+    <div class="mt-8 flex justify-center items-center space-x-2">
+      <select name="category_id" class="w-40 p-2 rounded-md text-gray-700">
+        <option value="">All Categories</option>
+        <% Category.all.each do |category| %>
+          <option value="<%= category.id %>" <%= 'selected' if params[:category_id].to_i == category.id %>><%= category.name %></option>
+        <% end %>
       </select>
-      <input type="text" placeholder="Categories" class="w-full max-w-lg p-2 rounded-md text-gray-700">
-				<select name="category_id" class="w-40 p-2 rounded-md text-gray-700">
-				  <option value="">All Categories</option>
-
-				  <% Category.all.each do |category| %>
-				    <option value="<%= category.id %>" <%= 'selected' if params[:category_id].to_i == category.id %>><%= category.name %></option>
-				  <% end %>
-				</select>
+      <div class="relative">
+        <input type="text" placeholder="Search" class="w-full max-w-3xl p-2 rounded-md text-gray-700">
+        <button class="absolute inset-y-0 right-0 px-4 text-gray-600">
+          <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+          </svg>
+        </button>
+      </div>
     </div>
     <div class="mt-8 space-x-4">
-      <a href="#" class="inline-block bg-white text-blue-600 px-4 py-2 rounded-md">SignIn/SignUp</a>
-      <a href="#" class="inline-block bg-white text-blue-600 px-4 py-2 rounded-md">Browse</a>
-      <a href="#" class="inline-block bg-white text-blue-600 px-4 py-2 rounded-md">Sell your code</a>
+      <% if user_signed_in? %>
+        <%= link_to "Browse", marketplace_browse_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
+        <%= link_to "Sell your code", seller_dashboard_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
+      <% else %>
+        <%= link_to "Sign In", new_user_session_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
+        <%= link_to "Create an account", new_user_registration_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
+        <%= link_to "Browse", marketplace_browse_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
+      <% end %>
+    </div>
+        <div class="mt-8 flex justify-center space-x-4">
+      <%= link_to "JavaScript", '/marketplace/languages/javascript', class: "text-blue-300 hover:text-blue-500" %>
+      <%= link_to "Python", '/marketplace/languages/python', class: "text-blue-300 hover:text-blue-500" %>
+      <%= link_to "C++", '/marketplace/languages/cplusplus', class: "text-blue-300 hover:text-blue-500" %>
+      <%= link_to "HTML", '/marketplace/languages/html', class: "text-blue-300 hover:text-blue-500" %>
+      <%= link_to "CSS", '/marketplace/languages/css', class: "text-blue-300 hover:text-blue-500" %>
+      <%= link_to "PHP", '/marketplace/languages/php', class: "text-blue-300 hover:text-blue-500" %>
     </div>
   </div>
 </section>
