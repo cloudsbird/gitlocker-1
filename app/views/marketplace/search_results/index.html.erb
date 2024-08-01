@@ -3,7 +3,16 @@
     <!-- Product Search Results -->
     <section aria-labelledby="products-heading" class="py-8 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-        <h2 id="products-heading" class="text-2xl font-bold tracking-tight text-gray-900">Product Search Results: <%= params[:search] %></h2>
+        <h2 id="products-heading" class="text-2xl font-bold tracking-tight text-gray-900">
+          Product Search Results: <%= params[:search] %>
+        </h2>
+      </div>
+      <div>
+        <h3 id="products-heading" class="text-2xl font-bold tracking-tight text-gray-900">
+            <% if params[:category_id].present? %>
+              Category: <%= Category.find(params[:category_id]).name %>
+            <% end %>
+          </h3>
       </div>
 
       <div class="mt-4 overflow-x-auto">
@@ -26,7 +35,9 @@
     <!-- Creator Search Results -->
     <section aria-labelledby="creators-heading" class="py-8 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-        <h2 id="creators-heading" class="text-2xl font-bold tracking-tight text-gray-900 mt-2">Creator Search Results: <%= params[:search] %></h2>
+        <h2 id="creators-heading" class="text-2xl font-bold tracking-tight text-gray-900 mt-2">
+          Creator Search Results: <%= params[:search] %>
+        </h2>
       </div>
 
       <div class="mt-4 overflow-x-auto">
@@ -49,7 +60,9 @@
     <!-- Category Search Results -->
     <section aria-labelledby="categories-heading" class="py-8 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8 mt-2">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0 ">
-        <h2 id="categories-heading" class="text-2xl font-bold tracking-tight text-gray-900">Category Search Results: <%= params[:search] %></h2>
+        <h2 id="categories-heading" class="text-2xl font-bold tracking-tight text-gray-900">
+          Category Search Results: <%= params[:search] %>
+        </h2>
       </div>
 
       <div class="mt-4 overflow-x-auto">
@@ -72,7 +85,9 @@
     <!-- Language Search Results -->
     <section aria-labelledby="languages-heading" class="py-8 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8 mt-2">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-        <h2 id="languages-heading" class="text-2xl font-bold tracking-tight text-gray-900">Language Search Results: <%= params[:search] %></h2>
+        <h2 id="languages-heading" class="text-2xl font-bold tracking-tight text-gray-900">
+          Language Search Results: <%= params[:search] %>
+        </h2>
       </div>
 
       <div class="mt-4 overflow-x-auto">
