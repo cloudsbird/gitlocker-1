@@ -7,7 +7,7 @@
           <% if product.covers.first.present? %>
             <img src="<%= product.covers.first.url %>" alt="TODO" class="h-full w-full object-cover object-center">
           <% else %>
-            <img src="<%= asset_path('default-cover.png') %>" alt="No Image Available" class="h-full w-full object-cover object-center hover:scale-110 transition-all">
+            <img src="<%= asset_path('default-cover.png') %>" alt="No Image Available" class="h-full w-full object-cover object-center">
           <% end %>
         </div>
 
