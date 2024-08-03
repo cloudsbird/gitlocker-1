@@ -1,6 +1,8 @@
 <% flash.each do |message_type, message| %>
-  <div class="custom_alert_container <%= message_type == 'notice' ? 'bg-green-500' : 'bg-red-500' %> alert flex items-center justify-between px-4 py-3 rounded-lg shadow-md mb-4" id="alert" role="alert">
-    <button type="button" class="close" data-dismiss="alert">&times;</button>
+  <div data-controller="alert" data-alert-target="container" class="custom_alert_container <%= message_type == 'notice' ? 'bg-green-500' : 'bg-red-500' %> alert flex items-center justify-between px-4 py-3 shadow-md mb-4" id="alert" role="alert">
+    <button type="button" data-action="alert#close" class="close">
+      &times;
+    </button>
     <div class="container">
       <span class="block custom_alert_text check text-white" id="alert-msg">
         <%= message %>
