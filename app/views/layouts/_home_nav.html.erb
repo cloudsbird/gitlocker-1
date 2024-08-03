@@ -124,7 +124,7 @@
                   <!-- Cart -->
                   <div class="ml-4 flow-root lg:ml-8">
                     <%= link_to marketplace_cart_items_path, class: "group -m-2 flex items-center p-2" do %>
-                      <svg class="h-6 w-6 flex-shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                      <svg class="h-6 w-6 text-white hover:text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                       </svg>
                       <span class="ml-2 text-sm font-medium text-white"><%= current_user&.cart_items_count || visitor_user.cart_items.size %></span>
@@ -134,9 +134,9 @@
                 </div>
                 
 <div class="relative">
-<button type="button" id="notifications-button" class="flex items-center ml-2 p-2 -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+<button type="button" id="notifications-button" class="flex items-center ml-2 -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
   <span class="sr-only">View notifications</span>
-  <svg class="h-6 w-6 <%= current_user&.notifications&.unread&.count.to_i > 0 ? 'text-blue-500' : 'text-gray-400 hover:text-gray-500' %>" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+  <svg class="h-6 w-6 text-white hover:text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
   </svg>
   <% if current_user&.notifications&.unread&.count.to_i > 0 %>
@@ -147,29 +147,29 @@
 </button>
 
 
-  <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg ring-1 ring-black ring-opacity-5">
-    <div class="p-4">
-      <h3 class="text-lg font-medium text-gray-900">Notifications</h3>
-    </div>
-    <ul class="divide-y divide-gray-200">
-      <% if @notifications_index.length > 0 %>
-      <% @notifications_index.each do |notification| %>
-      <li class="p-4 hover:bg-gray-100">
-        <% if notification&.params && notification.params["message"] %>
-        <p class="text-sm text-gray-700"><%= notification&.params["message"] %></p>
-         <% unless notification.read_at %>
-    <%= link_to "Mark as Read", mark_as_read_marketplace_notification_path(notification), method: :post, class: "text-sm text-blue-500 hover:text-blue-700 ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1 bg-blue-100 hover:bg-blue-200" %>
-  <% end %>
+    <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg ring-1 ring-black ring-opacity-5">
+      <div class="p-4">
+        <h3 class="text-lg font-medium text-gray-900">Notifications</h3>
+      </div>
+      <ul class="divide-y divide-gray-200">
+        <% if @notifications_index.length > 0 %>
+        <% @notifications_index.each do |notification| %>
+        <li class="p-4 hover:bg-gray-100">
+          <% if notification&.params && notification.params["message"] %>
+          <p class="text-sm text-gray-700"><%= notification&.params["message"] %></p>
+          <% unless notification.read_at %>
+      <%= link_to "Mark as Read", mark_as_read_marketplace_notification_path(notification), method: :post, class: "text-sm text-blue-500 hover:text-blue-700 ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1 bg-blue-100 hover:bg-blue-200" %>
+    <% end %>
+          <% end %>
+        </li>
         <% end %>
+        <% end %>
+        <li class="p-4 hover:bg-gray-100">
+        <a href="<%= marketplace_notifications_path %>" class="block text-center text-sm font-bold text-blue-500 hover:text-blue-700">View All Notifications</a>
       </li>
-      <% end %>
-      <% end %>
-       <li class="p-4 hover:bg-gray-100">
-      <a href="<%= marketplace_notifications_path %>" class="block text-center text-sm font-bold text-blue-500 hover:text-blue-700">View All Notifications</a>
-    </li>
-    </ul>
+      </ul>
+    </div>
   </div>
-</div>
 
 
 
