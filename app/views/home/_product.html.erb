@@ -1,9 +1,9 @@
 <div class="bg-white" data-controller="product-card">
-  <div class="border border-black rounded hover:shadow-lg flex flex-col divide-y divide-black">
-    <%= link_to marketplace_library_path(product) do %>
-      <div class="grow flex flex-col divide-y divide-black">
+  <div class="border h-full border-black rounded hover:shadow-lg flex flex-col divide-y divide-black">
+    <%= link_to marketplace_library_path(product), class:"h-full" do %>
+      <div class="h-full grow flex flex-col divide-y divide-black">
         <%# Cover Image %>
-        <div class="grow bg-gray-100 aspect-w-1 aspect-h-1 overflow-hidden rounded-t">
+        <div class="bg-gray-100 aspect-w-1 aspect-h-1 overflow-hidden rounded-t">
           <% if product.covers.first.present? %>
             <img src="<%= product.covers.first.url %>" alt="TODO" class="h-full w-full object-cover object-center">
           <% else %>
@@ -11,9 +11,9 @@
           <% end %>
         </div>
 
-        <div class="p-3">
+        <div class="grow p-3">
           <h3 class="text-base font-medium text-black line-clamp-2">
-            <%= product.name.titleize %>
+            <%= product.name %>
           </h3>
         </div>
 
@@ -50,7 +50,7 @@
     <% if product.languages.count != 1 && product.languages[0].name != 'not_specified' %>
       <div class="p-3 flex flex-row flex-wrap items-center justify-start gap-2">
         <% product.languages.take(3).each do |language| %>
-          <%= link_to language.name.titleize, marketplace_language_path(language), class: "text-xs border border-gray-900 rounded px-2 py-1.5 text-gray-700 hover:bg-gray-200" %>
+          <%= link_to language.name, marketplace_language_path(language), class: "text-xs border border-gray-900 rounded px-2 py-1.5 text-gray-700 hover:bg-gray-200" %>
         <% end %>
       </div>
     <% end %>
