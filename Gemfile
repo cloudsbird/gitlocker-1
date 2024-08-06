@@ -25,6 +25,7 @@ gem "requestjs-rails"
 gem "retriable", "~> 3.1"
 gem "sitemap_generator"
 gem "sprockets-rails"
+gem 'activeadmin_quill_editor'
 gem "stimulus-rails"
 gem "stripe-rails"
 gem "tailwindcss-rails"
