@@ -4,16 +4,14 @@
     ])
   %>
  <section aria-labelledby="category-heading" class="pt-16 pb-24 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8">
-  <div class="mt-4 space-y-4">
-    <div class="-my-2">
-      <div class="relative py-2">
-        <div class="grid grid-cols-1 gap-4 sm:grid-cols-2">
-          <%= render partial: "home/language", collection: @languages %>
-        </div>
+  <% if @languages.count > 0 %>
+    <div class="flow-root">
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0 ">
+        <%= render partial: "home/language", collection: @languages, as: :language %>
       </div>
     </div>
-  </div>
-  <div class="mt-4">
-    <%= render 'kaminari/tailwind/paginator', paginator: @languages %>
-  </div>
+    <div class="mt-12">
+      <%= render 'kaminari/tailwind/paginator', paginator: @languages %>
+    </div>
+  <% end %>
 </section>  
