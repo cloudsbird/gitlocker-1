@@ -125,7 +125,7 @@ class Category < ApplicationRecord
       "Project management": "Project-Management.png",
       "Publishing": "Publishing.png",
       "PWA": "PWA.png",
-      "Python": "Python.png",
+      "Python": "python.png",
       "Qt": "Qt.png",
       "R": "R.png",
       "Rails": "Rails.png",
