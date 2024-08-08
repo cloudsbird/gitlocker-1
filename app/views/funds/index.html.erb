@@ -51,13 +51,13 @@
       </div>
     </div>
   </div>
-  </br>
+  <br/>
   <div class="col-span-1">
     <h2 class="text-lg font-medium text-gray-900">Payment</h2>
     <h2>If you have any issues withdrawing your funds please email cody@gitlocker.com and describe your issue with either a loom video or screenshots of the issue, and we will get right back with you and help you get your money!</h2>
     <div class="mt-6">
       <%= form_tag funds_path, method: :post, class: "stripe-form", "data-turbo" => "false" do %>
-        <%= submit_tag "Get Paid through Stripe", class: "mt-4 w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 cursor-pointer" %>
+        <%= submit_tag "Get Paid through Stripe", disabled: current_user.balance <= 0, class: "mt-4 w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white disabled:cursor-not-allowed disabled:bg-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 cursor-pointer" %>
       <% end %>
     </div>
   </div>
