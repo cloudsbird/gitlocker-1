@@ -11,10 +11,20 @@
           <% end %>
         </div>
 
-        <div class="grow p-3">
+        <div class="grow p-3 flex flex-col gap-4">
           <h3 class="text-base font-medium text-black line-clamp-2">
             <%= product.name %>
           </h3>
+
+          <%# Languages %>
+          <% if product.languages.count != 1 && product.languages[0]&.name != 'not_specified' %>
+            <div class="flex flex-row flex-wrap items-center justify-start gap-2">
+              <% product.languages.take(3).each do |language| %>
+                <p class="text-xs border border-gray-900 rounded px-2 py-1.5 text-gray-700"><%= language.name %></p>
+              <% end %>
+            </div>
+          <% end %>
+  
         </div>
 
         <%# Reviews + Price %>
@@ -46,15 +56,6 @@
       </div>
     <% end %>
 
-    <%# Languages %>
-    <% if product.languages.count != 1 && product.languages[0]&.name != 'not_specified' %>
-      <div class="p-3 flex flex-row flex-wrap items-center justify-start gap-2">
-        <% product.languages.take(3).each do |language| %>
-          <%= link_to language.name, marketplace_language_path(language), class: "text-xs border border-gray-900 rounded px-2 py-1.5 text-gray-700 hover:bg-gray-200" %>
-        <% end %>
-      </div>
-    <% end %>
-    
     <%# Download %>
     <% if policy(product).download_able? %>
       <div class="p-3">
