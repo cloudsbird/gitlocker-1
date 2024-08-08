@@ -1,16 +1,23 @@
 ActiveAdmin.register Blog do
-  permit_params :title, :content, :image
+  permit_params :title, :content, :image, :slug
+
+  controller do
+    def find_resource
+      scoped_collection.friendly.find(params[:id])
+    end
+  end
 
   index do
     selectable_column
     id_column
     column :title
-    column :content
+    column :slug
     column :created_at
     actions
   end
 
   filter :title
+  filter :slug
   filter :content
   filter :created_at
 
@@ -26,6 +33,7 @@ ActiveAdmin.register Blog do
   show do
     attributes_table do
       row :title
+      row :slug
       row :content do |blog|
         blog.content.html_safe
       end

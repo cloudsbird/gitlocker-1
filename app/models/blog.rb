@@ -1,7 +1,10 @@
 class Blog < ApplicationRecord
+  extend FriendlyId
+  friendly_id :title, use: :slugged
   has_one_attached :image
 
   validate :content_word_count
+  validates :slug, presence: true, uniqueness: true
 
   def content_word_count
     if content.present? && content.split.size > 2500
@@ -10,6 +13,6 @@ class Blog < ApplicationRecord
   end
 
   def self.ransackable_attributes(auth_object = nil)
-    ["title", "content", "created_at", "updated_at"]
+    ["title", "content","slug", "created_at", "updated_at"]
   end
 end
