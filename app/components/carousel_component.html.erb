@@ -1,5 +1,16 @@
 <div id="default-carousel" class="<%= @carousel_class %>" data-controller="carousel" data-carousel="slide">
   <!-- Carousel wrapper -->
+  <% if  controller_name == "home"%>
+  <div class="relative h-full overflow-hidden">
+    <% @images.each_with_index do |image, index| %>
+      <div class="absolute inset-0 transition-opacity duration-500 ease-in-out <%= index == 0 ? 'block opacity-100' : 'hidden opacity-0' %>" data-carousel-target="slide" data-index="<%= index %>" data-carousel-item>
+        <%= image_tag image, class: "w-full h-full object-cover" %>
+      </div>
+    <% end %>
+  </div>
+
+  <% else %>
+
   <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
     <% @images.each_with_index do |image, index| %>
       <div class="absolute inset-0 transition-opacity duration-500 ease-in-out <%= index == 0 ? 'block opacity-100' : 'hidden opacity-0' %>" data-carousel-target="slide" data-index="<%= index %>" data-carousel-item>
@@ -7,6 +18,9 @@
       </div>
     <% end %>
   </div>
+
+  <%end%>
+
   <% if @images.length > 1 %>
     <!-- Slider indicators -->
     <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">

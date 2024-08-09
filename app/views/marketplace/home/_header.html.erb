@@ -1,23 +1,30 @@
-<section class="relative block bg-cover bg-center" style="background-image: url('https://gitlocker.s3.us-east-2.amazonaws.com/gitlocker+cover.png');">
-  <span class="absolute inset-0 bg-black opacity-50"></span>
-  <div class="absolute inset-x-0 bottom-0 h-16 overflow-hidden pointer-events-none">
-    <svg class="absolute bottom-0 w-full text-blueGray-200" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2560 100">
-      <polygon fill="currentColor" points="2560 0 2560 100 0 100"></polygon>
-    </svg>
+<section class="relative block">
+  <!-- Carousel Background -->
+ <div class="absolute inset-0 z-0 h-full w-full bg-black">
+    <%= render CarouselComponent.new([
+      asset_path('header/image1.png'),
+      asset_path('header/image2.png'),
+      asset_path('header/image3.png'),
+      asset_path('header/image4.png')
+    ], "h-full w-full object-cover object-center") %>
   </div>
-  <div class="relative container mx-auto px-4 text-center text-white py-16">
+
+  <!-- Section Content -->
+  <div class="relative container mx-auto px-4 text-center text-white py-16 z-10">
     <h1 class="text-3xl md:text-4xl font-light max-w-4xl mx-auto">
-      Browse <span class="font-bold">GitLocker’s selection</span> of high quality private <span class="font-bold">GitHub</span> repositories.
+      Browse <span class="font-bold">GitLocker’s selection</span> of high-quality private <span class="font-bold">GitHub</span> repositories.
     </h1>
+
     <div class="mt-8 flex justify-center">
       <form action="/marketplace/search" method="get" class="flex items-center w-full max-w-4xl space-x-4">
-        <select name="category_id" class="w-40 p-2 rounded-md text-gray-700">
+        <select name="category_id" class="w-40 p-2 rounded-md text-gray-700 z-10">
           <option value="">All Categories</option>
           <% Category.all.each do |category| %>
             <option value="<%= category.id %>" <%= 'selected' if params[:category_id].to_i == category.id %>><%= category.name %></option>
           <% end %>
         </select>
-        <div class="relative max-w-2xl w-full">
+
+        <div class="relative max-w-2xl w-full z-10">
           <input
             type="text"
             name="search"
@@ -35,7 +42,7 @@
       </form>
     </div>
 
-    <div class="mt-8 space-x-4">
+    <div class="mt-8 space-x-4 z-10">
       <% if user_signed_in? %>
         <%= link_to "Browse", marketplace_browse_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
         <%= link_to "Sell your code", seller_dashboard_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
@@ -45,10 +52,11 @@
         <%= link_to "Browse", marketplace_browse_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
       <% end %>
     </div>
-    <div class="mt-8 flex justify-center space-x-4">
+
+    <div class="mt-8 flex justify-center space-x-4 z-10">
       <%= link_to "JavaScript", '/marketplace/languages/javascript', class: "border border-white rounded-md px-2 py-1.5 text-white hover:bg-white hover:bg-opacity-20" %>
       <%= link_to "Python", '/marketplace/languages/python', class: "border border-white rounded-md px-2 py-1.5 text-white hover:bg-white hover:bg-opacity-20" %>
-      <%= link_to "C++", '/marketplace/languages/cplusplus', class: "border border-white rounded-md px-2 py-1.5 text-white hover:bg-white hover:bg-opacity-20" %>
+      <%= link_to "ActionScript", '/marketplace/languages/actionscript', class: "border border-white rounded-md px-2 py-1.5 text-white hover:bg-white hover:bg-opacity-20" %>
       <%= link_to "HTML", '/marketplace/languages/html', class: "border border-white rounded-md px-2 py-1.5 text-white hover:bg-white hover:bg-opacity-20" %>
       <%= link_to "CSS", '/marketplace/languages/css', class: "border border-white rounded-md px-2 py-1.5 text-white hover:bg-white hover:bg-opacity-20" %>
       <%= link_to "PHP", '/marketplace/languages/php', class: "border border-white rounded-md px-2 py-1.5 text-white hover:bg-white hover:bg-opacity-20" %>
