@@ -130,7 +130,7 @@
             <h2 class="text-xl font-semibold mb-2 mr-2 ">Languages I Know: </h2>
             <div class="flex flex-wrap mb-4">
               <% @languages.each do |language| %>
-                <%= link_to language.name, marketplace_language_path(language), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-grey-900" %>
+                <%= link_to language.name, marketplace_language_path(language), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-black" %>
               <% end %>
             </div>
           <% end %>
@@ -141,7 +141,7 @@
               <h2 class="text-xl font-semibold mb-2 mr-2 ">Skills:</h2>
               <div class="flex flex-wrap">
                 <% @categories.each do |category| %>
-                  <%= link_to category.name, marketplace_category_path(category), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-grey-900" %>
+                  <%= link_to category.name, marketplace_category_path(category), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-black" %>
                 <% end %>
               </div>
           <% end %>
