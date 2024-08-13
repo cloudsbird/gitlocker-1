@@ -171,7 +171,7 @@
           <p class="font-medium leading-7 text-gray-900 text-xl">The user has no listed products for sale.</p>
         <% else %>
           <ul role="list" class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
-            <%= render partial: "marketplace/creators/product", collection: @products, as: :product %>
+            <%= render partial: "products/product", collection: @products, as: :product %>
           </ul>
            <div class="mt-4">
             <%= render 'kaminari/tailwind/paginator', paginator: @products %>
