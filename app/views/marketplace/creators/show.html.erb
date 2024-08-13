@@ -41,7 +41,7 @@
                   <%= button_to "Follow", marketplace_follow_user_path, method: "POST", class: "bg-pink-500 active:bg-pink-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150" %>
                 </h5>
               <% end %>
-              <a href="https://github.com/<%= @user.username %>" target="_blank" class="bg-gray-500 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 hover:text-pink-200">
+              <a href="https://github.com/<%= @user.username %>" target="_blank" class="bg-gray-500 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 hover:text-grey-900">
                 Visit my GitHub profile
               </a>
             </section>
@@ -130,7 +130,7 @@
             <h2 class="text-xl font-semibold mb-2 mr-2 ">Languages I Know: </h2>
             <div class="flex flex-wrap mb-4">
               <% @languages.each do |language| %>
-                <%= link_to language.name, marketplace_language_path(language), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-pink-200" %>
+                <%= link_to language.name, marketplace_language_path(language), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-grey-900" %>
               <% end %>
             </div>
           <% end %>
@@ -141,7 +141,7 @@
               <h2 class="text-xl font-semibold mb-2 mr-2 ">Skills:</h2>
               <div class="flex flex-wrap">
                 <% @categories.each do |category| %>
-                  <%= link_to category.name, marketplace_category_path(category), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-pink-200" %>
+                  <%= link_to category.name, marketplace_category_path(category), class: "bg-blue-500 text-white px-2 py-1 rounded mr-2 mb-2 hover:text-grey-900" %>
                 <% end %>
               </div>
           <% end %>
