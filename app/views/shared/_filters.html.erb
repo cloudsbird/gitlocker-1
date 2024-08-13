@@ -1,4 +1,5 @@
-<%= form_with url: request.original_url, method: :get, local: true, id: 'filter_form' do %>
+<%= form_with url: url_for(request.query_parameters.merge(search: params[:search])), method: :get, local: true, id: 'filter_form' do %>
+  <%= hidden_field_tag :search, params[:search] %>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     <%= select_tag :sort_by, options_for_select([
       ['Sort alphabetically a-z', 'alphabetical_asc'],
