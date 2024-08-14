@@ -59,7 +59,7 @@
                       <%= link_to "Categories", marketplace_browse_categories_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
                       <%= link_to "Creators", marketplace_creators_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
                       <% if user_signed_in? %>
-                        <%= link_to "Purchased", marketplace_purchases_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500k" %>
+                        <%= link_to "Purchased", marketplace_purchases_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
                         <%= link_to "Sell", seller_dashboard_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
                       <% end %>
                     </div>
