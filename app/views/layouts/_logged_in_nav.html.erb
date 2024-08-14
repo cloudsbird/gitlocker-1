@@ -37,10 +37,10 @@
     </div>
     <nav class="hidden md:flex md:gap-x-11 md:text-sm md:font-semibold md:leading-6 md:text-gray-700">
       <% if current_user %>
-        <%= link_to "Explore", explore_path, class: "flex items-center text-sm font-medium text-white" %>
-        <%= link_to "Add Product", new_product_path, class: "flex items-center text-sm font-medium text-white" %>
-        <%= link_to "My Products", products_path, class: "flex items-center text-sm font-medium text-white" %>
-        <%= link_to "Get Paid", funds_path, class: "flex items-center text-sm font-medium text-white" %>
+        <%= link_to "Explore", explore_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+        <%= link_to "Add Product", new_product_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+        <%= link_to "My Products", products_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+        <%= link_to "Get Paid", funds_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
       <% end %>
     </nav>
     <div class="flex flex-1 items-center justify-end gap-x-8">
