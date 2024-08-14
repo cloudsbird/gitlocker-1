@@ -27,10 +27,11 @@
                     </div>
                   <% end %>
                 </div>
-
+                
+                <!-- Search -->
                 <div class="grow flex justify-center">
                   <form action="/marketplace/search" method="get" class="w-full flex items-center space-x-4">
-                    <div class="relative w-full z-10">
+                    <div class="relative w-full">
                       <input
                         type="text"
                         name="search"
@@ -59,6 +60,7 @@
                   <% end %>
                 </div>
                 
+                <!-- Notifications -->
                 <div class="relative">
                   <button type="button" id="notifications-button" class="flex items-center -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                     <span class="sr-only">View notifications</span>
@@ -97,14 +99,23 @@
                 </div>
                 
                 <% if current_user %>
-                  <%= link_to edit_marketplace_user_path(current_user), class: "-m-1.5 p-1.5" do %>
-                    <span class="sr-only">Your profile</span>
+                  <button type="button" id="profile-button" class="flex items-center -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                     <% if current_user.profile_picture.attached? %>
                       <%= image_tag current_user.profile_picture, class: "h-8 w-8 rounded-full bg-gray-800" %>
                     <% else %>
                       <%= image_tag "profile_placeholder.png", class: "h-8 w-8 rounded-full bg-gray-800" %>
                     <% end %>
-                  <% end %>
+                  </button>
+                  <div id="profile-dropdown" class="z-100 hidden absolute right-36 top-14 bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5">
+                    <div class="flex flex-col divide-y">
+                      <%= link_to "View Profile", marketplace_user_path(current_user), class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Edit Profile", edit_marketplace_user_path(current_user), class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Start Selling", seller_dashboard_path, class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Purchased", marketplace_purchases_path, class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Sell", seller_dashboard_path, class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-sm inline-block text-black px-4 py-2" %>
+                    </div>
+                  </div>
                 <% end %>
               </div>
             </div>
@@ -126,6 +137,20 @@
   document.addEventListener('click', function(event) {
     var button = document.getElementById('notifications-button');
     var dropdown = document.getElementById('notifications-dropdown');
+    if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+      dropdown.classList.add('hidden');
+    }
+  });
+
+  document.getElementById('profile-button').addEventListener('click', function() {
+    var dropdown = document.getElementById('profile-dropdown');
+    dropdown.classList.toggle('hidden');
+  });
+
+  // Optional: Close the dropdown when clicking outside of it
+  document.addEventListener('click', function(event) {
+    var button = document.getElementById('profile-button');
+    var dropdown = document.getElementById('profile-dropdown');
     if (!button.contains(event.target) && !dropdown.contains(event.target)) {
       dropdown.classList.add('hidden');
     }
