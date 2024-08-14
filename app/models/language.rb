@@ -42,7 +42,6 @@ class Language < ApplicationRecord
     "ASP": "assembly.png",
     "D": "D.png",
     "Erlang": "assembly.png",
-    "Go": "go.png",
     "Logos": "logos.png",
     "Processing": "processing.png",
     "Puppet": "puppet.png",
