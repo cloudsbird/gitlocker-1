@@ -2,8 +2,8 @@ class Language < ApplicationRecord
   NAMES = {
     "Assembly": "assembly.png",
     "C": "c.png",
-    "C#": "c-sharp.png",
-    "C++": "c_plus_plus.png",
+    "Csharp": "c-sharp.png",
+    "Cplusplus": "c_plus_plus.png",
     "Clojure": "clojure.png",
     "CoffeeScript": "coffeescript.png",
     "Common Lisp": "common_lisp.png",
@@ -42,7 +42,6 @@ class Language < ApplicationRecord
     "ASP": "assembly.png",
     "D": "D.png",
     "Erlang": "assembly.png",
-    "Go": "go.png",
     "Logos": "logos.png",
     "Processing": "processing.png",
     "Puppet": "puppet.png",
