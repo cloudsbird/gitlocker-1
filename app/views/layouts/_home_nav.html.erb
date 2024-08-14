@@ -52,15 +52,15 @@
                   <!-- Flyout menus -->
                   <div class="inset-x-0 bottom-0 px-4">
                     <div class="flex h-full justify-center space-x-8">
-                      <%= link_to "Browse", marketplace_browse_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Popular", marketplace_browse_popular_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Recent", marketplace_browse_recent_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Languages", marketplace_browse_languages_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Categories", marketplace_browse_categories_path, class: "flex items-center text-sm font-medium text-white" %>
-                      <%= link_to "Creators", marketplace_creators_path, class: "flex items-center text-sm font-medium text-white" %>
+                      <%= link_to "Browse", marketplace_browse_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+                      <%= link_to "Popular", marketplace_browse_popular_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+                      <%= link_to "Recent", marketplace_browse_recent_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+                      <%= link_to "Languages", marketplace_browse_languages_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+                      <%= link_to "Categories", marketplace_browse_categories_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+                      <%= link_to "Creators", marketplace_creators_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
                       <% if user_signed_in? %>
-                        <%= link_to "Purchased", marketplace_purchases_path, class: "flex items-center text-sm font-medium text-white" %>
-                        <%= link_to "Sell", seller_dashboard_path, class: "flex items-center text-sm font-medium text-white" %>
+                        <%= link_to "Purchased", marketplace_purchases_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
+                        <%= link_to "Sell", seller_dashboard_path, class: "flex items-center text-sm font-medium text-white hover:text-black" %>
                       <% end %>
                     </div>
                   </div>
