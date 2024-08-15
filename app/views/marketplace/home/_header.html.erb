@@ -17,32 +17,6 @@
         </h1>
      </div>
 
-    <div class="mt-8 flex justify-center">
-      <form action="/marketplace/search" method="get" class="flex items-center w-full max-w-4xl space-x-4">
-        <select name="category_id" class="w-40 p-2 rounded-md text-gray-700">
-          <option value="">All Categories</option>
-          <% Category.all.each do |category| %>
-            <option value="<%= category.id %>" <%= 'selected' if params[:category_id].to_i == category.id %>><%= category.name %></option>
-          <% end %>
-        </select>
-
-        <div class="relative max-w-2xl w-full">
-          <input
-            type="text"
-            name="search"
-            placeholder="Search"
-            id="productSearch"
-            class="w-full p-2 rounded-md text-gray-700"
-            value="<%= params[:search] %>"
-          >
-          <button type="submit" class="absolute inset-y-0 right-0 px-4 text-gray-600">
-            <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
-            </svg>
-          </button>
-        </div>
-      </form>
-    </div>
 
     <div class="mt-8 space-x-4">
       <% if user_signed_in? %>
