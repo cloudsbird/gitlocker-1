@@ -72,15 +72,12 @@
     <% end %>
   </head>
 
-  <body class="<%= devise_controller? ? "h-full" : "" %>">
-    <% unless devise_controller? %>
+  <body>
       <%= render "layouts/nav" %>
-    <% end %>
     <div id="flash_wrapper">
       <%= render partial: "/shared/flash_messages" %>
     </div>
     <%= yield %>
-
     <% if current_user&.token&.present? || !devise_controller? %>
       <%= render "layouts/footer" %>
     <% end %>
