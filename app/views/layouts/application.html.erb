@@ -74,7 +74,7 @@
 
   <body class="<%= devise_controller? ? "h-full" : "" %>">
     <% unless devise_controller? %>
-      <%= render "layouts/nav" %>
+      <%= render "layouts/home_nav" %>
     <% end %>
     <div id="flash_wrapper">
       <%= render partial: "/shared/flash_messages" %>
