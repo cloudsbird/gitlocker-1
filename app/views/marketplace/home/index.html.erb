@@ -16,10 +16,12 @@
         <section aria-labelledby="recent-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="recent-heading" class="text-2xl font-bold tracking-tight text-gray-900">Recent</h2>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
             <%= link_to marketplace_browse_recent_path, class: "link" do %>
               Browse All Recent Repositories
               <span aria-hidden="true">&rarr;</span>
             <% end %>
+            </button>
           </div>
 
           <div class="mt-6 flow-root">
