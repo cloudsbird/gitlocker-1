@@ -1,192 +1,131 @@
 <div data-controller="home-nav">
   <%= render "layouts/home_mobile_menu" %>
-
   <!-- Hero section -->
   <div class="relative bg-gray-900">
     <!-- Navigation -->
     <header class="relative z-10">
       <nav aria-label="Top">
-        <!-- Top navigation -->
-        <div class="bg-gray-900">
-          <div class="mx-auto flex h-10 max-w-7xl items-center justify-end px-4 sm:px-6 lg:px-8">
-            <div class="flex items-center space-x-6">
-              <% if user_signed_in? %>
-                <%= link_to "Start Selling", seller_dashboard_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Code Marketplace", marketplace_root_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Profile", edit_marketplace_user_path(current_user), class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-sm font-medium text-white hover:text-gray-100" %>
-              <% else %>
-                <%= link_to "Code Marketplace", marketplace_root_path, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Sign in", new_user_session_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
-                <%= link_to "Create an account", new_user_registration_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
-              <% end %>
-            </div>
-          </div>
-        </div>
-
         <!-- Secondary navigation -->
         <% if params[:controller].split('/').first == "marketplace" %> 
-        <div class="bg-opacity-10 backdrop-blur-md backdrop-filter">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div>
-              <div class="flex h-16 items-center justify-between">
+          <div class="bg-opacity-10 backdrop-blur-md backdrop-filter">
+            <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+              <div class="flex h-16 items-center justify-between gap-4">
                 <!-- Logo (lg+) -->
-                <div class="hidden lg:flex lg:flex-1 lg:items-center">
+                <div>
                   <a href="#">
-                    <span class="sr-only">Your Company</span>
+                    <span class="sr-only">Git Locker</span>
                   </a>
 
-                  <%= link_to marketplace_root_path, class: "hidden lg:flex lg:flex-1 lg:items-center" do %>
+                  <%= link_to marketplace_root_path do %>
                     <div class="flex items-center">
                       <div>
                         <%= image_tag "logo-transparent.png", class: "h-8 w-auto", alt: "" %>
                       </div>
-                      <div>
+                      <div class="hidden lg:flex lg:items-center">
                         <%= image_tag "logo-text.png", class: "h-4 w-auto ml-2", alt: "" %>
                       </div>
                     </div>
                   <% end %>
                 </div>
-
-                <div class="hidden h-full lg:flex">
-                  <!-- Flyout menus -->
-                  <div class="inset-x-0 bottom-0 px-4">
-                    <div class="flex h-full justify-center space-x-8">
-                      <%= link_to "Browse", marketplace_browse_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                      <%= link_to "Popular", marketplace_browse_popular_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                      <%= link_to "Recent", marketplace_browse_recent_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                      <%= link_to "Languages", marketplace_browse_languages_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                      <%= link_to "Categories", marketplace_browse_categories_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                      <%= link_to "Creators", marketplace_creators_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                      <% if user_signed_in? %>
-                        <%= link_to "Purchased", marketplace_purchases_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                        <%= link_to "Sell", seller_dashboard_path, class: "flex items-center text-sm font-medium text-white hover:text-blue-500" %>
-                      <% end %>
+                
+                <!-- Search -->
+                <div class="grow flex justify-center">
+                  <form action="/marketplace/search" method="get" class="w-full flex items-center space-x-4">
+                    <div class="relative w-full">
+                      <input
+                        type="text"
+                        name="search"
+                        placeholder="Search"
+                        id="productSearch"
+                        class="w-full p-2 rounded-md text-gray-700"
+                        value="<%= params[:search] %>"
+                      >
+                      <button type="submit" class="absolute inset-y-0 right-0 px-4 text-gray-600">
+                        <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
+                        </svg>
+                      </button>
                     </div>
-                  </div>
+                  </form>
                 </div>
 
-                <!-- Mobile menu and search (lg-) -->
-                <div class="flex flex-1 items-center lg:hidden">
-                  <!-- Mobile menu toggle, controls the 'mobileMenuOpen' state. -->
-                  <button
-                    data-action="click->home-nav#open"
-                    type="button"
-                    class="-ml-2 p-2 text-white"
-                    >
-                    <span class="sr-only">Open menu</span>
-                    <svg class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                      <path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25h16.5" />
+                <!-- Cart -->
+                <div>
+                  <%= link_to marketplace_cart_items_path, class: "group -m-2 flex items-center p-2" do %>
+                  <svg class="h-6 w-6 flex-shrink-0 text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
+                  </svg>
+                  <span class="ml-2 text-sm font-medium text-white"><%= current_user&.cart_items_count || visitor_user.cart_items.size %></span>
+                  <span class="sr-only">items in cart, view bag</span>
+                  <% end %>
+                </div>
+                
+                <!-- Notifications -->
+                <div class="relative">
+                  <button type="button" id="notifications-button" class="flex items-center -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
+                    <span class="sr-only">View notifications</span>
+                    <svg class="h-6 w-6 text-white hover:text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                     </svg>
+                    <% if current_user&.notifications&.unread&.count.to_i > 0 %>
+                      <span class="ml-2 text-sm font-medium text-white bg-blue-500 rounded-full px-2 py-1">
+                        <%= current_user.notifications.unread.count %>
+                      </span>
+                    <% end %>
                   </button>
 
-                <!-- Search -->
-                  <a
-                    href="#"
-                    data-controller="search-link"
-                    data-action="click->search-link#openDialog"
-                    data-search-dialog-id="search-dialog"
-                    class="ml-2 p-2 text-white cursor-pointer search-link"
-                    >
-                    <span class="sr-only text-white hover:text-blue-500">Search</span>
-                    <svg
-                      class="h-6 w-6 cursor-pointer"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke-width="1.5"
-                      stroke="currentColor"
-                      aria-hidden="true"
-                      role="button"
-                      tabindex="0" 
-                      onclick="event.preventDefault(); event.stopPropagation(); this.closest('a').click();" 
-                      >
-                      <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z"
-                      />
-                    </svg>
-                  </a>
-                </div>
-
-                <div class="flex flex-1 items-center justify-end">
-                  <a
-                    data-controller="search-link"
-                    data-action="click->search-link#openDialog"
-                    data-search-dialog-id="search-dialog"
-                    class="hidden text-sm font-medium text-white lg:block cursor-pointer search-link text-white hover:text-blue-500">
-                    Search
-                  </a>
-
-                  <!-- Cart -->
-                  <div class="ml-4 flow-root lg:ml-8">
-                    <%= link_to marketplace_cart_items_path, class: "group -m-2 flex items-center p-2" do %>
-                      <svg class="h-6 w-6 text-white hover:text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
-                      </svg>
-                      <span class="ml-2 text-sm font-medium text-white"><%= current_user&.cart_items_count || visitor_user.cart_items.size %></span>
-                      <span class="sr-only">items in cart, view bag</span>
-                    <% end %>
+                  <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg ring-1 ring-black ring-opacity-5">
+                    <div class="p-4">
+                      <h3 class="text-lg font-medium text-gray-900">Notifications</h3>
+                    </div>
+                    <ul class="divide-y divide-gray-200">
+                      <% if @notifications_index.length > 0 %>
+                        <% @notifications_index.each do |notification| %>
+                          <li class="p-4 hover:bg-gray-100">
+                            <% if notification&.params && notification.params["message"] %>
+                              <p class="text-sm text-gray-700"><%= notification&.params["message"] %></p>
+                              <% unless notification.read_at %>
+                                <%= link_to "Mark as Read", mark_as_read_marketplace_notification_path(notification), method: :post, class: "text-sm text-blue-500 hover:text-blue-700 ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1 bg-blue-100 hover:bg-blue-200" %>
+                              <% end %>
+                            <% end %>
+                          </li>
+                        <% end %>
+                      <% end %>
+                      <li class="p-4 hover:bg-gray-100">
+                        <a href="<%= marketplace_notifications_path %>" class="block text-center text-sm font-bold text-blue-500 hover:text-blue-700">View All Notifications</a>
+                      </li>
+                    </ul>
                   </div>
                 </div>
                 
-<div class="relative">
-<button type="button" id="notifications-button" class="flex items-center ml-2 -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
-  <span class="sr-only">View notifications</span>
-  <svg class="h-6 w-6 text-white hover:text-blue-500" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
-    <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
-  </svg>
-  <% if current_user&.notifications&.unread&.count.to_i > 0 %>
-    <span class="ml-2 text-sm font-medium text-white bg-blue-500 rounded-full px-2 py-1">
-      <%= current_user.notifications.unread.count %>
-    </span>
-  <% end %>
-</button>
-
-
-    <div id="notifications-dropdown" class="hidden absolute right-0 mt-2 w-96 bg-white shadow-lg rounded-lg ring-1 ring-black ring-opacity-5">
-      <div class="p-4">
-        <h3 class="text-lg font-medium text-gray-900">Notifications</h3>
-      </div>
-      <ul class="divide-y divide-gray-200">
-        <% if @notifications_index.length > 0 %>
-        <% @notifications_index.each do |notification| %>
-        <li class="p-4 hover:bg-gray-100">
-          <% if notification&.params && notification.params["message"] %>
-          <p class="text-sm text-gray-700"><%= notification&.params["message"] %></p>
-          <% unless notification.read_at %>
-      <%= link_to "Mark as Read", mark_as_read_marketplace_notification_path(notification), method: :post, class: "text-sm text-blue-500 hover:text-blue-700 ml-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded px-2 py-1 bg-blue-100 hover:bg-blue-200" %>
-    <% end %>
-          <% end %>
-        </li>
-        <% end %>
-        <% end %>
-        <li class="p-4 hover:bg-gray-100">
-        <a href="<%= marketplace_notifications_path %>" class="block text-center text-sm font-bold text-blue-500 hover:text-blue-700">View All Notifications</a>
-      </li>
-      </ul>
-    </div>
-  </div>
-
-
-
                 <% if current_user %>
-                  <%= link_to edit_marketplace_user_path(current_user), class: "ml-4 -m-1.5 p-1.5" do %>
-                    <span class="sr-only">Your profile</span>
+                <div class="relative">
+                  <button type="button" id="profile-button" class="flex items-center -m-2.5 p-2.5 text-gray-400 hover:text-gray-500">
                     <% if current_user.profile_picture.attached? %>
                       <%= image_tag current_user.profile_picture, class: "h-8 w-8 rounded-full bg-gray-800" %>
                     <% else %>
                       <%= image_tag "profile_placeholder.png", class: "h-8 w-8 rounded-full bg-gray-800" %>
                     <% end %>
-                  <% end %>
+                  </button>
+                  <div id="profile-dropdown" class="hidden z-10 min-w-32 absolute right-0 top-10 bg-white shadow-lg rounded-md ring-1 ring-black ring-opacity-5">
+                    <div class="flex flex-col divide-y">
+                      <%= link_to "View Profile", marketplace_user_path(current_user), class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Edit Profile", edit_marketplace_user_path(current_user), class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "My Products", products_path, class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Add Product", new_product_path, class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Purchased", marketplace_purchases_path, class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Sell", seller_dashboard_path, class: "text-sm inline-block text-black px-4 py-2" %>
+                      <%= link_to "Log out", destroy_user_session_path, data: { "turbo-method": :delete }, class: "text-sm inline-block text-black px-4 py-2" %>
+                    </div>
+                  </div>
+                </div>
+                <% else %>
+                  <%= link_to "Sign in", new_user_session_path, data: { turbo: false }, class: "text-sm font-medium text-white hover:text-gray-100" %>
                 <% end %>
-
               </div>
             </div>
           </div>
-        </div>
         <% end %>
-
       </nav>
     </header>
   </div>
@@ -208,4 +147,17 @@
     }
   });
 
+  document.getElementById('profile-button').addEventListener('click', function() {
+    var dropdown = document.getElementById('profile-dropdown');
+    dropdown.classList.toggle('hidden');
+  });
+
+  // Optional: Close the dropdown when clicking outside of it
+  document.addEventListener('click', function(event) {
+    var button = document.getElementById('profile-button');
+    var dropdown = document.getElementById('profile-dropdown');
+    if (!button.contains(event.target) && !dropdown.contains(event.target)) {
+      dropdown.classList.add('hidden');
+    }
+  });
 </script>
