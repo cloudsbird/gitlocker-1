@@ -20,7 +20,7 @@
 
     <div class="mt-8 space-x-4">
       <% if user_signed_in? %>
-        <%= link_to "Creators", marketplace_creators_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
+        <%= link_to "Creators", marketplace_creators_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md hover:bg-opacity-20" %>
         <%= link_to "Browse", marketplace_browse_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
         <%= link_to "Sell your code", new_product_path, class: "inline-block bg-white text-blue-600 px-4 py-2 rounded-md" %>
       <% else %>
