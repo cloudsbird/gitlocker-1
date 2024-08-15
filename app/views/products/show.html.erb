@@ -75,7 +75,7 @@
           </div>
 
           <%# Languages %>
-          <% if @languages.present? && @languages.count != 1 && @languages[0].name != 'not_specified' %>
+          <% if @languages.present? && @languages[0].name != 'not_specified' %>
             <div class="flex flex-col gap-1">
               <h2 class="font-semibold text-gray-700">Languages</h2>
               <div class="flex flex-row flex-wrap items-center justify-start gap-2">
@@ -87,7 +87,7 @@
           <% end %>
 
           <%# Categories %>
-          <% if @categories.present? && @categories.count != 1 && @categories[0].name != 'not_specified' %>
+          <% if @categories.present? && @categories[0].name != 'not_specified' %>
             <div class="flex flex-col gap-1">
               <h2 class="font-semibold text-gray-700">Categories</h2>
               <div class="flex flex-row flex-wrap items-center justify-start gap-2">
