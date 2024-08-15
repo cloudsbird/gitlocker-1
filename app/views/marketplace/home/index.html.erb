@@ -37,10 +37,12 @@
         <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="popular-heading" class="text-2xl font-bold tracking-tight text-gray-900">Popular</h2>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
             <%= link_to marketplace_browse_popular_path, class: "link" do %>
               Browse All Popular Repositories
               <span aria-hidden="true">&rarr;</span>
             <% end %>
+             </button>
           </div>
 
           <div class="mt-6 flow-root">
@@ -56,10 +58,12 @@
         <section aria-labelledby="languages-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="languages-heading" class="text-2xl font-bold tracking-tight text-gray-900">Languages</h2>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
             <%= link_to marketplace_browse_languages_path, class: "link" do %>
               Browse All Languages
               <span aria-hidden="true">&rarr;</span>
             <% end %>
+            </button>
           </div>
 
           <div class="mt-6 flow-root">
@@ -75,10 +79,12 @@
         <section aria-labelledby="categories-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="categories-heading" class="text-2xl font-bold tracking-tight text-gray-900">Categories</h2>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
             <%= link_to marketplace_browse_categories_path, class: "link" do %>
               Browse All Categories
               <span aria-hidden="true">&rarr;</span>
             <% end %>
+            </button>
           </div>
 
           <div class="mt-6 flow-root">
