@@ -1,7 +1,6 @@
 module Marketplace
 class CheckoutController < ApplicationController
   before_action :authenticate_user!
-  @@session_id = nil
 
   def index
     @cart_items = current_user.cart_items.includes(:product)
@@ -27,22 +26,22 @@ class CheckoutController < ApplicationController
 
       purchases = purchases_json.map { |purchase_attributes| Purchase.new(purchase_attributes) }
 
-      payment = Payment.create(user: current_user, total_cents: total_cents)
+      payment = current_user.payments.order(created_at: :desc).find_by(total_cents: total_cents)
 
-      purchases.each { |purchase| purchase.payment = payment }
-      
-      session_object =Stripe::Checkout::Session.retrieve(@@session_id)
+      if payment.nil? || payment.stripe_session_id.nil?
+        raise ActiveRecord::RecordNotFound, "Payment or session ID not found."
+      end
+
+      session_object = Stripe::Checkout::Session.retrieve(payment.stripe_session_id)
       payment_intent_id = session_object.payment_intent
       payment_intent = Stripe::PaymentIntent.retrieve(payment_intent_id)
       charge_id = payment_intent.charges.data.first.id
-      charge = Stripe::Charge.retrieve(charge_id)
 
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
       payment.update!(stripe_charge_id: charge_id)
 
       current_user.reload.cart_items.destroy_all
       purchases.each do |purchase|
-        product_owner = purchase.product.user
         PurchaseNotification.create!(recipient: purchase.product.user, buyer: current_user, product: purchase.product)
       end
     end
@@ -75,10 +74,9 @@ class CheckoutController < ApplicationController
       Purchase.import(purchases, on_duplicate_key_ignore: true, synchronize: purchases)
 
       current_user.reload.cart_items.destroy_all
-       purchases.each do |purchase|
-          product_owner = purchase.product.user
-          PurchaseNotification.create!(recipient: purchase.product.user, buyer: current_user, product: purchase.product)
-        end
+      purchases.each do |purchase|
+        PurchaseNotification.create!(recipient: purchase.product.user, buyer: current_user, product: purchase.product)
+      end
     end
 
     redirect_to marketplace_purchases_url, notice: 'Free product added to sales!'
@@ -131,8 +129,8 @@ class CheckoutController < ApplicationController
       success_url: marketplace_success_payment_url(total_cents: total_cents, purchases: purchases.to_json),
       cancel_url: marketplace_cancel_payment_url,
     )
-    @@session_id = session["id"]
 
+    payment = Payment.create!(user: current_user, total_cents: total_cents, stripe_session_id: session.id)
     redirect_to session.url, allow_other_host: true
   end
 end
