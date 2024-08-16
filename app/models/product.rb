@@ -25,6 +25,7 @@ class Product < ApplicationRecord
   has_many_attached :covers, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :cart_items, dependent: :destroy
+  has_many :notifications, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, on: :create
   # validates :url, presence: true, uniqueness: { scope: :name }
