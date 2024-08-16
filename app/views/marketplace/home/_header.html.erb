@@ -1,12 +1,7 @@
 <section class="relative block">
   <!-- Carousel Background -->
  <div class="absolute inset-0 z-0 h-full w-full bg-black">
-    <%= render CarouselComponent.new([
-      asset_path('header/image1.png'),
-      asset_path('header/image2.png'),
-      asset_path('header/image3.png'),
-      asset_path('header/image4.png')
-    ], "h-full w-full object-cover object-center") %>
+    <%= image_tag "header/image2.png", class: "h-full w-full object-cover object-center" %>
   </div>
 
   <!-- Section Content -->
