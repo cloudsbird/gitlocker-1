@@ -1,7 +1,7 @@
 <%= form_for @product, url: products_path, data: {turbo: false, remote: true }, html: { id: "product-form" } do |f| %>
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
-      <h2 class="font-semibold leading-7 text-gray-900 text-3xl">Product Information</h2>
+      <h1 class="font-semibold leading-7 text-gray-900 text-3xl">Product Information</h1>
       <p class="mt-1 text-lg leading-6 text-gray-600">Below is your basic product information.</p>
 
       <%= render partial: 'products/import_table', locals: { filtered_repos: @filtered_repos } %>
