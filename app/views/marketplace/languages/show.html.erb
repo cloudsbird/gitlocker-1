@@ -18,7 +18,7 @@
               <h2 class="text-3xl font-semibold mb-4">List of Products</h2>
               <%= render partial: 'shared/filters' %>
 
-              <div class="absolute pt-4 flex flex-wrap justify-center space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+              <div class="absolute mt-4 flex flex-wrap justify-center space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
                 <% @language.products.each do |product| %>
                   <%= render partial: "home/product", locals: { product: product } %>
                 <% end %>
