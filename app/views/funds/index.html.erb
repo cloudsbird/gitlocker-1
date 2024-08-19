@@ -2,7 +2,7 @@
 <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 bg-slate-200" data-controller="checkout" style="min-height: 27.65rem;">
   <div class="sm:flex sm:items-center sm:justify-between justify-center">
     <div class="flex flex-wrap gap-4">
-      <div class="bg-white p-4 rounded shadow-md flex-grow">
+      <div class="bg-white p-4 rounded shadow-2xl flex-grow">
         <% [["Pending", sprintf("$%.2f", @funds)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
@@ -19,7 +19,7 @@
           </div>
         <% end %>
       </div>
-      <div class="bg-white p-4 rounded shadow-md flex-grow">
+      <div class="bg-white p-4 rounded shadow-2xl flex-grow">
         <% [["Available", sprintf("$%.2f", current_user.balance)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
@@ -36,7 +36,7 @@
           </div>
         <% end %>
       </div>
-      <div class="bg-white p-4 rounded shadow-md flex-grow">
+      <div class="bg-white p-4 rounded shadow-2xl flex-grow">
         <% [["Total Earnings", sprintf("$%.2f", current_user.total_earning)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
