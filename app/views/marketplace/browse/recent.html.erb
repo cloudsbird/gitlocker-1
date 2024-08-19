@@ -3,12 +3,9 @@
   <main>
     <section aria-labelledby="category-heading" class="py-6 sm:py-8 xl:py-8 xl:mx-auto xl:max-w-7xl xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0 mb-4">
-        <h2 id="category-heading" class="text-xl sm:text-2xl font-bold tracking-tight text-gray-900">Browse By Recent Repositories</h2>
+        <h2 id="category-heading" class="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 underline">Browse By Recent Repositories</h2>
       </div>
-      <div class="px-4 sm:px-6 lg:px-8 xl:px-0">
-        <p class="text-sm sm:text-base text-gray-700">This is all of our products listed in order of when they have been uploaded to our marketplace. In other words, these are all of our products listed in order from most recent to oldest.</p>
-      </div>
-
+    
       <%= render partial: 'shared/filters' %>
 
       <% if @products.count > 0 %>
