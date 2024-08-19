@@ -1,9 +1,35 @@
 ActiveAdmin.register Product do
   controller do
     defaults finder: :find_by_slug
+
+    def destroy
+     
+      product = Product.find_by_slug(params[:id])
+      return redirect_to admin_products_path, alert: 'Product not found.' unless product
+
+      product_owner = product.user
+    
+      if product.destroy
+        # Create the notification hash
+        notification_params = {
+          recipient: product_owner,
+          params: {
+            message: "Your product '#{product.name}' has been removed from the marketplace.",
+            reason: "Product deletion by admin"
+          }
+        }
+      
+        # Create and save the notification
+        notification = Notification.create!(notification_params)
+        redirect_to admin_products_path, notice: 'Product was successfully deleted, and the owner has been notified.'
+      else
+        redirect_to admin_products_path, alert: 'There was an issue deleting the product.'
+      end
+    end
   end
   permit_params :name, :slug, :price_cents, :user_id, :published, :folder, :video_file, :refund_id, 
-                :category_ids => [], :language_ids => [], covers: [], product_categories_attributes: [:id, :category_id, :active, :_destroy],
+                category_ids: [], language_ids: [], covers: [], 
+                product_categories_attributes: [:id, :category_id, :active, :_destroy],
                 product_languages_attributes: [:id, :language_id, :active, :_destroy]
 
   index do

@@ -5,7 +5,7 @@ class Product < ApplicationRecord
   monetize :price_cents
 
   belongs_to :user
-
+has_many :notifications, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :purchases, dependent: :destroy
   has_one_attached :folder, dependent: :destroy
@@ -25,7 +25,6 @@ class Product < ApplicationRecord
   has_many_attached :covers, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :cart_items, dependent: :destroy
-  has_many :notifications, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, on: :create
   # validates :url, presence: true, uniqueness: { scope: :name }
