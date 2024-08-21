@@ -1,54 +1,53 @@
 <style type="text/css">
-  .product-carousel {
-    position: relative;
-    max-width: 560%; /* Adjust this value as needed */
-    margin: 0 auto; /* Center the carousel */
-    overflow: hidden; /* Hide overflow */
-  }
+.product-carousel {
+  position: relative;
+  max-width: 570%; /* Adjust to fit the parent container */
+  margin: 0 auto; /* Center the carousel */
+  overflow: hidden; /* Hide overflow */
+}
 
-  .carousel-inner {
-    display: flex;
-    gap: 28px; /* Space between items */
-    flex-wrap: nowrap; /* Ensure items do not wrap to the next line */
-    width: max-content; /* Make sure the inner container expands to fit all items */
-    overflow-x: auto; /* Enable horizontal scrolling if needed */
-    scroll-behavior: smooth; /* Smooth scrolling */
-    
-    /* Hide scrollbar */
-    -ms-overflow-style: none; /* Hides the scrollbar in Internet Explorer and Edge */
-    scrollbar-width: none; /* Hides the scrollbar in Firefox */
-  }
+.carousel-inner {
+  display: flex;
+  gap: 28px; /* Space between items */
+  flex-wrap: nowrap; /* Ensure items do not wrap to the next line */
+  width: max-content; /* Expand to fit all items */
+  overflow-x: hidden; /* Hide horizontal overflow */
+  scroll-behavior: smooth; /* Smooth scrolling */
+  
+  /* Hide scrollbar */
+  -ms-overflow-style: none; /* Hides the scrollbar in Internet Explorer and Edge */
+  scrollbar-width: none; /* Hides the scrollbar in Firefox */
+}
 
-  .carousel-inner::-webkit-scrollbar {
-    display: none; /* Hides the scrollbar in WebKit browsers */
-  }
+.carousel-inner::-webkit-scrollbar {
+  display: none; /* Hides the scrollbar in WebKit browsers */
+}
 
-  .carousel-page {
-    flex-shrink: 0;
-    flex-grow: 0;
-    width: calc(20% - 24px); /* Adjust this if you need different item widths */
-    max-width: calc(20% - 24px); /* Adjust this if you need different item widths */
-  }
+.carousel-page {
+  flex-shrink: 0;
+  width: calc(100% / 5 - 28px); /* Show 5 items per page, adjust based on spacing */
+}
 
-  .carousel-control {
-    background-color: rgba(255, 255, 255, 0.2); /* Adjust based on theme */
-    border-radius: 50%;
-    transition: background-color 0.3s;
-  }
+.carousel-control {
+  background-color: rgba(255, 255, 255, 0.2); /* Adjust based on theme */
+  border-radius: 50%;
+  transition: background-color 0.3s;
+}
 
-  .carousel-control:hover {
-    background-color: rgba(255, 255, 255, 0.5); /* Adjust based on theme */
-  }
+.carousel-control:hover {
+  background-color: rgba(255, 255, 255, 0.5); /* Adjust based on theme */
+}
 
-  /* Hide the previous button */
-  .carousel-control.prev {
-    display: none; /* Hides the button */
-  }
+.carousel-control.prev {
+   /* Hide the previous button initially */
+  left: 10px; /* Position the previous button */
+}
 
-  /* Move the right arrow button further to the right */
-  .carousel-control.next {
-    right: -10px; /* Adjust this value to move the button further to the right */
-  }
+.carousel-control.next {
+  right: -4px; /* Position the next button */
+}
+
+
 </style>
 
 <div class="product-carousel relative overflow-hidden">
@@ -83,16 +82,16 @@
 
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', () => {
-  //const prevButton = document.querySelector('[data-carousel-prev]');
+  const prevButton = document.querySelector('[data-carousel-prev]');
   const nextButton = document.querySelector('[data-carousel-next]');
   const carouselInner = document.querySelector('.carousel-inner');
   const carouselPages = document.querySelectorAll('.carousel-page');
-  const itemsPerPage = 5; // Show 5 items per page
+  const itemsPerPage = 1; // Change to scroll one product per click
   let currentIndex = 0;
 
   const updateControlsVisibility = () => {
     prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
-    nextButton.style.display = (currentIndex + itemsPerPage) >= carouselPages.length ? 'none' : 'block';
+    nextButton.style.display = currentIndex === carouselPages.length - 1 ? 'none' : 'block';
   };
 
   const scrollToIndex = (index) => {
@@ -102,29 +101,38 @@ document.addEventListener('DOMContentLoaded', () => {
         left: targetPage.offsetLeft,
         behavior: 'smooth',
       });
-      currentIndex = index; // Update the current index after scrolling
-      updateControlsVisibility(); // Update control visibility based on new index
+      currentIndex = index;
+      updateControlsVisibility();
     }
   };
 
   const handleScroll = (direction) => {
-    let newIndex = currentIndex + (direction * itemsPerPage);
+    let newIndex = currentIndex + direction; // Scroll by one product at a time
 
     // Ensure the new index is within bounds
     if (newIndex < 0) {
       newIndex = 0;
     } else if (newIndex >= carouselPages.length) {
-      newIndex = carouselPages.length - itemsPerPage; // Ensure the last page shows no more than 5 items
+      newIndex = carouselPages.length - 1; // Prevent going past the last product
     }
 
     scrollToIndex(newIndex);
   };
 
-  prevButton.addEventListener('click', () => handleScroll(-1));
-  nextButton.addEventListener('click', () => handleScroll(1));
+  // Update currentIndex when a product is clicked but prevent it from interfering with scrolling
+  carouselPages.forEach((page, index) => {
+    page.addEventListener('click', () => {
+      currentIndex = index; // Update the current index
+      updateControlsVisibility();
+    });
+  });
+
+  prevButton.addEventListener('click', () => handleScroll(-1)); // Scroll left by one product
+  nextButton.addEventListener('click', () => handleScroll(1)); // Scroll right by one product
 
   // Initialize control visibility on page load
   updateControlsVisibility();
 });
+
 
 </script>

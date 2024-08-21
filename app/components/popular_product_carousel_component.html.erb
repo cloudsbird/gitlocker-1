@@ -7,7 +7,7 @@
     overflow: hidden; /* Hide overflow */
   }
 
-  .carousel-inner {
+  .carousel-inner1 {
     display: flex;
     gap: 28px; /* Space between items */
     flex-wrap: nowrap; /* Ensure items do not wrap to the next line */
@@ -20,11 +20,11 @@
     scrollbar-width: none; /* Hides the scrollbar in Firefox */
   }
 
-  .carousel-inner::-webkit-scrollbar {
+  .carousel-inner1::-webkit-scrollbar {
     display: none; /* Hides the scrollbar in WebKit browsers */
   }
 
-  .carousel-page {
+  .carousel-page1 {
     flex-shrink: 0;
     flex-grow: 0;
     width: calc(16%); /* Adjust this if you need different item widths */
@@ -53,9 +53,9 @@
 </style>
 
 <div class="popular-carousel relative overflow-hidden">
-  <div class="carousel-inner flex gap-6">
+  <div class="carousel-inner1 flex gap-6">
     <% @popular_products.each_with_index do |product, index| %>
-      <div class="carousel-page flex-shrink-0 flex-grow-0" style="flex-basis: calc(10%); max-width: calc(10%);" data-page="<%= index + 1 %>">
+      <div class="carousel-page1 flex-shrink-0 flex-grow-0" style="flex-basis: calc(10%); max-width: calc(10%);" data-page="<%= index + 1 %>">
         <%= render partial: 'home/product', locals: { product: product } %>
       </div>
     <% end %>
@@ -63,7 +63,7 @@
 
   <% if @popular_products.length > 5 %>
     <!-- Slider controls -->
-    <button type="button" class="carousel-control prev absolute top-1/2 left-0 transform -translate-y-1/2 z-30 flex items-center justify-center h-10 w-10 cursor-pointer group focus:outline-none" data-action="click->carousel#prevSlide" data-carousel-prev>
+    <button type="button" class="carousel-control prev absolute top-1/2 left-0 transform -translate-y-1/2 z-30 flex items-center justify-center h-10 w-10 cursor-pointer group focus:outline-none" data-action="click->carousel#prevSlide" data-carousel-prev1>
       <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/20 dark:bg-gray-400/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
         <svg class="w-4 h-4 text-white dark:text-gray-400 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
@@ -71,7 +71,7 @@
         <span class="sr-only">Previous</span>
       </span>
     </button>
-    <button type="button" class="carousel-control next absolute top-1/2 right-10 transform -translate-y-1/2 z-30 flex items-center justify-center h-10 w-10 cursor-pointer group focus:outline-none" data-action="click->carousel#nextSlide" data-carousel-next>
+    <button type="button" class="carousel-control next absolute top-1/2 right-10 transform -translate-y-1/2 z-30 flex items-center justify-center h-10 w-10 cursor-pointer group focus:outline-none" data-action="click->carousel#nextSlide" data-carousel-next1>
       <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 dark:bg-gray-400/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
         <svg class="w-4 h-4 text-white dark:text-gray-400 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
           <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
@@ -84,10 +84,10 @@
 
 <script type="text/javascript">
 document.addEventListener('DOMContentLoaded', () => {
-  const prevButton = document.querySelector('[data-carousel-prev]');
-  const nextButton = document.querySelector('[data-carousel-next]');
-  const carouselInner = document.querySelector('.carousel-inner');
-  const carouselPages = document.querySelectorAll('.carousel-page');
+  const prevButton = document.querySelector('[data-carousel-prev1]');
+  const nextButton = document.querySelector('[data-carousel-next1]');
+  const carouselInner = document.querySelector('.carousel-inner1');
+  const carouselPages = document.querySelectorAll('.carousel-page1');
   const itemsPerPage = 5; // Show 5 items per page
   let currentIndex = 0;
 
@@ -109,22 +109,23 @@ document.addEventListener('DOMContentLoaded', () => {
   };
 
   const handleScroll = (direction) => {
-    let newIndex = currentIndex + (direction * itemsPerPage);
+    let newIndex = currentIndex + direction; // Scroll by one product at a time
 
     // Ensure the new index is within bounds
     if (newIndex < 0) {
       newIndex = 0;
     } else if (newIndex >= carouselPages.length) {
-      newIndex = carouselPages.length - itemsPerPage; // Ensure the last page shows no more than 5 items
+      newIndex = carouselPages.length - 1; // Ensure we don't go beyond the last product
     }
 
     scrollToIndex(newIndex);
   };
 
-  prevButton.addEventListener('click', () => handleScroll(-1));
-  nextButton.addEventListener('click', () => handleScroll(1));
+  prevButton.addEventListener('click', () => handleScroll(-1)); // Scroll left by one
+  nextButton.addEventListener('click', () => handleScroll(1)); // Scroll right by one
 
   // Initialize control visibility on page load
   updateControlsVisibility();
 });
+
 </script>
