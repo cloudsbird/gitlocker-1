@@ -14,7 +14,7 @@ ActiveAdmin.register Product do
         notification_params = {
           recipient: product_owner,
           params: {
-            message: "Your product '#{product.name}' has been removed from the marketplace.",
+            message: "Your product '#{product.name}' has been removed from the marketplace because it was faulty.",
             reason: "Product deletion by admin"
           }
         }
