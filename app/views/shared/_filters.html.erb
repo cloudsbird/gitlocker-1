@@ -11,7 +11,7 @@
         ['Creators', 'creators'],
         ['Categories', 'categories'],
         ['Languages', 'languages']
-      ], params[:filter_by_type]), prompt: 'Filter by Type', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      ], params[:filter_by_type]), prompt: 'Filter by Type', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
     </div>
 
     <!-- Second Filter Set: Sorting (a-z, z-a, cheapest, most expensive, etc.) -->
@@ -25,7 +25,7 @@
           ['Sort by Most Likes', 'most_likes'],
           ['Sort by Most Recent', 'most_recent'],
           ['Sort by Oldest', 'oldest']
-        ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+        ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
       <% else %>
         <!-- Show all filters for "Products" (which is product-based) -->
         <%= select_tag :sort_by, options_for_select([
