@@ -81,16 +81,19 @@
 </div>
 
 <script type="text/javascript">
-  document.addEventListener('turbo:load', () => {
+
+ document.addEventListener('turbo:load', () => {
   const prevButton = document.querySelector('[data-carousel-prev]');
   const nextButton = document.querySelector('[data-carousel-next]');
   const carouselInner = document.querySelector('.carousel-inner');
   const carouselPages = Array.from(document.querySelectorAll('.carousel-page'));
   const itemsPerPage = 1; // Number of items to scroll at a time
+
   let currentIndex = 0;
 
   const updateControlsVisibility = () => {
     prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
+
     nextButton.style.display = currentIndex >= carouselPages.length - 1 ? 'none' : 'block';
   };
 
@@ -109,6 +112,7 @@
   };
 
   const handleScroll = (direction) => {
+
     let newIndex = currentIndex + direction;
 
     // Ensure the new index is within bounds
@@ -119,6 +123,7 @@
   // Attach click handlers to buttons
   prevButton.addEventListener('click', () => handleScroll(-itemsPerPage)); // Scroll left
   nextButton.addEventListener('click', () => handleScroll(itemsPerPage)); // Scroll right
+
 
   // Initialize control visibility on page load
   updateControlsVisibility();

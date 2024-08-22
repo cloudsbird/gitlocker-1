@@ -24,9 +24,11 @@
             </button>
           </div>
 
-         <div class="mt-6 overflow-x-auto">
+
+     <div class="mt-6 overflow-x-auto">
           <div class="flex space-x-4 lg:space-x-8 px-4 sm:px-6 lg:px-8 xl:px-0">
             <%= render ProductCarouselComponent.new(@recent_products) %>
+
           </div>
         </div>
 
@@ -46,11 +48,15 @@
              </button>
           </div>
 
-           <div class="mt-6 overflow-x-auto">
+
+          
+
+         <div class="mt-6 overflow-x-auto">
               <div class="flex space-x-4 lg:space-x-8 px-4 sm:px-6 lg:px-8 xl:px-0">
                 <%= render PopularProductCarouselComponent.new(@popular_products) %>
               </div>
               </div>
+
         </section>
       <% end %>
       <%= render 'middle' %>
