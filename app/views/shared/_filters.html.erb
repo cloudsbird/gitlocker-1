@@ -1,15 +1,49 @@
 <%= form_with url: url_for(request.query_parameters.merge(search: params[:search])), method: :get, local: true, id: 'filter_form' do %>
   <%= hidden_field_tag :search, params[:search] %>
-  <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-    <%= select_tag :sort_by, options_for_select([
-      ['Sort alphabetically a-z', 'alphabetical_asc'],
-      ['Sort alphabetically z-a', 'alphabetical_desc'],
-      ['Sort cheapest to most expensive', 'cheapest'],
-      ['Sort most expensive to cheapest', 'most_expensive'],
-      ['Sort by most likes', 'most_likes'],
-      ['Sort by most recent', 'most_recent'],
-      ['Sort by oldest', 'oldest']
-    ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-    <%= submit_tag 'Apply Filters', class: 'btn btn-primary bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' %>
+
+  <!-- Flex container to align the two filters side by side -->
+  <div class="flex space-x-4 mb-4">
+    
+    <!-- First Filter Set: Filter by Type (Products, Creators, Categories, Languages) -->
+    <div class="w-full sm:w-auto">
+      <%= select_tag :filter_by_type, options_for_select([
+        ['Products', 'products'],
+        ['Creators', 'creators'],
+        ['Categories', 'categories'],
+        ['Languages', 'languages']
+      ], params[:filter_by_type]), prompt: 'Filter by Type', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+    </div>
+
+    <!-- Second Filter Set: Sorting (a-z, z-a, cheapest, most expensive, etc.) -->
+    <div class="w-full sm:w-auto">
+      <%# Conditional rendering for sorting options based on the selected type %>
+      <% if ['creators', 'languages', 'categories'].include?(params[:filter_by_type]) %>
+        <!-- Show only relevant filters for creators, languages, and categories -->
+        <%= select_tag :sort_by, options_for_select([
+          ['Sort Alphabetically A-Z', 'alphabetical_asc'],
+          ['Sort Alphabetically Z-A', 'alphabetical_desc'],
+          ['Sort by Most Likes', 'most_likes'],
+          ['Sort by Most Recent', 'most_recent'],
+          ['Sort by Oldest', 'oldest']
+        ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      <% else %>
+        <!-- Show all filters for "Products" (which is product-based) -->
+        <%= select_tag :sort_by, options_for_select([
+          ['Sort Alphabetically A-Z', 'alphabetical_asc'],
+          ['Sort Alphabetically Z-A', 'alphabetical_desc'],
+          ['Sort Cheapest to Most Expensive', 'cheapest'],
+          ['Sort Most Expensive to Cheapest', 'most_expensive'],
+          ['Sort by Most Likes', 'most_likes'],
+          ['Sort by Most Recent', 'most_recent'],
+          ['Sort by Oldest', 'oldest']
+        ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      <% end %>
+    </div>
+
+    <!-- Submit Button for Applying Filters -->
+    <div>
+      <%= submit_tag 'Apply Filters', class: 'btn btn-primary bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' %>
+    </div>
+
   </div>
 <% end %>
