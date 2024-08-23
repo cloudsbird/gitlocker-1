@@ -20,11 +20,11 @@ class BrowseController < ApplicationController
   end
 
   def languages
-    @languages = Language.order(:name).page(params[:page]).per(50)
+    @languages = sort_categories(Language.page(params[:page]).per(50), params[:sort_by])
   end
 
   def categories
-    @categories = Category.order(:name).page(params[:page]).per(50)
+   @categories = sort_categories(Category.page(params[:page]).per(50), params[:sort_by])
   end
 
   private
@@ -32,5 +32,17 @@ class BrowseController < ApplicationController
   def filter_params
     params.permit(:category, :language, :sort_by)
   end
+      def sort_categories(categories, criteria)
+      case criteria
+      when 'alphabetical_asc'
+        categories.order(name: :asc)
+      when 'alphabetical_desc'
+        categories.order(name: :desc)
+      when 'oldest'
+        categories.order(created_at: :asc)
+      else
+        categories.order(name: :asc) # Default sorting
+      end
+    end
 end
 end
