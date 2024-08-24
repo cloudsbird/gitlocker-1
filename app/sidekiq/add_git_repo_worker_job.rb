@@ -11,7 +11,6 @@ class AddGitRepoWorkerJob
     octokit_client ||= Octokit::Client.new(access_token: current_user.token)
     repositories_count = octokit_client.user.public_repos + octokit_client.user.total_private_repos
     @product = Product.new(params[:product_params_with_user])
-    @product.save
     if params[:product][:product_url].present?
       repo_url = params[:product][:product_url]
       owner, repo_name = extract_owner_and_repo_name(repo_url)
@@ -21,10 +20,9 @@ class AddGitRepoWorkerJob
       if matching_repo
         @product.url = matching_repo.html_url
         @product.repo_id = matching_repo.id
-        @archive_path = DownloadRepoAsZip.new.start(owner, repo_name, 'main', current_user.token, @product.id)
+        @archive_path = DownloadRepoAsZip.new.start(owner, repo_name, 'main', current_user.token, @product)
       else
         UserMailer.repo_added(@product, @product.user, "Failed to create product. Repository not found or does not belong to you. Github:- #{ params[:product][:product_url] }").deliver_now
-        @product.destroy
         puts 'Failed to create product. Repository not found or does not belong to you.'
         return
       end
@@ -52,7 +50,6 @@ class AddGitRepoWorkerJob
         UserMailer.repo_added(@product, @product.user).deliver_now
       else
         UserMailer.repo_added(@product, @product.user, "Failed to create product for github:- #{params[:product][:product_url]}").deliver_now
-        @product.destroy
       end
     rescue ActiveRecord::RecordNotUnique => e
       puts 'Failed to create product. Repositry Aleady Exist.'

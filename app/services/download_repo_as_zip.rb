@@ -1,5 +1,5 @@
 class DownloadRepoAsZip
-    def start owner, repo, ref, token, product_id
+    def start owner, repo, ref, token, product
         begin
             zip_link = "https://github.com/#{owner}/#{repo}/archive/refs/heads/#{ref}.zip"
             temp_file = Tempfile.new([repo, '.zip'])
@@ -10,8 +10,7 @@ class DownloadRepoAsZip
             
         if status.success?
             puts "Successfully downloaded #{temp_file.path}"
-            @product = Product.find(product_id)
-            @product.folder.attach(
+            product.folder.attach(
                 io: File.open(temp_file.path), 
                 filename: "#{repo}-#{ref}.zip", 
                 content_type: 'application/zip'
