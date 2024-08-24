@@ -6,7 +6,7 @@
       <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
       <% if @cart_items.exists? %>
-        <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-200">
+        <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-900">
           <%= render partial: "marketplace/cart_items/cart_item", collection: @cart_items, as: :cart_item %>
         </ul>
       <% else %>
