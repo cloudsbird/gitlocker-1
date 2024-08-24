@@ -78,11 +78,11 @@ class ProductsController < ApplicationController
     product_params_with_user = product_params.merge(user_id: current_user.id)
     params[:product_params_with_user] = product_params_with_user
     params[:user_id]=current_user.id
-    if Product.find_by_url(product_params[:product_url]).present? 
+    if Product.find_by_url(params[:product][:product_url]&.strip).present? 
       render json: { message: 'Failed to create product. Repositry Aleady Exist.' }, status: :unprocessable_entity
     end    
     AddGitRepoWorkerJob.perform_async(params.to_json)
-
+    render json: { message: 'Your file was large so we are finishing uploading it in the background. You will be notified when it is on the market.' }, status: :ok
   rescue => e
     render json: { message: e.message }, status: :unprocessable_entity
   end

@@ -1,8 +1,12 @@
 class AddGitRepoWorkerJob
   include Sidekiq::Job
+  sidekiq_options :retry => 5, :dead => false
 
   def perform(params)
     params = JSON.parse(params).deep_symbolize_keys
+    if Product.find_by_url(params[:product][:product_url]&.strip).present? 
+      return
+    end
     current_user = User.find(params[:user_id])
     octokit_client ||= Octokit::Client.new(access_token: current_user.token)
     repositories_count = octokit_client.user.public_repos + octokit_client.user.total_private_repos
@@ -19,6 +23,7 @@ class AddGitRepoWorkerJob
         @product.repo_id = matching_repo.id
         @archive_path = DownloadRepoAsZip.new.start(owner, repo_name, 'main', current_user.token, @product.id)
       else
+        UserMailer.repo_added(@product, @product.user, "Failed to create product. Repository not found or does not belong to you. Github:- #{ params[:product][:product_url] }").deliver_now
         @product.destroy
         puts 'Failed to create product. Repository not found or does not belong to you.'
         return
@@ -44,11 +49,10 @@ class AddGitRepoWorkerJob
 
     begin      
       if @product.save
-        puts "Imported success"
-        # render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
+        UserMailer.repo_added(@product, @product.user).deliver_now
       else
-        puts "Error"
-        # render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
+        UserMailer.repo_added(@product, @product.user, "Failed to create product for github:- #{params[:product][:product_url]}").deliver_now
+        @product.destroy
       end
     rescue ActiveRecord::RecordNotUnique => e
       puts 'Failed to create product. Repositry Aleady Exist.'
