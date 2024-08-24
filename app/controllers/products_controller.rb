@@ -76,52 +76,18 @@ class ProductsController < ApplicationController
 
   def create
     product_params_with_user = product_params.merge(user_id: current_user.id)
-    @product = Product.new(product_params_with_user)
-    if params[:product][:product_url].present?
-      repo_url = params[:product][:product_url]
-      owner, repo_name = extract_owner_and_repo_name(repo_url)
-      user_repos = octokit_client.repositories(nil, per_page: repositories_count)
-      matching_repo = user_repos.find { |repo| repo.owner.login == owner && repo.name == repo_name }
-
-      if matching_repo
-        @product.url = matching_repo.html_url
-        @product.repo_id = matching_repo.id
-        @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
-      else
-        render json: { message: 'Failed to create product. Repository not found or does not belong to you.'}, status: :unprocessable_entity
-        return
-      end
+  
+    # Check if the product URL already exists
+    if Product.exists?(product_url: product_params[:product_url])
+      return render json: { message: 'Failed to create product. Repository already exists.' }, status: :unprocessable_entity
     end
-
-    if params[:product][:category_ids].present?
-      category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
-      categories = Category.find(category_ids)
-      @product.categories << categories
-    end
-
-    if params[:product][:language_ids].present?
-      language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
-      languages = Language.find(language_ids)
-      @product.languages << languages
-    else
-      selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
-      @product.languages << selected_language
-    end
-    @product.published = true
-    @product.active = true
-
-    begin
-      
-      if params[:product][:import_product].present? && @product.save
-        redirect_to product_path(@product)
-      elsif @product.save
-        render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
-      else
-        render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
-      end
-    rescue ActiveRecord::RecordNotUnique => e
-      render json: { message: 'Failed to create product. Repositry Aleady Exist.' }, status: :unprocessable_entity
-    end
+  
+    # Enqueue the job with the necessary parameters
+    AddGitRepoWorkerJob.perform_async(product_params_with_user.to_json)
+  
+    render json: { message: 'Product creation initiated.' }, status: :created
+  rescue => e
+    render json: { message: e.message }, status: :unprocessable_entity
   end
 
   def destroy
