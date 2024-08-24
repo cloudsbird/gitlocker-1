@@ -76,16 +76,13 @@ class ProductsController < ApplicationController
 
   def create
     product_params_with_user = product_params.merge(user_id: current_user.id)
-  
-    # Check if the product URL already exists
-    if Product.exists?(product_url: product_params[:product_url])
-      return render json: { message: 'Failed to create product. Repository already exists.' }, status: :unprocessable_entity
-    end
-  
-    # Enqueue the job with the necessary parameters
-    AddGitRepoWorkerJob.perform_async(product_params_with_user.to_json)
-  
-    render json: { message: 'Product creation initiated.' }, status: :created
+    params[:product_params_with_user] = product_params_with_user
+    params[:user_id]=current_user.id
+    if Product.find_by_url(product_params[:product_url]).present? 
+      render json: { message: 'Failed to create product. Repositry Aleady Exist.' }, status: :unprocessable_entity
+    end    
+    AddGitRepoWorkerJob.perform_async(params.to_json)
+
   rescue => e
     render json: { message: e.message }, status: :unprocessable_entity
   end
