@@ -133,12 +133,12 @@ has_many :notifications, dependent: :destroy
     related_by_categories = Product.where.not(id: self.id)
                                    .joins(:categories)
                                    .where(categories: { id: self.category_ids })
-                                   .limit(4)
+                                   .limit(5)
     
     related_by_languages = Product.where.not(id: self.id)
                                   .joins(:languages)
                                   .where(languages: { id: self.language_ids })
-                                  .limit(4)
+                                  .limit(5)
 
     (related_by_categories + related_by_languages).uniq.take(4)
   end
