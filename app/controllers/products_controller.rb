@@ -44,29 +44,14 @@ class ProductsController < ApplicationController
       categories = Category.find(category_ids)
       @product.categories << categories
     end
-    if params[:product][:product_url].present? && @product.folder.attachments.nil?
-      repo_url = params[:product][:product_url]
-      owner, repo_name = extract_owner_and_repo_name(repo_url)
-      user_repos = octokit_client.repositories(nil, per_page: repositories_count)
-      @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
-    end
-    @product.published = true
-    @product.active = true
-
-    @product.languages.destroy_all
-    if params[:product][:language_ids].present?
-      language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
-      languages = Language.find(language_ids)
-      @product.languages << languages
-    else
-      selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
-      @product.languages << selected_language
-    end
-    if @product.save
-      render json: { message: 'Product was successfully Updated.', product_id: @product.slug }, status: :ok
-    else
-      render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
-    end
+    params[:user_id]=current_user.id
+    params[:product_id] = @product.id
+    AddGitRepoWorkerJob.perform_async(params.to_json, "update")
+    render json: { message: 'Your file was large so we are finishing updating it in the background. You will be notified when it is on the market.' }, status: :ok 
+  
+  rescue => e
+    render json: { message: e.message }, status: :unprocessable_entity
+    
   end
 
   def new
