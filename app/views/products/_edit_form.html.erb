@@ -25,12 +25,42 @@
           <div class="sm:col-span-4">
             <%= f.label :description, class: "block text-sm font-medium leading-6 text-gray-900" %>
             <div class="mt-2">
-              <%= f.text_area :description, id: "descriptionTextArea", class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
-              <span class="d-block question_modal_input_subtext" id="charCountElement">
+              <%= f.text_area :description, id: "descriptionTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
+              <span class="d-block question_modal_input_subtext" id="descriptionTextAreaCount">
                 1000 words left
               </span>
             </div>
           </div>
+
+          <div class="sm:col-span-4">
+          <%= f.label :features, "Features", class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.text_area :features, id: "featuresTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"%>
+            <span class="d-block question_modal_input_subtext" id="featuresTextAreaCount">
+              1000 words left
+            </span>
+          </div>
+        </div>
+
+         <div class="sm:col-span-4">
+          <%= f.label :requirements, "Requirements", class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.text_area :requirements, id: "requirementsTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"%>
+            <span class="d-block question_modal_input_subtext" id="requirementsTextAreaCount">
+              1000 words left
+            </span>
+          </div>
+        </div>
+
+         <div class="sm:col-span-4">
+          <%= f.label :instructions, "Instructions", class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.text_area :instructions, id: "instructionsTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"%>
+            <span class="d-block question_modal_input_subtext" id="instructionsTextAreaCount">
+              1000 words left
+            </span>
+          </div>
+        </div>
 
           <div class="sm:col-span-4">
             <%= f.label :price, class: "block text-sm font-medium leading-6 text-gray-900" %>
@@ -179,7 +209,13 @@
       var formData = new FormData();
       formData.append('authenticity_token', $('meta[name=csrf-token]').attr('content'));
       formData.append('product[name]', $('#product_name').val());
-      formData.append('product[description]', ckEditorInstance.getData());
+      // Append CKEditor data to FormData
+      for (var i = 0; i < ckEditorInstances.length; i++) {
+          let ckEditorInstance = CKEDITOR.instances[ckEditorInstances[i].id]; // Get the CKEditor instance
+          if (ckEditorInstance) {
+              formData.append(ckEditorInstances[i].name, ckEditorInstance.getData()); // Append data
+          }
+      }
       formData.append('product[price]', $('#product_price').val());
       formData.append('product[product_url]', $('#product_url').val());
       var coverImages = $('#covers')[0].files;
@@ -244,25 +280,26 @@
       }
     });
 
-    var ckEditorInstance;
+    var ckEditorInstances;
     var interval = setInterval(() => {
       if (typeof CKEDITOR !== 'undefined') {
         try {
-          ckEditorInstance = CKEDITOR.replace('descriptionTextArea');
-          ckEditorInstance.on('change', function(event) {
-            var content = event.editor.getData();
-            var plainTextContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
-            var wordCount = plainTextContent.trim().split(/\s+/).length;
-            var wordsLeft = 1000 - wordCount;
-            $('#charCountElement').text(`${wordsLeft} words left`);
-            $('#charCountElement').css('color', wordsLeft < 0 ? 'red' : '');
-            if (wordsLeft < 0) {
-              setTimeout(function() {
-                ckEditorInstance.setData(stripHtmlTags(plainTextContent.split(/\s+/).slice(0, 999).join(' ')));
-              }, 0);
-              alert('Error: Word limit exceeded (maximum 1000 words)');
-            }
-          });
+          ckEditorInstances = document.getElementsByClassName('ckEditor');
+          for (let i = 0; i < ckEditorInstances.length; i++) {
+            let ckEditorInstance = CKEDITOR.replace(ckEditorInstances[i]);
+            ckEditorInstance.on('change', function(event) {
+              let content = event.editor.getData();
+              let plainTextContent = content.replace(/<[^>]*>/g, '').replace(/&nbsp;/g, ' ');
+              let wordCount = plainTextContent.trim().split(/\s+/).length;
+              let wordsLeft = 1000 - wordCount;
+              $(`#${ckEditorInstances[i].id}Count`).text(`${wordsLeft} words left`);
+              $(`#${ckEditorInstances[i].id}Count`).css('color', wordsLeft < 0 ? 'red' : '');
+              if (wordsLeft < 0) {
+                ckEditorInstance.setData(stripHtmlTags(plainTextContent.split(/\s+/).slice(0, 999).join(' ')));                
+                alert('Error: Word limit exceeded (maximum 1000 words)');
+              }
+            });
+          }
           clearInterval(interval);
         } catch (e) {
           console.error(e);

@@ -132,7 +132,31 @@
         <% if @product.description.present? %>
           <div class="flex flex-col gap-4">
             <h1 class="text-2xl text-bold underline text-gray-900">Description:</h1>
-            <p class="text-sm text-gray-500"><%= raw @product.description %></p>
+            <p class="text-sm text-gray-500"><%= sanitize @product.description %></p>
+          </div>
+          <div class="w-full border-t border-gray-200"></div>
+        <% end %>
+
+        <% if @product.features.present? %>
+          <div class="flex flex-col gap-4">
+            <h1 class="text-2xl text-bold underline text-gray-900">Features:</h1>
+            <p class="text-sm text-gray-500"><%= sanitize @product.features %></p>
+          </div>
+          <div class="w-full border-t border-gray-200"></div>
+        <% end %>
+
+        <% if @product.requirements.present? %>
+          <div class="flex flex-col gap-4">
+            <h1 class="text-2xl text-bold underline text-gray-900">Requirements:</h1>
+            <p class="text-sm text-gray-500"><%= sanitize @product.requirements %></p>
+          </div>
+          <div class="w-full border-t border-gray-200"></div>
+        <% end %>
+
+        <% if @product.instructions.present? %>
+          <div class="flex flex-col gap-4">
+            <h1 class="text-2xl text-bold underline text-gray-900">Instructions:</h1>
+            <p class="text-sm text-gray-500"><%= sanitize @product.instructions %></p>
           </div>
           <div class="w-full border-t border-gray-200"></div>
         <% end %>

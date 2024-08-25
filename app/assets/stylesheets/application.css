@@ -13,3 +13,6 @@
  *= require_file application.tailwind.css
  *= require_self
  */
+.cke_notifications_area{
+    display: none !important;
+}
