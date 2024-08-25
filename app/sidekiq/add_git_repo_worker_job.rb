@@ -5,6 +5,8 @@ class AddGitRepoWorkerJob
   def perform(params)
     params = JSON.parse(params).deep_symbolize_keys
     @product = Product.unscoped.find(params[:product_id])
+    @product_url = "#{ENV["BASE_URL"]}/marketplace/l/#{@product&.slug}"
+    puts "urlsssss #{@product_url}"
     current_user = User.find(params[:user_id])
     octokit_client ||= Octokit::Client.new(access_token: current_user.token)
     repositories_count = octokit_client.user.public_repos + octokit_client.user.total_private_repos
@@ -19,7 +21,7 @@ class AddGitRepoWorkerJob
         @product.repo_id = matching_repo.id
         @archive_path = DownloadRepoAsZip.new.start(owner, repo_name, 'main', current_user.token, @product)
       else
-        UserMailer.repo_added(@product, @product.user, "Failed to create product. Repository not found or does not belong to you. Github:- #{ params[:product][:product_url] }").deliver_now
+        UserMailer.repo_added(@product, @product.user, @product_url, "Failed to create product. Repository not found or does not belong to you. Github:- #{ params[:product][:product_url] }").deliver_now
         puts 'Failed to create product. Repository not found or does not belong to you.'
         return
       end
@@ -44,11 +46,28 @@ class AddGitRepoWorkerJob
     begin      
       @product.upload_complete = true
       if @product.save
-        UserMailer.repo_added(@product, @product.user).deliver_now
+        notification_params = {
+          recipient: @product.user,
+          params: {
+            message: "Your product '#{@product.name}' has been uploaded.",
+            # reason: "Product deletion by admin"
+          }
+        }
+
+        UserMailer.repo_added(@product, @product.user, @product_url).deliver_now
       else
+        notification_params = {
+          recipient: @product.user,
+          params: {
+            message: "Your product '#{@product.name}' uploading has been failed.",
+            # reason: "Product deletion by admin"
+          }
+        }
+        UserMailer.repo_added(@product, @product.user, @product_url, "Failed to create product for github:- #{params[:product][:product_url]}").deliver_now
         @product.destroy
-        UserMailer.repo_added(@product, @product.user, "Failed to create product for github:- #{params[:product][:product_url]}").deliver_now
       end
+      notification = Notification.create!(notification_params)
+
     rescue ActiveRecord::RecordNotUnique => e
       @product.destroy
       puts 'Failed to create product. Repositry Aleady Exist.'
