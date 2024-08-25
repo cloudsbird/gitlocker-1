@@ -19,7 +19,7 @@
             </p>
         <% else %>
             <p style="margin-top: 10px; line-height: 1.6; color: #718096;">
-                We're pleased to inform you that your product has been successfully created.
+                We're pleased to inform you that your product has been successfully <%= @action %>.
             </p>
             <div style="margin-top: 20px;">
                 <h3 style="color: #2d3748;">Product Details:</h3>
@@ -30,7 +30,7 @@
                     <% if @product.description.present? %>
                         <strong>Description:</strong> <%= @product.description %> <br>
                     <% end %>
-                    <strong>Github url:</strong> <%= @product.url %>
+                    <strong>Product url:</strong> <%= @product_url %>
                 </p>
             </div>
         <% end %>
