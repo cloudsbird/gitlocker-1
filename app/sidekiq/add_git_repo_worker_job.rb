@@ -47,10 +47,27 @@ class AddGitRepoWorkerJob
 
     begin      
       if @product.save
+        notification_params = {
+          recipient: @product.user,
+          params: {
+            message: "Your product '#{@product.name}' has been uploaded.",
+            # reason: "Product deletion by admin"
+          }
+        }
+
         UserMailer.repo_added(@product, @product.user).deliver_now
       else
+        notification_params = {
+          recipient: @product.user,
+          params: {
+            message: "Your product '#{@product.name}' uploading has been failed.",
+            # reason: "Product deletion by admin"
+          }
+        }
         UserMailer.repo_added(@product, @product.user, "Failed to create product for github:- #{params[:product][:product_url]}").deliver_now
       end
+      notification = Notification.create!(notification_params)
+
     rescue ActiveRecord::RecordNotUnique => e
       puts 'Failed to create product. Repositry Aleady Exist.'
     end
