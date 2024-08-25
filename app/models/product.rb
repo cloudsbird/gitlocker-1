@@ -30,6 +30,9 @@ has_many :notifications, dependent: :destroy
   # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories
+
+  default_scope { where(upload_complete: true) }
+
   scope :exclude_purchased, ->(user) { 
     where.not(id: user&.purchases&.pluck(:product_id))
   }

@@ -4,13 +4,10 @@ class AddGitRepoWorkerJob
 
   def perform(params)
     params = JSON.parse(params).deep_symbolize_keys
-    if Product.find_by_url(params[:product][:product_url]&.strip).present? 
-      return
-    end
+    @product = Product.unscoped.find(params[:product_id])
     current_user = User.find(params[:user_id])
     octokit_client ||= Octokit::Client.new(access_token: current_user.token)
     repositories_count = octokit_client.user.public_repos + octokit_client.user.total_private_repos
-    @product = Product.new(params[:product_params_with_user])
     if params[:product][:product_url].present?
       repo_url = params[:product][:product_url]
       owner, repo_name = extract_owner_and_repo_name(repo_url)
@@ -44,18 +41,20 @@ class AddGitRepoWorkerJob
     end
     @product.published = true
     @product.active = true
-
     begin      
+      @product.upload_complete = true
       if @product.save
         UserMailer.repo_added(@product, @product.user).deliver_now
       else
+        @product.destroy
         UserMailer.repo_added(@product, @product.user, "Failed to create product for github:- #{params[:product][:product_url]}").deliver_now
       end
     rescue ActiveRecord::RecordNotUnique => e
+      @product.destroy
       puts 'Failed to create product. Repositry Aleady Exist.'
     end
-  rescue => e
-    puts "Error:- #{e}"
+  # rescue => e
+  #   puts "Error:- #{e}"
   end
 
   def extract_owner_and_repo_name(repo_url)
