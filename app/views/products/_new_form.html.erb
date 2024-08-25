@@ -142,6 +142,13 @@
         </div>
 
         <div class="sm:col-span-4">
+          <%= f.label :demo_url, class: "block text-sm font-medium leading-6 text-gray-900" %>
+          <div class="mt-2">
+            <%= f.text_field :demo_url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", required: false, placeholder: "https://demo_url.com" %>
+          </div>
+        </div>
+
+        <div class="sm:col-span-4">
             <div id="upload-status" class="mt-2"></div>
         </div>
          <div class="font-bold sm:col-span-4">
@@ -209,6 +216,7 @@
         }
         formData.append('product[price]', $('#product_price').val());
         formData.append('product[product_url]', $('#product_url').val());
+        formData.append('product[demo_url]', $('#product_demo_url').val());
         var coverImages = $('#covers')[0].files;
         $.each(coverImages, function(index, image) {
             formData.append('product[covers][]', image);
