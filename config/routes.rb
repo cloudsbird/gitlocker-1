@@ -23,6 +23,8 @@ Rails.application.routes.draw do
     get '/password_instructions', to: 'passwords#show_instructions'
     get '/signup_success', to: 'users/registrations#signup_success', as: 'signup_success'
   end
+  # config/routes.rb
+delete 'marketplace/users/:id', to: 'marketplace/users#destroy', as: 'destroy_marketplace_user'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -106,6 +108,7 @@ Rails.application.routes.draw do
     post '/users/:id/follow', to: "users#follow", as: "follow_user"
     post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
     get "search", to: "search_results#index"
+    
     resources :notifications, only: [:index] do
       member do
         get :mark_as_read

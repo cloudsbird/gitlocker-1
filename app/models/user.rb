@@ -33,7 +33,7 @@ class User < ApplicationRecord
     where("user_languages.active = ?", true)
   }, through: :user_languages, source: :language
   has_many :sales, through: :products, source: :purchases
-  has_one :account
+  has_one :account, dependent: :destroy
   has_many :notifications, as: :recipient
 
   has_many :followed_users, foreign_key: :follower_id, class_name: 'Follow'
