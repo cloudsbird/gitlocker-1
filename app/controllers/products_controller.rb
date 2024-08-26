@@ -15,7 +15,7 @@ class ProductsController < ApplicationController
   def show
     @product = current_user.products.includes(:reviews, :languages).friendly.find(params[:id])
     @related_products = @product.related_products
-    @reviews = @product.reviews.page(params[:page]).per(2)
+    @reviews = @product.reviews.page(params[:page]).per(5)
     @languages = @product.languages
     @categories = @product.categories
   end
