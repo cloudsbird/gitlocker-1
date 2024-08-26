@@ -1,23 +1,25 @@
- <%=
-    render BreadcrumbComponent.new(current_user,[
-      { text: "Languages", url: marketplace_browse_languages_path }
-    ])
-  %>
+<%=
+  render BreadcrumbComponent.new(current_user, [
+    { text: "Languages", url: marketplace_browse_languages_path }
+  ])
+%>
 
-
- <section aria-labelledby="category-heading" class="pt-16 pb-24 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8 bg-slate-200">
-    <div class="px-8 py-4 ">
-   <!-- Filter Form -->
-     <%= render partial: 'shared/catFilters' %>
-   </div>
+<section aria-labelledby="category-heading" class="pt-16 pb-24 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8 bg-slate-200">
+  <div class="px-8 py-4 ">
+    <!-- Filter Form -->
+    <%= render partial: 'shared/catFilters' %>
+  </div>
+  
   <% if @languages.count > 0 %>
     <div class="flow-root">
       <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0 ">
         <%= render partial: "home/language", collection: @languages, as: :language %>
       </div>
     </div>
+    
     <div class="mt-12">
-      <%= render 'kaminari/tailwind/paginator', paginator: @languages %>
+      <!-- Pagination with sort_by parameter -->
+      <%= render 'kaminari/tailwind/paginator', paginator: @languages, params: { sort_by: params[:sort_by] } %>
     </div>
   <% end %>
-</section>  
+</section>
