@@ -143,6 +143,6 @@ has_many :notifications, dependent: :destroy
                                   .where(languages: { id: self.language_ids })
                                   .limit(5)
 
-    (related_by_categories + related_by_languages).uniq.take(4)
+    (related_by_categories + related_by_languages).uniq.take(5)
   end
 end
