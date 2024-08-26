@@ -24,7 +24,6 @@ Rails.application.routes.draw do
     get '/signup_success', to: 'users/registrations#signup_success', as: 'signup_success'
   end
   # config/routes.rb
-delete 'marketplace/users/:id', to: 'marketplace/users#destroy', as: 'destroy_marketplace_user'
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -96,7 +95,7 @@ delete 'marketplace/users/:id', to: 'marketplace/users#destroy', as: 'destroy_ma
     get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
     get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
     resources :refunds, only: [:new, :create]
-    resources :users, only: [:show, :edit, :update] do
+    resources :users, only: [:show, :edit, :update, :destroy] do
       resources :products, only: :index, controller: "users/products"
       get :synchronizations, to: "users/synchronizations#show", on: :member
       put :product_activations, to: "users/product_activations#update", on: :member
