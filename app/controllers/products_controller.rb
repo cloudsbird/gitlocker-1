@@ -9,7 +9,7 @@ class ProductsController < ApplicationController
   before_action :set_user_repos
 
   def index
-    @products = current_user.products.page(params[:page]).per(6)
+    @products = current_user.products.page(params[:page]).per(50)
   end
 
   def show
