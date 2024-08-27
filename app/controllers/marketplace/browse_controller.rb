@@ -8,6 +8,10 @@ class BrowseController < ApplicationController
     @products = Product.exclude_purchased(current_user).order(purchases_count: :desc).filter_and_sort(filter_params).page(params[:page]).per(50)
   end
 
+  def featured
+  
+  end
+
   def recent
     @products = Product.exclude_purchased(current_user)
                        .filter_and_sort(filter_params)
