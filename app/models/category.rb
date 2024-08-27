@@ -175,7 +175,31 @@ class Category < ApplicationRecord
       "WordPlate": "WordPlate.jpg",
       "WordPress": "WordPress.png",
       "Xamarin": "Xamarin.png",
-      "XML": "XML.png"
+      "XML": "XML.png",
+      "Generative AI": "ember.jpg",
+      "AI": "Xamarin.png",
+      "Low code": "Web-app.png",
+      "IoT": "Wagtail.png",
+      "Audio": "Vagrant.jpg",
+      "NFT": "Ubuntu.png",
+      "Next.js": "Vim.png",
+      "Games": "Virtual-Reality.png",
+      "Microservices": "Unity.png",
+      "Blockchain": "Wagtail.png",
+      "Cybersecurity": "Twitter.png",
+      "Augmented Reality": "Terminal.png",
+      "Cloud": "Testing.png",
+      "Backend": "Wagtail.png",
+      "Distributed Systems": "Vim.png",
+      "Computer Science": "Scala.png",
+      "Interview": "Rust.jpg",
+      "Learning": "SQL.jpg",
+      "Big Data": "Unity.png",
+      "System": "Vim.png",
+      "Architecture": "Wagtail.png",
+      "Resources": "Ubuntu.png",
+      "System Design": "Terminal.png",
+      "Scalability": "Wagtail.png"
   }.with_indifferent_access
 
   extend FriendlyId
