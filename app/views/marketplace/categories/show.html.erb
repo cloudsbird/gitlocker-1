@@ -1,4 +1,4 @@
-<div class="bg-slate-200">
+<div class="bg-slate-400">
   <%=
     render BreadcrumbComponent.new(current_user,[
       { text: "Categories", url: marketplace_browse_categories_path },
@@ -7,17 +7,17 @@
   %>
   <main>
     <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
-      <h2 class="text-3xl font-semibold mb-4 text-center"><%= @category.name %> Category Products</h2>
-      <div class="bg-white">
+      <h2 class="text-3xl font-semibold mb-4 text-center underline"><%= @category.name %> Category Products</h2>
+      <div class="bg-slate-400">
       <%= image_tag asset_path("categories/#{@category.image_name}"), class: "h-32 w-48 object-cover object-center mx-auto" %>
     </div>
       <div class="mt-4 flow-root">
         <div class="-my-2">
           <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
             <% if @category.products.any? %>
-              <h2 class="text-3xl font-semibold mb-4">List of Products</h2>
+              <h2 class="text-3xl font-semibold mb-4 underline">List of Products</h2>
 
-              <div class="absolute flex flex-wrap justify-center space-x-8 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+              <div class="absolute flex flex-wrap justify-center gap-4 px-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
                 <% @category.products.each do |product| %>
                   <%= render partial: "home/product", locals: { product: product } %>
                 <% end %>

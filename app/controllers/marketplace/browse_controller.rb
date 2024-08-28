@@ -8,8 +8,11 @@ module Marketplace
       @products = apply_filters_and_sort(Product.exclude_purchased(current_user).order(purchases_count: :desc)).page(params[:page]).per(20)
     end
 
-    def recent
-      @products = apply_filters_and_sort(Product.exclude_purchased(current_user)).page(params[:page]).per(20)
+  def featured
+  end
+
+  def recent
+    @products = apply_filters_and_sort(Product.exclude_purchased(current_user)).page(params[:page]).per(50)
 
       respond_to do |format|
         format.html

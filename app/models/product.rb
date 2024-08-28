@@ -30,6 +30,9 @@ has_many :notifications, dependent: :destroy
   # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories
+
+  default_scope { where(upload_complete: true) }
+
   scope :exclude_purchased, ->(user) { 
     where.not(id: user&.purchases&.pluck(:product_id))
   }
@@ -133,13 +136,9 @@ has_many :notifications, dependent: :destroy
     related_by_categories = Product.where.not(id: self.id)
                                    .joins(:categories)
                                    .where(categories: { id: self.category_ids })
-                                   .limit(4)
-    
     related_by_languages = Product.where.not(id: self.id)
                                   .joins(:languages)
                                   .where(languages: { id: self.language_ids })
-                                  .limit(4)
-
-    (related_by_categories + related_by_languages).uniq.take(4)
+    (related_by_categories + related_by_languages).uniq.take(5)
   end
 end

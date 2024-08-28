@@ -9,13 +9,13 @@ class ProductsController < ApplicationController
   before_action :set_user_repos
 
   def index
-    @products = current_user.products.page(params[:page]).per(20)
+    @products = current_user.products.page(params[:page]).per(50)
   end
 
   def show
     @product = current_user.products.includes(:reviews, :languages).friendly.find(params[:id])
     @related_products = @product.related_products
-    @reviews = @product.reviews.page(params[:page]).per(2)
+    @reviews = @product.reviews.page(params[:page]).per(5)
     @languages = @product.languages
     @categories = @product.categories
   end
@@ -44,84 +44,35 @@ class ProductsController < ApplicationController
       categories = Category.find(category_ids)
       @product.categories << categories
     end
-    if params[:product][:product_url].present? && @product.folder.attachments.nil?
-      repo_url = params[:product][:product_url]
-      owner, repo_name = extract_owner_and_repo_name(repo_url)
-      user_repos = octokit_client.repositories(nil, per_page: repositories_count)
-      @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
-    end
-    @product.published = true
-    @product.active = true
-
-    @product.languages.destroy_all
-    if params[:product][:language_ids].present?
-      language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
-      languages = Language.find(language_ids)
-      @product.languages << languages
-    else
-      selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
-      @product.languages << selected_language
-    end
-    if @product.save
-      render json: { message: 'Product was successfully Updated.', product_id: @product.slug }, status: :ok
-    else
-      render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
-    end
+    params[:user_id]=current_user.id
+    params[:product_id] = @product.id
+    AddGitRepoWorkerJob.perform_async(params.to_json, "update")
+    render json: { message: 'Your file was large so we are finishing updating it in the background. You will be notified when it is on the market.' }, status: :ok 
+  
+  rescue => e
+    render json: { message: e.message }, status: :unprocessable_entity
+    
   end
 
   def new
-    @product = Product.new
+    @product = Product.unscoped.new
     @filtered_repos = import_table
   end
 
   def create
     product_params_with_user = product_params.merge(user_id: current_user.id)
-    @product = Product.new(product_params_with_user)
-    if params[:product][:product_url].present?
-      repo_url = params[:product][:product_url]
-      owner, repo_name = extract_owner_and_repo_name(repo_url)
-      user_repos = octokit_client.repositories(nil, per_page: repositories_count)
-      matching_repo = user_repos.find { |repo| repo.owner.login == owner && repo.name == repo_name }
-
-      if matching_repo
-        @product.url = matching_repo.html_url
-        @product.repo_id = matching_repo.id
-        @archive_path = download_repository_as_zip(owner, repo_name, 'main', current_user.token)
-      else
-        render json: { message: 'Failed to create product. Repository not found or does not belong to you.'}, status: :unprocessable_entity
-        return
-      end
-    end
-
-    if params[:product][:category_ids].present?
-      category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
-      categories = Category.find(category_ids)
-      @product.categories << categories
-    end
-
-    if params[:product][:language_ids].present?
-      language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
-      languages = Language.find(language_ids)
-      @product.languages << languages
+    @product = Product.unscoped.new(product_params_with_user)
+    if @product.save
+      params[:user_id]=current_user.id
+      params[:product_id] = @product.id
+      AddGitRepoWorkerJob.perform_async(params.to_json)
+      render json: { message: 'Your file was large so we are finishing uploading it in the background. You will be notified when it is on the market.' }, status: :ok
     else
-      selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
-      @product.languages << selected_language
-    end
-    @product.published = true
-    @product.active = true
-
-    begin
-      
-      if params[:product][:import_product].present? && @product.save
-        redirect_to product_path(@product)
-      elsif @product.save
-        render json: { message: 'Product was successfully created.', product_id: @product.slug }, status: :created
-      else
-        render json: { message: @product.errors.full_messages.join(', ') }, status: :unprocessable_entity
-      end
-    rescue ActiveRecord::RecordNotUnique => e
       render json: { message: 'Failed to create product. Repositry Aleady Exist.' }, status: :unprocessable_entity
-    end
+    end    
+    
+  rescue => e
+    render json: { message: e.message }, status: :unprocessable_entity
   end
 
   def destroy
@@ -134,7 +85,7 @@ class ProductsController < ApplicationController
 
   def import_table
     private_repos = @user_repos.select { |repo| repo[:private] }
-    product_urls = current_user.products.pluck("url")
+    product_urls = current_user.products.unscoped.pluck("url")
     repo_hash = private_repos.map do |repo|
     {
       id: repo[:id],
@@ -153,7 +104,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      :name, :description, :price, :active, :published, :category_ids,:preview_video_url, :video_file,
+      :name, :description, :price, :active, :published, :category_ids,:preview_video_url, :video_file, :features, :instructions, :requirements, :demo_url,
       covers: [],
       product_categories_attributes: [:id, :active],
       covers_attributes: [:id, :image]
