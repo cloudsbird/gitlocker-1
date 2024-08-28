@@ -2,10 +2,14 @@
   <%= hidden_field_tag :search, params[:search], class: 'product-search-input' %>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 product-filter-grid">
     <%= select_tag :sort_by, options_for_select([
-      ['Sort alphabetically a-z', 'alphabetical_asc'],
-      ['Sort alphabetically z-a', 'alphabetical_desc'],
-      ['Sort by oldest', 'oldest']
-    ], params[:sort_by]), prompt: 'Sort By', class: 'product-sort-select form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      ['Sort Alphabetically A-Z', 'alphabetical_asc'],
+      ['Sort Alphabetically Z-A', 'alphabetical_desc'],
+      ['Sort by Oldest', 'oldest']
+      ['Sort by Most Recent', 'most_recent'],
+      ['Sort Cheapest to Most Expensive', 'cheapest'],
+      ['Sort Most Expensive to Cheapest', 'most_expensive'],
+      ['Sort by Most Likes', 'most_likes'],
+      ], params[:sort_by]), prompt: 'Sort By', class: 'product-sort-select form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
     <%= submit_tag 'Apply Filters', class: 'product-filter-submit btn btn-primary bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' %>
   </div>
 <% end %>
