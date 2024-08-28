@@ -11,7 +11,7 @@ class CreatorsController < ApplicationController
 
   def show
     @user = User.friendly.find(params[:id])
-    @products = @user.products.published.page(params[:page]).per(4)
+    @products = @user.products.published.page(params[:page]).per(15)
     @languages = @user.languages
     @categories = @user.categories
   end
