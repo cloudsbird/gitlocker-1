@@ -16,30 +16,24 @@
             <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL" %>
           </div>
         </div>
-      <div class="sm:col-span-4 text-center my-2">
+        <div class="upload_repo_zip sm:col-span-4">
+      <div class="sm:col-span-4 text-center">
         <span class="text-gray-500 font-medium">OR</span>
       </div>
         <!-- New Upload ZIP File Field -->
       <!-- New Upload ZIP File Field -->
   <div class="sm:col-span-4" id="zip-upload-field">
     <%= f.label :upload_file, "Upload ZIP File", class: "block text-sm font-medium leading-6 text-gray-900" %>
-    <div class="mt-2">
+    <div class="mt-0">
       <%= f.file_field :upload_file, class: "form-control", id: "upload_file", accept: ".zip" %>
+      <h6 class="text-sm">(Only .zip files are allowed)</h6>
+      <button id="clear_file" type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+        Clear
+      </button>
     </div>
-    <br/>
-    <h1>(Only .zip files are allowed)</h1>
   </div>
-
-<!-- Cross Icon for Clearing Inputs -->
-  <div class="sm:col-span-4 text-center my-2 hidden" id="clear-icon-container">
-    <button id="clear_file" type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none">
-      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>
-      </svg>
-    </button>
+  
   </div>
-
-
 
         <div class="sm:col-span-4">
           <%= f.label :name, class: "block text-sm font-medium leading-6 text-gray-900" %>
