@@ -1,11 +1,18 @@
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 bg-slate-400 min-h-screen min-w-full">
   <%= form_with model: @user, url: marketplace_user_path(@user), method: :put, data: { turbo: false } do |f| %>
     <div class="space-y-12">
+      <div class="flex justify-start mb-4">
+        <%= button_to marketplace_user_path(@user), method: :delete, data: { turbo_confirm: "Are you sure you want to delete your account? This action cannot be undone." }, class: " cursor-pointer bg-red-600 text-white rounded-md px-3 py-2 text-sm font-semibold shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" do %>
+          Delete Account
+        <% end %>
+      </div>
+
       <div class="border-b border-gray-900/10 pb-12">
         <h1 class="text-base font-semibold leading-7 text-gray-900 underline">Profile</h1>
         <p class="mt-1 text-sm leading-6 text-gray-600">This information will be displayed publicly so be careful what you share.</p>
 
         <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
+          <!-- Profile fields -->
           <div class="sm:col-span-4">
             <%= f.label :username, class: "block text-sm font-medium leading-6 text-gray-900" %>
             <div class="mt-2">
@@ -107,12 +114,10 @@
       </div>
     </div>
 
-    <div class="mt-6 flex items-center justify-end gap-x-6">
-      <%= link_to "Cancel", :back, class: "text-sm font-semibold leading-6 text-gray-900" %>
+    <!-- Cancel and Update buttons aligned on the right side -->
+    <div class="mt-6 flex justify-end items-center gap-x-4">
+      <%= link_to "Cancel", marketplace_user_path(@user), class: "text-sm font-semibold leading-6 text-gray-900" %>
       <%= f.submit "Update", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
     </div>
   <% end %>
 </div>
-<script>
-   $('.js-example-basic-multiple').select2();
-</script>

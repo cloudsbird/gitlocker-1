@@ -3,9 +3,9 @@ module Marketplace
     def index
       if params[:search].present?
         @product =  sort_products(Product.all, params[:sort_by])
-        @product_results = @product.search(params[:search]).page(params[:page]).per(5)
-        @marketplace_creator_results = User.search(params[:search]).page(params[:page]).per(5)
-        @category_results = Category.search(params[:search]).page(params[:page]).per(5)
+        @product_results = @product.search(params[:search]).page(params[:page]).per(9)
+        @marketplace_creator_results = User.search(params[:search]).page(params[:page]).per(7)
+        @category_results = Category.search(params[:search]).page(params[:page]).per(10)
         @language_results = Language.search(params[:search]).page(params[:page]).per(5)
 
         if params[:category_id].present?

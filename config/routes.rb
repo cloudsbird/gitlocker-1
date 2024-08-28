@@ -23,6 +23,7 @@ Rails.application.routes.draw do
     get '/password_instructions', to: 'passwords#show_instructions'
     get '/signup_success', to: 'users/registrations#signup_success', as: 'signup_success'
   end
+  # config/routes.rb
 
   # Define your application routes per the DSL in https://guides.rubyonrails.org/routing.html
 
@@ -94,7 +95,7 @@ Rails.application.routes.draw do
     get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
     get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
     resources :refunds, only: [:new, :create]
-    resources :users, only: [:show, :edit, :update] do
+    resources :users, only: [:show, :edit, :update, :destroy] do
       resources :products, only: :index, controller: "users/products"
       get :synchronizations, to: "users/synchronizations#show", on: :member
       put :product_activations, to: "users/product_activations#update", on: :member
@@ -106,6 +107,7 @@ Rails.application.routes.draw do
     post '/users/:id/follow', to: "users#follow", as: "follow_user"
     post '/users/:id/unfollow', to: "users#unfollow", as: "unfollow_user"
     get "search", to: "search_results#index"
+    
     resources :notifications, only: [:index] do
       member do
         get :mark_as_read

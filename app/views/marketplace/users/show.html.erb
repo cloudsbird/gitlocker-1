@@ -156,19 +156,22 @@
 </section>
 </main>
 <main class="pb-4 pt-6 sm:pb-6">
-	<div class="space-y-16 py-16 xl:space-y-20">
-		<!-- Creators list-->
-		<div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-			<div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-				<b>User <%= @user.name %> products :</b>
-				<% if @user.products.empty? %>
-					<p class="font-medium leading-7 text-gray-900 text-xl">The user has no listed products for sale.</p>
-				<% else %>
-					<ul role="list" class="mt-6 grid grid-cols-1 gap-x-6 gap-y-8 lg:grid-cols-3 xl:gap-x-8">
-						<%= render partial: "marketplace/creators/product", collection: @user.products, as: :product %>
-					</ul>
-				<% end %>
-			</div>
-		</div>
-	</div>
+  <div class="space-y-16 py-16 xl:space-y-20">
+    <!-- Creators list-->
+    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+      <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
+        <b><%= @user.name %> Listed Products :</b>
+        <% if @products.empty? %>
+          <p class="font-medium leading-7 text-gray-900 text-xl">The user has no listed products for sale.</p>
+        <% else %>
+          <ul role="list" class="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0">
+            <%= render partial: "products/product", collection: @products, as: :product %>
+          </ul>
+           <div class="mt-4">
+            <%= render 'kaminari/tailwind/paginator', paginator: @products %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
 </main>
