@@ -3,8 +3,8 @@
     <%= select_tag :creator_sort_by, options_for_select([
       ['Sort By Most Total Earnings', 'total_earnings'],
       ['Sort By Newest To Oldest Users', 'newest'],
-      ['Sort By oldest To Newest Users', 'oldest'],
-      ['Sort By most Followers', 'most_followers'],
+      ['Sort By Oldest To Newest Users', 'oldest'],
+      ['Sort By Most Followers', 'most_followers'],
       ['Sort Alphabetically By Name', 'name_asc'],
       ['Sort Alphabetically By Github Username', 'github_username_asc']
     ], params[:creator_sort_by]), prompt: 'Sort Creator By', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
