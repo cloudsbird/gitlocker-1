@@ -5,6 +5,7 @@ module Marketplace
 
     def show
       @user = User.friendly.find(params[:id])
+      @products = @user.products.published.page(params[:page]).per(15)
       @languages = @user.languages
       @categories = @user.categories
     end
@@ -59,6 +60,42 @@ module Marketplace
      
       @user.destroy
       redirect_to root_path, notice: 'Account was successfully deleted.'
+    end
+
+    private
+
+    def user_params
+      params.require(:user).permit(:username, :email, :name, :profile_picture, :bio, :location, :company, :facebook_url, :instagram_url, :linkedin_url, :youtube_url, category_ids: [], language_ids: [])
+    end
+
+    def set_user
+      @user = User.friendly.find(params[:id])
+    end
+
+    def follow
+      @user = User.friendly.find(params[:id])
+      current_user.followees << @user
+      FollowNotification.create!(recipient: @user, follower: current_user)
+      redirect_back(fallback_location: marketplace_user_path(@user))
+    end
+
+    def unfollow
+      @user = User.friendly.find(params[:id])
+      current_user.followed_users.find_by(followee_id: @user.id).destroy
+      redirect_back(fallback_location: marketplace_user_path(@user))
+    end
+
+    def followers
+      @followers = @user.followers
+    end
+
+    def followees
+      @followees = @user.followees
+    end
+
+    def destroy
+      @user.destroy
+      redirect_to root_path, notice: 'Account is successfully deleted.'
     end
 
     private
