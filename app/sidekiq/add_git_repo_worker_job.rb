@@ -7,6 +7,8 @@ class AddGitRepoWorkerJob
     @product = Product.unscoped.find(params[:product_id])
     @product_url = "#{ENV["BASE_URL"]}/marketplace/l/#{@product&.slug}"
     @current_user = User.find(params[:user_id])
+    @file_path = params[:file_path] || ""
+
     @octokit_client ||= Octokit::Client.new(access_token: @current_user.token)
     if action=="update"
       update params
@@ -30,9 +32,20 @@ class AddGitRepoWorkerJob
         @product.repo_id = matching_repo.id
         @archive_path = DownloadRepoAsZip.new.start(owner, repo_name, 'main', @current_user.token, @product)
       else
+       
         # UserMailer.repo_added(@product, @product.user, "created", @product_url, "Failed to create product. Repository not found or does not belong to you. Github:- #{ params[:product][:product_url] }").deliver_now
         puts 'Failed to create product. Repository not found or does not belong to you.'
         return
+      end
+
+    else
+      if @file_path.present?
+
+        @product.folder.attach(
+              io: File.open(@file_path), 
+              filename: "#{@product.name.gsub(' ', '_')}.zip", 
+              content_type: 'application/zip'
+          )
       end
     end
 
@@ -84,12 +97,27 @@ class AddGitRepoWorkerJob
   end
 
   def update params
-    if params[:product][:product_url].present? && @product.folder.attachments.nil?
+    repositories_count = @octokit_client.user.public_repos + @octokit_client.user.total_private_repos
+
+    if params[:product][:product_url].present?
       repo_url = params[:product][:product_url]
       owner, repo_name = extract_owner_and_repo_name(repo_url)
       user_repos = @octokit_client.repositories(nil, per_page: repositories_count)
       @archive_path = DownloadRepoAsZip.new.start(owner, repo_name, 'main', @current_user.token, @product)
+
+    else
+
+      if @file_path.present?
+        @product.folder.attach(
+              io: File.open(@file_path), 
+              filename: "#{@product.name.gsub(' ', '_')}.zip", 
+              content_type: 'application/zip'
+          )
+      end
+
     end
+
+    
     @product.published = true
     @product.active = true
 
