@@ -44,7 +44,9 @@
               <a href="https://github.com/<%= @user.username %>" target="_blank" class="bg-gray-500 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 hover:text-black">
                 Visit my GitHub profile
               </a>
-              <%= mail_to @user.email, "Email Me", class="bg-gray-500 active:bg-gray-600 uppercase text-white font-bold hover:shadow-md shadow text-xs px-4 py-2 rounded outline-none focus:outline-none sm:mr-2 mb-1 ease-linear transition-all duration-150 hover:text-black" %>
+               <%= mail_to "#{@user.email}" do %>
+                <span class="sr-only">Email</span>
+              <% end %>
             </section>
           </div>
           <div class="w-full lg:w-4/12 px-4 lg:order-1">
