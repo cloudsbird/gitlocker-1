@@ -1,4 +1,4 @@
-<div class="bg-slate-200">
+<div class="bg-slate-400">
   <%=
     render BreadcrumbComponent.new(current_user,[
       { text: "Languages", url: marketplace_browse_languages_path },
@@ -8,7 +8,7 @@
   <main>
     <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
       <h2 class="text-3xl font-semibold mb-4 text-center underline"><%= @language.name %> Language Products</h2>
-      <div class="bg-slate-200">
+      <div class="bg-slate-400">
       <%= image_tag("languages/#{@language.image_name}", class: "h-32 w-48 object-cover object-center mx-auto") %>
     </div>
       <div class="mt-4 flow-root">
