@@ -2,6 +2,8 @@ require 'zip'
 require 'tempfile'
 require 'aws-sdk-s3'
 require 'open3'
+require 'fileutils'
+
 class ProductsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_product, only: [:like, :unlike]
@@ -43,13 +45,25 @@ class ProductsController < ApplicationController
     if uploaded_file
       Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
         temp_file.write(uploaded_file.read)
-  
         temp_file.flush
         temp_file.close
-  
-        # Set the file path for the worker
-        file_path = temp_file.path
+      
+        file_path = Rails.root.join('public', 'assets', File.basename(temp_file.path))
+      
+        FileUtils.mv(temp_file.path, file_path)
+      
+        puts "File moved to: #{file_path}"
       end
+
+      # Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
+      #   temp_file.write(uploaded_file.read)
+  
+      #   temp_file.flush
+      #   temp_file.close
+  
+      #   # Set the file path for the worker
+      #   file_path = temp_file.path
+      # end
     end
     product_params_without_file = product_params.dup
 
@@ -83,21 +97,79 @@ class ProductsController < ApplicationController
   end
 
   def create
-  
+
+
+    # boost_price = product_params[:boost_price].to_d
+    # unit_amount = (boost_price * 100).to_i
+    
+    # line_items = [{
+    #   price_data: {
+    #     currency: 'usd',
+    #     product_data: {
+    #       name: 'Boost Price',
+    #     },
+    #     unit_amount: unit_amount,
+    #   },
+    #   quantity: 1,
+    # }]
+
+    # session = Stripe::Checkout::Session.create(
+    #   payment_method_types: ['card'],
+    #   line_items: line_items,
+    #   mode: 'payment',
+    #   automatic_tax: { enabled: true },
+    #   success_url: marketplace_product_boost_success_payment_url(product_id:  current_user.id),
+    #   cancel_url: marketplace_cancel_payment_url,
+    # )
+
+    # payment = Payment.create!(user: current_user, total_cents: 5000, stripe_session_id: session.id)
+    # binding.pry
+    # redirect_to session.url, allow_other_host: true
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     uploaded_file = product_params[:upload_file]
     file_path = ""
   
     if uploaded_file
+
       Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
         temp_file.write(uploaded_file.read)
-  
         temp_file.flush
         temp_file.close
-  
-        # Set the file path for the worker
-        file_path = temp_file.path
+      
+        file_path = Rails.root.join('public', 'assets', File.basename(temp_file.path))
+      
+        FileUtils.mv(temp_file.path, file_path)
+      
+        puts "File moved to: #{file_path}"
       end
+
+      
+      # Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
+      #   temp_file.write(uploaded_file.read)
+  
+      #   temp_file.flush
+      #   temp_file.close
+  
+      #   # Set the file path for the worker
+      #   file_path = temp_file.path
+      # end
     end
     product_params_without_file = product_params.dup
 
@@ -149,7 +221,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      :name, :description, :price, :active, :published, :category_ids,:preview_video_url, :video_file,:upload_file, :features, :instructions, :requirements, :demo_url,
+      :name, :description, :price,:boost_price, :active, :published, :category_ids,:preview_video_url, :video_file,:upload_file, :features, :instructions, :requirements, :demo_url,
       covers: [],
       product_categories_attributes: [:id, :active],
       covers_attributes: [:id, :image]
