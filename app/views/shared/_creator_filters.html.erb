@@ -1,12 +1,12 @@
 <%= form_with url: marketplace_creators_path, method: :get, local: true, id: 'filter_form' do %>
   <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
     <%= select_tag :creator_sort_by, options_for_select([
-      ['Sort by most total earnings', 'total_earnings'],
-      ['Sort by newest to oldest users', 'newest'],
-      ['Sort by oldest to newest users', 'oldest'],
-      ['Sort by most followers', 'most_followers'],
-      ['Sort alphabetically by name', 'name_asc'],
-      ['Sort alphabetically by github username', 'github_username_asc']
+      ['Sort By Most Total Earnings', 'total_earnings'],
+      ['Sort By Newest To Oldest Users', 'newest'],
+      ['Sort By Oldest To Newest Users', 'oldest'],
+      ['Sort By Most Followers', 'most_followers'],
+      ['Sort Alphabetically By Name', 'name_asc'],
+      ['Sort Alphabetically By Github Username', 'github_username_asc']
     ], params[:creator_sort_by]), prompt: 'Sort Creator By', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
 
     <%= submit_tag 'Apply Filters', class: 'btn btn-primary bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' %>
