@@ -1,11 +1,11 @@
 module Marketplace
   class BrowseController < ApplicationController
     def index
-      @products = apply_filters_and_sort(Product.exclude_purchased(current_user)).page(params[:page]).per(20)
+      @products = apply_filters_and_sort(Product.exclude_purchased(current_user)).page(params[:page]).per(50)
     end
 
     def popular
-      @products = apply_filters_and_sort(Product.exclude_purchased(current_user).order(purchases_count: :desc)).page(params[:page]).per(20)
+      @products = apply_filters_and_sort(Product.exclude_purchased(current_user).order(purchases_count: :desc)).page(params[:page]).per(50)
     end
 
   def featured
