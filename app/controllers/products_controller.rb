@@ -36,8 +36,29 @@ class ProductsController < ApplicationController
   end
 
   def update
+
+    uploaded_file = product_params[:upload_file]
+    file_path = ""
+  
+    if uploaded_file
+      Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
+        temp_file.write(uploaded_file.read)
+  
+        temp_file.flush
+        temp_file.close
+  
+        # Set the file path for the worker
+        file_path = temp_file.path
+      end
+    end
+    product_params_without_file = product_params.dup
+
+    product_params_without_file.delete(:upload_file)
+    # product_params_with_user = product_params_without_file.merge(user_id: current_user.id)
+
+
     @product = current_user.products.friendly.find(params[:id])
-    @product.update(product_params)
+    @product.update(product_params_without_file)
     @product.categories.destroy_all
     if params[:product][:category_ids].present?
       category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
@@ -46,6 +67,8 @@ class ProductsController < ApplicationController
     end
     params[:user_id]=current_user.id
     params[:product_id] = @product.id
+    params[:file_path] = file_path
+
     AddGitRepoWorkerJob.perform_async(params.to_json, "update")
     render json: { message: 'Your file was large so we are finishing updating it in the background. You will be notified when it is on the market.' }, status: :ok 
   
@@ -60,11 +83,33 @@ class ProductsController < ApplicationController
   end
 
   def create
-    product_params_with_user = product_params.merge(user_id: current_user.id)
+  
+
+    uploaded_file = product_params[:upload_file]
+    file_path = ""
+  
+    if uploaded_file
+      Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
+        temp_file.write(uploaded_file.read)
+  
+        temp_file.flush
+        temp_file.close
+  
+        # Set the file path for the worker
+        file_path = temp_file.path
+      end
+    end
+    product_params_without_file = product_params.dup
+
+    product_params_without_file.delete(:upload_file)
+    product_params_with_user = product_params_without_file.merge(user_id: current_user.id)
+
     @product = Product.unscoped.new(product_params_with_user)
     if @product.save
       params[:user_id]=current_user.id
       params[:product_id] = @product.id
+      params[:file_path] = file_path
+
       AddGitRepoWorkerJob.perform_async(params.to_json)
       render json: { message: 'Your file was large so we are finishing uploading it in the background. You will be notified when it is on the market.' }, status: :ok
     else
@@ -104,7 +149,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      :name, :description, :price, :active, :published, :category_ids,:preview_video_url, :video_file, :features, :instructions, :requirements, :demo_url,
+      :name, :description, :price, :active, :published, :category_ids,:preview_video_url, :video_file,:upload_file, :features, :instructions, :requirements, :demo_url,
       covers: [],
       product_categories_attributes: [:id, :active],
       covers_attributes: [:id, :image]

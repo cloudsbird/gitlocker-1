@@ -9,6 +9,9 @@ module Marketplace
     end
 
   def featured
+    @products = Product.order(purchases_count: :desc).page(params[:page]).per(50)
+    # binding.pry
+    @products
   end
 
   def recent
