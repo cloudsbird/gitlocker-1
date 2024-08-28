@@ -16,3 +16,15 @@
 .cke_notifications_area{
     display: none !important;
 }
+
+.upload_repo_zip {
+    margin-top: -30px;
+    position: relative;
+}
+
+#zip-upload-field {
+    display: flex;
+    justify-content: start;
+    align-items: start;
+    gap: 18px;
+}

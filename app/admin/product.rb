@@ -27,7 +27,7 @@ ActiveAdmin.register Product do
       end
     end
   end
-  permit_params :name, :slug, :price_cents, :user_id, :published, :folder, :video_file, :refund_id, 
+  permit_params :name, :slug, :price_cents, :user_id, :published, :folder, :video_file, :refund_id, :upload_file,
                 category_ids: [], language_ids: [], covers: [], 
                 product_categories_attributes: [:id, :category_id, :active, :_destroy],
                 product_languages_attributes: [:id, :language_id, :active, :_destroy]
@@ -57,6 +57,8 @@ ActiveAdmin.register Product do
       f.input :published
       f.input :folder, as: :file
       f.input :video_file, as: :file
+      f.input :upload_file, as: :file
+
       f.input :covers, as: :file, input_html: { multiple: true }
       f.input :categories, as: :check_boxes, collection: Category.all
       f.input :languages, as: :check_boxes, collection: Language.all

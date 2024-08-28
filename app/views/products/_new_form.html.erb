@@ -1,6 +1,6 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
 <div class="add_product_form bg-slate-400 p-4 min-h-screen min-w-full">
-<%= form_for @product, url: products_path, class: "bg-slate-200", data: {turbo: false, remote: true }, html: { id: "product-form" } do |f| %>
+<%= form_for @product, url: products_path, class: "bg-slate-200", data: {turbo: false, remote: true }, html: { id: "product-form",multipart: true } do |f| %>
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
       <h1 class="font-semibold leading-7 text-gray-900 text-3xl underline">Product Information</h1>
@@ -16,6 +16,24 @@
             <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL" %>
           </div>
         </div>
+        <div class="upload_repo_zip sm:col-span-4">
+      <div class="sm:col-span-4 text-center">
+        <span class="text-gray-500 font-medium">OR</span>
+      </div>
+        <!-- New Upload ZIP File Field -->
+      <!-- New Upload ZIP File Field -->
+  <div class="sm:col-span-4" id="zip-upload-field">
+    <%= f.label :upload_file, "Upload ZIP File", class: "block text-sm font-medium leading-6 text-gray-900" %>
+    <div class="mt-0">
+      <%= f.file_field :upload_file, class: "form-control", id: "upload_file", accept: ".zip" %>
+      <h6 class="text-sm">(Only .zip files are allowed)</h6>
+      <button id="clear_file" type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+        Clear
+      </button>
+    </div>
+  </div>
+  
+  </div>
 
         <div class="sm:col-span-4">
           <%= f.label :name, class: "block text-sm font-medium leading-6 text-gray-900" %>
@@ -177,6 +195,38 @@
     }
   }
   $(document).ready(function() {
+
+
+
+     $('#upload_file').on('change', function() {
+    var file = $(this).prop('files')[0];
+    if (file && file.type === 'application/zip') {
+      $('#url-field input').prop('disabled', true);
+       $('#clear-icon-container').removeClass('hidden'); 
+    } else {
+      $('#url-field input').prop('disabled', false);
+    }
+  });
+
+  $('#url-field input').on('input', function() {
+    var url = $(this).val();
+    if (url.trim() !== '') {
+      $('#upload_file').prop('disabled', true);
+      $('#clear-icon-container').addClass('hidden'); 
+
+    } else {
+      $('#upload_file').prop('disabled', false);
+
+    }
+  });
+
+  $('#clear_file').on('click', function() {
+    $('#upload_file').val('');
+    $('#url-field input').prop('disabled', false);
+    $('#upload_file').prop('disabled', false);
+  });
+
+
     toggleVideoFields();
     $("#product_video_source").change(function() {
       toggleVideoFields();
@@ -208,6 +258,14 @@
             }
         }
         formData.append('product[price]', $('#product_price').val());
+
+         const upload_file = document.getElementById('upload_file');
+        const product_upload_file_file = upload_file.files[0];
+        if (product_upload_file_file) {
+            formData.append('product[upload_file]', product_upload_file_file);
+            $('#product_url').val('')
+        }
+
         formData.append('product[product_url]', $('#product_url').val());
         formData.append('product[demo_url]', $('#product_demo_url').val());
         var coverImages = $('#covers')[0].files;
@@ -220,6 +278,9 @@
         if (product_file) {
             formData.append('product[video_file]', product_file);
         }
+
+        
+
         formData.append('product[preview_video_url]', $('#product_preview_video_url').val());
 
         if (selectedCategories && selectedCategories.length > 0) {

@@ -11,9 +11,26 @@
           <div class="sm:col-span-4" id= "url-field">
             <%= f.label :url,"GitHub Private Repository URL", class: "block text-sm font-medium leading-6 text-gray-900" %>
             <div class="mt-2">
-              <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL", readonly: true %>
+              <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL", readonly: false %>
             </div>
           </div>
+    <div class="upload_repo_zip sm:col-span-4">
+      <div class="sm:col-span-4 text-center2">
+        <span class="text-gray-500 font-medium">OR</span>
+      </div>
+      <!-- New Upload ZIP File Field -->
+      <div class="sm:col-span-4" id="zip-upload-field">
+        <%= f.label :upload_file, "Upload ZIP File", class: "block text-sm font-medium leading-6 text-gray-900" %>
+        <div class="mt-2">
+          <%= f.file_field :upload_file, class: "form-control", id: "upload_file", accept: ".zip" %>
+          <h1>(Only .zip files are allowed)</h1>
+          <button id="clear_file" type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none">
+            Clear
+          </button>
+        </div>
+      </div>
+    </div>
+
 
           <div class="sm:col-span-4">
             <%= f.label :name, class: "block text-sm font-medium leading-6 text-gray-900" %>
@@ -184,6 +201,40 @@
     }
   }
   $(document).ready(function() {
+
+
+
+
+     $('#upload_file').on('change', function() {
+    var file = $(this).prop('files')[0];
+    if (file && file.type === 'application/zip') {
+      $('#url-field input').prop('disabled', true);
+      $('#clear-icon-container').removeClass('hidden');
+    } else {
+      $('#url-field input').prop('disabled', false);
+    }
+  });
+
+  $('#url-field input').on('input', function() {
+    var url = $(this).val();
+    if (url.trim() !== '') {
+      $('#upload_file').prop('disabled', true);
+      $('#clear-icon-container').addClass('hidden'); 
+
+    } else {
+      $('#upload_file').prop('disabled', false);
+
+    }
+  });
+
+  $('#clear_file').on('click', function() {
+    $('#upload_file').val('');
+    $('#url-field input').prop('disabled', false);
+    $('#upload_file').prop('disabled', false);
+  });
+
+
+
     toggleVideoFields();
     $("#product_video_source").change(function() {
       toggleVideoFields();
@@ -224,6 +275,14 @@
           }
       }
       formData.append('product[price]', $('#product_price').val());
+
+      const upload_file = document.getElementById('upload_file');
+        const product_upload_file_file = upload_file.files[0];
+        if (product_upload_file_file) {
+            formData.append('product[upload_file]', product_upload_file_file);
+            $('#product_url').val('')
+        }
+
       formData.append('product[product_url]', $('#product_url').val());
       var coverImages = $('#covers')[0].files;
       $.each(coverImages, function(index, image) {
@@ -235,6 +294,11 @@
       if (product_file) {
         formData.append('product[video_file]', product_file);
       }
+
+      
+
+
+
       formData.append('product[preview_video_url]', $('#product_preview_video_url').val());
       formData.append('product[demo_url]', $('#product_demo_url').val());
       
