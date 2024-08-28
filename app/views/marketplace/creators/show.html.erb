@@ -170,7 +170,7 @@
         <% if @products.empty? %>
           <p class="font-medium leading-7 text-gray-900 text-xl">The user has no listed products for sale.</p>
         <% else %>
-          <ul role="list" class="grid grid-cols-5 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0">
+          <ul role="list" class="grid sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0">
             <%= render partial: "products/product", collection: @products, as: :product %>
           </ul>
            <div class="mt-4">
