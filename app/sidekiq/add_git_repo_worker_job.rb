@@ -39,14 +39,14 @@ class AddGitRepoWorkerJob
       end
 
     else
-      if @file_path.present?
+      # if @file_path.present?
 
-        @product.folder.attach(
-              io: File.open(@file_path), 
-              filename: "#{@product.name.gsub(' ', '_')}.zip", 
-              content_type: 'application/zip'
-          )
-      end
+      #   @product.folder.attach(
+      #         io: File.open(@file_path), 
+      #         filename: "#{@product.name.gsub(' ', '_')}.zip", 
+      #         content_type: 'application/zip'
+      #     )
+      # end
     end
 
     if params[:product][:category_ids].present?
@@ -107,13 +107,13 @@ class AddGitRepoWorkerJob
 
     else
 
-      if @file_path.present?
-        @product.folder.attach(
-              io: File.open(@file_path), 
-              filename: "#{@product.name.gsub(' ', '_')}.zip", 
-              content_type: 'application/zip'
-          )
-      end
+      # if @file_path.present?
+      #   @product.folder.attach(
+      #         io: File.open(@file_path), 
+      #         filename: "#{@product.name.gsub(' ', '_')}.zip", 
+      #         content_type: 'application/zip'
+      #     )
+      # end
 
     end
 

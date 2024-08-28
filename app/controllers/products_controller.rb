@@ -42,29 +42,7 @@ class ProductsController < ApplicationController
     uploaded_file = product_params[:upload_file]
     file_path = ""
   
-    if uploaded_file
-      Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
-        temp_file.write(uploaded_file.read)
-        temp_file.flush
-        temp_file.close
-      
-        file_path = Rails.root.join('public', 'assets', File.basename(temp_file.path))
-      
-        FileUtils.mv(temp_file.path, file_path)
-      
-        puts "File moved to: #{file_path}"
-      end
-
-      # Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
-      #   temp_file.write(uploaded_file.read)
-  
-      #   temp_file.flush
-      #   temp_file.close
-  
-      #   # Set the file path for the worker
-      #   file_path = temp_file.path
-      # end
-    end
+    
     product_params_without_file = product_params.dup
 
     product_params_without_file.delete(:upload_file)
@@ -73,6 +51,22 @@ class ProductsController < ApplicationController
 
     @product = current_user.products.friendly.find(params[:id])
     @product.update(product_params_without_file)
+
+
+      if uploaded_file
+
+      Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
+        temp_file.write(uploaded_file.read)
+        temp_file.flush
+        temp_file.close
+        @product.folder.attach(
+          io: File.open(temp_file.path), 
+          filename: "#{@product.name.gsub(' ', '_')}.zip",
+          content_type: 'application/zip'
+        )
+      end
+    end
+
     @product.categories.destroy_all
     if params[:product][:category_ids].present?
       category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
@@ -146,31 +140,6 @@ class ProductsController < ApplicationController
     uploaded_file = product_params[:upload_file]
     file_path = ""
   
-    if uploaded_file
-
-      Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
-        temp_file.write(uploaded_file.read)
-        temp_file.flush
-        temp_file.close
-      
-        file_path = Rails.root.join('public', 'assets', File.basename(temp_file.path))
-      
-        FileUtils.mv(temp_file.path, file_path)
-      
-        puts "File moved to: #{file_path}"
-      end
-
-      
-      # Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
-      #   temp_file.write(uploaded_file.read)
-  
-      #   temp_file.flush
-      #   temp_file.close
-  
-      #   # Set the file path for the worker
-      #   file_path = temp_file.path
-      # end
-    end
     product_params_without_file = product_params.dup
 
     product_params_without_file.delete(:upload_file)
@@ -178,6 +147,21 @@ class ProductsController < ApplicationController
 
     @product = Product.unscoped.new(product_params_with_user)
     if @product.save
+      uploaded_file = product_params[:upload_file]
+      if uploaded_file
+
+      Tempfile.open(['uploaded_file', File.extname(uploaded_file.original_filename)], binmode: true) do |temp_file|
+        temp_file.write(uploaded_file.read)
+        temp_file.flush
+        temp_file.close
+        @product.folder.attach(
+          io: File.open(temp_file.path), 
+          filename: "#{@product.name.gsub(' ', '_')}.zip",
+          content_type: 'application/zip'
+        )
+      end
+    end
+
       params[:user_id]=current_user.id
       params[:product_id] = @product.id
       params[:file_path] = file_path
