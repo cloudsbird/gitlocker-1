@@ -30,6 +30,9 @@
               <!-- Search -->
               <div class="grow flex justify-center">
                 <form action="/marketplace/search" method="get" class="w-full flex items-center space-x-4">
+                  <!-- Hidden field to carry the filter type -->
+                  <input type="hidden" name="filter_by_type" value="<%= params[:filter_by_type] %>">
+
                   <div class="relative w-full">
                     <input
                       type="text"
@@ -47,6 +50,7 @@
                   </div>
                 </form>
               </div>
+
 
               <!-- Cart -->
               <div>
