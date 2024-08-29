@@ -16,8 +16,10 @@
           <div class="relative box-content overflow-x-auto py-2 xl:overflow-visible">
             <% if @language.products.any? %>
               <h2 class="text-3xl font-semibold mb-4 underline">List of Products</h2>
-
-              <div class="absolute mt-4 flex flex-wrap justify-center gap-4 sm:px-6 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+              <div class="pb-6">
+              <%= render partial: 'shared/productFilter' %>
+              </div>
+              <div class="absolute mt-4 flex flex-wrap justify-center gap-4 sm:px-6 sm:grid-cols-2 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
                 <% @language.products.each do |product| %>
                   <%= render partial: "home/product", locals: { product: product } %>
                 <% end %>
