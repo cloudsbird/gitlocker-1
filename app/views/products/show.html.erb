@@ -132,14 +132,14 @@
         <% if @product.description.present? %>
           <div class="flex flex-col gap-4">
             <h1 class="text-2xl text-bold underline text-gray-900 font-mono">Description:</h1>
-            <p class="text-sm text-gray-500 font-mono"><%= sanitize @product.description %></p>
+            <p class="text-sm text-gray-500"><%= sanitize @product.description %></p>
           </div>
           <div class="w-full border-t border-gray-200"></div>
         <% end %>
 
         <% if @product.features.present? %>
           <div class="flex flex-col gap-4">
-            <h1 class="text-2xl text-bold underline text-gray-900">Features:</h1>
+            <h1 class="text-2xl text-bold underline text-gray-900 font-mono">Features:</h1>
             <p class="text-sm text-gray-500"><%= sanitize @product.features %></p>
           </div>
           <div class="w-full border-t border-gray-200"></div>
@@ -147,7 +147,7 @@
 
         <% if @product.requirements.present? %>
           <div class="flex flex-col gap-4">
-            <h1 class="text-2xl text-bold underline text-gray-900">Requirements:</h1>
+            <h1 class="text-2xl text-bold underline text-gray-900 font-mono">Requirements:</h1>
             <p class="text-sm text-gray-500"><%= sanitize @product.requirements %></p>
           </div>
           <div class="w-full border-t border-gray-200"></div>
@@ -155,7 +155,7 @@
 
         <% if @product.instructions.present? %>
           <div class="flex flex-col gap-4">
-            <h1 class="text-2xl text-bold underline text-gray-900">Instructions:</h1>
+            <h1 class="text-2xl text-bold underline text-gray-900 font-mono">Instructions:</h1>
             <p class="text-sm text-gray-500"><%= sanitize @product.instructions %></p>
           </div>
           <div class="w-full border-t border-gray-200"></div>
