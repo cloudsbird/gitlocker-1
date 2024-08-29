@@ -1,5 +1,5 @@
 <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16 bg-slate-400 min-h-screen min-w-full">
-  <%= form_with model: @user, url: marketplace_user_path(@user), method: :put, data: { turbo: false } do |f| %>
+  <%= form_with model: @user, url: marketplace_user_path(@user), method: :put, local: true do |f| %>
     <div class="space-y-12">
       <div class="flex justify-start mb-4">
         <%= button_to marketplace_user_path(@user), method: :delete, data: { turbo_confirm: "Are you sure you want to delete your account? This action cannot be undone." }, class: " cursor-pointer bg-red-600 text-white rounded-md px-3 py-2 text-sm font-semibold shadow-sm hover:bg-red-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-red-600" do %>
@@ -112,12 +112,11 @@
           </div>
         </div>
       </div>
+      <div class="mt-6 flex justify-end items-center gap-x-4">
+        <%= link_to "Cancel", marketplace_user_path(@user), class: "text-sm font-semibold leading-6 text-gray-900" %>
+        <%= f.submit "Update", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
+      </div>
     </div>
 
-    <!-- Cancel and Update buttons aligned on the right side -->
-    <div class="mt-6 flex justify-end items-center gap-x-4">
-      <%= link_to "Cancel", marketplace_user_path(@user), class: "text-sm font-semibold leading-6 text-gray-900" %>
-      <%= f.submit "Update", class: "rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600" %>
-    </div>
   <% end %>
 </div>

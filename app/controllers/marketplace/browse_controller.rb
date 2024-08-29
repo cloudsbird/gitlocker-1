@@ -42,7 +42,7 @@ module Marketplace
       resource = resource.where(category_id: filter_params[:category]) if filter_params[:category].present?
       resource = resource.where(language_id: filter_params[:language]) if filter_params[:language].present?
 
-      # Apply sorting based on criteria
+      
       case filter_params[:sort_by]
       when 'alphabetical_asc'
         resource.order(name: :asc)
@@ -50,6 +50,16 @@ module Marketplace
         resource.order(name: :desc)
       when 'oldest'
         resource.order(created_at: :asc)
+      when 'cheapest'
+        resource.order(price_cents: :asc)
+      when 'most_expensive'
+        resource.order(price_cents: :desc)
+      when 'most_likes'
+        resource.left_joins(:likes)
+                .group('products.id')
+                .order('COUNT(likes.id) DESC NULLS LAST')
+      when 'most_recent'
+        resource.order(created_at: :desc)
       else
         resource.order(name: :asc) # Default sorting
       end.page(params[:page]).per(50)

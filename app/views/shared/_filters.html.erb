@@ -1,49 +1,93 @@
 <%= form_with url: url_for(request.query_parameters.merge(search: params[:search])), method: :get, local: true, id: 'filter_form' do %>
   <%= hidden_field_tag :search, params[:search] %>
 
-  <!-- Flex container to align the two filters side by side -->
   <div class="flex space-x-4 mb-4">
     
-    <!-- First Filter Set: Filter by Type (Products, Creators, Categories, Languages) -->
     <div class="w-full sm:w-auto">
       <%= select_tag :filter_by_type, options_for_select([
         ['Products', 'products'],
         ['Creators', 'creators'],
         ['Categories', 'categories'],
         ['Languages', 'languages']
-      ], params[:filter_by_type]), prompt: 'Filter by Type', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
+      ], params[:filter_by_type].presence || 'products'), prompt: 'Filter by Type', id: 'filter_by_type', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
     </div>
 
-    <!-- Second Filter Set: Sorting (a-z, z-a, cheapest, most expensive, etc.) -->
     <div class="w-full sm:w-auto">
-      <%# Conditional rendering for sorting options based on the selected type %>
-      <% if ['creators', 'languages', 'categories'].include?(params[:filter_by_type]) %>
-        <!-- Show only relevant filters for creators, languages, and categories -->
-        <%= select_tag :sort_by, options_for_select([
-          ['Sort Alphabetically A-Z', 'alphabetical_asc'],
-          ['Sort Alphabetically Z-A', 'alphabetical_desc'],
-          ['Sort by Most Likes', 'most_likes'],
-          ['Sort by Most Recent', 'most_recent'],
-          ['Sort by Oldest', 'oldest']
-        ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-      <% else %>
-        <!-- Show all filters for "Products" (which is product-based) -->
-        <%= select_tag :sort_by, options_for_select([
-          ['Sort Alphabetically A-Z', 'alphabetical_asc'],
-          ['Sort Alphabetically Z-A', 'alphabetical_desc'],
-          ['Sort Cheapest to Most Expensive', 'cheapest'],
-          ['Sort Most Expensive to Cheapest', 'most_expensive'],
-          ['Sort by Most Likes', 'most_likes'],
-          ['Sort by Most Recent', 'most_recent'],
-          ['Sort by Oldest', 'oldest']
-        ], params[:sort_by]), prompt: 'Sort By', class: 'form-select block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
-      <% end %>
+      <%= select_tag :sort_by, nil, prompt: 'Sort By', id: 'sort_by', class: 'form-select block w-full py-2 px-9 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm' %>
     </div>
 
-    <!-- Submit Button for Applying Filters -->
     <div>
       <%= submit_tag 'Apply Filters', class: 'btn btn-primary bg-indigo-600 text-white py-2 px-4 rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2' %>
     </div>
 
   </div>
 <% end %>
+<script type="text/javascript">
+  document.addEventListener('turbo:load', () => {
+  const filterByTypeSelect = document.getElementById('filter_by_type');
+  const sortBySelect = document.getElementById('sort_by');
+  const searchInput = document.getElementById('productSearch');
+
+  const sortingOptions = {
+    'products': [
+      { value: 'alphabetical_asc', text: 'Sort Alphabetically A-Z' },
+      { value: 'alphabetical_desc', text: 'Sort Alphabetically Z-A' },
+      { value: 'cheapest', text: 'Sort Cheapest to Most Expensive' },
+      { value: 'most_expensive', text: 'Sort Most Expensive to Cheapest' },
+      { value: 'most_likes', text: 'Sort by Most Likes' },
+      { value: 'most_recent', text: 'Sort by Most Recent' },
+      { value: 'oldest', text: 'Sort by Oldest' }
+    ],
+    'creators': [
+      { value: 'alphabetical_asc', text: 'Sort Alphabetically A-Z' },
+      { value: 'alphabetical_desc', text: 'Sort Alphabetically Z-A' },
+      { value: 'most_recent', text: 'Sort by Most Recent' },
+      { value: 'oldest', text: 'Sort by Oldest' }
+    ],
+    'categories': [
+      { value: 'alphabetical_asc', text: 'Sort Alphabetically A-Z' },
+      { value: 'alphabetical_desc', text: 'Sort Alphabetically Z-A' },
+      { value: 'most_recent', text: 'Sort by Most Recent' },
+      { value: 'oldest', text: 'Sort by Oldest' }
+    ],
+    'languages': [
+      { value: 'alphabetical_asc', text: 'Sort Alphabetically A-Z' },
+      { value: 'alphabetical_desc', text: 'Sort Alphabetically Z-A' },
+      { value: 'most_recent', text: 'Sort by Most Recent' },
+      { value: 'oldest', text: 'Sort by Oldest' }
+    ]
+  };
+
+  function updateSortOptions() {
+    const selectedFilter = filterByTypeSelect.value || 'products';
+    const options = sortingOptions[selectedFilter] || [];
+    const currentSortByValue = '<%= params[:sort_by].presence || "" %>';
+
+    sortBySelect.innerHTML = '';
+
+    const promptOption = document.createElement('option');
+    promptOption.text = 'Sort By';
+    promptOption.value = '';
+    sortBySelect.appendChild(promptOption);
+
+    options.forEach(option => {
+      const opt = document.createElement('option');
+      opt.value = option.value;
+      opt.text = option.text;
+      sortBySelect.appendChild(opt);
+    });
+
+    // Set the selected value if available
+    sortBySelect.value = currentSortByValue;
+  }
+
+  filterByTypeSelect.addEventListener('change', updateSortOptions);
+
+  searchInput.addEventListener('input', () => {
+    document.querySelector('input[name="filter_by_type"]').value = filterByTypeSelect.value;
+  });
+
+  updateSortOptions();
+});
+
+</script>
