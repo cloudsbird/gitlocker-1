@@ -70,7 +70,7 @@
             <% if @product.price.to_f.round(2) > 0.00 %> 
               <p class="text-3xl font-bold font-mono underline"><%= @product.price.currency.symbol %><%= @product.price %></p>
             <% else %>
-              <p class="text-3xl font-bold px-1 py-1 rounded-xl bg-yellow-500 text-black text-center w-20">Free</p>
+              <p class="text-3xl font-bold px-1 py-1 rounded-xl bg-yellow-500 text-black font-mono text-center w-20">Free</p>
             <% end %>
           </div>
 
@@ -131,8 +131,8 @@
 
         <% if @product.description.present? %>
           <div class="flex flex-col gap-4">
-            <h1 class="text-2xl text-bold underline text-gray-900">Description:</h1>
-            <p class="text-sm text-gray-500"><%= sanitize @product.description %></p>
+            <h1 class="text-2xl text-bold underline text-gray-900 font-mono">Description:</h1>
+            <p class="text-sm text-gray-500 font-mono"><%= sanitize @product.description %></p>
           </div>
           <div class="w-full border-t border-gray-200"></div>
         <% end %>
