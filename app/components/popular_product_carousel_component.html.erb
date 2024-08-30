@@ -54,7 +54,7 @@
 <div class="popular-carousel relative overflow-hidden">
   <div class="carousel-inner1 flex gap-6">
     <% @popular_products.each_with_index do |product, index| %>
-      <div class="carousel-page1 flex-shrink-0 flex-grow-0" style="flex-basis: calc(10%); max-width: calc(10%);" data-page="<%= index + 1 %>">
+      <div class="carousel-page1 flex-shrink-0 flex-grow-0" style="flex-basis: 280px; max-width: 280px; width: 280px;" data-page="<%= index + 1 %>">
         <%= render partial: 'home/product', locals: { product: product } %>
       </div>
     <% end %>
