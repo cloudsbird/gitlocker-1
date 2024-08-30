@@ -3,8 +3,8 @@
 <%= form_for @product, url: products_path, class: "bg-slate-200", data: {turbo: false, remote: true }, html: { id: "product-form",multipart: true } do |f| %>
   <div class="space-y-12">
     <div class="border-b border-gray-900/10 pb-12">
-      <h1 class="font-semibold leading-7 text-gray-900 text-3xl underline">Add a Product</h1>
-      <h2 class="mt-1 text-lg leading-6 text-gray-600">Below is your basic product information.</h2>
+      <h1 class="font-semibold leading-7 text-gray-900 text-3xl underline text-mono">Add a Product</h1>
+      <h2 class="mt-1 text-lg leading-6 text-gray-600 text-mono">Below is your basic product information.</h2>
 
       <%= render partial: 'products/import_table', locals: { filtered_repos: @filtered_repos } %>
 
