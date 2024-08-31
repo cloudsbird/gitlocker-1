@@ -67,20 +67,16 @@
   const prevButton = document.querySelector('[data-carousel-prev]');
   const nextButton = document.querySelector('[data-carousel-next]');
   const carouselInner = document.querySelector('.carousel-inner');
-  const carouselPages = Array.from(document.querySelectorAll('.carousel-page'));
-  const itemsPerPage = 1; // Number of items to scroll at a time
-
+  const carouselPages = document.querySelectorAll('.carousel-page');
+  const itemsPerPage = 5; // Show 5 items per page
   let currentIndex = 0;
 
   const updateControlsVisibility = () => {
     prevButton.style.display = currentIndex === 0 ? 'none' : 'block';
-
-    nextButton.style.display = currentIndex >= carouselPages.length - 1 ? 'none' : 'block';
+    nextButton.style.display = (currentIndex + itemsPerPage) >= carouselPages.length ? 'none' : 'block';
   };
 
   const scrollToIndex = (index) => {
-    if (index < 0 || index >= carouselPages.length) return;
-
     const targetPage = carouselPages[index];
     if (targetPage) {
       carouselInner.scrollTo({
@@ -93,18 +89,20 @@
   };
 
   const handleScroll = (direction) => {
-
-    let newIndex = currentIndex + direction;
+    let newIndex = currentIndex + direction; // Scroll by one product at a time
 
     // Ensure the new index is within bounds
-    newIndex = Math.max(0, Math.min(newIndex, carouselPages.length - 1));
+    if (newIndex < 0) {
+      newIndex = 0;
+    } else if (newIndex >= carouselPages.length) {
+      newIndex = carouselPages.length - 1; // Ensure we don't go beyond the last product
+    }
+
     scrollToIndex(newIndex);
   };
 
-  // Attach click handlers to buttons
-  prevButton.addEventListener('click', () => handleScroll(-itemsPerPage)); // Scroll left
-  nextButton.addEventListener('click', () => handleScroll(itemsPerPage)); // Scroll right
-
+  prevButton.addEventListener('click', () => handleScroll(-1)); // Scroll left by one
+  nextButton.addEventListener('click', () => handleScroll(1)); // Scroll right by one
 
   // Initialize control visibility on page load
   updateControlsVisibility();
