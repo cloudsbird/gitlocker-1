@@ -50,34 +50,15 @@
 
 </style>
 
-<div class="product-carousel relative overflow-hidden">
-  <div class="carousel-inner flex gap-6">
+<div class="w-full">
+  <div class="slickSlider">
     <% @recent_products.each_with_index do |product, index| %>
-      <div class="carousel-page flex-shrink-0 flex-grow-0" style="flex-basis: 280px; max-width: 280px;" data-page="<%= index + 1 %>">
+      <div class="" style="width: 280px; margin-right: 28px" data-page="<%= index + 1 %>">
         <%= render partial: 'home/product', locals: { product: product } %>
       </div>
     <% end %>
   </div>
 
-  <% if @recent_products.length > 5 %>
-    <!-- Slider controls -->
-    <button type="button" class="carousel-control prev absolute top-1/2 left-0 transform -translate-y-1/2 z-30 flex items-center justify-center h-10 w-10 cursor-pointer group focus:outline-none" data-action="click->carousel#prevSlide" data-carousel-prev>
-      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/20 dark:bg-gray-400/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-        <svg class="w-4 h-4 text-white dark:text-gray-400 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-        </svg>
-        <span class="sr-only">Previous</span>
-      </span>
-    </button>
-    <button type="button" class="carousel-control next absolute top-1/2 right-10 transform -translate-y-1/2 z-30 flex items-center justify-center h-10 w-10 cursor-pointer group focus:outline-none" data-action="click->carousel#nextSlide" data-carousel-next>
-      <span class="inline-flex items-center justify-center w-8 h-8 rounded-full bg-white/30 dark:bg-gray-400/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-        <svg class="w-4 h-4 text-white dark:text-gray-400 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-          <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-        </svg>
-        <span class="sr-only">Next</span>
-      </span>
-    </button>
-  <% end %>
 </div>
 
 <script type="text/javascript">
