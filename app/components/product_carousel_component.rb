@@ -1,7 +1,7 @@
 # app/components/product_carousel_component.rb
 class ProductCarouselComponent < ViewComponent::Base
   def initialize(recent_products)
-    @recent_products=recent_products
+    @recent_products = recent_products
   end
 
   def paginated_products(page: 1, per_page: 5)
