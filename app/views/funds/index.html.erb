@@ -5,7 +5,7 @@
    </div>
   <div class="sm:flex sm:items-center sm:justify-between justify-center">
     <div class="flex gap-4 justify-center items-stretch">
-      <div class="bg-white p-4 rounded shadow-2xl flex border-4">
+      <div class="bg-white p-4 rounded shadow-2xl flex border-4 border-black">
         <% [["Pending", sprintf("$%.2f", @funds)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
@@ -22,7 +22,7 @@
           </div>
         <% end %>
       </div>
-      <div class="bg-white p-4 rounded shadow-2xl flex border-4">
+      <div class="bg-white p-4 rounded shadow-2xl flex border-4 border-black">
         <% [["Available", sprintf("$%.2f", current_user.balance)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
@@ -39,7 +39,7 @@
           </div>
         <% end %>
       </div>
-      <div class="bg-white p-4 rounded shadow-2xl flex border-4">
+      <div class="bg-white p-4 rounded shadow-2xl flex border-4 border-black">
         <% [["Total Earnings", sprintf("$%.2f", current_user.total_earning)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
