@@ -28,6 +28,9 @@
               <p class="text-center text-gray-500">No products available for this category.</p>
             <% end %>
           </div>
+          <div class="mt-4 px-4 sm:px-6 lg:px-8 space-y-8">
+          <%= render 'kaminari/tailwind/paginator', paginator: @products %>
+          </div>
         </div>
       </div>
     </section>
