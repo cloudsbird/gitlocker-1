@@ -5,7 +5,7 @@
    </div>
   <div class="sm:flex sm:items-center sm:justify-between justify-center">
     <div class="flex gap-4 justify-center items-stretch">
-      <div class="bg-white p-4 rounded shadow-2xl flex">
+      <div class="bg-white p-4 rounded shadow-2xl flex border-4">
         <% [["Pending", sprintf("$%.2f", @funds)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
@@ -22,7 +22,7 @@
           </div>
         <% end %>
       </div>
-      <div class="bg-white p-4 rounded shadow-2xl flex">
+      <div class="bg-white p-4 rounded shadow-2xl flex border-4">
         <% [["Available", sprintf("$%.2f", current_user.balance)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
@@ -39,7 +39,7 @@
           </div>
         <% end %>
       </div>
-      <div class="bg-white p-4 rounded shadow-2xl flex">
+      <div class="bg-white p-4 rounded shadow-2xl flex border-4">
         <% [["Total Earnings", sprintf("$%.2f", current_user.total_earning)]].each do |label, amount, extra| %>
           <div class="text-center">
             <p class="text-gray-500">
@@ -58,8 +58,8 @@
 
 
   <div class="col-span-1">
-    <h2 class="text-lg font-medium text-gray-900">Payment</h2>
-    <h2>If you have any issues withdrawing your funds please email cody@gitlocker.com and describe your issue with either a loom video or screenshots of the issue, and we will get right back with you and help you get your money!</h2>
+    <h1 class="text-lg font-mono underline text-gray-900">Payment:</h2>
+    <h2 class="font-mono">If you have any issues withdrawing your funds please email cody@gitlocker.com and describe your issue with either a loom video or screenshots of the issue, and we will get right back with you and help you get your money!</h2>
     <div class="mt-6">
 
       <% if current_user.account.nil? %>
