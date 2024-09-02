@@ -12,7 +12,7 @@ class ProductsController < ApplicationController
 
   def index
     @products = current_user.products.page(params[:page]).per(50)
-    @product_count = products.count 
+    
   end
 
   def show
