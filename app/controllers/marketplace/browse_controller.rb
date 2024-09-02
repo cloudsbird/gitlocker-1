@@ -5,11 +5,11 @@ module Marketplace
     end
 
     def popular
-      @products = apply_filters_and_sort(Product.exclude_purchased(current_user).order(purchases_count: :desc)).page(params[:page]).per(50)
+      @products = apply_filters_and_sort(Product.ordered_by_purchase_count).page(params[:page]).per(50)
     end
 
   def featured
-    @products = Product.order(purchases_count: :desc).page(params[:page]).per(50)
+    @products = Product.ordered_by_purchase_count.page(params[:page]).per(50)
     # binding.pry
     @products
   end
