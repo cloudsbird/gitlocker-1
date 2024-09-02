@@ -43,6 +43,8 @@ class CheckoutController < ApplicationController
       current_user.reload.cart_items.destroy_all
       purchases.each do |purchase|
         PurchaseNotification.create!(recipient: purchase.product.user, buyer: current_user, product: purchase.product)
+        purchase.payment = payment
+        purchase.save
       end
     end
 
