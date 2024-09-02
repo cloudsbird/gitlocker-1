@@ -132,6 +132,13 @@ has_many :notifications, dependent: :destroy
     ["active_categories", "active_languages", "cart_items", "categories", "covers_attachments", "covers_blobs", "folder_attachment", "folder_blob", "languages", "likes", "pg_search_document", "product_categories", "product_languages", "purchases", "refund", "reviews", "user", "video_file_attachment", "video_file_blob"]
   end
 
+  def self.ordered_by_purchase_count
+    left_joins(:purchases)
+      .group('products.id')
+      .order('COUNT(purchases.id) DESC')
+      .select('products.*, COUNT(purchases.id) AS purchase_count')
+  end
+
   def related_products
     related_by_categories = Product.where.not(id: self.id)
                                    .joins(:categories)
