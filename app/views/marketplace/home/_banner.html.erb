@@ -1,45 +1,27 @@
 <style>
-* {margin: 0; padding: 0;}
  
-#container {
+#bannerContainer {
 	width: 1000px;
 	overflow: hidden;
 	margin: 50px auto;
 	background: white;
 }
-
-/*header*/
-header {
-	width: 800px;
-	margin: 40px auto;
-}
- 
-header h1 {
-	text-align: center;
-	font: 100 60px/1.5 Helvetica, Verdana, sans-serif;
-	
-}
- 
-header p {
-	font: 100 15px/1.5 Helvetica, Verdana, sans-serif;
-	text-align: justify;
-}
  
 /*photobanner*/
  
-.photobanner {
+#bannerContainer .photobanner {
 	width: 3550px;
 	margin-bottom: 0px;
 	margin-top: 0px
 }
 
-#image {
+#bannerContainer .photobanner #image {
   display: inline-block;
 }
 
 
 /*keyframe animations*/
-.first {
+#bannerContainer .photobanner .first {
 	        animation: bannermove 20s linear infinite;
 }
  
@@ -54,7 +36,7 @@ header p {
 }
 
 </style>
-<div id="container">
+<div id="bannerContainer">
     <!-- Each image is 350px by 233px -->
     <div class="photobanner">
       <%= image_tag "https://picsum.photos/350/233/?image=1", id: "image", class: "first" %>

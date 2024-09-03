@@ -23,6 +23,7 @@ module Marketplace
   end
 
   def recent
+    params[:sort_by] ||= "most_recent"
     @products = apply_filters_and_sort(Product.exclude_purchased(current_user)).page(params[:page]).per(50)
 
       respond_to do |format|
