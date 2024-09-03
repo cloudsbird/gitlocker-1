@@ -61,6 +61,56 @@
 
         </section>
       <% end %>
+
+      <% if @free_products.count > 0 %>
+        <!-- Free Section -->
+        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
+          <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Free</h2>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full font-mono">
+            <%= link_to marketplace_browse_free_path, class: "link" do %>
+              Browse All Free Repositories
+              <span aria-hidden="true">&rarr;</span>
+            <% end %>
+             </button>
+          </div>
+
+
+          
+
+         <div class="mt-6 overflow-hidden">
+              <div class="flex space-x-4 lg:space-x-8 px-4 sm:px-6 lg:px-8 xl:px-0">
+                <%= render PopularProductCarouselComponent.new(@free_products) %>
+              </div>
+              </div>
+
+        </section>
+      <% end %>
+
+      <% if @premium_products.count > 0 %>
+        <!-- Premium Section -->
+        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
+          <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
+            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Premium</h2>
+            <button class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full font-mono">
+            <%= link_to marketplace_browse_premium_path, class: "link" do %>
+              Browse All Premium Repositories
+              <span aria-hidden="true">&rarr;</span>
+            <% end %>
+             </button>
+          </div>
+
+
+          
+
+         <div class="mt-6 overflow-hidden">
+              <div class="flex space-x-4 lg:space-x-8 px-4 sm:px-6 lg:px-8 xl:px-0">
+                <%= render PopularProductCarouselComponent.new(@premium_products) %>
+              </div>
+              </div>
+
+        </section>
+      <% end %>
       <%= render 'middle' %>
       <% if @languages.count > 0 %>
         <!-- Languages Section -->

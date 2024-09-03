@@ -79,6 +79,8 @@ Rails.application.routes.draw do
     root "home#index"
     get "browse", to: "browse#index"
     get "browse/popular", to: "browse#popular"
+     get "browse/free", to: "browse#free"
+      get "browse/premium", to: "browse#premium"
     get "browse/featured", to: "browse#featured"
 
     get "browse/recent", to: "browse#recent"

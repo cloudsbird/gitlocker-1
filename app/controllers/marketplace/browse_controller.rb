@@ -8,6 +8,14 @@ module Marketplace
       @products = apply_filters_and_sort(Product.ordered_by_purchase_count).page(params[:page]).per(50)
     end
 
+    def free
+      @products = apply_filters_and_sort(Product.where("price_cents <= 0")).page(params[:page]).per(50)
+    end
+
+    def premium
+      @products = apply_filters_and_sort(Product.where("price_cents > 0")).page(params[:page]).per(50)
+    end
+
   def featured
     @products = Product.ordered_by_purchase_count.page(params[:page]).per(50)
     # binding.pry

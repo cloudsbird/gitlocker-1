@@ -9,6 +9,8 @@ module Marketplace
     @creators = User.order(total_earning: :desc).limit(20)
     @recent_products = Product.published.recent.exclude_purchased(current_user).first(15)
     @popular_products = Product.ordered_by_purchase_count.first(15)
+    @free_products = Product.where("price_cents <= 0").order(created_at: :desc).first(15)
+    @premium_products = Product.where("price_cents > 0").order(created_at: :desc).first(15)
   end
 end
 end

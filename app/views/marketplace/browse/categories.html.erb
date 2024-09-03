@@ -8,6 +8,10 @@
   <div class="px-8 py-4 ">
   <h2 class="text-3xl font-semibold mb-4 text-center font-mono underline">Categories</h2>
   </div>
+  <div class="py-4 mb-4 ">
+    <!-- Filter Form -->
+    <%= render partial: 'shared/categoryFilter' %>
+  </div>
   <% if @categories.count > 0 %>
     <div class="flow-root">
       <div class=" flex grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0 ">
