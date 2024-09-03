@@ -3,7 +3,7 @@ class User < ApplicationRecord
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable,
-         :omniauthable, omniauth_providers: [:github]
+         :omniauthable,:confirmable, omniauth_providers: [:github]
 
   enum :registration_status, {
     registration_pending: 0,
@@ -123,6 +123,10 @@ class User < ApplicationRecord
     total_sale_value = sales.where(pending: true, refund: false).sum(:price_cents)
     total_sale_value *= 0.9 
     total_sale_value /= 100.0
+  end
+
+  def send_on_create_confirmation_instructions
+    send_devise_notification(:confirmation_instructions)
   end
   
 end
