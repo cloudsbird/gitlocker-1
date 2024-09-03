@@ -35,6 +35,8 @@ header p {
 
 #image {
   display: inline-block;
+  max-height: 100px;
+  max-width: 100px;
 }
 
 
@@ -57,15 +59,13 @@ header p {
 <div id="container">
     <!-- Each image is 350px by 233px -->
     <div class="photobanner">
-      <%= image_tag "https://picsum.photos/350/233/?image=1", id: "image", class: "first" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=3", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=4", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=5", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=6", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=1", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=1", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=2", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=3", id: "image", class: "" %>
-      <%= image_tag "https://picsum.photos/350/233/?image=4", id: "image", class: "" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/flutter.png", id: "image", class: "first" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/npm.png", id: "image", class: "" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/github.png", id: "image", class: "" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/file-type-git.png", id: "image", class: "" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/logo-small.8998e9d1.png", id: "image", class: "" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/nuget.png", id: "image", class: "" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/c.png", id: "image", class: "" %>
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/rubygems.png", id: "image", class: "" %>
     </div>
 </div>
