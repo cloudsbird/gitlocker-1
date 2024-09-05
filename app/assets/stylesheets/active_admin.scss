@@ -18,3 +18,17 @@
 
 @import 'activeadmin/quill_editor/quill.snow';
 @import 'activeadmin/quill_editor_input';
+
+.cke_chrome {
+    width: calc(80% - 22px) !important;
+}
+
+form fieldset > ol > li {
+    display: flex;
+    justify-content: space-between;
+    align-items: start;
+}
+
+.cke_notification_warning {
+    display: none;
+}
