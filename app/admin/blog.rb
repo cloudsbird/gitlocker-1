@@ -24,7 +24,7 @@ ActiveAdmin.register Blog do
   form do |f|
     f.inputs do
       f.input :title
-      f.input :content, as: :quill_editor
+      f.input :content, input_html: { class: 'ckEditor' }
       f.input :image, as: :file
     end
     f.actions
