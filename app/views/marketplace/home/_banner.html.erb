@@ -1,19 +1,4 @@
 <style>
- 
-#bannerContainer {
-	width: 100%;
-	height: 100%;
-	overflow: hidden;
-	background: rgb(148 163 184);
-}
- 
-/*photobanner*/
- 
-#bannerContainer .photobanner {
-	width: 3550px;
-	margin-bottom: 0px;
-	margin-top: 0px
-}
 
 #image {
   display: inline-block;
@@ -21,40 +6,91 @@
   width: 200px;
 }
 
+.stock-ticker {
+  font-size: 15px;
+  padding-block: 8px;
+  border-block: 1px solid;
+  overflow: hidden;
+  user-select: none;
 
-/*keyframe animations*/
-/* .first { */
-  /*  animation: bannermove 20s linear infinite; */
-/* } */
- 
-@keyframes bannermove {
- 0% {
-    margin-left: 0px;
- }
- 100% {
-    margin-left: -2125px;
- }
- 
+  --gap: 20px;
+  display: flex;
+  gap: var(--gap);
+}
+
+.stock-ticker ul {
+  list-style: none;
+  flex-shrink: 0;
+  min-width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: var(--gap);
+
+  animation: scroll 20s linear infinite;
+}
+
+
+@keyframes scroll {
+  to {
+    transform: translateX(calc(-100% - var(--gap)));
+  }
 }
 
 </style>
 <section class="relative block bg-slate-400">
-<div id="bannerContainer">
-    <!-- Each image is 350px by 233px -->
-    <div class="photobanner">
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/flutter.png", id: "image", class: "first" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/npm.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/file-type-git.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/logo-small.8998e9d1.png", id: "image", class: "" %>
+<div class="stock-ticker">
+  <ul>
+    <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/flutter.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/npm.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/file-type-git.png", id: "image", class: "" %>
+    </li>
+    <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/logo-small.8998e9d1.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
       <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/nuget.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/c.png", id: "image", class: "" %>
+    </li>
+    <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/c.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
       <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/rubygems.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/javascript.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/php.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/python.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/react.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/html.png", id: "image", class: "" %>
-      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/tailwind.png", id: "image", class: "" %>
-    </div>
+    </li>
+    <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/javascript.png", id: "image", class: "" %>
+    </li>
+  </ul>
+  <ul aria-hidden="true">
+     <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/flutter.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/npm.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/file-type-git.png", id: "image", class: "" %>
+    </li>
+    <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/logo-small.8998e9d1.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/nuget.png", id: "image", class: "" %>
+    </li>
+    <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/c.png", id: "image", class: "" %>
+    </li>
+    <li class="plus">
+      <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/rubygems.png", id: "image", class: "" %>
+    </li>
+    <li class="minus">
+     <%= image_tag "https://gitlocker.s3.us-east-2.amazonaws.com/svgtopng/javascript.png", id: "image", class: "" %>
+    </li>
+  </ul>
 </div>
 </section>
