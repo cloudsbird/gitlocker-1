@@ -126,7 +126,7 @@ class User < ApplicationRecord
   end
 
   def send_on_create_confirmation_instructions
-    send_devise_notification(:confirmation_instructions)
+    return
   end
   
 end
