@@ -13,9 +13,6 @@
  *= require_file application.tailwind.css
  *= require_self
  */
-* {
-   cursor: url('https://gitlocker.s3.us-east-2.amazonaws.com/cursor+(2).png'), auto;
-}
 
 .cke_notifications_area{
     display: none !important;
