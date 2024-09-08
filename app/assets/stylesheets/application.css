@@ -14,7 +14,7 @@
  *= require_self
  */
 * {
-   cursor: url(https://gitlocker.s3.us-east-2.amazonaws.com/cursor+(2).png), auto;
+   cursor: url('https://gitlocker.s3.us-east-2.amazonaws.com/cursor+(2).png'), auto;
 }
 
 .cke_notifications_area{
