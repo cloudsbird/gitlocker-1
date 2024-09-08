@@ -23,7 +23,7 @@
     position: relative;
 }
 
-.minus {
+.minus, .plus {
     cursor:url('https://gitlocker.s3.us-east-2.amazonaws.com/cursor+(2).png'), auto;
 }
 
