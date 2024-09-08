@@ -23,9 +23,6 @@
     position: relative;
 }
 
-.stock-ticker {
-    cursor:url('https://gitlocker.s3.us-east-2.amazonaws.com/cursor+(2).png'), auto;
-}
 
 #zip-upload-field {
     display: flex;
