@@ -14,14 +14,14 @@
 
   
   <!-- Home Content -->
-  <div class="bg-gradient-to-r from-blue-700 to-orange-500">
+  <div class="">
     <main class="space-y-16 pt-12 pb-24">
       <% if @recent_products.count > 0 %>
         <!-- Recent Section -->
         <section aria-labelledby="recent-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="recent-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Recent</h2>
-            <button class="bg-white text-black hover:text-white border-black border-2 font-bold py-2 px-4 rounded-full hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] font-mono">
+            <button class="bg-white text-black hover:text-white border-black border-0 font-bold py-2 px-4 rounded-full hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] font-mono">
             <%= link_to marketplace_browse_recent_path, class: "link" do %>
               Browse All Recent Repositories
               <span aria-hidden="true">&rarr;</span>
@@ -38,13 +38,13 @@
 
         </section>
       <% end %>
-      <hr class="h-px my-8 bg-black border-8 border-black">
+      <hr class="h-px my-8 border-0">
       <% if @popular_products.count > 0 %>
         <!-- Popular Section -->
         <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Popular</h2>
-            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-2 font-bold py-2 px-4 rounded-full font-mono">
+            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-0 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_popular_path, class: "link" do %>
               Browse All Popular Repositories
               <span aria-hidden="true">&rarr;</span>
@@ -63,14 +63,14 @@
 
         </section>
       <% end %>
-      <hr class="h-px my-8 bg-black border-8 border-black">
+      <hr class="h-px my-8 border-0">
     <%= render 'middleTwo' %>
       <% if @free_products.count > 0 %>
         <!-- Free Section -->
         <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Free</h2>
-            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-2 font-bold py-2 px-4 rounded-full font-mono">
+            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-0 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_free_path, class: "link" do %>
               Browse All Free Repositories
               <span aria-hidden="true">&rarr;</span>
@@ -89,13 +89,13 @@
 
         </section>
       <% end %>
-      <hr class="h-px my-8 bg-black border-8 border-black">
+      <hr class="h-px my-8 border-0">
       <% if @premium_products.count > 0 %>
         <!-- Premium Section -->
         <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Premium</h2>
-            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-2 font-bold py-2 px-4 rounded-full font-mono">
+            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-0 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_premium_path, class: "link" do %>
               Browse All Premium Repositories
               <span aria-hidden="true">&rarr;</span>
@@ -114,14 +114,14 @@
 
         </section>
       <% end %>
-    <hr class="h-px my-8 bg-black border-8 border-black">
+    <hr class="h-px my-8 border-0">
       <%= render 'middle' %>
       <% if @languages.count > 0 %>
         <!-- Languages Section -->
         <section aria-labelledby="languages-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="languages-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Languages</h2>
-            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-2 font-bold py-2 px-4 rounded-full font-mono">
+            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-0 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_languages_path, class: "link" do %>
               Browse All Languages
               <span aria-hidden="true">&rarr;</span>
@@ -136,13 +136,13 @@
           </div>
         </section>
       <% end %>
-      <hr class="h-px my-8 bg-black border-8 border-black">
+      <hr class="h-px my-8 border-0">
       <% if @categories.count > 0 %>
         <!-- Categories Section -->
         <section aria-labelledby="categories-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
             <h2 id="categories-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Categories</h2>
-            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-2 font-bold py-2 px-4 rounded-full font-mono">
+            <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-0 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_categories_path, class: "link" do %>
               Browse All Categories
               <span aria-hidden="true">&rarr;</span>
@@ -157,7 +157,7 @@
           </div>
         </section>
       <% end %>
-    <hr class="h-px my-8 bg-black border-8 border-black">
+    <hr class="h-px my-8 border-0">
     <%= render 'footer' %>
     <%= render 'banner' %>
     </main>
