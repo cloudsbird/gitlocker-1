@@ -45,6 +45,8 @@ gem 'sassc', '~> 2.0'
 gem 'kaminari'
 gem 'noticed'
 gem 'sidekiq'
+gem 'faraday'
+gem 'faraday-multipart'
 
 
 # Use Redis adapter to run Action Cable in production
