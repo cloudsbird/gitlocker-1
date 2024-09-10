@@ -3,6 +3,7 @@ source "https://rubygems.org"
 ruby "3.2.3"
 
 gem "activerecord-import"
+gem "faraday-multipart"
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "devise", "~> 4.9"
 gem "fog-aws"
