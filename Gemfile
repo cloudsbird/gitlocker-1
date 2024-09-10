@@ -6,7 +6,6 @@ gem "activerecord-import"
 gem "bootsnap", require: false # Reduces boot times through caching; required in config/boot.rb
 gem "devise", "~> 4.9"
 gem "fog-aws"
-gem "faraday-multipart"
 gem "friendly_id", "~> 5.5.0"
 gem "good_job"
 gem "jbuilder"
