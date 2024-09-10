@@ -4,23 +4,25 @@
   ])
 %>
 
-<section aria-labelledby="category-heading" class="pt-16 pb-24 sm:pt-16 xl:mx-auto xl:max-w-7xl xl:px-8 bg-gradient-to-r from-blue-700 to-orange-500">
-  <div class="px-8 py-4 ">
-  <h2 class="text-3xl font-semibold mb-4 text-center font-mono underline">Categories</h2>
-  </div>
-  <div class="py-4 mb-4 ">
-    <!-- Filter Form -->
-    <%= render partial: 'shared/categoryFilter' %>
-  </div>
-  <% if @categories.count > 0 %>
-    <div class="flow-root">
-      <div class=" flex grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0 ">
-        <%= render partial: "home/category", collection: @categories %>
+<section aria-labelledby="category-heading" class="pt-16 pb-24 sm:pt-16 bg-gradient-to-r from-blue-700 to-orange-500">
+  <div class="xl:mx-auto xl:max-w-7xl xl:px-8">
+    <div class="px-8 py-4 ">
+      <h2 class="text-3xl font-semibold mb-4 text-center font-mono underline">Categories</h2>
+    </div>
+    <div class="py-4 mb-4 ">
+      <!-- Filter Form -->
+      <%= render partial: 'shared/categoryFilter' %>
+    </div>
+    <% if @categories.count > 0 %>
+      <div class="flow-root">
+        <div class=" flex grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0 ">
+          <%= render partial: "home/category", collection: @categories %>
+        </div>
       </div>
-    </div>
-    <div class="mt-12">
-      <!-- Pagination with sort_by parameter -->
-      <%= render 'kaminari/tailwind/paginator', paginator: @categories, params: { sort_by: params[:sort_by] } %>
-    </div>
-  <% end %>
+      <div class="mt-12">
+        <!-- Pagination with sort_by parameter -->
+        <%= render 'kaminari/tailwind/paginator', paginator: @categories, params: { sort_by: params[:sort_by] } %>
+      </div>
+    <% end %>
+  </div>
 </section>
