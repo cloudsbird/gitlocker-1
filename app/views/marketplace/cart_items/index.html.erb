@@ -1,35 +1,37 @@
-<main class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8 bg-gradient-to-r from-blue-700 to-orange-500">
-  <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl font-mono">Cart</h1>
+<main class="mx-auto w-full bg-gradient-to-r from-blue-700 to-orange-500">
+  <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+    <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl font-mono">Cart</h1>
 
-  <form class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
-    <section aria-labelledby="cart-heading" class="lg:col-span-7">
-      <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
+    <form class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
+      <section aria-labelledby="cart-heading" class="lg:col-span-7">
+        <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
-      <% if @cart_items.exists? %>
-        <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-900">
-          <%= render partial: "marketplace/cart_items/cart_item", collection: @cart_items, as: :cart_item %>
-        </ul>
-      <% else %>
-        <p>There are no items in the cart.</p>
-      <% end %>
+        <% if @cart_items.exists? %>
+          <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-900">
+            <%= render partial: "marketplace/cart_items/cart_item", collection: @cart_items, as: :cart_item %>
+          </ul>
+        <% else %>
+          <p>There are no items in the cart.</p>
+        <% end %>
 
-    </section>
+      </section>
 
-    <!-- Order summary -->
-    <section aria-labelledby="summary-heading" class="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
-      <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Order summary</h2>
+      <!-- Order summary -->
+      <section aria-labelledby="summary-heading" class="mt-16 rounded-lg bg-gray-50 px-4 py-6 sm:p-6 lg:col-span-5 lg:mt-0 lg:p-8">
+        <h2 id="summary-heading" class="text-lg font-medium text-gray-900">Order summary</h2>
 
-      <dl class="mt-6 space-y-4">
-        <div class="flex items-center justify-between border-t border-gray-200 pt-4">
-          <dt class="text-base font-medium text-gray-900">Order total</dt>
-          <dd class="text-base font-medium text-gray-900"><%= humanized_money_with_symbol @cart_items.map(&:product).map(&:price).inject(:+) %></dd>
+        <dl class="mt-6 space-y-4">
+          <div class="flex items-center justify-between border-t border-gray-200 pt-4">
+            <dt class="text-base font-medium text-gray-900">Order total</dt>
+            <dd class="text-base font-medium text-gray-900"><%= humanized_money_with_symbol @cart_items.map(&:product).map(&:price).inject(:+) %></dd>
+          </div>
+        </dl>
+
+        <div class="mt-6">
+          <% cart_checkout_form_path = user_signed_in? ? marketplace_checkout_path : new_user_registration_path %>
+          <%= link_to "Checkout", cart_checkout_form_path, class: "text-center block w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
         </div>
-      </dl>
-
-      <div class="mt-6">
-        <% cart_checkout_form_path = user_signed_in? ? marketplace_checkout_path : new_user_registration_path %>
-        <%= link_to "Checkout", cart_checkout_form_path, class: "text-center block w-full rounded-md border border-transparent bg-indigo-600 px-4 py-3 text-base font-medium text-white shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
-      </div>
-    </section>
-  </form>
+      </section>
+    </form>
+  </div>
 </main>
