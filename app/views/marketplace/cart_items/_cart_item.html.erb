@@ -12,7 +12,7 @@
       <div>
         <div class="flex justify-between">
           <h3 class="text-sm">
-            <%= link_to cart_item.product.name, marketplace_library_path(cart_item.product), class: "font-medium text-gray-700 hover:text-gray-800" %>
+            <%= link_to cart_item.product.name, marketplace_library_path(cart_item.product), class: "font-medium text-gray-900 hover:text-black" %>
           </h3>
         </div>
         <p class="mt-1 text-sm font-medium text-gray-900"><%= humanized_money_with_symbol cart_item.product.price %></p>
