@@ -29,7 +29,7 @@
             <% end %>
           </div>
           <div class="mt-4 px-4 sm:px-6 lg:px-8 space-y-8">
-          <%= render 'kaminari/tailwind/paginator', paginator: @products %>
+          <%= render 'kaminari/tailwind/paginator', paginator: @products, params: { sort_by: params[:sort_by] } %>
           </div>
         </div>
       </div>
