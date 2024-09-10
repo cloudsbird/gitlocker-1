@@ -3,7 +3,6 @@ class Category < ApplicationRecord
       "3D": "3D.png",
       "Ajax": "Ajax.png",
       "Algorithm": "Algorithm.png",
-      "AWS": "Amazon-Web-Services.png",
       "Amp": "Amp.png",
       "Android": "Android.png",
       "Angular": "Angular.png",
