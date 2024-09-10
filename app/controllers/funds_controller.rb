@@ -1,4 +1,5 @@
 class FundsController < ApplicationController
+  before_action :authenticate_user!
   before_action :update_state
   def index
     @funds = current_user.total_sales_amount_in_dollars

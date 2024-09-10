@@ -6,7 +6,7 @@
       { text: "Edit", url: edit_product_path(@product) }
     ])
   %>
-  <div class="mx-auto px-4 py-16 sm:px-6 sm:py-24 lg:max-w-7xl lg:px-8">
+  <div class="mx-auto">
     <%= turbo_frame_tag dom_id(@product) do %>
       <%= render "edit_form", product: @product %>
     <% end %>
