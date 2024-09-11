@@ -5,7 +5,7 @@ class Product < ApplicationRecord
   monetize :price_cents
 
   belongs_to :user
-has_many :notifications, dependent: :destroy
+  has_many :notifications, dependent: :destroy
   has_many :reviews, dependent: :destroy
   has_many :purchases, dependent: :destroy
   has_one_attached :folder, dependent: :destroy
