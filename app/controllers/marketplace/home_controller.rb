@@ -9,10 +9,10 @@ module Marketplace
       @languages = Language.order(:name).limit(20)
       @categories = Category.order(:name).limit(20)
       @creators = User.order(total_earning: :desc).limit(20)
-      @recent_products = Product.published.includes(:languages, :reviews).recent.exclude_purchased(current_user).first(15)
-      @popular_products = Product.includes(:languages, :reviews).ordered_by_purchase_count.first(15)
-      @free_products = Product.includes(:languages, :reviews).where("price_cents <= 0").order(created_at: :desc).first(15)
-      @premium_products = Product.includes(:languages, :reviews).where("price_cents > 0").order(created_at: :desc).first(15)
+      @recent_products = Product.published.includes([:languages]).recent.exclude_purchased(current_user).first(15)
+      @popular_products = Product.includes([:languages]).ordered_by_purchase_count.first(15)
+      @free_products = Product.includes([:languages]).where("price_cents <= 0").order(created_at: :desc).first(15)
+      @premium_products = Product.includes([:languages]).where("price_cents > 0").order(created_at: :desc).first(15)
     end
   end
 end

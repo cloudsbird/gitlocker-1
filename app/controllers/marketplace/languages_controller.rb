@@ -3,7 +3,7 @@ module Marketplace
 class LanguagesController < ApplicationController
   def show
     @language = Language.friendly.find(params[:slug])
-    @products = apply_filters_and_sort(@language&.products)&.page(params[:page])&.per(50)
+    @products = apply_filters_and_sort(@language&.products).includes([:languages])&.page(params[:page])&.per(50)
   end
 
   private
@@ -13,7 +13,7 @@ class LanguagesController < ApplicationController
 
   def apply_filters_and_sort(resource)
     # Apply filtering if needed (e.g., by category or language)
-    resource = resource.where(category_id: filter_params[:category]) if filter_params[:category].present?
+    resource = resource.includes([:categories]).where(category_id: filter_params[:category]) if filter_params[:category].present?
     resource = resource.where(language_id: filter_params[:language]) if filter_params[:language].present?
 
     
