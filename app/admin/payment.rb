@@ -26,7 +26,18 @@ ActiveAdmin.register Payment do
         ul do
           payment.purchases.each do |purchase|
             li do
+              span do 
               purchase.product.name
+              end 
+              span do
+                if purchase.refund 
+                  span style: 'display: inline-block; background-color: #007bff; color: white; padding: 5px 10px; border-radius: 15px; text-align: center; margin-left: 10px;' do
+                    'Refunded'
+                  end
+                else 
+                  button_to 'Refund', marketplace_refund_payment_path, method: :post, params: { purchase_id: purchase.id, stripe_charge_id: payment.stripe_charge_id, price_cents: purchase.price_cents }, class: 'button'
+                end 
+              end
             end
           end
         end

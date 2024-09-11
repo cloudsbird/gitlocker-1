@@ -56,6 +56,23 @@ class CheckoutController < ApplicationController
     redirect_to marketplace_checkout_url
   end
 
+  def refund 
+    refund = Stripe::Refund.create({
+            charge: params["stripe_charge_id"],
+            amount: params["price_cents"],
+          })
+
+    purchase = Purchase.find(params["purchase_id"])
+    if refund["status"] == "succeeded"
+      purchase.update(refund_id: refund["id"], refund: true) 
+      message = "Payment Successfully Refunded"
+    else 
+      message = refund["status"]
+    end 
+
+    redirect_to admin_payment_path(purchase.payment), notice: message
+  end 
+
   private
 
   def proceed_with_free_purchase

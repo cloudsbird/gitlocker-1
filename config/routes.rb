@@ -96,6 +96,7 @@ Rails.application.routes.draw do
     resources :cart_items, only: [:index, :create, :destroy]
     get "checkout", to: "checkout#index"
     post "checkout", to: "checkout#create"
+    post "refund_payment", to: "checkout#refund"
     get '/success_payment', to: 'checkout#success_payment', as: 'success_payment'
     get '/cancel_payment', to: 'checkout#cancel_payment', as: 'cancel_payment'
     resources :refunds, only: [:new, :create]
