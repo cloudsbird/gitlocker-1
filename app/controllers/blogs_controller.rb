@@ -1,9 +1,9 @@
 class BlogsController < ApplicationController
   def index
-    @blogs = Blog.page(params[:page]).per(18)
+    @blogs = Blog.includes([:image_attachment], image_attachment: :blob).page(params[:page]).per(18)
   end
 
   def show
-    @blog = Blog.friendly.find(params[:slug])
+    @blog = Blog.includes([:image_attachment], image_attachment: :blob).friendly.find(params[:slug])
   end
 end
