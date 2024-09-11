@@ -16,7 +16,7 @@
   <!-- Home Content -->
   <div class="bg-gradient-to-r from-blue-700 to-orange-500">
     <main class="space-y-16 pt-12 pb-24">
-      <% if @recent_products.count > 0 %>
+      <% if @recent_products.size > 0 %>
         <!-- Recent Section -->
         <section aria-labelledby="recent-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
@@ -39,7 +39,7 @@
         </section>
       <% end %>
       <hr class="h-px my-8 bg-black border-8 border-black">
-      <% if @popular_products.count > 0 %>
+      <% if @popular_products.size > 0 %>
         <!-- Popular Section -->
         <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
@@ -65,7 +65,7 @@
       <% end %>
       <hr class="h-px my-8 bg-black border-8 border-black">
     <%= render 'middleTwo' %>
-      <% if @free_products.count > 0 %>
+      <% if @free_products.size > 0 %>
         <!-- Free Section -->
         <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
@@ -90,7 +90,7 @@
         </section>
       <% end %>
       <hr class="h-px my-8 bg-black border-8 border-black">
-      <% if @premium_products.count > 0 %>
+      <% if @premium_products.size > 0 %>
         <!-- Premium Section -->
         <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
@@ -116,7 +116,7 @@
       <% end %>
     <hr class="h-px my-8 bg-black border-8 border-black">
       <%= render 'middle' %>
-      <% if @languages.count > 0 %>
+      <% if @languages.size > 0 %>
         <!-- Languages Section -->
         <section aria-labelledby="languages-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
@@ -137,7 +137,7 @@
         </section>
       <% end %>
       <hr class="h-px my-8 bg-black border-8 border-black">
-      <% if @categories.count > 0 %>
+      <% if @categories.size > 0 %>
         <!-- Categories Section -->
         <section aria-labelledby="categories-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
