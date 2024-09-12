@@ -10,7 +10,7 @@
       <dt class="sr-only">Title</dt>
       <dd class="text-sm text-gray-500">@<%= user.username %></dd>
         <% if user.languages.present? && user.languages.size > 0 && user.languages[0]&.name != 'not_specified' %>
-            <div class="flex flex-row flex-wrap items-center justify-start gap-2">
+            <div class="flex flex-row flex-wrap mt-2 items-center justify-start gap-2">
               <% user.languages.take(3).each do |language| %>
                 <p class="text-xs border border-gray-900 rounded px-2 py-1.5 text-gray-700"><%= language.name %></p>
               <% end %>
