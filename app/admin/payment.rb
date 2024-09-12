@@ -35,7 +35,8 @@ ActiveAdmin.register Payment do
                     'Refunded'
                   end
                 else 
-                  button_to 'Refund', marketplace_refund_payment_path, method: :post, params: { purchase_id: purchase.id, stripe_charge_id: payment.stripe_charge_id, price_cents: purchase.price_cents }, class: 'button'
+                  button_to 'Refund', marketplace_refund_payment_path, method: :post, params: { purchase_id: purchase.id, stripe_charge_id: payment.stripe_charge_id, price_cents: purchase.price_cents }, class: 'button', 
+                  data: { confirm: 'Are you sure you want to Refund?' }
                 end 
               end
             end
