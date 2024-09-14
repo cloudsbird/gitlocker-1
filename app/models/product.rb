@@ -30,6 +30,7 @@ class Product < ApplicationRecord
   # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories
+  after_save :thumb_images
 
   default_scope { where(upload_complete: true) }
 
@@ -60,6 +61,16 @@ class Product < ApplicationRecord
     else order(created_at: :desc) # Default sorting
     end
   }
+
+  def thumb_images
+    covers.map { |cover| cover.variant(resize_to_limit: [264,264]).processed }
+  end
+
+  def thumb_image_url
+    url = self.covers.first.variant(resize_to_limit: [264,264]).url
+    url = self.thumb_images[0].url if url.blank?
+    url
+  end
 
   def self.filter_and_sort(params)
     products = self.includes(:categories, :languages, :likes)
