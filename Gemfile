@@ -8,7 +8,6 @@ gem "devise", "~> 4.9"
 gem "fog-aws"
 gem "friendly_id", "~> 5.5.0"
 gem "good_job"
-gem 'scout_apm'
 gem "jbuilder"
 gem "jsonapi-serializer"
 gem "image_processing", "~> 1.2" # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
