@@ -75,7 +75,7 @@
             <% if @product.price.to_f.round(2) > 0.00 %> 
               <div></div>
             <% else %>
-              <%= link_to "Donate", "https://www.compassion.com", class: "flex items-center justify-center mt-4 rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base w-32 h-10 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
+              <%= link_to "Donate", "https://www.compassion.com", class: "flex items-center justify-center mt-4 rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base w-32 h-10 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50", target: :blank %>
             <% end %>
           </div>
 
