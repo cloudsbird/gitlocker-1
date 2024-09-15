@@ -30,7 +30,7 @@ class Product < ApplicationRecord
   # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories
-  after_save :thumb_images
+  # after_save :thumb_images
 
   default_scope { where(upload_complete: true) }
 
