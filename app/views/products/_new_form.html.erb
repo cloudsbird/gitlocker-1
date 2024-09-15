@@ -11,7 +11,7 @@
       <div class="mt-10 grid grid-cols-1 gap-x-6 gap-y-8 sm:grid-cols-6">
 
         <div class="sm:col-span-4" id= "url-field">
-          <%= f.label :url,"GitHub Private Repository URL", class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :url,"GitHub Private Repository URL", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_field :url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", placeholder: "Paste Repository URL" %>
           </div>
@@ -23,7 +23,7 @@
         <!-- New Upload ZIP File Field -->
       <!-- New Upload ZIP File Field -->
   <div class="sm:col-span-4" id="zip-upload-field">
-    <%= f.label :upload_file, "Upload ZIP File", class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+    <%= f.label :upload_file, "Upload ZIP File", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
     <div class="mt-0">
       <%= f.file_field :upload_file, class: "form-control", id: "upload_file", accept: ".zip" %>
       <h6 class="text-sm font-mono">(Only .zip files are allowed)</h6>
@@ -36,14 +36,14 @@
   </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :name, class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :name, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_field :name, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", required: true %>
           </div>
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :description, "Description", class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :description, "Description", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_area :description, id: "descriptionTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
             <span class="d-block question_modal_input_subtext" id="descriptionTextAreaCount">
@@ -53,7 +53,7 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :features, "Features", class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :features, "Features", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_area :features, id: "featuresTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"%>
             <span class="d-block question_modal_input_subtext" id="featuresTextAreaCount">
@@ -63,7 +63,7 @@
         </div>
 
          <div class="sm:col-span-4">
-          <%= f.label :requirements, "Requirements", class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :requirements, "Requirements", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_area :requirements, id: "requirementsTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"%>
             <span class="d-block question_modal_input_subtext" id="requirementsTextAreaCount">
@@ -73,7 +73,7 @@
         </div>
 
          <div class="sm:col-span-4">
-          <%= f.label :instructions, "Instructions", class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :instructions, "Instructions", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_area :instructions, id: "instructionsTextArea", class: "ckEditor block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6"%>
             <span class="d-block question_modal_input_subtext" id="instructionsTextAreaCount">
@@ -83,14 +83,14 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :price, class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :price, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.number_field :price, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", required: true %>
           </div>
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :covers, class: "block text-sm font-medium leading-6 text-gray-900 font-mono" do %>
+          <%= f.label :covers, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" do %>
             Cover Images or GIFs (Limit of 3 and max file size of 100mb each)
           <% end %>
           <div class="mt-2">
@@ -102,7 +102,7 @@
 
 
         <div class="sm:col-span-4">
-          <label for="product_video_source" class="block text-sm font-medium leading-6 text-gray-900 font-mono">Video Source</label>
+          <label for="product_video_source" class="block text-xl font-medium leading-6 text-gray-900 font-mono">Video Source</label>
           <div class="mt-2">
             <select id="product_video_source" class="form-control" onchange="toggleVideoFields()">
               <option value="">Select Video Source</option>
@@ -115,14 +115,14 @@
         </div>
 
         <div class="sm:col-span-4" id="preview_video_url_field" style="display: none;">
-          <%= f.label :preview_video_url, class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :preview_video_url, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_field :preview_video_url, class: "form-control", id: "product_preview_video_url" %>
           </div>
         </div>
 
         <div class="sm:col-span-4" id="video_file_field" style="display: none;">
-          <%= f.label :video_file, class: "block text-sm font-medium leading-6 text-gray-900 font-mono" do %>
+          <%= f.label :video_file, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" do %>
             Preview Video Source (file size limit of 1 GB)
           <% end %>
           <div class="mt-2">
@@ -131,7 +131,7 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :categories, class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :categories, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <select  class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="categoriesSelect"  multiple="multiple">
               <% Category.all.each do |category| %>
@@ -142,7 +142,7 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :language_ids, "Languages", class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :language_ids, "Languages", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <select class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="languagesSelect" multiple="multiple">
               <% Language.all.each do |language| %>
@@ -153,7 +153,7 @@
         </div>
 
         <div class="sm:col-span-4">
-          <%= f.label :demo_url, class: "block text-sm font-medium leading-6 text-gray-900 font-mono" %>
+          <%= f.label :demo_url, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
             <%= f.text_field :demo_url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", required: false, placeholder: "https://demo_url.com" %>
           </div>
