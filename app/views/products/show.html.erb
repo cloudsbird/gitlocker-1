@@ -66,7 +66,7 @@
       <div class="flex flex-col gap-10 mx-auto mt-6 max-w-2xl sm:mt-6 lg:col-span-3 lg:row-span-2 lg:row-end-2 lg:mt-0 lg:max-w-screen-lg">
         <div class="flex flex-col gap-6">
           <%# Price %>
-          <div>
+          <div class="flex flex-row">
             <% if @product.price.to_f.round(2) > 0.00 %> 
               <p class="text-3xl font-bold font-mono underline"><%= @product.price.currency.symbol %><%= @product.price %></p>
             <% else %>
