@@ -159,10 +159,10 @@ class Product < ApplicationRecord
   end
 
   def related_products
-    related_by_categories = Product.with_attached_covers.where.not(id: self.id)
+    related_by_categories = Product.where.not(id: self.id)
                                    .includes(:categories)
                                    .where(categories: { id: self.category_ids })
-    related_by_languages = Product.with_attached_covers.where.not(id: self.id)
+    related_by_languages = Product.where.not(id: self.id)
                                   .includes(:languages)
                                   .where(languages: { id: self.language_ids })
     (related_by_categories + related_by_languages).uniq.take(15)
