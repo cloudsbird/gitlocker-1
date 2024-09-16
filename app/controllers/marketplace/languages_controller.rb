@@ -16,7 +16,7 @@ class LanguagesController < ApplicationController
     resource = resource.includes([:categories]).where(category_id: filter_params[:category]) if filter_params[:category].present?
     resource = resource.where(language_id: filter_params[:language]) if filter_params[:language].present?
 
-    
+    resource = resource.with_attached_covers
     case filter_params[:sort_by]
     when 'alphabetical_asc'
       resource.order(name: :asc)
