@@ -1,8 +1,8 @@
 module Marketplace
 class LibraryController < ApplicationController
   def show
-    @product = Product.includes(:languages, :categories).friendly.find(params[:id])
-    @related_products = @product.related_products.with_attached_covers
+    @product = Product.with_attached_covers.includes(:languages, :categories).friendly.find(params[:id])
+    @related_products = @product.related_products
     @reviews = @product.reviews.includes(:user).page(params[:page]).per(2)
     @in_cart = (current_user || visitor_user).products_in_cart.include?(@product) || false
     @languages = @product.languages
