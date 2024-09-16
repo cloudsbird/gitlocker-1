@@ -30,7 +30,9 @@ class Product < ApplicationRecord
   # validates :url, presence: true, uniqueness: { scope: :name }
 
   accepts_nested_attributes_for :product_categories
-  # after_save :thumb_images
+
+  # Generate thumbnails only when covers are created or updated
+  after_commit :thumb_images, if: :saved_change_to_covers?
 
   default_scope { where(upload_complete: true) }
 
@@ -62,14 +64,20 @@ class Product < ApplicationRecord
     end
   }
 
+  # Process the cover images and generate thumbnails
   def thumb_images
-    covers.map { |cover| cover.variant(resize_to_limit: [264,264]).processed }
+    covers.each do |cover|
+      cover.variant(resize_to_limit: [264, 264]).processed
+    end
+  end
+
+  # Check if the covers were added or updated
+  def saved_change_to_covers?
+    covers.attached? && covers.any?(&:saved_changes?)
   end
 
   def thumb_image_url
-    url = self.covers.first.variant(resize_to_limit: [264,264]).url
-    url = self.thumb_images[0].url if url.blank?
-    url
+    self.covers.first.variant(resize_to_limit: [264,264]).url
   end
 
   def self.filter_and_sort(params)
