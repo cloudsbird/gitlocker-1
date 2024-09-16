@@ -367,8 +367,8 @@
 
     $('#covers').on('change', function() {
       var coverImages = this.files;
-      if (coverImages.length > 3) {
-          alert("You can select up to 3 cover images.");
+      if (coverImages.length > 10) {
+          alert("You can select up to 10 cover images.");
           this.value = '';
       }
 
