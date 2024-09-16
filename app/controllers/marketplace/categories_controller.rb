@@ -11,11 +11,12 @@ class CategoriesController < ApplicationController
   end
 
   def apply_filters_and_sort(resource)
+    resource = resource.includes(:product_categories, :languages, :user, :categories, :product_languages)
+    
     # Apply filtering if needed (e.g., by category or language)
     resource = resource.where(category_id: filter_params[:category]) if filter_params[:category].present?
     resource = resource.where(language_id: filter_params[:language]) if filter_params[:language].present?
-
-    
+    resource = resource.with_attached_covers
     case filter_params[:sort_by]
     when 'alphabetical_asc'
       resource.order(name: :asc)
