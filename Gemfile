@@ -81,3 +81,7 @@ end
 group :test do
   gem "shoulda-matchers", "~> 6.2"
 end
+
+group :production do
+  gem 'scout_apm'
+end
