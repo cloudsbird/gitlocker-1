@@ -27,7 +27,7 @@ class ProductPolicy < ApplicationPolicy
 
     return false unless record.published?
 
-    return false unless Purchase.exists?(product_id: record.id, user_id: user&.id)
+    return false unless record.purchases.where(user_id: user&.id).any?
 
     user.blank? || record.user_id != user.id
   end
