@@ -82,7 +82,10 @@ class Product < ApplicationRecord
 
   def thumb_image_url
     cover =  self.covers.first
-    return cover.variant(resize_to_limit: [264,264]).url if image_content_type?(cover)
+    if image_content_type?(cover)
+      url = cover.variant(resize_to_limit: [264,264]).url 
+      return url unless url.blank?
+    end
     cover.url
   end
 
