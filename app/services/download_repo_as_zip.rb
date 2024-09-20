@@ -1,5 +1,4 @@
 class DownloadRepoAsZip
-    include ProductConcern
     def start owner, repo, ref, token, product
         begin
             zip_link = "https://github.com/#{owner}/#{repo}/archive/refs/heads/#{ref}.zip"
@@ -11,8 +10,6 @@ class DownloadRepoAsZip
             
         if status.success?
             puts "Successfully downloaded #{temp_file.path}"
-            directory_tree_str = zip_structure_for_js_tree(temp_file.path).to_s
-            product.update_attribute(:directory_tree, directory_tree_str)            
             product.folder.attach(
                 io: File.open(temp_file.path), 
                 filename: "#{repo}-#{ref}.zip", 
