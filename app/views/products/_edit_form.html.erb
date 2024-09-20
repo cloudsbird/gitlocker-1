@@ -88,7 +88,7 @@
 
         <div class="sm:col-span-4">
           <%= f.label :covers, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" do %>
-            Cover Images (Limit of 3 and max file size of 100mb each)
+            Cover Images (Limit of 10 and max file size of 100mb each)
           <% end %>
           <div class="mt-2">
             <% if @product.covers.attached? %>
@@ -388,8 +388,8 @@
 
     $('#covers').on('change', function() {
       var coverImages = this.files;
-      if (coverImages.length > 3) {
-          alert("You can select up to 3 cover images.");
+      if (coverImages.length > 10) {
+          alert("You can select up to 10 cover images.");
           this.value = '';
       }
 
