@@ -9,7 +9,6 @@ class ProductsController < ApplicationController
   before_action :set_product, only: [:like, :unlike]
   before_action :update_state
   before_action :set_user_repos
-  include ProductConcern
 
   def index
     @products = current_user.products.page(params[:page]).per(50)
@@ -22,7 +21,6 @@ class ProductsController < ApplicationController
     @reviews = @product.reviews.page(params[:page]).per(5)
     @languages = @product.languages
     @categories = @product.categories
-    @directory_tree_json = fetch_product_directory_tree(@product)
   end
 
   def like
@@ -157,8 +155,6 @@ class ProductsController < ApplicationController
         temp_file.write(uploaded_file.read)
         temp_file.flush
         temp_file.close
-        directory_tree_str = zip_structure_for_js_tree(temp_file.path).to_s
-        @product.update_attribute(:directory_tree, directory_tree_str)
         @product.folder.attach(
           io: File.open(temp_file.path), 
           filename: "#{@product.name.gsub(' ', '_')}.zip",

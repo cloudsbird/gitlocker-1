@@ -1,6 +1,5 @@
 module Marketplace
 class LibraryController < ApplicationController
-  include ProductConcern
   def show
     @product = Product.includes(:languages, :categories).friendly.find(params[:id])
     @related_products = @product.related_products
@@ -13,7 +12,6 @@ class LibraryController < ApplicationController
                  else
                    nil
                  end
-    @directory_tree_json = fetch_product_directory_tree(@product)
     render "products/show"
   end
 end
