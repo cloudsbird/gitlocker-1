@@ -75,7 +75,7 @@
             <% if @product.price.to_f.round(2) > 0.00 %> 
               <div></div>
             <% else %>
-              <%= link_to "Donate to Compassion International", "https://www.compassion.com", class: "flex items-center justify-center mt-4 rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base w-96 h-10 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50", target: :blank %>
+              <%= link_to "Donate to Compassion International", "https://www.compassion.com", class: "hover:scale-110 flex items-center justify-center mt-4 rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base w-96 h-10 font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50", target: :blank %>
             <% end %>
           </div>
 
@@ -85,7 +85,7 @@
               <h2 class="font-semibold text-gray-700">Languages</h2>
               <div class="flex flex-row flex-wrap items-center justify-start gap-2">
                 <% @languages.take(3).each do |language| %>
-                  <%= link_to language.name, marketplace_language_path(language), class: "text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" %>
+                  <%= link_to language.name, marketplace_language_path(language), class: "hover:scale-110 text-white bg-gradient-to-r from-orange-400 via-orange-500 to-orange-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" %>
                 <% end %>
               </div>
             </div>
@@ -97,7 +97,7 @@
               <h2 class="font-semibold text-gray-700">Categories</h2>
               <div class="flex flex-row flex-wrap items-center justify-start gap-2">
                 <% @categories.take(3).each do |category| %>
-                  <%= link_to category.name, marketplace_category_path(category), class: "text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" %>
+                  <%= link_to category.name, marketplace_category_path(category), class: "hover:scale-110 text-white bg-gradient-to-r from-green-400 via-green-500 to-green-600 hover:bg-gradient-to-br focus:ring-4 focus:outline-none focus:ring-green-300 dark:focus:ring-green-800 shadow-lg shadow-green-500/50 dark:shadow-lg dark:shadow-green-800/80 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2" %>
                 <% end %>
               </div>
             </div>
@@ -111,12 +111,12 @@
             <%= link_to "Edit", edit_product_path(@product), class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
           <% elsif policy(@product).purchasable? %>
             <% if @in_cart %>
-              <%= link_to "Remove from Cart", marketplace_cart_item_path(@cart_item), data: { "turbo-method": :delete }, class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
+              <%= link_to "Remove from Cart", marketplace_cart_item_path(@cart_item), data: { "turbo-method": :delete }, class: "hover:scale-110 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
             <% else %>
-              <%= link_to "Add to Cart", marketplace_cart_items_path(product_id: @product.id), data: { "turbo-method": :post }, class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
+              <%= link_to "Add to Cart", marketplace_cart_items_path(product_id: @product.id), data: { "turbo-method": :post }, class: "hover:scale-110 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
             <% end %>
           <% elsif policy(@product).download_able? %>
-              <%= link_to "Download", @product.folder.url, class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
+              <%= link_to "Download", @product.folder.url, class: "hover:scale-110 flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-8 py-3 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
           <% end %>
           <button
             type="button"
