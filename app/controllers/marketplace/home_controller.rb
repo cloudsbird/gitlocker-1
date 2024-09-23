@@ -14,5 +14,6 @@ module Marketplace
       @free_products = Product.with_attached_covers.includes([:languages]).where("price_cents <= 0").order(created_at: :desc).first(15)
       @premium_products = Product.with_attached_covers.includes([:languages]).where("price_cents > 0").order(created_at: :desc).first(15)
     end
+    
   end
 end
