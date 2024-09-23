@@ -74,6 +74,7 @@ Rails.application.routes.draw do
   get "index_messages", to: "coming_soon#index_messages"
   get "landing_page", to: "coming_soon#landing_page"
   get "faq", to: "faq#index"
+  get "resources", to: "marketplace/home#resources"
   
   namespace :marketplace do
     root "home#index"
