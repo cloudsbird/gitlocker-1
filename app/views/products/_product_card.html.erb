@@ -1,4 +1,4 @@
-<%= link_to marketplace_library_path(product), class: "relative flex flex-col overflow-hidden rounded-lg p-6 hover:opacity-75 h-80 w-56 xl:w-72" do %>
+<%= link_to marketplace_library_path(product), class: "relative flex flex-col overflow-hidden border-black border-2 rounded-lg p-6 hover:opacity-75 h-80 w-56 xl:w-72" do %>
   <span aria-hidden="true" class="absolute inset-0">
     <% if product.covers.exists? %>
       <%= image_tag product.covers.first, class: "h-full w-full object-cover object-center" %>
