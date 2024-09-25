@@ -18,9 +18,9 @@
     <main class="space-y-16 pt-12 pb-24">
       <% if @recent_products.size > 0 %>
         <!-- Recent Section -->
-        <section aria-labelledby="recent-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
+        <section aria-labelledby="recent-heading" class="xl:mx-auto xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-            <h2 id="recent-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Recent</h2>
+            <h2 id="recent-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Recent Products:</h2>
             <button class="bg-white text-black hover:text-white border-black border-4 font-bold py-2 px-4 rounded-full hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] font-mono">
             <%= link_to marketplace_browse_recent_path, class: "link" do %>
               Browse All Recent Repositories
@@ -28,7 +28,7 @@
             <% end %>
             </button>
           </div>
-
+    <hr class="h-px my-8 bg-black border-2 border-black">
 
      <div class="mt-6 overflow-hidden">
           <div class="flex space-x-4 lg:space-x-8 px-4 sm:px-6 lg:px-8 xl:px-0">
@@ -41,9 +41,9 @@
       <hr class="h-px my-8 bg-black border-8 border-black">
       <% if @popular_products.size > 0 %>
         <!-- Popular Section -->
-        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
+        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Popular</h2>
+            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Popular Products:</h2>
             <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-4 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_popular_path, class: "link" do %>
               Browse All Popular Repositories
@@ -51,8 +51,8 @@
             <% end %>
              </button>
           </div>
-
-
+        <hr class="h-px my-8 bg-black border-2 border-black">
+        
           
 
          <div class="mt-6 overflow-hidden">
@@ -60,16 +60,16 @@
                 <%= render PopularProductCarouselComponent.new(@popular_products) %>
               </div>
               </div>
-
+      
         </section>
       <% end %>
       <hr class="h-px my-8 bg-black border-8 border-black">
     <%= render 'middleTwo' %>
       <% if @free_products.size > 0 %>
         <!-- Free Section -->
-        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
+        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Free</h2>
+            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Free Products:</h2>
             <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-4 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_free_path, class: "link" do %>
               Browse All Free Repositories
@@ -77,7 +77,7 @@
             <% end %>
              </button>
           </div>
-
+        <hr class="h-px my-8 bg-black border-2 border-black">
 
           
 
@@ -92,9 +92,9 @@
       <hr class="h-px my-8 bg-black border-8 border-black">
       <% if @premium_products.size > 0 %>
         <!-- Premium Section -->
-        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8 mb-16">
+        <section aria-labelledby="popular-heading" class="xl:mx-auto xl:px-8 mb-16">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Premium</h2>
+            <h2 id="popular-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Premium Products:</h2>
             <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-4 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_premium_path, class: "link" do %>
               Browse All Premium Repositories
@@ -102,7 +102,7 @@
             <% end %>
              </button>
           </div>
-
+        <hr class="h-px my-8 bg-black border-2 border-black">
 
           
 
@@ -118,9 +118,9 @@
       <%= render 'middle' %>
       <% if @languages.size > 0 %>
         <!-- Languages Section -->
-        <section aria-labelledby="languages-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
+        <section aria-labelledby="languages-heading" class="xl:mx-auto xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-            <h2 id="languages-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Languages</h2>
+            <h2 id="languages-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Programming Languages:</h2>
             <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-4 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_languages_path, class: "link" do %>
               Browse All Languages
@@ -128,7 +128,7 @@
             <% end %>
             </button>
           </div>
-
+          <hr class="h-px my-8 bg-black border-2 border-black">
           <div class="mt-6 flow-root">
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0 ">
               <%= render partial: "home/language", collection: @languages, as: :language %>
@@ -139,9 +139,9 @@
       <hr class="h-px my-8 bg-black border-8 border-black">
       <% if @categories.size > 0 %>
         <!-- Categories Section -->
-        <section aria-labelledby="categories-heading" class="xl:mx-auto xl:max-w-7xl xl:px-8">
+        <section aria-labelledby="categories-heading" class="xl:mx-auto xl:px-8">
           <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0">
-            <h2 id="categories-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Categories</h2>
+            <h2 id="categories-heading" class="text-3xl font-bold tracking-tight text-black underline font-mono">Programming Categories:</h2>
             <button class="bg-white hover:shadow-[inset_22rem_0_0_0] hover:shadow-blue-400 duration-[400ms,700ms] transition-[color,box-shadow] text-black hover:text-white border-black border-4 font-bold py-2 px-4 rounded-full font-mono">
             <%= link_to marketplace_browse_categories_path, class: "link" do %>
               Browse All Categories
@@ -149,7 +149,7 @@
             <% end %>
             </button>
           </div>
-
+          <hr class="h-px my-8 bg-black border-2 border-black">
           <div class="mt-6 flow-root">
             <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-5 gap-4 lg:gap-8 px-4 sm:px-6 lg:px-8 xl:px-0 ">
               <%= render partial: "home/category", collection: @categories, as: :category %>
