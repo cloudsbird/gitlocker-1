@@ -217,7 +217,7 @@
                 id="tab-reviews"
                 data-product-tabs-target="button"
                 data-action="click->product-tabs#toggleTab"
-                class="border-black text-black whitespace-nowrap border-b-2 py-6 text-sm font-medium"
+                class="border-transparent text-black whitespace-nowrap border-b-2 py-6 text-sm font-medium hover:text-white hover:border-white"
                 aria-controls="tab-panel-reviews"
                 role="tab"
                 type="button"
@@ -226,19 +226,20 @@
                 id="tab-license"
                 data-product-tabs-target="button"
                 data-action="click->product-tabs#toggleTab"
-                class="border-transparent text-gray-900 hover:border-gray-300 hover:text-black whitespace-nowrap border-b-2 py-6 text-sm font-medium"
+                class="border-transparent text-black whitespace-nowrap border-b-2 py-6 text-sm font-medium hover:text-white hover:border-white"
                 aria-controls="tab-panel-license"
                 role="tab"
                 type="button"
               >License</button>
             </div>
           </div>
+          
 
           <!-- 'Customer Reviews' panel, show/hide based on tab state -->
           <div
             data-product-tabs-target="panel"
             id="panel-reviews"
-            class="-mb-10"
+            class="py-10"
             aria-labelledby="tab-reviews"
             role="tabpanel"
             tabindex="0"
@@ -259,7 +260,7 @@
               <%= render partial: "products/review", local: {reviews: @reviews} %>
 
             <% else %>
-              <p class="mt-12 text-xl text-center">There are no reviews.</p>
+              <p class="text-sm text-center">There are no reviews.</p>
               <% if policy(@product).reviewable? %>
                 <div class="text-center mt-6">
                   <%= link_to new_marketplace_library_review_path(@product), class: "inline-flex hover:scale-110 hover:text-black hover:bg-white items-center gap-x-2 rounded-md bg-black px-3.5 py-2.5 text-sm font-semibold text-white shadow-sm hover:bg-black focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-black" do %>
@@ -281,7 +282,7 @@
           <div
             data-product-tabs-target="panel"
             id="panel-license"
-            class="pt-10 hidden"
+            class="py-10 hidden"
             aria-labelledby="tab-license"
             role="tabpanel"
             tabindex="0"

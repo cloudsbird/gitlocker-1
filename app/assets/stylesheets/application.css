@@ -135,5 +135,7 @@
             font-size: 12px;
             max-width: 150px;
             padding-right: 30px;
+            display: block;
+            margin-left: auto;
         }
     }
