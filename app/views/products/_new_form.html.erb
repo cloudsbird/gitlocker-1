@@ -1,8 +1,8 @@
 <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" />
-<div class="add_product_form bg-gradient-to-r from-blue-700 to-orange-500 min-h-screen min-w-full p-8">
+<div class="">
 <%= form_for @product, url: products_path, class: "bg-gradient-to-r from-blue-700 to-orange-500", data: {turbo: false, remote: true }, html: { id: "product-form",multipart: true } do |f| %>
   <div class="space-y-12">
-    <div class="border-b border-gray-900/10 pb-12">
+    <div class="add_product_form bg-gradient-to-r from-blue-700 to-orange-500 min-h-screen min-w-full md:p-8 py-8 px-4">
       <h1 class="font-semibold leading-7 text-gray-900 text-3xl underline font-mono">Add a Product</h1>
       <h2 class="mt-1 text-lg leading-6 text-black font-mono">Below is your basic product information.</h2>
 
@@ -25,7 +25,7 @@
   <div class="sm:col-span-4" id="zip-upload-field">
     <%= f.label :upload_file, "Upload ZIP File:", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
     <div class="mt-0">
-      <%= f.file_field :upload_file, class: "form-control", id: "upload_file", accept: ".zip" %>
+      <%= f.file_field :upload_file, class: "form-control w-full", id: "upload_file", accept: ".zip" %>
       <h6 class="text-sm font-mono">(Only .zip files are allowed)</h6>
       <button id="clear_file" type="button" class="text-gray-500 hover:text-gray-700 focus:outline-none">
         Clear
@@ -94,7 +94,7 @@
             Cover Images or GIFs (Limit of 10 and max file size of 100mb each)
           <% end %>
           <div class="mt-2">
-            <%= f.file_field :covers, multiple: true, class: "form-control", id: "covers" %>
+            <%= f.file_field :covers, multiple: true, class: "form-control w-full", id: "covers" %>
           </div>
           <br/>
           <h1 class="font-mono">(To select multiple images please use CTRL on Windows or command on Mac)</h1>
