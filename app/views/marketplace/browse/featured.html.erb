@@ -1,15 +1,17 @@
 <div class="bg-gradient-to-r from-blue-700 to-orange-500">
-  <%= render BreadcrumbComponent.new(current_user,[
-    { text: "Browse", url: marketplace_browse_path }
-  ]) %>
+  <%= render BreadcrumbComponent.new(current_user, [{ text: "Popular", url: marketplace_browse_popular_path }]) %>
   <main>
-    <section aria-labelledby="category-heading" class="py-6 sm:py-8 xl:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+    <section aria-labelledby="category-heading" class="py-8 sm:py-8 xl:py-8 xl:mx-auto xl:px-8">
       <div class="px-4 sm:flex sm:items-center sm:justify-between sm:px-6 lg:px-8 xl:px-0 mb-4">
-        <h2 id="category-heading" class="text-xl sm:text-2xl font-bold tracking-tight text-gray-900 underline">Browse All Repositories</h2>
+        <h2 id="category-heading" class="text-xl sm:text-2xl font-bold font-mono tracking-tight text-gray-900 underline">Browse By Premium Repositories</h2>
       </div>
       
-
-      <div class="mt-4 flow-root">
+      
+    <div class="px-8 py-4 ">
+    <!-- Filter Form -->
+    <%= render partial: 'shared/productFilter' %>
+  </div>
+     <div class="mt-4 flow-root">
         <div class="-my-2">
           <div class="px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
