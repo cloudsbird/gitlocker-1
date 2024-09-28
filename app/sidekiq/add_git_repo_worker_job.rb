@@ -26,7 +26,7 @@ class AddGitRepoWorkerJob
       owner, repo_name = extract_owner_and_repo_name(repo_url)
       user_repos = @octokit_client.repositories(nil, per_page: repositories_count)
       matching_repo = user_repos.find { |repo| repo.owner.login == owner && repo.name == repo_name }
-
+      
       if matching_repo
         @product.url = matching_repo.html_url
         @product.repo_id = matching_repo.id
@@ -98,13 +98,13 @@ class AddGitRepoWorkerJob
 
   def update params
     repositories_count = @octokit_client.user.public_repos + @octokit_client.user.total_private_repos
-
+    
     if params[:product][:product_url].present?
       repo_url = params[:product][:product_url]
       owner, repo_name = extract_owner_and_repo_name(repo_url)
       user_repos = @octokit_client.repositories(nil, per_page: repositories_count)
       @archive_path = DownloadRepoAsZip.new.start(owner, repo_name, 'main', @current_user.token, @product)
-
+      
     else
 
       # if @file_path.present?
@@ -140,6 +140,19 @@ class AddGitRepoWorkerJob
       }
 
       # UserMailer.repo_added(@product, @product.user, "updated", @product_url).deliver_now
+      
+      # Notify All Product Buyers 
+      @product.purchases.includes(:user).each do |purchase|
+        notification_user = {
+        recipient: purchase.user,
+        params: {
+          message: "Product Owner '#{@product.user.username}' has updated the '#{@product.name}'.",
+          # reason: "Product deletion by admin"
+        }
+      }
+      Notification.create!(notification_user)
+      end
+      
     else
       notification_params = {
           recipient: @product.user,
@@ -153,6 +166,6 @@ class AddGitRepoWorkerJob
 
   def extract_owner_and_repo_name(repo_url)
     parts = URI.parse(repo_url).path.split('/')
-    [parts[1], parts[2]]
+    [parts[1], parts[2].sub(/\.git$/, "")]
   end
 end
