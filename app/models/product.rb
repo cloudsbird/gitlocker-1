@@ -167,6 +167,9 @@ class Product < ApplicationRecord
       .select('products.*, COUNT(purchases.id) AS purchase_count')
   end
 
+  def purchase_count
+    purchases.count
+  end
   # def related_products
   #   related_by_categories = Product.with_attached_covers.where.not(id: self.id)
   #                                  .includes(:categories)
