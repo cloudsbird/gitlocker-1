@@ -88,7 +88,7 @@
             <% if @product.price.to_f.round(2) > 0.00 %> 
               <p class="text-3xl font-bold p-2 rounded-xl bg-white text-black text-center font-mono underline"><%= @product.price.currency.symbol %><%= @product.price %></p>
             <% else %>
-              <p class="text-3xl font-bold p-2 rounded-xl bg-white text-black font-mono text-center">Free</p>
+              <p class="text-3xl font-bold p-2 rounded-xl bg-white text-black font-mono text-center underline">Free</p>
             <% end %>
             <% if @product.price.to_f.round(2) > 0.00 %> 
               <div></div>
