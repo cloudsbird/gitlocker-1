@@ -17,8 +17,8 @@ module Marketplace
     end
 
   def featured
-    @products = Product.ordered_by_purchase_count.page(params[:page]).per(50)
-    # binding.pry
+    # @products = Product.ordered_by_purchase_count.page(params[:page]).per(50)
+    @products = apply_filters_and_sort(Product.where(featured: true)).page(params[:page]).per(50)
     @products
   end
 

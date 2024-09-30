@@ -2,6 +2,14 @@ module Marketplace
 class LibraryController < ApplicationController
   include ProductConcern
   def show
+    
+    session_object = Stripe::Checkout::Session.retrieve(params["session_id"]) rescue nil
+    if session_object.present? && session_object["status"] == "complete"
+      product_id = session_object["metadata"]["product_id"]
+      product = Product.find(product_id)
+      product.update(featured: true)
+      product.featured_payment_intent.update(status: "paid", session_id: session_object.id)
+    end 
     @product = Product.includes(:languages, :categories).friendly.find(params[:id])
     @related_products = @product.related_products
     @reviews = @product.reviews.includes(:user).page(params[:page]).per(2)

@@ -162,6 +162,13 @@
           </div>
 
           <div class="sm:col-span-4">
+          <%= f.label :featured, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
+          <div class="mt-2">
+            <%= f.check_box :featured, id:"featured" %>
+          </div>
+        </div>
+
+          <div class="sm:col-span-4">
             <%= f.label :demo_url, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
             <div class="mt-2">
               <%= f.text_field :demo_url, class: "block w-full rounded-md border-0 py-1.5 text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 placeholder:text-gray-400 focus:ring-2 focus:ring-inset focus:ring-indigo-600 sm:text-sm sm:leading-6", maxlength: "70", required: false, placeholder: "https://demo_url.com" %>
@@ -275,6 +282,7 @@
           }
       }
       formData.append('product[price]', $('#product_price').val());
+      formData.append('product[featured]', $('#featured').val());
 
       const upload_file = document.getElementById('upload_file');
         const product_upload_file_file = upload_file.files[0];
@@ -324,9 +332,14 @@
               return xhr;
           },
           success: function(data) {
-              $('#upload-status').html('<img class="w-10 h-10" src="<%= asset_path('tick.png') %>" alt="Tick"> Upload complete');
-              $(".add_product_form").hide();
-              $(".mssg_saved_successfully").show()
+            
+            if (data.url) {
+                window.location.href = data.url;
+              } else {  
+                $('#upload-status').html('<img class="w-10 h-10" src="<%= asset_path('tick.png') %>" alt="Tick"> Upload complete');
+                $(".add_product_form").hide();
+                $(".mssg_saved_successfully").show()   
+              }         
           },
           error: function(xhr, status, error) {
               if (xhr.status === 422) {
