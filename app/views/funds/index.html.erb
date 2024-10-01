@@ -81,15 +81,15 @@
   </div>
       <div>
         <h1 class="text-lg font-mono underline text-gray-900 pb-4 mb-4">Transactions:</h1>
-            <table class="table-auto">
+            <table class="table-auto m-8">
               <tr>
-                <th>Buyer:</th>
-                <th>Product:</th>
+                <th class="px-6 py-3">Buyer:</th>
+                <th class="px-6 py-3">Product:</th>
               </tr>
             <% @sales.each do |sale| %>
               <tr>
-                <td><%= sale.user %></td>
-                <td><%= sale.product %></td>
+                <td class="px-6 py-3"><%= sale.user %></td>
+                <td class="px-6 py-3"><%= sale.product %></td>
               </tr>
             <% end %>
             </table>
