@@ -82,15 +82,19 @@
       <div>
         <h1 class="text-lg font-mono underline text-gray-900 pb-4 mb-4">Transactions:</h1>
             <table class="table-auto m-8">
+              <thead>
               <tr>
                 <th class="px-6 py-3">Buyer:</th>
                 <th class="px-6 py-3">Product:</th>
               </tr>
+              </thead>
             <% @sales.each do |sale| %>
+              <tbody>
               <tr>
                 <td class="px-6 py-3"><%= sale.user %></td>
                 <td class="px-6 py-3"><%= sale.product %></td>
               </tr>
+              </tbody>
             <% end %>
             </table>
       </div>
