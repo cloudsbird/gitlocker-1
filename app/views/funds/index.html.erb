@@ -88,10 +88,11 @@
               </tr>
             <% @sales.each do |sale| %>
               <tr>
-                <td><%= current_user.sale.user %>
-                <td><%= current_user.sale.product %>
+                <td><%= sale.user %>
+                <td><%= sale.product %>
               </tr>
             <% end %>
+            </table>
       </div>
 </div>
 
