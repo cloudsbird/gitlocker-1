@@ -80,19 +80,19 @@
     </div>
   </div>
       <div>
-        <h1 class="text-lg font-mono underline text-gray-900 pb-4 mb-4">Transactions:</h1>
-            <table class="table-auto m-8">
+        <h1 class="text-lg font-mono underline text-gray-900 p-4 m-4">Transactions:</h1>
+            <table class="table-auto m-8 p-8 border-black border-2">
               <thead>
               <tr>
-                <th class="px-6 py-3">Buyer:</th>
-                <th class="px-6 py-3">Product:</th>
+                <th class="px-6 py-3 border-black border-2">Buyer:</th>
+                <th class="px-6 py-3 border-black border-2">Product:</th>
               </tr>
               </thead>
             <% @sales.each do |sale| %>
               <tbody>
               <tr>
-                <td class="px-6 py-3"><%= sale.user %></td>
-                <td class="px-6 py-3"><%= sale.product %></td>
+                <td class="px-6 py-3 border-black border-2"><%= sale.user %></td>
+                <td class="px-6 py-3 border-black border-2"><%= sale.product %></td>
               </tr>
               </tbody>
             <% end %>
