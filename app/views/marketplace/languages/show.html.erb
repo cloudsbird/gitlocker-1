@@ -6,7 +6,7 @@
     ])
   %>
   <main>
-    <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:max-w-7xl xl:px-8">
+    <section aria-labelledby="category-heading" class="py-16 sm:py-16 xl:mx-auto xl:px-8 px-4">
       <h2 class="text-3xl font-semibold mb-4 text-center underline font-mono"><%= @language.products.count %> <%= @language.name %> Language Products</h2>
       <div class="bg-gradient-to-r from-blue-700 to-orange-500">
       <%= image_tag("languages/#{@language.image_name}", class: "h-32 w-48 object-cover object-center mx-auto") %>
@@ -19,7 +19,7 @@
               <div class="pb-6">
               <%= render partial: 'shared/productFilter' %>
               </div>
-              <div class="absolute mt-4 flex flex-wrap justify-center gap-4 sm:px-6 sm:grid-cols-2 lg:px-8 xl:relative xl:grid xl:grid-cols-5 xl:gap-x-8 xl:space-x-0 xl:px-0">
+              <div class="mt-4 gap-4 sm:grid-cols-2 grid xl:grid-cols-5 lg:grid-cols-4 md:grid-cols-3 xl:gap-x-8 ">
                 <% @products.each do |product| %>
                   <%= render partial: "home/product", locals: { product: product } %>
                 <% end %>
@@ -28,7 +28,7 @@
               <p class="text-center text-black">No products available for this language.</p>
             <% end %>
           </div>
-          <div class="mt-12">
+          <div class="<%= 'mt-12' if @products.count > 50 %>">
             <!-- Pagination with sort_by parameter -->
             <%= render 'kaminari/tailwind/paginator', paginator: @products, params: { sort_by: params[:sort_by] } %>
           </div>

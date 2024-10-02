@@ -53,6 +53,8 @@ class ProductsController < ApplicationController
 
 
     @product = current_user.products.friendly.find(params[:id])
+    featured =  product_params_without_file[:featured]
+    @product.featured = false
     @product.update(product_params_without_file)
 
 
@@ -81,7 +83,21 @@ class ProductsController < ApplicationController
     params[:file_path] = file_path
 
     AddGitRepoWorkerJob.perform_async(params.to_json, "update")
-    render json: { message: 'Your file was large so we are finishing updating it in the background. You will be notified when it is on the market.' }, status: :ok 
+    
+    if featured == "1" && @product.featured_payment_intent.nil? 
+      session = featured_stripe_session(@product)
+      render json: { url: session.url, status: :ok} and return
+    elsif featured == "1" && @product.featured_payment_intent.present?
+      session_id = @product.featured_payment_intent.session_id
+      session_object = Stripe::Checkout::Session.retrieve(session_id) rescue nil
+      if session_object.present? && session_object["status"] == "complete"
+        product_id = session_object["metadata"]["product_id"]
+        product = Product.find(product_id)
+        product.update(featured: true)
+        product.featured_payment_intent.update(status: "paid", session_id: session_object.id)
+      end       
+    end
+    render json: { message: 'Your file was large so we are finishing uploading it in the background. You will be notified when it is on the market.' }, status: :ok and return
   
   rescue => e
     render json: { message: e.message }, status: :unprocessable_entity
@@ -139,7 +155,7 @@ class ProductsController < ApplicationController
 
 
 
-
+    
     uploaded_file = product_params[:upload_file]
     file_path = ""
   
@@ -149,6 +165,8 @@ class ProductsController < ApplicationController
     product_params_with_user = product_params_without_file.merge(user_id: current_user.id)
 
     @product = Product.unscoped.new(product_params_with_user)
+    featured = @product.featured
+    @product.featured = false
     if @product.save
       uploaded_file = product_params[:upload_file]
       if uploaded_file
@@ -172,7 +190,14 @@ class ProductsController < ApplicationController
       params[:file_path] = file_path
 
       AddGitRepoWorkerJob.perform_async(params.to_json)
+    
+    if featured
+      session = featured_stripe_session(@product)
+      render json: { url: session.url, status: :ok}
+    else 
       render json: { message: 'Your file was large so we are finishing uploading it in the background. You will be notified when it is on the market.' }, status: :ok
+    end 
+
     else
       render json: { message: 'Failed to create product. Repositry Aleady Exist.' }, status: :unprocessable_entity
     end    
@@ -210,7 +235,7 @@ class ProductsController < ApplicationController
 
   def product_params
     params.require(:product).permit(
-      :name, :description, :price,:boost_price, :active, :published, :category_ids,:preview_video_url, :video_file,:upload_file, :features, :instructions, :requirements, :demo_url,
+      :name, :featured, :description, :price,:boost_price, :active, :published, :category_ids,:preview_video_url, :video_file,:upload_file, :features, :instructions, :requirements, :demo_url,
       covers: [],
       product_categories_attributes: [:id, :active],
       covers_attributes: [:id, :image]
@@ -293,6 +318,35 @@ class ProductsController < ApplicationController
       temp_file.close
       temp_file.unlink
     end
+  end
+
+  def featured_stripe_session(product)
+    line_items = [{
+      price_data: {
+        currency: 'usd',
+        product_data: {
+          name: 'Featured',
+        },
+        unit_amount: 1000,
+      },
+      quantity: 1,
+    }]
+
+      session = Stripe::Checkout::Session.create(
+        payment_method_types: ['card'],
+        line_items: line_items,
+        metadata: { product_id: product.id},
+        mode: 'payment',
+        automatic_tax: { enabled: true },
+        success_url: marketplace_library_url(product) + "?session_id={CHECKOUT_SESSION_ID}",
+        cancel_url: marketplace_cancel_payment_url,
+      )
+      
+      payment_intent = Stripe::PaymentIntent.retrieve(session.payment_intent)
+
+      product.create_featured_payment_intent(intent_id: payment_intent.id, intent_object: payment_intent)
+
+      session 
   end
   
 end

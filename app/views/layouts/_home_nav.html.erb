@@ -7,8 +7,8 @@
       <nav aria-label="Top">
         <!-- Secondary navigation -->
         <div class="bg-opacity-60 backdrop-blur-md backdrop-filter">
-          <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-            <div class="flex h-16 items-center justify-between gap-4">
+          <div class="mx-auto max-w-7xl px-3 sm:px-6 lg:px-8">
+            <div class="flex h-16 items-center justify-between sm:gap-4 gap-3">
               <!-- Logo (lg+) -->
               <div>
                 <a href="#">
@@ -29,7 +29,7 @@
               
               <!-- Search -->
               <div class="grow flex justify-center">
-                <form action="/marketplace/search" method="get" class="w-full flex items-center space-x-4">
+                <form action="/marketplace/search" method="get" class="w-full flex items-center sm:space-x-4">
                   <!-- Hidden field to carry the filter type -->
                   <input type="hidden" name="filter_by_type" value="<%= params[:filter_by_type] %>">
 
@@ -37,12 +37,12 @@
                     <input
                       type="text"
                       name="search"
-                      placeholder="Search our marketplace"
+                      placeholder="Search our marketplace for creators, code, categories, or languages"
                       id="productSearch"
                       class="w-full p-2 rounded-md text-black bg-slate-200 rounded-3xl"
                       value="<%= params[:search] %>"
                     >
-                    <button type="submit" class="absolute inset-y-0 right-0 px-4 text-black">
+                    <button type="submit" class="absolute bg-gray-400 rounded-3xl hover:shadow-2xl inset-y-0 right-0 sm:px-4 px-2 text-black">
                       <svg class="h-5 w-5" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"></path>
                       </svg>
@@ -50,7 +50,16 @@
                   </div>
                 </form>
               </div>
-
+               <%= link_to marketplace_root_path do %>
+                  <svg class="h-6 w-6 flex-shrink-0 text-black fill-black hover:fill-white hover:text-white" fill="none" viewBox="0 0 50 50" width="50px" height="50px" aria-hidden="true">
+                  <path d="M 25 1.0507812 C 24.7825 1.0507812 24.565859 1.1197656 24.380859 1.2597656 L 1.3808594 19.210938 C 0.95085938 19.550938 0.8709375 20.179141 1.2109375 20.619141 C 1.5509375 21.049141 2.1791406 21.129062 2.6191406 20.789062 L 4 19.710938 L 4 46 C 4 46.55 4.45 47 5 47 L 19 47 L 19 29 L 31 29 L 31 47 L 45 47 C 45.55 47 46 46.55 46 46 L 46 19.710938 L 47.380859 20.789062 C 47.570859 20.929063 47.78 21 48 21 C 48.3 21 48.589063 20.869141 48.789062 20.619141 C 49.129063 20.179141 49.049141 19.550938 48.619141 19.210938 L 25.619141 1.2597656 C 25.434141 1.1197656 25.2175 1.0507812 25 1.0507812 z M 35 5 L 35 6.0507812 L 41 10.730469 L 41 5 L 35 5 z"/>
+                </svg>
+                <% end %>
+               <%= link_to marketplace_root_path do %>
+                  <svg class="h-6 w-6 flex-shrink-0 text-black fill-black hover:fill-white hover:text-white" fill="none" viewBox="0 0 100 100" width="50px" height="50px" aria-hidden="true">
+                  <path d="M83.333,13.333H16.667C13.001,13.333,10,16.335,10,20v60c0,3.665,3.001,6.667,6.667,6.667h66.666	C86.999,86.667,90,83.665,90,80V20C90,16.335,86.999,13.333,83.333,13.333z M36.667,26.667h20v6.666h-20V26.667z M36.667,53.333	h26.666V60H36.667V53.333z M30,73.333h-6.667v-6.666H30V73.333z M30,60h-6.667v-6.667H30V60z M30,46.667h-6.667V40H30V46.667z M30,33.333h-6.667v-6.666H30V33.333z M70,73.333H36.667v-6.666H70V73.333z M76.667,46.667h-40V40h40V46.667z"/>
+                </svg>
+                <% end %>
 
               <!-- Cart -->
               <div>
@@ -58,7 +67,7 @@
                 <svg class="h-6 w-6 flex-shrink-0 text-black hover:text-white" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" aria-hidden="true">
                   <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 10.5V6a3.75 3.75 0 10-7.5 0v4.5m11.356-1.993l1.263 12c.07.665-.45 1.243-1.119 1.243H4.25a1.125 1.125 0 01-1.12-1.243l1.264-12A1.125 1.125 0 015.513 7.5h12.974c.576 0 1.059.435 1.119 1.007zM8.625 10.5a.375.375 0 11-.75 0 .375.375 0 01.75 0zm7.5 0a.375.375 0 11-.75 0 .375.375 0 01.75 0z" />
                 </svg>
-                <span class="ml-2 text-sm font-medium text-black"><%= current_user&.cart_items_count || visitor_user.cart_items.size %></span>
+                <span class="sm:ml-2 ml-1 text-sm font-medium text-black"><%= current_user&.cart_items_count || visitor_user.cart_items.size %></span>
                 <span class="sr-only">items in cart, view bag</span>
                 <% end %>
               </div>
@@ -71,7 +80,7 @@
                     <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
                   </svg>
                   <% if current_user&.notifications&.unread&.count.to_i > 0 %>
-                    <span class="ml-2 text-sm font-medium text-white bg-blue-500 rounded-full px-2 py-1">
+                    <span class="sm:ml-2 sm:text-sm text-xs font-medium text-white bg-blue-500 rounded-full sm:px-2 px-1 py-1">
                       <%= current_user.notifications.unread.count %>
                     </span>
                   <% end %>

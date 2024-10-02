@@ -7,12 +7,12 @@
 <main class="pb-4 pt-6 sm:pb-6 bg-gradient-to-r from-blue-700 to-orange-500">
   <div class="space-y-6 sm:space-y-8 xl:space-y-10">
     <!-- Creators list -->
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
         <div class="flex items-center justify-between mb-6 sm:mb-10">
           <%= render partial: 'shared/creator_filters' %>
         </div>
-        <h2 class="text-2xl sm:text-xl font-semibold leading-6 sm:leading-7 text-gray-900 underline mb-4 font-mono">List of Creators</h2>
+        <h2 class="text-2xl sm:text-xl font-semibold leading-6 sm:leading-7 text-gray-900 underline mb-4 font-mono">List of <%= User.count %> Creators</h2>
         <ul role="list" class="grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
           <%= render partial: "marketplace/creators/creator", collection: @users, as: :user %>
         </ul>

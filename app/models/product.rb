@@ -25,6 +25,7 @@ class Product < ApplicationRecord
   has_many_attached :covers, dependent: :destroy
   has_many :likes, dependent: :destroy
   has_many :cart_items, dependent: :destroy
+  has_one :featured_payment_intent, dependent: :destroy
 
   validates :name, presence: true, uniqueness: true, on: :create
   # validates :url, presence: true, uniqueness: { scope: :name }
@@ -167,6 +168,9 @@ class Product < ApplicationRecord
       .select('products.*, COUNT(purchases.id) AS purchase_count')
   end
 
+  def purchase_count
+    purchases.count
+  end
   # def related_products
   #   related_by_categories = Product.with_attached_covers.where.not(id: self.id)
   #                                  .includes(:categories)

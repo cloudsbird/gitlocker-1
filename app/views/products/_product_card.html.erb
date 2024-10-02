@@ -1,11 +1,66 @@
-<%= link_to marketplace_library_path(product), class: "relative flex flex-col overflow-hidden border-black border-2 rounded-lg p-6 hover:opacity-75 h-80 w-56 xl:w-72" do %>
-  <span aria-hidden="true" class="absolute inset-0">
-    <% if product.covers.exists? %>
-      <%= image_tag product.covers.first, class: "h-full w-full object-cover object-center" %>
-    <% else %>
-      <%= image_tag "default-cover.png", class: "h-full w-full object-cover object-center" %>
+<div class="bg-white rounded-lg border-6" data-controller="product-card">
+  <div class="border h-full border-black rounded-lg hover:shadow-[0px_20px_20px_15px_#1a202c] flex flex-col divide-y divide-black">
+    <%= link_to marketplace_library_path(product), class:"h-full" do %>
+      <div class="h-full grow flex flex-col divide-y divide-black">
+        <%# Cover Image %>
+        <div class="bg-gray-100 aspect-w-1 aspect-h-1 overflow-hidden rounded-t">
+          <% if product.covers.first.present? %>
+            <img src="<%= product.thumb_image_url %>" alt="TODO" class="h-full w-full object-cover object-center">
+          <% else %>
+            <img src="<%= asset_path('default-cover.png') %>" alt="No Image Available" class="h-full w-full object-cover object-center">
+          <% end %>
+        </div>
+
+        <div class="grow p-3 flex flex-col gap-4">
+          <h3 class="grow text-base font-medium text-black font-mono line-clamp-2">
+            <%= product.name %>
+          </h3>
+
+          <%# Languages %>
+          <% if product.languages.present? && product.languages.size > 0 && product.languages[0]&.name != 'not_specified' %>
+            <div class="flex flex-row flex-wrap items-center justify-start gap-2">
+              <% product.languages.take(3).each do |language| %>
+                <p class="text-xs border border-gray-900 rounded px-2 py-1.5 text-gray-700"><%= language.name %></p>
+              <% end %>
+            </div>
+          <% end %>
+  
+        </div>
+
+        <%# Reviews + Price %>
+        <div class="flex flex-row items-center divide-x divide-black p-0 m-0">
+          <%# Reviews %>
+          <div class="p-3 grow">
+            <% if product.reviews.size > 0 %> 
+              <div class="flex items-center gap-1">
+                <svg class="text-gray-700 h-4 w-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
+                  <path fill-rule="evenodd" d="M10.868 2.884c-.321-.772-1.415-.772-1.736 0l-1.83 4.401-4.753.381c-.833.067-1.171 1.107-.536 1.651l3.62 3.102-1.106 4.637c-.194.813.691 1.456 1.405 1.02L10 15.591l4.069 2.485c.713.436 1.598-.207 1.404-1.02l-1.106-4.637 3.62-3.102c.635-.544.297-1.584-.536-1.65l-4.752-.382-1.831-4.401z" clip-rule="evenodd" />
+                </svg>
+                <p class="px-1 py-1 text-sm font-medium text-gray-700"><%= product.average_rating.to_f.round(1) %>(<%= product.reviews.size %>)</p>
+              </div>
+            <% else %>
+              <div class="flex items-center">
+                <p class="px-1 py-1 rounded text-sm font-medium bg-green-500 text-black">New</p>
+              </div>
+            <% end %>
+          </div>
+          <%# Price %>
+          <div class="p-3">
+            <% if product.price.to_f.round(2) > 0.00 %> 
+              <p class="px-1 py-1 text-sm font-medium text-black"><%= product.price.currency.symbol %><%= product.price %></p>
+            <% else %>
+              <p class="px-1 py-1 rounded text-sm font-medium bg-yellow-500 text-black">Free</p>
+            <% end %>
+          </div>
+        </div>
+      </div>
     <% end %>
-  </span>
-  <span aria-hidden="true" class="absolute inset-x-0 bottom-0 h-2/3 bg-gradient-to-t from-gray-800 opacity-50"></span>
-  <span class="relative mt-auto text-center text-xl font-bold text-white truncate" style="max-height: 3.6rem;"><%= product.name %></span>
-<% end %>
+
+    <%# Download %>
+    <% if policy(product).download_able? %>
+      <div class="p-3">
+        <%= link_to "Download", product.folder.url , data: { "turbo-method": :post }, class: "flex w-full items-center justify-center rounded-md border border-transparent bg-indigo-600 px-3 py-2 text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:ring-offset-2 focus:ring-offset-gray-50" %>
+      </div>
+    <% end %>
+  </div>
+</div>

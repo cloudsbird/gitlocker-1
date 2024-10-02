@@ -1,5 +1,5 @@
 <main class="mx-auto w-full bg-gradient-to-r from-blue-700 to-orange-500">
-  <div class="mx-auto max-w-2xl px-4 pb-24 pt-16 sm:px-6 lg:max-w-7xl lg:px-8">
+  <div class="mx-auto px-4 pb-24 pt-16 sm:px-6 lg:px-8">
     <h1 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl font-mono">Cart</h1>
 
     <form class="mt-12 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-12 xl:gap-x-16">
@@ -7,7 +7,7 @@
         <h2 id="cart-heading" class="sr-only">Items in your shopping cart</h2>
 
         <% if @cart_items.exists? %>
-          <ul role="list" class="divide-y divide-gray-200 border-b border-t border-gray-900">
+          <ul role="list" class="divide-y divide-gray-200 mt-4 rounded-lg border border-gray-200 bg-white shadow-sm">
             <%= render partial: "marketplace/cart_items/cart_item", collection: @cart_items, as: :cart_item %>
           </ul>
         <% else %>

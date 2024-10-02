@@ -1,6 +1,6 @@
 <%= render BreadcrumbComponent.new(current_user, [{ text: "Funds", url: funds_path }]) %>
 <div class="w-full bg-gradient-to-r from-blue-700 to-orange-500 justify-center" data-controller="checkout" style="min-height: 27.65rem;">
-  <div class="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8">
+  <div class="mx-auto px-4 py-16 sm:px-6 lg:px-8">
     <div class="pb-8">
     <h2 class="text-xl sm:text-2xl font-bold tracking-tight font-mono text-gray-900 underline">Earnings</h2>
     </div>
@@ -59,14 +59,14 @@
 
 
     <div class="col-span-1">
-      <h1 class="text-lg font-mono underline text-gray-900">Payment:</h2>
+      <h1 class="text-lg font-mono underline font-bold text-gray-900">Payment:</h1>
       <h2 class="font-mono">If you have any issues withdrawing your funds please email cody@gitlocker.com and describe your issue with either a loom video or screenshots of the issue, and we will get right back with you and help you get your money!</h2>
       <div class="mt-6">
 
         <% if current_user.account.nil? %>
           <form action="/accounts" method="POST" data-turbo="false" class="mt-4">
             <input type="hidden" name="authenticity_token" value="<%= form_authenticity_token %>">
-            <button type="submit" class="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium font-mono rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
+            <button type="submit" class="inline-flex w-96 items-center px-4 py-2 border border-transparent text-sm font-medium font-mono rounded-md shadow-sm bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500">
               Create a Stripe Account
             </button>
           </form>
@@ -74,11 +74,30 @@
         <% end %>
       
         <%= form_tag funds_path, method: :post, class: "stripe-form", "data-turbo" => "false" do %>
-          <%= submit_tag "Get Paid through Stripe", disabled: current_user.balance <= 0 || current_user.account.nil? , class: "mt-4 w-full bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white disabled:cursor-not-allowed disabled:bg-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 cursor-pointer" %>
+          <%= submit_tag "Get Paid through Stripe", disabled: current_user.balance <= 0 || current_user.account.nil? , class: "mt-4 w-96 bg-indigo-600 border border-transparent rounded-md shadow-sm py-3 px-4 text-base font-medium text-white disabled:cursor-not-allowed disabled:bg-indigo-300 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-50 focus:ring-indigo-500 cursor-pointer" %>
         <% end %>
       </div>
     </div>
   </div>
+      <div class="pb-8">
+        <h1 class="text-xl font-mono underline font-bold text-gray-900 p-4 m-4">Transactions:</h1>
+            <table class="table-auto m-8 p-8 border-black border-2">
+              <thead>
+              <tr>
+                <th class="px-6 py-3 border-black border-2">Buyer:</th>
+                <th class="px-6 py-3 border-black border-2">Product:</th>
+              </tr>
+              </thead>
+            <% @sales.each do |sale| %>
+              <tbody>
+              <tr>
+                <td class="px-6 py-3 border-black border-2"><%= sale.user %></td>
+                <td class="px-6 py-3 border-black border-2"><%= sale.product %></td>
+              </tr>
+              </tbody>
+            <% end %>
+            </table>
+      </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0" defer></script>
