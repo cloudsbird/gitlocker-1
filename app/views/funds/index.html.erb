@@ -79,27 +79,34 @@
       </div>
     </div>
   </div>
-      <div class="pb-8">
-        <h1 class="text-xl font-mono underline font-bold text-gray-900 p-4 m-4">Transactions:</h1>
-            <table class="table-auto m-8 p-8 border-black border-2">
-              <thead>
-              <tr>
-                <th class="px-6 py-3 border-black border-2">Buyer:</th>
-                <th class="px-6 py-3 border-black border-2">Product:</th>
-                <th class="px-6 py-3 border-black border-2">Price:</th>
-              </tr>
-              </thead>
+  <div class="pb-8">
+    <h1 class="text-xl font-mono underline font-bold text-gray-900 p-4 m-4">Transactions:</h1>
+    <div class="mt-4">
+      <div class="flex items-center justify-center mt-4">
+        <table class="table-auto m-8 p-8 border-black border-2">
+          <thead>
+            <tr>
+              <th class="px-6 py-3 border-black border-2">Buyer:</th>
+              <th class="px-6 py-3 border-black border-2">Product:</th>
+              <th class="px-6 py-3 border-black border-2">Price:</th>
+            </tr>
+          </thead>
+          <tbody>
             <% @sales.each do |sale| %>
-              <tbody>
               <tr>
                 <td class="px-6 py-3 border-black border-2"><%= sale.user&.name %></td>
                 <td class="px-6 py-3 border-black border-2"><%= sale.product&.name %></td>
-                <td class="px-6 py-3 border-black border-2"><%= sale.price_cents %></td>
+                <td class="px-6 py-3 border-black border-2"><%= number_to_currency(sale.price_cents.to_f/100, unit: '$') %></td>
               </tr>
-              </tbody>
             <% end %>
-            </table>
+          </tbody>
+        </table>
       </div>
+    </div>
+    <div class="mt-4">
+      <%= render 'kaminari/tailwind/paginator', paginator: @sales %>
+    </div>
+  </div>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/alpinejs@2.8.0" defer></script>
