@@ -3,7 +3,7 @@ class FundsController < ApplicationController
   before_action :update_state
   def index
     @funds = current_user.total_sales_amount_in_dollars
-    @sales = current_user.sales.includes(:product, :user)
+    @sales = current_user.sales.includes(:product, :user, :price_cents)
   end
 
   def create
