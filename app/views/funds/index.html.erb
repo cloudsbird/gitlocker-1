@@ -91,8 +91,8 @@
             <% @sales.each do |sale| %>
               <tbody>
               <tr>
-                <td class="px-6 py-3 border-black border-2"><%= sale.user %></td>
-                <td class="px-6 py-3 border-black border-2"><%= sale.product %></td>
+                <td class="px-6 py-3 border-black border-2"><%= sale.user&.name %></td>
+                <td class="px-6 py-3 border-black border-2"><%= sale.product&.name %></td>
               </tr>
               </tbody>
             <% end %>
