@@ -54,7 +54,7 @@ class ProductsController < ApplicationController
 
     @product = current_user.products.friendly.find(params[:id])
     featured =  product_params_without_file[:featured]
-    @product.featured = false
+    product_params_without_file[:featured] = false
     @product.update(product_params_without_file)
 
 
