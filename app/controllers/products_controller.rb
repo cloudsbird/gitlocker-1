@@ -212,6 +212,19 @@ class ProductsController < ApplicationController
     redirect_to products_path, notice: 'Product was successfully deleted.'
   end
 
+  def search_repositories
+    if params[:query].present?
+      search_query = "#{params[:query]}"
+      @user_repos = octokit_client.search_repositories(search_query, {per_page: repositories_count, type: 'private'})[:items]
+    else
+      @user_repos ||= octokit_client.repositories(nil, type: 'private', per_page: repositories_count)
+    end
+    import_table
+    respond_to do |format|
+      format.js
+    end
+  end
+
   private
 
   def import_table
@@ -230,7 +243,8 @@ class ProductsController < ApplicationController
     @filtered_repos = repo_hash.reject do |repo|
       product_urls.include?(repo[:url])
     end
-    @filtered_repos = Kaminari.paginate_array(@filtered_repos).page(params[:page]).per(5)
+
+    @filtered_repos = Kaminari.paginate_array(@filtered_repos).page(params[:page]).per(5)    
   end
 
   def product_params
@@ -284,7 +298,7 @@ class ProductsController < ApplicationController
   end
 
   def set_user_repos
-    @user_repos ||= octokit_client.repositories(nil, per_page: repositories_count)
+    @user_repos ||= octokit_client.repositories(nil, type: 'private', per_page: repositories_count)
   end
 
   def download_repository_as_zip(owner, repo, ref, token)
