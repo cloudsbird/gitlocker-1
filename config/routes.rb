@@ -59,6 +59,7 @@ Rails.application.routes.draw do
     post 'like', on: :member
     post 'unlike', on: :member
   end
+  get 'search_repositories/(:query)', to: "products#search_repositories"
 
   resources :subscribed_users, only: :create
 
