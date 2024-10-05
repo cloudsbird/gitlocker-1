@@ -44,8 +44,10 @@
               </div>
             <% end %>
             <% if @product.featured %>
-	           <div class="flex inline-flex bg-indigo-500 rounded-2xl p-2"><p class="text-gray-900 font-mono underline sm:text-4xl">Featured</p></div>
-	          <% end %>
+	      <div class="flex items-center">
+                <p class="px-1 py-1 rounded text-sm font-medium bg-indigo-500 text-black">Featured</p>
+              </div>
+	    <% end %>
           </div>
           <%# Price %>
           <div class="p-3">
