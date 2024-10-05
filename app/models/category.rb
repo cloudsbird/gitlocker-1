@@ -298,7 +298,30 @@ class Category < ApplicationRecord
       "WebRTC": "Azure.png",
       "Web Scraping": "Awesome-Lists.jpg",
       "WebSockets": "Atom.png",
-      "Serverless Computing": "Arduino.png"
+      "Serverless Computing": "Arduino.png",
+      "Solidity": "Xamarin.png",
+      "Smart Contracts Development": "Bot.jpg",
+      "Decentralized Finance (DeFi)": "Ajax.png",
+      "Gsap": "Amp.png",
+      "Continuous Delivery": "C.png",
+      "Infrastructure as Code (IaC)": "Azure.png",
+      "Progressive Web Apps (PWAs)": "Babel.png",
+      "Flutter": "React-Native.png",
+      "Data Governance": "API.png",
+      "Threat Intelligence": "Ansible.png",
+      "Multi-cloud Strategies": "",
+      "Cloud Security": "",
+      "Three.js": "Vim.png",
+      "Svelte": "Vim.png",
+      "Magento": "Bot.jpg",
+      "Shopify": "Babel.png",
+      "Liquid": "Ansible.png",
+      "C#": "Ansible.png",
+      "Spring Boot": "Awesome-Lists.jpg",
+      "NestJs": "Vim.png",
+
+
+
 
   }.with_indifferent_access
 
