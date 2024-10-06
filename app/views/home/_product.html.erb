@@ -30,7 +30,7 @@
         <%# Reviews + Price %>
         <div class="flex flex-row items-center divide-x divide-black p-0 m-0">
           <%# Reviews %>
-          <div class="p-3 grid grid-cols-2 divide-x divide-black grow">
+          <div class="p-3 grid grid-cols-2 grow">
             <% if product.reviews.size > 0 %> 
               <div class="flex items-center gap-1">
                 <svg class="text-gray-700 h-4 w-4 flex-shrink-0" viewBox="0 0 20 20" fill="currentColor" aria-hidden="true">
@@ -45,7 +45,7 @@
             <% end %>
             <% if product.featured %>
 	      <div class="flex justify-center items-center">
-                <p class="p-3 rounded text-sm font-medium bg-indigo-300 text-black">Featured</p>
+                <p class="px-1 py-1 rounded text-sm font-medium bg-indigo-300 text-black">Featured</p>
               </div>
 	    <% end %>
           </div>
