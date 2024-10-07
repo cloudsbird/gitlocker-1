@@ -18,6 +18,7 @@ class PurchaseNotification < Noticed::Event
   private
 
   def set_notification_message
+    self.params ||= {}
     self.params[:message] ||= "#{buyer.name} purchased your #{product.name} product." if buyer.present?
   end
 end
