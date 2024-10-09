@@ -161,12 +161,12 @@
   </footer>
 </section>
 </main>
-<main class="pb-4 pt-6 sm:pb-6">
+<main class="pb-4 pt-6 sm:pb-6 bg-gradient-to-r from-blue-700 to-orange-500">
   <div class="space-y-16 py-16 xl:space-y-20">
     <!-- Creators list-->
-    <div class="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+    <div class="mx-auto px-4 sm:px-6 lg:px-8">
       <div class="mx-auto max-w-2xl lg:mx-0 lg:max-w-none">
-        <b><%= @user.name %> Listed Products :</b>
+        <h1 class="font-bold underline font-mono text-3xl mb-8"><%= @user.name %> Listed Products:</h1>
         <% if @products.empty? %>
           <p class="font-medium leading-7 text-gray-900 text-xl">The user has no listed products for sale.</p>
         <% else %>
