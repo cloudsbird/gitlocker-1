@@ -241,7 +241,6 @@ class ProductsController < ApplicationController
       format.html { render partial: 'products/product', collection: @products, as: :product }
       end
     end
-    # render json: @products 
   end
 
   private
