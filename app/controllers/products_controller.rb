@@ -223,6 +223,25 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.js
     end
+  end 
+  
+  def search 
+    query = params[:q]
+    if query.present?
+      
+      @products = current_user.products.where('name ILIKE ?', "%#{query}%").page(params[:page]).per(50)  
+    else
+      @products = current_user.products.page(params[:page]).per(50)
+    end
+    
+    respond_to do |format|
+      if @products.empty?
+        format.html { render plain: "No Data Found", status: :not_found }
+      else
+      format.html { render partial: 'products/product', collection: @products, as: :product }
+      end
+    end
+    # render json: @products 
   end
 
   private

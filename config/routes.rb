@@ -58,6 +58,7 @@ Rails.application.routes.draw do
     resources :covers, only: [:create, :destroy], controller: "product_covers"
     post 'like', on: :member
     post 'unlike', on: :member
+    get 'search', on: :collection
   end
   get 'search_repositories/(:query)', to: "products#search_repositories"
 
@@ -90,7 +91,7 @@ Rails.application.routes.draw do
     get "browse/categories", to: "browse#categories"
     resources :creators, only: [:index, :show]
     resources :languages, only: :show, param: :slug
-    resources :categories, only: :show, param: :slug
+    resources :categories, only: [:show, :create], param: :slug
     resources :library, only: :show, path: "l" do
       resources :reviews, only: [:new, :create]
     end
