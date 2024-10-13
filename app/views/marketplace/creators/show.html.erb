@@ -22,7 +22,7 @@
               <% if @user.profile_picture.present? %>
                 <img alt="<%= @user.username %> profile picture" src="<%= @user.profile_picture.url %>" class="shadow-xl rounded-full h-auto align-middle border-2 border-black absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
               <% else %>
-                <img class="shadow-xl rounded-full h-auto align-middle border-black border-2 absolute m-16 ml-20 lg:ml-16 max-w-150-px" src="https://gitlocker.s3.us-east-2.amazonaws.com/man-standing-holding-laptop-while-showing-programming-language-software.png" alt="no profile picture">
+                <img class="shadow-xl rounded-full z-50 h-auto align-middle border-black border-2 absolute m-16 ml-20 lg:ml-16 max-w-150-px" src="https://gitlocker.s3.us-east-2.amazonaws.com/man-standing-holding-laptop-while-showing-programming-language-software.png" alt="no profile picture">
               <% end %>
             </div>
           </div>
