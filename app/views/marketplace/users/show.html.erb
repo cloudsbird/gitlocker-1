@@ -19,9 +19,9 @@
 					<div class="w-full lg:w-3/12 px-4 lg:order-2 flex justify-center">
 						<div class="relative">
 							<% if @user.profile_picture.present? %>
-							  <img alt="<%= @user.username %> profile picture" src="<%= @user.profile_picture.url %>" class="shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px">
+							  <img alt="<%= @user.username %> profile picture" src="<%= @user.profile_picture.url %>" class="shadow-xl rounded-full align-middle border-2 border-black mt-8 max-h-52 max-w-52">
 							<% else %>
-							  <%= image_tag asset_path('no_profile.webp'), alt: "#{@user.username} profile picture", class: "shadow-xl rounded-full h-auto align-middle border-none absolute -m-16 -ml-20 lg:-ml-16 max-w-150-px" %>
+							  <%= image_tag asset_path('no_profile.webp'), alt: "#{@user.username} profile picture", class: "shadow-xl rounded-full align-middle border-2 border-black mt-8 max-h-52 max-w-52" %>
 							<% end %>
 						</div>
 					</div>
