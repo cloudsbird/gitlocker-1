@@ -48,32 +48,17 @@ class AddGitRepoWorkerJob
       #     )
       # end
     end
-    
-    if params[:product][:category_ids].present?
-      # category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
-      category_ids, category_names = differentiate_id_name(params[:product][:category_ids][0])
 
-      if category_ids.present?
-        categories = Category.find(category_ids)
-        @product.categories << categories
-      end 
-      if category_names.present? 
-        @product.more_categories_from_createor = category_names
-      end 
+    if params[:product][:category_ids].present?
+      category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
+      categories = Category.find(category_ids)
+      @product.categories << categories
     end
 
     if params[:product][:language_ids].present?
-      # language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
-
-      language_ids, language_names = differentiate_id_name(params[:product][:language_ids][0])
-
-      if language_ids.present?
-        languages = Language.find(language_ids)
-        @product.languages << languages
-      end 
-      if language_names.present? 
-        @product.more_languages_from_createor = language_names
-      end 
+      language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
+      languages = Language.find(language_ids)
+      @product.languages << languages
     else
       selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
       @product.languages << selected_language
@@ -136,43 +121,14 @@ class AddGitRepoWorkerJob
     @product.published = true
     @product.active = true
 
-    @product.categories.destroy_all
-    
-    if params[:product][:category_ids].present?
-      # category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
-      category_ids, category_names = differentiate_id_name(params[:product][:category_ids][0])
-      
-      if category_ids.present?
-        categories = Category.find(category_ids)
-        @product.categories << categories
-      end 
-      if category_names.present? 
-        @product.more_categories_from_createor = category_names
-      else 
-        @product.more_categories_from_createor = []
-      end 
-    else 
-      @product.more_categories_from_createor = []
-    end
-
     @product.languages.destroy_all
     if params[:product][:language_ids].present?
-      # language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
-      language_ids, language_names = differentiate_id_name(params[:product][:language_ids][0])
-
-      if language_ids.present?
-        languages = Language.find(language_ids)
-        @product.languages << languages
-      end 
-      if language_names.present? 
-        @product.more_languages_from_createor = language_names
-      else  
-        @product.more_languages_from_createor = []
-      end 
+      language_ids = params[:product][:language_ids][0].split(",").map(&:to_i)
+      languages = Language.find(language_ids)
+      @product.languages << languages
     else
       selected_language = Language.find_or_create_by(name: 'not_specified', image_name: 'html.png')
       @product.languages << selected_language
-      @product.more_languages_from_createor = []
     end
     if @product.save
       notification_params = {
@@ -212,12 +168,4 @@ class AddGitRepoWorkerJob
     parts = URI.parse(repo_url).path.split('/')
     [parts[1], parts[2].sub(/\.git$/, "")]
   end
-
-  def differentiate_id_name(inputs)
-    elements = inputs.split(',')
-    ids = elements.select { |e| e =~ /^\d+$/ }
-    names = elements.select { |e| e =~ /^[a-zA-Z]+$/ }
-
-    return ids, names 
-  end 
 end

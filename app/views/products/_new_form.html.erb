@@ -133,20 +133,22 @@
         <div class="sm:col-span-4 border-t-4 border-black">
           <%= f.label :categories, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
-            <%= f.select :category_ids, options_for_select(Category.pluck(:name, :id)), {}, 
-    class: "js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50", 
-    multiple: true, 
-    id: "categoriesSelect" %>
+            <select  class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="categoriesSelect"  multiple="multiple">
+              <% Category.all.each do |category| %>
+                <option value="<%= category.id %>"><%= category.name %></option>
+              <% end %>
+            </select>
           </div>
         </div>
 
         <div class="sm:col-span-4 border-t-4 border-black">
           <%= f.label :language_ids, "Languages", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
-            <%= f.select :language_ids, options_for_select(Language.pluck(:name, :id)), {}, 
-    class: "js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50", 
-    multiple: true, 
-    id: "languagesSelect" %>
+            <select class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="languagesSelect" multiple="multiple">
+              <% Language.all.each do |language| %>
+                <option value="<%= language.id %>"><%= language.name %></option>
+              <% end %>
+            </select>
           </div>
         </div>
 
@@ -186,7 +188,6 @@
   </div>
   <p>We are processing your files in the background. You can close this tab now. You will be notified when it is on the market.</p>
 </div>
-
 <script type="text/javascript">
   function toggleVideoFields() {
     var selectedOption = $("#product_video_source").val();
@@ -453,22 +454,5 @@ document.addEventListener('turbo:load', () => {
     });
   });
 });
-
-$(document).ready(function() {
-  $('#categoriesSelect').select2({
-    tags: true,
-    placeholder: 'Select or enter categories',
-    tokenSeparators: [',', ' '],
-    allowClear: true
-  });
-
-  $('#languagesSelect').select2({
-    tags: true,
-    placeholder: 'Select or enter language',
-    tokenSeparators: [',', ' '],
-    allowClear: true
-  });
-});
-
 
 </script>
