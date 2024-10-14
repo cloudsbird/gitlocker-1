@@ -72,12 +72,12 @@ class ProductsController < ApplicationController
       end
     end
 
-    @product.categories.destroy_all
-    if params[:product][:category_ids].present?
-      category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
-      categories = Category.find(category_ids)
-      @product.categories << categories
-    end
+    # @product.categories.destroy_all
+    # if params[:product][:category_ids].present?
+    #   category_ids = params[:product][:category_ids][0].split(",").map(&:to_i)
+    #   categories = Category.find(category_ids)
+    #   @product.categories << categories
+    # end
     params[:user_id]=current_user.id
     params[:product_id] = @product.id
     params[:file_path] = file_path
