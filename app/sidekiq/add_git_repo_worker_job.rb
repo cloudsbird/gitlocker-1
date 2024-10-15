@@ -54,7 +54,7 @@ class AddGitRepoWorkerJob
       category_ids, category_names = differentiate_id_name(params[:product][:category_ids][0])
 
       if category_ids.present?
-        categories = Category.find(category_ids)
+        categories = Category.where(id: category_ids)
         @product.categories << categories
       end 
       if category_names.present? 
@@ -68,7 +68,7 @@ class AddGitRepoWorkerJob
       language_ids, language_names = differentiate_id_name(params[:product][:language_ids][0])
 
       if language_ids.present?
-        languages = Language.find(language_ids)
+        languages = Language.where(id: language_ids)
         @product.languages << languages
       end 
       if language_names.present? 
@@ -143,7 +143,7 @@ class AddGitRepoWorkerJob
       category_ids, category_names = differentiate_id_name(params[:product][:category_ids][0])
       
       if category_ids.present?
-        categories = Category.find(category_ids)
+        categories = Category.where(id: category_ids)
         @product.categories << categories
       end 
       if category_names.present? 
@@ -161,7 +161,7 @@ class AddGitRepoWorkerJob
       language_ids, language_names = differentiate_id_name(params[:product][:language_ids][0])
 
       if language_ids.present?
-        languages = Language.find(language_ids)
+        languages = Language.where(id: language_ids)
         @product.languages << languages
       end 
       if language_names.present? 
