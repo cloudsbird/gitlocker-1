@@ -174,6 +174,7 @@ class AddGitRepoWorkerJob
       @product.languages << selected_language
       @product.more_languages_from_createor = []
     end
+    
     if @product.save
       notification_params = {
         recipient: @product.user,
@@ -216,7 +217,7 @@ class AddGitRepoWorkerJob
   def differentiate_id_name(inputs)
     elements = inputs.split(',')
     ids = elements.select { |e| e =~ /^\d+$/ }
-    names = elements.select { |e| e =~ /^[a-zA-Z]+$/ }
+    names = elements.reject { |e| e =~ /^\d+$/ }
 
     return ids, names 
   end 
