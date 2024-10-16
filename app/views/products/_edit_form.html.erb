@@ -142,22 +142,20 @@
         <div class="sm:col-span-4 border-t-4 border-black">
           <%= f.label :categories, class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
           <div class="mt-2">
-            <select class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="categoriesSelect" multiple="multiple">
-              <% Category.all.each do |category| %>
-                <option value="<%= category.id %>" <%= 'selected' if @product.categories.include?(category) %>><%= category.name %></option>
-              <% end %>
-            </select>
+            <%= f.select :category_ids, options_for_select(Category.pluck(:name, :id), @product.categories.pluck(:id)), {}, 
+              class: "js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50", 
+              multiple: true, 
+              id: "categoriesSelect" %>
           </div>
         </div>
 
           <div class="sm:col-span-4 border-t-4 border-black">
             <%= f.label :language_ids, "Languages", class: "block text-xl font-medium leading-6 text-gray-900 font-mono" %>
             <div class="mt-2">
-              <select class="js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50" id="languagesSelect" multiple="multiple">
-                <% Language.all.each do |language| %>
-                  <option value="<%= language.id %>" <%= 'selected' if @product.language_ids.include?(language.id) %>><%= language.name %></option>
-                <% end %>
-              </select>
+              <%= f.select :language_ids, options_for_select(Language.pluck(:name, :id), @product.languages.pluck(:id)), {}, 
+                class: "js-example-basic-multiple w-40 sm:w-50 mt-1 block rounded-md shadow-sm border-gray-300 focus:border-indigo-500 focus:ring focus:ring-indigo-200 focus:ring-opacity-50", 
+                multiple: true, 
+                id: "languagesSelect" %>
             </div>
           </div>
 
@@ -179,6 +177,9 @@
           <div class="sm:col-span-4">
               <div id="upload-status" class="mt-2"></div>
           </div>
+
+          <%= hidden_field_tag 'additional_categories', @product.more_categories_from_createor.to_json %>
+          <%= hidden_field_tag 'additional_languages', @product.more_languages_from_createor.to_json %>
         </div>
       </div>
     </div>
@@ -447,4 +448,53 @@
     });
 
   });
+  $(document).ready(function() {
+  
+    var additionalCategories = JSON.parse($('#additional_categories').val());
+
+    additionalCategories.forEach(function(categoryName) {
+      if ($('#categoriesSelect').find("option[value='" + categoryName + "']").length === 0) {
+        var newOption = new Option(categoryName, categoryName, true, true);
+        $('#categoriesSelect').append(newOption).prop('selected', true);
+      }
+    });
+
+    $('#categoriesSelect').select2({
+      tags: true,
+      placeholder: 'Select or enter categories',
+      tokenSeparators: [',', ' '],
+      allowClear: true
+    });
+
+    $('#categoriesSelect option').each(function() {
+      if (additionalCategories.includes($(this).val())) {
+        $(this).hide();
+      }
+    });
+
+    // ------------------------------------------------------
+
+    var additionalLanguages = JSON.parse($('#additional_languages').val());
+
+    additionalLanguages.forEach(function(languageName) {
+      if ($('#languagesSelect').find("option[value='" + languageName + "']").length === 0) {
+        var newOption = new Option(languageName, languageName, true, true);
+        $('#languagesSelect').append(newOption).prop('selected', true);
+      }
+    });
+
+    $('#languagesSelect').select2({
+      tags: true,
+      placeholder: 'Select or enter languages',
+      tokenSeparators: [',', ' '],
+      allowClear: true
+    });
+
+    $('#languagesSelect option').each(function() {
+      if (additionalLanguages.includes($(this).val())) {
+        $(this).hide();
+      }
+    });
+  });
+
 </script>
