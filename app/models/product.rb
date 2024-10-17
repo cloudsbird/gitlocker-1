@@ -187,6 +187,6 @@ class Product < ApplicationRecord
        .where.not(id: self.id)
        .where('categories.id IN (?) OR languages.id IN (?)', self.category_ids, self.language_ids)
        .distinct
-       .limit(15)
+       .limit(5)
   end
 end
