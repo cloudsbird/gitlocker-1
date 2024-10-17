@@ -449,6 +449,24 @@
 
   });
   $(document).ready(function() {
+
+    function enforceSelectionLimit(selectElement) {
+    selectElement.on('select2:select', function(e) {
+      var selectedItems = $(this).val();
+
+      if (selectedItems.length > 5) {
+        
+        var lastSelected = e.params.data.id; 
+        var options = $(this).find('option:selected');
+        options.each(function() {
+          if ($(this).val() == lastSelected) {
+            $(this).prop('selected', false); 
+            selectElement.trigger('change');
+          }
+        });
+      }
+    });
+  }
   
     var additionalCategories = JSON.parse($('#additional_categories').val());
 
@@ -459,7 +477,7 @@
       }
     });
 
-    $('#categoriesSelect').select2({
+    var categoriesSelect = $('#categoriesSelect').select2({
       tags: true,
       placeholder: 'Select or enter categories',
       tokenSeparators: [',', ' '],
@@ -472,6 +490,8 @@
       }
     });
 
+    enforceSelectionLimit(categoriesSelect);
+
     // ------------------------------------------------------
 
     var additionalLanguages = JSON.parse($('#additional_languages').val());
@@ -483,7 +503,7 @@
       }
     });
 
-    $('#languagesSelect').select2({
+    var languagesSelect = $('#languagesSelect').select2({
       tags: true,
       placeholder: 'Select or enter languages',
       tokenSeparators: [',', ' '],
@@ -495,6 +515,8 @@
         $(this).hide();
       }
     });
+
+    enforceSelectionLimit(languagesSelect);
   });
 
 </script>
