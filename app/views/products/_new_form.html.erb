@@ -453,18 +453,42 @@ document.addEventListener('turbo:load', () => {
   });
 });
 $(document).ready(function() {
-  $('#categoriesSelect').select2({
+
+  function enforceSelectionLimit(selectElement) {
+    selectElement.on('select2:select', function(e) {
+      var selectedItems = $(this).val();
+
+      if (selectedItems.length > 5) {
+        
+        var lastSelected = e.params.data.id; 
+        var options = $(this).find('option:selected');
+        options.each(function() {
+          if ($(this).val() == lastSelected) {
+            $(this).prop('selected', false); 
+            selectElement.trigger('change');
+          }
+        });
+      }
+    });
+  }
+
+  var categoriesSelect = $('#categoriesSelect').select2({
     tags: true,
     placeholder: 'Select or enter categories',
     tokenSeparators: [',', ' '],
     allowClear: true
-  });
-  $('#languagesSelect').select2({
+  })
+
+  var languagesSelect = $('#languagesSelect').select2({
     tags: true,
     placeholder: 'Select or enter language',
     tokenSeparators: [',', ' '],
     allowClear: true
-  });
+  })
+
+  enforceSelectionLimit(categoriesSelect);
+  enforceSelectionLimit(languagesSelect);
+
 });
 
 </script>
