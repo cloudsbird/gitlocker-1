@@ -14,13 +14,13 @@
       <% if paginator.total_pages <= 7 %>
         <% (1..paginator.total_pages).each do |page| %>
           <li>
-            <%= link_to page, url_for(request.params.merge(page: page)), class: "px-2 py-1 rounded-full border border-gray-300 hover:bg-gray-100 #{'font-semibold text-gray-800' if paginator.current_page == page}" %>
+            <%= link_to page, url_for(request.params.merge(page: page)), class: "px-2 py-1 rounded-full border border-black bg-orange-500 text-white hover:text-black hover:bg-orange-700 #{'font-semibold text-gray-800' if paginator.current_page == page}" %>
           </li>
         <% end %>
       <% else %>
         <% if paginator.current_page > 3 %>
           <li>
-            <%= link_to 1, url_for(request.params.merge(page: 1)), class: "px-2 py-1 rounded-full border border-gray-300 hover:bg-gray-100 #{'font-semibold text-gray-800' if paginator.current_page == 1}" %>
+            <%= link_to 1, url_for(request.params.merge(page: 1)), class: "px-2 py-1 rounded-full border border-black bg-orange-500 text-white hover:text-black hover:bg-orange-700 #{'font-semibold text-gray-800' if paginator.current_page == 1}" %>
           </li>
           <li class="disabled"><span class="px-2 py-1">...</span></li>
         <% end %>
@@ -29,7 +29,7 @@
           <% page = paginator.current_page + i %>
           <% if page > 1 && page < paginator.total_pages %>
             <li>
-              <%= link_to page, url_for(request.params.merge(page: page)), class: "px-2 py-1 rounded-full border border-gray-300 hover:bg-gray-100 #{'font-semibold text-gray-800' if paginator.current_page == page}" %>
+              <%= link_to page, url_for(request.params.merge(page: page)), class: "px-2 py-1 rounded-full border border-black bg-orange-500 text-white hover:text-black hover:bg-orange-700 #{'font-semibold text-gray-800' if paginator.current_page == page}" %>
             </li>
           <% end %>
         <% end %>
@@ -37,14 +37,14 @@
         <% if paginator.current_page < paginator.total_pages - 2 %>
           <li class="disabled"><span class="px-2 py-1">...</span></li>
           <li>
-            <%= link_to paginator.total_pages, url_for(request.params.merge(page: paginator.total_pages)), class: "px-2 py-1 rounded-full border border-gray-300 hover:bg-gray-100 #{'font-semibold text-gray-800' if paginator.current_page == paginator.total_pages}" %>
+            <%= link_to paginator.total_pages, url_for(request.params.merge(page: paginator.total_pages)), class: "px-2 py-1 rounded-full border border-black bg-orange-500 text-white hover:text-black hover:bg-orange-700 #{'font-semibold text-gray-800' if paginator.current_page == paginator.total_pages}" %>
           </li>
         <% end %>
       <% end %>
 
       <% if paginator.current_page < paginator.total_pages %>
         <li>
-          <%= link_to raw('Next &rsaquo;'), url_for(request.params.merge(page: paginator.current_page + 1)), class: "text-gray-600 hover:text-gray-800 font-semibold px-2 py-1 rounded border border-gray-300" %>
+          <%= link_to raw('Next &rsaquo;'), url_for(request.params.merge(page: paginator.current_page + 1)), class: "text-white hover:text-black hover:bg-orange-700 bg-orange-500 font-semibold px-2 py-1 rounded border border-black" %>
         </li>
       <% else %>
         <li class="disabled">
