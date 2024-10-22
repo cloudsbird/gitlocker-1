@@ -14,9 +14,20 @@ module Marketplace
       @free_products = Product.with_attached_covers.includes([:languages]).where("price_cents <= 0").order(created_at: :desc).first(15)
       @premium_products = Product.with_attached_covers.includes([:languages]).where("price_cents > 0").order(created_at: :desc).first(15)
       @featured_products = Product.with_attached_covers.includes([:languages]).where(featured: true)
+
+      @creators = recently_subscribed()
     end
     def resources
     
+    end
+
+    def recently_subscribed
+      recently_followed_users = User.joins(:following_users).order('follows.created_at DESC').limit(20)
+      followed_user_ids = recently_followed_users.pluck(:id)
+      remaining_limit = 20 - recently_followed_users.count
+
+      not_followed_users = User.where.not(id: followed_user_ids).limit(remaining_limit)
+      @creators = recently_followed_users + not_followed_users
     end
   end
 end
